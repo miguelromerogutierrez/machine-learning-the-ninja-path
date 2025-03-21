@@ -1,0 +1,12 @@
+python-dotenv
+langchain
+langchain-openai
+langchain_core
+fastapi
+uvicorn
+dependency-injector
+StrEnum
+pydantic-settings
+pandas
+python-json-logger
+requests
