@@ -1,0 +1,4174 @@
+WEBVTT
+
+1
+00:05:18.080 --> 00:05:20.560
+Prof. John Tsitsiklis: Hello! Quick! Sound check.
+
+2
+00:05:20.930 --> 00:05:22.590
+Prof. John Tsitsiklis: everything fine.
+
+3
+00:05:29.230 --> 00:05:30.600
+Prof. John Tsitsiklis: Thank you.
+
+4
+00:05:35.540 --> 00:05:41.150
+Moderator - Ankit Agrawal: Yes, Professor, we can hear you and see you and the slides as well.
+
+5
+00:05:41.460 --> 00:05:42.230
+Prof. John Tsitsiklis: Good.
+
+6
+00:08:51.030 --> 00:08:51.740
+Prof. John Tsitsiklis: if.
+
+7
+00:09:18.300 --> 00:09:27.699
+Moderator - Ankit Agrawal: Hello, everyone good morning. Good afternoon, and good evening. Depending on where you are. I see that the chat is working, and
+
+8
+00:09:27.780 --> 00:09:45.119
+Moderator - Ankit Agrawal: some stuff in QA. So again, we will continue our discussion on supervise learning today. The professor, John. Just a quick reminder, please do not raise your hand during the session. We cannot enable your microphone access.
+
+9
+00:09:45.551 --> 00:10:08.430
+Moderator - Ankit Agrawal: I see a lot of comments in the chat coming to hosts and panelists. Please make sure that all of those are being sent to everyone and not just hosts and panelists. And please do not interact with us to in the QA. Box. We are not monitoring that. But we are monitoring all the questions and comments that are being mentioned in the chat section.
+
+10
+00:10:08.510 --> 00:10:15.679
+Moderator - Ankit Agrawal: So with that being said, I'll hand over the session to Professor. Professor, I look forward to today's session.
+
+11
+00:10:17.470 --> 00:10:18.196
+Prof. John Tsitsiklis: Thank you.
+
+12
+00:10:18.920 --> 00:10:47.740
+Prof. John Tsitsiklis: Well, welcome everyone. Welcome to this second session of this week. So last time we talked about linear regression, so today's agenda is to continue that discussion. But look at some issues a little more critically, that is less math, but trying to understand what goes on, and especially what can go wrong, because very often there's plenty of statistical malpractice. So one needs to be aware of it.
+
+13
+00:10:48.734 --> 00:11:09.955
+Prof. John Tsitsiklis: One important topic today will be that one can actually use additional features of the data and so introduce some nonlinearities in the whole setup and modeling, which is very powerful. And then we're going to talk a little bit about how one can overcome over fitting, which is done
+
+14
+00:11:10.510 --> 00:11:40.389
+Prof. John Tsitsiklis: through various regularization methods. And we're going to discuss about 2 of these. And then, in the second half of the session, we're going to return to this very important topic of dealing with performance assessment. We're going to talk about the issues of testing and validation of whatever predictive model we get, and then a very clever method that's called the Bootstrap, which is for assessing. For example, the standard errors
+
+15
+00:11:40.410 --> 00:11:43.399
+Prof. John Tsitsiklis: or into parameter estimates that we have.
+
+16
+00:11:44.250 --> 00:11:52.680
+Prof. John Tsitsiklis: Alright. So without further ado, let's get going. But 1st I'm going to start with a quick reminder of what happened on Monday.
+
+17
+00:11:53.330 --> 00:11:55.070
+Prof. John Tsitsiklis: So let's assume
+
+18
+00:11:55.130 --> 00:12:06.970
+Prof. John Tsitsiklis: that the world is indeed linear. And that's what I mean when I say structural model, that there is an equation, some analytical form which describes
+
+19
+00:12:07.210 --> 00:12:18.140
+Prof. John Tsitsiklis: which is the truth. That's how the world is. So we make that assumption that the world has some structure and is actually linear. And under that model
+
+20
+00:12:18.650 --> 00:12:26.380
+Prof. John Tsitsiklis: we, whenever an individual comes in and has some features, a feature. Vector XI.
+
+21
+00:12:26.880 --> 00:12:28.130
+Prof. John Tsitsiklis: Then
+
+22
+00:12:28.330 --> 00:12:49.539
+Prof. John Tsitsiklis: the label of that individual is going to be a linear function of those of that feature vector and the the linearity, the the linear function has some coefficients, and these coefficients are summarized in a coefficient vector Theta star. So Theta star is the true coefficient. Vector
+
+23
+00:12:49.650 --> 00:13:04.359
+Prof. John Tsitsiklis: but actually, the labels are not just the linear function. They also have some idiosyncratic noise. Each individual has their own idiosyncratic noise, and the assumption is that these noises are independent of each other.
+
+24
+00:13:04.840 --> 00:13:07.079
+Prof. John Tsitsiklis: So within this setting.
+
+25
+00:13:07.310 --> 00:13:08.610
+Prof. John Tsitsiklis: and
+
+26
+00:13:09.050 --> 00:13:30.400
+Prof. John Tsitsiklis: using either a least squares formulation or starting with the empirical cost minimization story that we had last time. One arrives at the ordinary, least squares method, and for the ordinary least squares method. There is a closed form solution. Please don't care about the formula itself.
+
+27
+00:13:30.400 --> 00:13:49.680
+Prof. John Tsitsiklis: Just the important fact is that it's a simple formula, relatively simple, that involves only linear algebraic operations and computers can implement it very fast. So this script X. Here stands for the entire spreadsheet, with all the features of the different individuals.
+
+28
+00:13:50.278 --> 00:13:53.420
+Prof. John Tsitsiklis: So it's a big metrics. Why is
+
+29
+00:13:53.450 --> 00:14:04.350
+Prof. John Tsitsiklis: a stacked vector, with all the responses of the different individuals? So these are the data that we have in our data set, our data set has X's and y's.
+
+30
+00:14:04.880 --> 00:14:31.459
+Prof. John Tsitsiklis: so you take those X's and y's do some math or some calculations actually on the computer. And this gives you the estimated values of the parameters. Once you have the estimated values of the parameters. When a new individual comes in with a certain feature. Vector. X, you form a linear combination of those features. And this gives you a prediction for the label of that new individual.
+
+31
+00:14:31.680 --> 00:14:37.690
+Prof. John Tsitsiklis: So that's why how we go on. These formulas are derived
+
+32
+00:14:37.800 --> 00:14:58.744
+Prof. John Tsitsiklis: under the assumption here that we have the structural model. But even if we don't have a structural model. If we take the ideas in empirical risk minimization, which is, we're looking for the best linear predictor. Then the formulas actually turn out to be the same. We discussed last time that
+
+33
+00:14:59.250 --> 00:15:03.059
+Prof. John Tsitsiklis: there's 2 different ways of motivating linear regression.
+
+34
+00:15:03.260 --> 00:15:28.290
+Prof. John Tsitsiklis: Is theta the same dimension as the data set? No, the the dimension of Theta is the dimension of the feature, vector that is, each individual has a record. The covariates in for that particular individual. And you have as many thetas as you have covariates. You have as many thetas as you have independent variables.
+
+35
+00:15:28.970 --> 00:15:33.369
+Prof. John Tsitsiklis: so the dimension of theta is the number of independent variables.
+
+36
+00:15:34.480 --> 00:15:38.349
+Prof. John Tsitsiklis: Alright. So what do we do with all that?
+
+37
+00:15:38.380 --> 00:15:53.939
+Prof. John Tsitsiklis: First, st we have a predictor. But in addition to that, we can do a little bit of performance assessment. We realize that the estimate this, this Theta hat J is the estimated value of the J component
+
+38
+00:15:54.180 --> 00:16:05.270
+Prof. John Tsitsiklis: of of the Theta vector is not, is not going to be exactly the same as the true value of that parameter. There's going to be some error. That error is random.
+
+39
+00:16:05.360 --> 00:16:29.569
+Prof. John Tsitsiklis: it's random, and it has a standard deviation. And in the statistical lingo that standard deviation is called the standard error, and the standard error gives us basically a sense of the accuracy of our estimates, namely, the estimates of the parameter. So it's an important quantity. It's important to know what the standard error is, and one way that the standard error is used
+
+40
+00:16:29.570 --> 00:16:35.369
+Prof. John Tsitsiklis: is to form confidence intervals. So when you go to your boss, instead of reporting
+
+41
+00:16:35.370 --> 00:16:41.959
+Prof. John Tsitsiklis: just the estimated value of the parameter, it's more informative to actually provide
+
+42
+00:16:41.960 --> 00:16:49.200
+Prof. John Tsitsiklis: a confidence interval, because this is going to give to your boss some sense of how accurate, how
+
+43
+00:16:49.280 --> 00:16:53.392
+Prof. John Tsitsiklis: how much confidence you have in your estimates that
+
+44
+00:16:54.030 --> 00:17:07.530
+Prof. John Tsitsiklis: how close they are to to the true, to the true values and the property of this confidence interval is that with probability, 95%. It's going to capture the true value of the parameter.
+
+45
+00:17:08.819 --> 00:17:35.230
+Prof. John Tsitsiklis: So we, the software gives us standard errors. We use the standard errors to form the confidence intervals, and once we have the confidence intervals, we can also do hypothesis, testing, and the simplest statistical test, so-called. The world test says that you reject the null hypothesis, that is, you say that you see an effect.
+
+46
+00:17:36.160 --> 00:17:37.809
+Prof. John Tsitsiklis: you see an effect.
+
+47
+00:17:39.480 --> 00:17:40.390
+Prof. John Tsitsiklis: If
+
+48
+00:17:40.510 --> 00:17:46.119
+Prof. John Tsitsiklis: the confidence interval does not capture does not contain the value of 0.
+
+49
+00:17:46.310 --> 00:17:57.890
+Prof. John Tsitsiklis: So if this is 0 and your confidence interval is out there, so you think you have some degree of confidence that the true value might be out there.
+
+50
+00:17:57.990 --> 00:18:03.250
+Prof. John Tsitsiklis: And for and in that case you say well, I don't think that
+
+51
+00:18:03.450 --> 00:18:26.819
+Prof. John Tsitsiklis: the 0 value of the parameter is true. I kind of think that it's a nonzero value and having a nonzero value for the Jth component. That means that the contribution of this term in the predictor is going to be in general, nonzero. So xj, the Jthur does have an effect on the response.
+
+52
+00:18:26.900 --> 00:18:34.690
+Prof. John Tsitsiklis: although I'm using the word effect. But actually, the word effect is a little bit misleading.
+
+53
+00:18:35.102 --> 00:18:43.220
+Prof. John Tsitsiklis: Maybe correlation would be a more correct term. And we're going to come to this topic very shortly. 2 slides from now.
+
+54
+00:18:48.180 --> 00:18:57.640
+Prof. John Tsitsiklis: Okay, so now let's that's all pretty much. If you remember just this from what we did on Monday, you are in good shape.
+
+55
+00:18:57.930 --> 00:19:02.840
+Prof. John Tsitsiklis: And starting now from this. Let's start talking about what might go wrong.
+
+56
+00:19:03.140 --> 00:19:08.319
+Prof. John Tsitsiklis: One thing that can go wrong is this phenomenon that's called multicoliniity.
+
+57
+00:19:08.760 --> 00:19:15.789
+Prof. John Tsitsiklis: Multicollinearity happens when the feature vectors of the different individuals
+
+58
+00:19:16.310 --> 00:19:19.679
+Prof. John Tsitsiklis: are confined in a lower dimensional set.
+
+59
+00:19:20.110 --> 00:19:46.609
+Prof. John Tsitsiklis: So let's take the advertising example. And just think about TV and radio. So we have a 2 dimensional feature vector each individual. Each market corresponds to a particular point in this diagram. And that point tells you how much TV advertisement there was and how much radio advertisement there was. So in this case we have 2 features. The vector X is going to be 2 dimensional.
+
+60
+00:19:47.990 --> 00:19:59.920
+Prof. John Tsitsiklis: Now, the way that I plotted it here. It's a very special situation. It means that the advertising department of that company always sets
+
+61
+00:19:59.980 --> 00:20:06.999
+Prof. John Tsitsiklis: the amount of radio advertisement to be approximately the same as TV advertisement.
+
+62
+00:20:07.410 --> 00:20:15.305
+Prof. John Tsitsiklis: Okay, that's how they do it. Okay, it's something that could happen. So what's wrong in what's
+
+63
+00:20:16.700 --> 00:20:21.160
+Prof. John Tsitsiklis: What could go wrong in this case well with the data that you have.
+
+64
+00:20:21.280 --> 00:20:27.639
+Prof. John Tsitsiklis: Is it possible to determine the effect of TV advertisement by itself?
+
+65
+00:20:28.680 --> 00:20:33.480
+Prof. John Tsitsiklis: You? There's no way to disentangle. If you see high sales.
+
+66
+00:20:33.550 --> 00:20:51.510
+Prof. John Tsitsiklis: There's no way to attribute those high sales specifically to TV or to attribute them specifically to radio. Since the 2 go together, you don't really have any information that would that would help you in this respect. There's no way to tell the relative effect
+
+67
+00:20:51.960 --> 00:21:02.570
+Prof. John Tsitsiklis: in more formal lingo. There's no way to identify the true model, and the reason is that the X's are not rich enough.
+
+68
+00:21:02.780 --> 00:21:13.289
+Prof. John Tsitsiklis: The X's. The feature vectors, which are two-dimensional in this case, are pretty much confined, or in one dimensional subspace.
+
+69
+00:21:13.780 --> 00:21:41.520
+Prof. John Tsitsiklis: That's the bad situation. If we had examples in which the feature vectors were all over the place, then we would be able to assess the relative effect, because we might want we could be. We would be able to see how sales vary when we move along such a line. But with the data that we have, there's no way to tell how sales will change when we're moving along such a transverse line
+
+70
+00:21:42.450 --> 00:21:46.970
+Prof. John Tsitsiklis: so mathematically. What's happening in this situation? Well.
+
+71
+00:21:47.180 --> 00:22:03.620
+Prof. John Tsitsiklis: one formal way of saying what's happening is that if you take the X part of your spreadsheet and look at it as a metrics that metrics does not have full rank. Okay, that sounds heavy. What does it mean? All that it's saying is that
+
+72
+00:22:03.930 --> 00:22:06.990
+Prof. John Tsitsiklis: some column of your spreadsheet
+
+73
+00:22:07.290 --> 00:22:14.019
+Prof. John Tsitsiklis: is linearly dependent. It's a linear function of the remaining columns.
+
+74
+00:22:14.490 --> 00:22:17.750
+Prof. John Tsitsiklis: That's what it means to not have full rank.
+
+75
+00:22:19.090 --> 00:22:20.540
+Prof. John Tsitsiklis: In other words.
+
+76
+00:22:20.560 --> 00:22:22.410
+Prof. John Tsitsiklis: some feature.
+
+77
+00:22:22.660 --> 00:22:24.929
+Prof. John Tsitsiklis: let's say, the 3rd feature
+
+78
+00:22:25.160 --> 00:22:29.139
+Prof. John Tsitsiklis: is a linear function of the other 2 features.
+
+79
+00:22:29.190 --> 00:22:40.580
+Prof. John Tsitsiklis: So it's not independent of them. The 3rd feature doesn't tell you anything more about a certain individual compared to what you would know just from the 1st 2 features.
+
+80
+00:22:40.870 --> 00:22:57.229
+Prof. John Tsitsiklis: What are some consequences of this? Well, the formula for the optimal estimates involve some inverses that involve the X matrices, which is your the X part of your spreadsheet, and those matrices actually will not be invertible.
+
+81
+00:22:57.530 --> 00:23:09.980
+Prof. John Tsitsiklis: If you have multi-linearity. If you have approximate multicollinearity, those matrices will be close to singular, and when you try to invert them you get infinite or huge values.
+
+82
+00:23:10.020 --> 00:23:31.650
+Prof. John Tsitsiklis: and those values actually show up in the formula for the standard errors as well. So the software will hopefully run, even if you have multi-linearity. But it's going to tell you that the standard errors are huge. So it's going to detect that indeed, there's no way to identify the true values of the parameters.
+
+83
+00:23:32.030 --> 00:23:36.479
+Prof. John Tsitsiklis: So it's going to be a problem. What do we do about that problem?
+
+84
+00:23:36.520 --> 00:23:57.430
+Prof. John Tsitsiklis: Well, the solution is to remove some of the variables. If radio and TV always go together. It means that they're redundant to have both of them. You can just use TV as your variable and do the linear regression where you estimate sales as a function of just TV,
+
+85
+00:23:57.520 --> 00:24:18.850
+Prof. John Tsitsiklis: or you could, instead of just removing one of the 2 variables, you could use just a single variable, which would be your total budget radio plus TV, that's your total spending and try to build a model where y is a linear function of just this, okay, plus an intercept.
+
+86
+00:24:19.430 --> 00:24:40.219
+Prof. John Tsitsiklis: So you do the linear regression and learn the relation. How does y vary with the total budget? So you can think, do things like that. Now you're left with a single feature. There's no linear dependence anymore between different features. And you're fine. Okay? Which variables do you remove that can get complicated?
+
+87
+00:24:40.755 --> 00:24:50.770
+Prof. John Tsitsiklis: We're going to see some ways of thinking about it. But one way, one, maybe popular approach is to actually use Pca.
+
+88
+00:24:50.940 --> 00:25:17.379
+Prof. John Tsitsiklis: So you take your X metrics and you do principal component analysis to it. If you run Pca. On this example, it will tell you that most of the variation happens along that direction. You have very little variation along the other direction. So you keep this as being the important direction, and you do Pca on the basis of that single feature.
+
+89
+00:25:17.950 --> 00:25:28.369
+Prof. John Tsitsiklis: The trouble, however, with Pca is that you are going to end up with new features, new variables, new independent variables, which are not so easy to interpret.
+
+90
+00:25:28.920 --> 00:25:37.439
+Prof. John Tsitsiklis: and that's a generic issue. But there's not much we can do about that. But this is a way that you can remove this multi-linearity.
+
+91
+00:25:41.015 --> 00:25:58.814
+Prof. John Tsitsiklis: If you only have 2 things TV and radio. Can we really run? Pca. Yes, you can. But of course, with just 2 variables, you can also ask which one of the 2 am I going to remove? So let me ask, look quickly for some questions that are specific to this topic.
+
+92
+00:25:59.780 --> 00:26:16.409
+Prof. John Tsitsiklis: Is there a metric that would indicate that we have an issue with the inversion. Well, in numerical linear algebra there are things that are called condition numbers, and implicitly or explicitly, these get computed when you try to solve systems of linear equations.
+
+93
+00:26:17.470 --> 00:26:25.410
+Prof. John Tsitsiklis: but that gets us deeper into numerical analysis. So leave it. If 2 variables are highly correlated.
+
+94
+00:26:25.590 --> 00:26:28.650
+Prof. John Tsitsiklis: we end up with multicolinarity.
+
+95
+00:26:30.740 --> 00:26:41.410
+Prof. John Tsitsiklis: depends. 2 variables could be highly correlated, but as long as it's not a perfect correlation, and there is some noise in another direction.
+
+96
+00:26:41.430 --> 00:26:47.029
+Prof. John Tsitsiklis: we might avoid multiple linearity. So in general multiple linearity.
+
+97
+00:26:47.480 --> 00:26:48.360
+Prof. John Tsitsiklis: And I,
+
+98
+00:26:48.550 --> 00:27:06.389
+Prof. John Tsitsiklis: strictly speaking, in multi-linearity, what you have is that one variable is perfectly correlated with a linear combination of the remaining variables. So there is an interpretation in terms of correlations. But it's not completely straightforward
+
+99
+00:27:10.250 --> 00:27:23.830
+Prof. John Tsitsiklis: now. We haven't talked yet, however, about any caus and effect relation throughout this, even though we have been abusing language and using terms like effect.
+
+100
+00:27:23.940 --> 00:27:27.470
+Prof. John Tsitsiklis: So let's get to this important issue now
+
+101
+00:27:27.770 --> 00:27:30.259
+Prof. John Tsitsiklis: cause and effect, and all that
+
+102
+00:27:31.160 --> 00:27:40.480
+Prof. John Tsitsiklis: which also relates to the difference between prediction and actual modeling, whereby modeling, I mean, we're trying to understand what's going on.
+
+103
+00:27:40.830 --> 00:27:48.670
+Prof. John Tsitsiklis: So here's a data set that was published in a prestigious journal. Horizontal axis is chocolate consumption.
+
+104
+00:27:49.490 --> 00:28:06.449
+Prof. John Tsitsiklis: Each data point corresponds to a different country, and its chocolate consumption per person during one year. Vertical axis is Nobel prizes. Again, Nobel prizes per person in that country in in a typical year.
+
+105
+00:28:06.560 --> 00:28:33.989
+Prof. John Tsitsiklis: and you take that data set. If you think of the horizontal axis as X, the vertical axis, as y. You say, let me predict nobles using chocolate consumption, and you will find that there's a connection you can eyeball here that the 2 tends to increase together. They're certainly correlated. You run a regression. You get a positively sloped line.
+
+106
+00:28:33.990 --> 00:28:41.200
+Prof. John Tsitsiklis: If you do, the hypothesis test the hypothesis test is going to tell you that the relation is statistically significant.
+
+107
+00:28:41.200 --> 00:29:04.239
+Prof. John Tsitsiklis: The coefficient. The slope is non 0. I mean, this is clear even by just eyeballing. And then the popular press takes up this story and says, Well, there's a shocking connection. And actually the paper that published this, which was more or less making fun of the field, it was not supposed to be serious. It's say, Okay, so that's
+
+108
+00:29:04.240 --> 00:29:09.819
+Prof. John Tsitsiklis: has to make us think whether there's something really behind that relation.
+
+109
+00:29:10.520 --> 00:29:20.890
+Prof. John Tsitsiklis: Now the model is useful for making predictions. If I tell you that a certain country that is not in this data set has an extremely high
+
+110
+00:29:21.540 --> 00:29:30.489
+Prof. John Tsitsiklis: chocolate consumption. You are well justified to guess that this country is going to have a lot of Nobel prizes.
+
+111
+00:29:30.970 --> 00:29:34.309
+Prof. John Tsitsiklis: So this relation is solid.
+
+112
+00:29:34.650 --> 00:29:48.799
+Prof. John Tsitsiklis: What is not so solid is to extrapolate from that and to say, Okay, here's an explanation. Chocolate increases, intelligence and intelligence leads to more noble prices.
+
+113
+00:29:48.850 --> 00:29:54.130
+Prof. John Tsitsiklis: This is much more than a predictive model. This is a mechanism
+
+114
+00:29:54.330 --> 00:29:57.020
+Prof. John Tsitsiklis: of how the world works.
+
+115
+00:29:57.170 --> 00:30:00.420
+Prof. John Tsitsiklis: Do the data support this mechanism?
+
+116
+00:30:00.440 --> 00:30:18.179
+Prof. John Tsitsiklis: No, the data tell us that this mechanism is in principle possible. But there are other mechanisms that are also in principle possible. And when you think about it, they're actually more plausible. And here's a plausible mechanism.
+
+117
+00:30:18.360 --> 00:30:24.020
+Prof. John Tsitsiklis: Some countries are richer than others. In rich countries people eat lots of chocolate, and
+
+118
+00:30:24.100 --> 00:30:30.079
+Prof. John Tsitsiklis: in those countries there's a lot of investment in research, and they get more noble prices.
+
+119
+00:30:30.550 --> 00:30:43.180
+Prof. John Tsitsiklis: And in this second picture, again, chocolate and nobles go up together as illustrated by that red line, but there is no causal relation between the 2,
+
+120
+00:30:43.260 --> 00:31:01.840
+Prof. John Tsitsiklis: so the moral is that there may be strong correlations. You may have a good and useful predictive model. But this tells you nothing about the causal relations or the true model of what's happening in this situation.
+
+121
+00:31:02.080 --> 00:31:05.769
+Prof. John Tsitsiklis: and there is no way to tell. In this case.
+
+122
+00:31:06.630 --> 00:31:17.990
+Prof. John Tsitsiklis: There's no way to tell which way the causality goes. In fact, someone could come in and say, Okay, if we win lots of Nobel prizes. We're happy, and we go and buy more chocolates.
+
+123
+00:31:17.990 --> 00:31:29.140
+Prof. John Tsitsiklis: That could be another mechanism where the causation goes the other way. Unfortunately, making causal inferences is difficult. It's an entire field in statistics.
+
+124
+00:31:29.140 --> 00:31:50.339
+Prof. John Tsitsiklis: The golden, the gold standard is to do randomized trial experiments, that is, take a country feed people with chocolates for a hundred years. See how many nobles they get. Take another country that's sort of the same, but deprive them of chocolate, and see what happens in 100 years. But of course there's no way to do that.
+
+125
+00:31:51.144 --> 00:32:17.300
+Prof. John Tsitsiklis: Practically so in the medical field you can do, of course, controlled experiments and in other fields, but some cases, in some cases, if all you have is so-called observational data from the past, it's not easy to make causal inferences and actually coming closer to our practical example of advertisement and sales.
+
+126
+00:32:17.300 --> 00:32:22.480
+Prof. John Tsitsiklis: Let's see, whether similar situations are possible.
+
+127
+00:32:22.900 --> 00:32:26.640
+Prof. John Tsitsiklis: So suppose that we have.
+
+128
+00:32:26.730 --> 00:32:39.809
+Prof. John Tsitsiklis: We want one. We're interested in the question. If I increase advertisement by one unit, what's going to happen to sales? And you say, Okay, I'm going to run a regression and figure out that question.
+
+129
+00:32:40.100 --> 00:32:42.730
+Prof. John Tsitsiklis: Suppose that the world works like this.
+
+130
+00:32:43.320 --> 00:32:50.660
+Prof. John Tsitsiklis: which is actually plausible. There are big markets, and there are small markets. The advertising department says.
+
+131
+00:32:50.780 --> 00:32:54.199
+Prof. John Tsitsiklis: whenever it's a big market, I'm going to advertise a lot.
+
+132
+00:32:56.150 --> 00:33:06.539
+Prof. John Tsitsiklis: And in small markets I advertise very little. Suppose also, that in big markets you sell a lot, no matter what, and
+
+133
+00:33:07.050 --> 00:33:11.099
+Prof. John Tsitsiklis: in small markets you sell very little, no matter what.
+
+134
+00:33:11.210 --> 00:33:14.439
+Prof. John Tsitsiklis: So imagine a situation where
+
+135
+00:33:14.680 --> 00:33:36.610
+Prof. John Tsitsiklis: everything is just determined by the market size. The advertising zing department advertises proportional to the market size and sales are just proportional to the market size, and there's no relation between sales and advertisement. So this is one possible situation in which advertising is completely useless.
+
+136
+00:33:37.080 --> 00:33:43.230
+Prof. John Tsitsiklis: Okay, if you run a regression between X's and y's, what is going to happen.
+
+137
+00:33:44.040 --> 00:34:07.850
+Prof. John Tsitsiklis: You see, in this situation we have that Y is always approximately equal to X. So if you take a data set, it's going to look like this. You run a regression and you get a predictive model that gives you estimates that sales are the same predicted sales are the same as advertisement.
+
+138
+00:34:09.060 --> 00:34:14.310
+Prof. John Tsitsiklis: Okay, that's true in this world. That's how you would predict things.
+
+139
+00:34:14.409 --> 00:34:33.749
+Prof. John Tsitsiklis: But this is only valid if the marketing department operates in this specific way. If the marketing department operates the in this specific way. If you tell me that advertisement is big, you can conclude that sales will also be be big.
+
+140
+00:34:33.800 --> 00:34:42.199
+Prof. John Tsitsiklis: and the way that the thinking goes is that if X is big, then I know that Z is big and therefore Y is also big.
+
+141
+00:34:42.469 --> 00:34:52.499
+Prof. John Tsitsiklis: But if I change the way that the advertising department operates. And I say, Okay, now, I'm going to advertise a lot more.
+
+142
+00:34:53.510 --> 00:34:57.640
+Prof. John Tsitsiklis: This predictive model tells you that sales will go up.
+
+143
+00:34:57.740 --> 00:35:00.920
+Prof. John Tsitsiklis: But in reality it's not going to go up.
+
+144
+00:35:00.970 --> 00:35:17.419
+Prof. John Tsitsiklis: So this predictive model misjudges the causal. Any causal relation that might exist between X's and y's. So for helping the company run its advertising division.
+
+145
+00:35:17.440 --> 00:35:21.580
+Prof. John Tsitsiklis: This regression approach is actually useless.
+
+146
+00:35:22.100 --> 00:35:29.180
+Prof. John Tsitsiklis: and that could be a criticism. For the example that we were working with last time.
+
+147
+00:35:29.410 --> 00:35:52.130
+Prof. John Tsitsiklis: Nobody told us how the advertising department was operating. Maybe it was operating in that way. And so, even if our regression does very well, unfortunately, it cannot be used to estimate what will happen if we change our advertising practices. And, in fact, in the real world, the only way to tell
+
+148
+00:35:52.570 --> 00:36:02.710
+Prof. John Tsitsiklis: whether a change of advertising practice is going to help or not is to actually do a field experiment, go in some markets and
+
+149
+00:36:02.990 --> 00:36:22.700
+Prof. John Tsitsiklis: tweak things in some arbitrary ways, and see if you're going to observe some changes in the sales. So it's a real problem. It's a big issue, not just in business, especially in social and biomedical sciences. If you're not able to actively experiment, it's very hard to make any causal inferences.
+
+150
+00:36:23.660 --> 00:36:30.329
+Prof. John Tsitsiklis: And this being a very important point, I'm going to give you yet 1 1 more example.
+
+151
+00:36:31.360 --> 00:36:48.119
+Prof. John Tsitsiklis: So these are examples in which we have so called latent variables. What does latent, variable, mean? Latent, variable, is a variable that lies behind the scenes in the previous slide. The latent variable was the market size.
+
+152
+00:36:48.630 --> 00:36:52.970
+Prof. John Tsitsiklis: It's an important variable in the description of the world.
+
+153
+00:36:53.030 --> 00:37:12.790
+Prof. John Tsitsiklis: but it's a variable that we did not include in our model. We only run regression of Y as a function of X. We didn't take Z into account, so as far as our regression was concerned, Z. Was like a hidden variable that we unfortunately ignored. And this is a big
+
+154
+00:37:13.080 --> 00:37:21.579
+Prof. John Tsitsiklis: can cause lots of trouble in many, many ways. So here's a cute example. Suppose there's 2 types of towns and markets.
+
+155
+00:37:22.190 --> 00:37:31.060
+Prof. John Tsitsiklis: certain towns and markets have no competition, even if you advertise very little. You sell a lot.
+
+156
+00:37:31.070 --> 00:37:43.440
+Prof. John Tsitsiklis: Of course, if you advertise a little more you're going to sell a little more. And so you look at those markets. You run a regression, and you find that there's a positive relation. Okay, that's good
+
+157
+00:37:43.520 --> 00:38:05.520
+Prof. John Tsitsiklis: in the other markets. There's a lot of competition. So even if you advertise a lot. You're not going to do very well. But suppose still, that advertisement does help a little bit. So as we increase advertisement in those markets, sales do go up and you run a regression, and there is a positive trend.
+
+158
+00:38:05.680 --> 00:38:12.400
+Prof. John Tsitsiklis: Now suppose that you were hired by that company, and the only thing that you were given was this data set.
+
+159
+00:38:12.420 --> 00:38:30.510
+Prof. John Tsitsiklis: and you didn't bother to think at all. You said, Okay, here's my data set. I know regression. Let me run a regression on this data set. What am I going to get? I'm going to get a downwards sloping line, and then you go to your boss and you say? Well, you see.
+
+160
+00:38:30.710 --> 00:38:39.009
+Prof. John Tsitsiklis: our advertisement is terrible. If you advertise more, there's less sales. We should stop advertising.
+
+161
+00:38:39.320 --> 00:38:43.069
+Prof. John Tsitsiklis: and that's obviously the wrong conclusion in this setting
+
+162
+00:38:43.080 --> 00:38:45.420
+Prof. John Tsitsiklis: advertisement does help.
+
+163
+00:38:45.610 --> 00:39:00.879
+Prof. John Tsitsiklis: but because you ignored some hidden structure. And the hidden structure was the fact that we have 2 types of markets because you ignored that hidden structure you are were led to a wrong conclusion.
+
+164
+00:39:00.880 --> 00:39:22.100
+Prof. John Tsitsiklis: So what I'm trying to say is that it's very easy for anyone to take a spreadsheet of data, just hit a button and run a regression, but thinking through what the results mean and how to interpret them. That's where real thinking has to come in. And of course, that real thinking has to be informed by domain knowledge.
+
+165
+00:39:22.420 --> 00:39:46.469
+Prof. John Tsitsiklis: So in this example this example is an instance that's goes under the name of Simpson's paradox. If you Google for that term, you're going to see lots of examples in the Internet of interesting stories where counterintuitive things happen when you run individual regressions, things go one way. When you run regressions on the entire data set.
+
+166
+00:39:47.580 --> 00:40:03.860
+Prof. John Tsitsiklis: it goes the other way. Actually, some interesting examples come from college admissions, whether you look at the results of the entire population of the applicants, or you break them down into smaller cohorts and and all that.
+
+167
+00:40:05.060 --> 00:40:23.269
+Prof. John Tsitsiklis: Okay, so what do we do? What's a summary of this discussion? When you have latent variables, you can still get a good predictor. And that predictor works well as long as the X's are generated in a business, as usual term.
+
+168
+00:40:23.390 --> 00:40:24.510
+Prof. John Tsitsiklis: but
+
+169
+00:40:24.610 --> 00:40:50.860
+Prof. John Tsitsiklis: we do not get any causal model. We do not get any physical mechanism of what is going on. And most important, we cannot answer any. What if questions, if you answer, what if we change the way that the marketing department is operating. What's going to happen? You're not able to answer those questions when you have latent variables. There's also some mathematical trouble that
+
+170
+00:40:50.860 --> 00:40:57.035
+Prof. John Tsitsiklis: the formulas for standard errors and all that do not quite hold, and so you are not able to trust them.
+
+171
+00:40:57.330 --> 00:41:05.960
+Prof. John Tsitsiklis: So what can you do to fight this situation? Well, if you think there are hidden variables, try to include them in your model.
+
+172
+00:41:06.170 --> 00:41:12.290
+Prof. John Tsitsiklis: So instead of predicting sales, just with a predictive model of this particular type
+
+173
+00:41:12.940 --> 00:41:19.110
+Prof. John Tsitsiklis: market size is probably important. Now that we discussed through that example.
+
+174
+00:41:19.520 --> 00:41:30.010
+Prof. John Tsitsiklis: it kind of makes sense that advertisement goes up with market size and sales also go up. So let's include market size in our model.
+
+175
+00:41:31.040 --> 00:41:34.349
+Prof. John Tsitsiklis: collect data for each market.
+
+176
+00:41:34.410 --> 00:41:47.590
+Prof. John Tsitsiklis: Figure out what the size is, whatever that means, and include in your regression, this additional variable with a coefficient to be estimated through linear regression.
+
+177
+00:41:47.740 --> 00:41:51.519
+Prof. John Tsitsiklis: And now that you start thinking this way.
+
+178
+00:41:51.670 --> 00:41:55.100
+Prof. John Tsitsiklis: how about other stuff that might be relevant.
+
+179
+00:41:57.380 --> 00:42:11.820
+Prof. John Tsitsiklis: There's markets that have competition and markets that do not have competition. So let's label them according to whether they have competitors or not, and include that aspect in your model run a regression
+
+180
+00:42:11.840 --> 00:42:17.820
+Prof. John Tsitsiklis: where the predictive sales have something to do with whether you have competition.
+
+181
+00:42:17.940 --> 00:42:21.850
+Prof. John Tsitsiklis: Okay, in this context, what's the interpretation of Theta 5.
+
+182
+00:42:22.200 --> 00:42:27.229
+Prof. John Tsitsiklis: Theta 5 is the extra sales that you expect.
+
+183
+00:42:27.650 --> 00:42:32.559
+Prof. John Tsitsiklis: If you move from U. 0 to U equal to one.
+
+184
+00:42:32.670 --> 00:42:51.801
+Prof. John Tsitsiklis: that is, if you remove competition, you expect to get an extra theta 5 of sales. So there's an implicit assumption here that the extra sales is just an additive term, not multiplicative in any way. Typically in regression.
+
+185
+00:42:52.760 --> 00:42:57.469
+Prof. John Tsitsiklis: the basic assumption is that things work work additively.
+
+186
+00:42:57.970 --> 00:43:15.130
+Prof. John Tsitsiklis: Okay. And now we can continue in the same spirit. Maybe it makes a difference whether it's a rural or urban area. So we get another independent, variable, and have an extra coefficient and throw it in the model as well.
+
+187
+00:43:15.870 --> 00:43:18.850
+Prof. John Tsitsiklis: so what have we done here?
+
+188
+00:43:19.170 --> 00:43:22.980
+Prof. John Tsitsiklis: We had initially only 2 features.
+
+189
+00:43:23.830 --> 00:43:31.489
+Prof. John Tsitsiklis: X radio and X TV. We always have the dummy column of ones.
+
+190
+00:43:32.200 --> 00:43:34.990
+Prof. John Tsitsiklis: and that has to do with theta 0.
+
+191
+00:43:35.040 --> 00:43:43.729
+Prof. John Tsitsiklis: What I'm doing is I'm adding 2 columns to my spreadsheet, or actually 3. And those 3 columns would be Z
+
+192
+00:43:45.660 --> 00:43:48.229
+Prof. John Tsitsiklis: ZU oops
+
+193
+00:43:48.880 --> 00:43:53.930
+Prof. John Tsitsiklis: 8 min. Some trouble with my ipads.
+
+194
+00:43:54.720 --> 00:44:17.559
+Prof. John Tsitsiklis: Okay, ZU, and V. So for every city, remember, the cities are the rows for every city you record market size. And what type of market it is. So the feature vector of a particular city now is a bigger vector, and you run regression on this larger spreadsheet.
+
+195
+00:44:17.770 --> 00:44:22.609
+Prof. John Tsitsiklis: So it's still linear regression, but with longer records.
+
+196
+00:44:23.820 --> 00:44:24.730
+Prof. John Tsitsiklis: Now
+
+197
+00:44:25.360 --> 00:44:38.920
+Prof. John Tsitsiklis: notice that here some of the features, the vis and the use are so-called categorical variables. They're discrete variables that are used to encode. What kind of category we have.
+
+198
+00:44:40.650 --> 00:44:56.640
+Prof. John Tsitsiklis: There's no no problem with that in regression. The features that are being used the X's. They might be continuous, or they might be discrete variables. The only thing that has to be a continuous variable
+
+199
+00:44:57.290 --> 00:45:13.409
+Prof. John Tsitsiklis: is the labels, the y's, so the setting in linear regression is that we're trying to predict a continuous variable. But the features that we're using to predict the Y's can be a discrete, variable
+
+200
+00:45:13.770 --> 00:45:26.279
+Prof. John Tsitsiklis: notice that in this example, how many categories do we have in total? Well, there's 2 choices for V, there's 2 choices for U. So we essentially have 4 categories.
+
+201
+00:45:26.580 --> 00:45:36.540
+Prof. John Tsitsiklis: And then somebody would say, Okay, can. Since we have 4 categories, can I encode them just with a single variable
+
+202
+00:45:36.760 --> 00:45:54.020
+Prof. John Tsitsiklis: and use a single linear term instead of 2 linear terms. So this way, there's 1 less coefficient to be to be learned. So that would be a more parsimonious model. This is not a good idea in general.
+
+203
+00:45:54.140 --> 00:45:55.560
+Prof. John Tsitsiklis: Why is that
+
+204
+00:45:55.630 --> 00:46:08.909
+Prof. John Tsitsiklis: if you encode them this way and use a linear form you are essentially fixing and ordering, that is, as you move from C, 1, 2, 3, 4.
+
+205
+00:46:09.160 --> 00:46:16.170
+Prof. John Tsitsiklis: You're assuming that sales will also be moving in the same in the same order.
+
+206
+00:46:16.630 --> 00:46:25.810
+Prof. John Tsitsiklis: 2 and 3 will be the results in 2 and 3 will be between the results of one and 4. But this ordering is artificial.
+
+207
+00:46:25.910 --> 00:46:48.159
+Prof. John Tsitsiklis: unless you have special reasons to assume an ordering of this kind. So if 1, 2, 3, 4 has to do whether you got ABC or D in a certain class, then? Yes, maybe they are naturally ordered, but in general they are not, and for that reason you in general, you will have to
+
+208
+00:46:48.802 --> 00:47:08.030
+Prof. John Tsitsiklis: work with the originals with the original type of model. So we made our model more powerful. The price that we're paying is that our spreadsheet is a little bigger, and that means that computationally, it's going to be a somewhat bigger problem, but not much bigger. So we can still use it
+
+209
+00:47:09.370 --> 00:47:17.960
+Prof. John Tsitsiklis: now, which would, Zb continues with market size. Well, it depends how you decide to encode it.
+
+210
+00:47:18.370 --> 00:47:42.310
+Prof. John Tsitsiklis: I mean, in the real world almost nothing is continuous. If we're talking about money or sales or anything. You just go down to cents. You cannot go to arbitrary real numbers, but we pretend that these things are continuous, and market size would probably be a numerical value of that type. And so we would take it to be to be continuous.
+
+211
+00:47:44.440 --> 00:47:49.780
+Prof. John Tsitsiklis: Okay? So by including more variables, we increase the power of the model.
+
+212
+00:47:49.800 --> 00:47:54.639
+Prof. John Tsitsiklis: But how do we choose which variables to include
+
+213
+00:47:54.810 --> 00:47:55.840
+Prof. John Tsitsiklis: here?
+
+214
+00:47:55.960 --> 00:48:00.219
+Prof. John Tsitsiklis: The 1st story is, you just use your domain knowledge.
+
+215
+00:48:00.300 --> 00:48:25.770
+Prof. John Tsitsiklis: So, for example, you went in, and you were talking to too many newspaper journalists. They convinced you that newspaper advertisement is important, and you decided to run in regression just a newspaper advertisement. And you found that it's that it was statistically significant in this model. Actually, the coefficient of newspaper is big enough so that it does pass the world test.
+
+216
+00:48:27.330 --> 00:48:40.119
+Prof. John Tsitsiklis: Okay? But then, as you move around, they tell you, well, you know, we actually also advertise on TV and radio. And then you say, Oh, then maybe that's important. So let me include them in my model
+
+217
+00:48:40.170 --> 00:49:04.110
+Prof. John Tsitsiklis: and run a bigger regression where you have more features. And you run that regression. And you find that actually the coefficient of newspaper now is not significant in the sense that it doesn't pass the world test. This is too small a number compared to the standard error. So the evidence suggests that a 0 value for this
+
+218
+00:49:04.521 --> 00:49:27.790
+Prof. John Tsitsiklis: is compatible with the data, and then what any reasonable person would do would be to take this out of the model. So that tells you that you don't just add new variables. But you may also want to remove variables that seem to be insignificant. So what's the typical story? How do people describe situations like this?
+
+219
+00:49:28.760 --> 00:49:30.860
+Prof. John Tsitsiklis: You would say that
+
+220
+00:49:31.590 --> 00:49:36.900
+Prof. John Tsitsiklis: we saw a relation between newspaper advertisement and sales.
+
+221
+00:49:37.810 --> 00:49:44.659
+Prof. John Tsitsiklis: We saw a correlation. We saw a relation. But actually, once you take into account
+
+222
+00:49:45.060 --> 00:49:57.540
+Prof. John Tsitsiklis: the simultaneous presence of TV and radio advertisement newspaper by itself doesn't help you improve your understanding of the whys in any way.
+
+223
+00:49:57.730 --> 00:50:20.770
+Prof. John Tsitsiklis: That is, it doesn't improve your predictive power. Once you take into account TV and radio newspaper doesn't provide any additional predictive power. So if your business is to make predictions, you say that it's not useful, it's not relevant. Now, there's always a temptation here to think about causality. That is
+
+224
+00:50:20.960 --> 00:50:27.879
+Prof. John Tsitsiklis: the conclusion that newspaper, insignificant means that newspaper does not have a causal effect.
+
+225
+00:50:29.370 --> 00:50:32.329
+Prof. John Tsitsiklis: But just from these data that we have.
+
+226
+00:50:32.820 --> 00:50:46.279
+Prof. John Tsitsiklis: You cannot really make any causal inferences. I mean, it's good to suspect from this data set that newspaper does not have a causal effect, but, strictly speaking, it doesn't follow from the data.
+
+227
+00:50:47.520 --> 00:50:51.479
+Prof. John Tsitsiklis: Okay, so this was about adding and removing
+
+228
+00:50:52.160 --> 00:50:59.990
+Prof. John Tsitsiklis: variables. Now let's think more how to add more variables in a sort of generic way.
+
+229
+00:51:00.470 --> 00:51:05.480
+Prof. John Tsitsiklis: And here's a very clever idea. So this slide is actually important.
+
+230
+00:51:08.400 --> 00:51:32.920
+Prof. John Tsitsiklis: we include more variables. We saw that some of these can be added just by thinking through the problem. But another idea is that we can include more variables by taking the original variables and transforming them. What do I mean by transforming? So if XTV was a variable, I might want to include XTV. Squared
+
+231
+00:51:33.100 --> 00:51:34.630
+Prof. John Tsitsiklis: as a new variable.
+
+232
+00:51:35.140 --> 00:51:56.569
+Prof. John Tsitsiklis: Does that make sense. Well, actually, it does. And we're going to see what it means. So I'm claiming that it does make sense to introduce variables that are just nonlinear functions of the variables that we started with, as in this particular case, and it could be any nonlinear function.
+
+233
+00:51:56.570 --> 00:52:11.630
+Prof. John Tsitsiklis: So here's a fancy fancy example of that for some reason you think that the logarithm of the second feature is important and useful for making predictions. If you think so, you throw it in the model.
+
+234
+00:52:12.090 --> 00:52:17.049
+Prof. John Tsitsiklis: and for some reason you may think that the product of x 1 and x 2
+
+235
+00:52:17.260 --> 00:52:19.389
+Prof. John Tsitsiklis: are important
+
+236
+00:52:19.590 --> 00:52:24.329
+Prof. John Tsitsiklis: for making predictions, so you can throw that in your model as well.
+
+237
+00:52:24.530 --> 00:52:26.589
+Prof. John Tsitsiklis: What happened in this case?
+
+238
+00:52:26.900 --> 00:52:29.619
+Prof. John Tsitsiklis: We had an original spreadsheet
+
+239
+00:52:29.770 --> 00:52:48.420
+Prof. John Tsitsiklis: in which we had the column of of ones, the dummy feature we had x, one and x 2. Each individual was described by 3 features. Now I create a new feature. Log x. 2, and I create a new feature, which is x, one, times x. 2.
+
+240
+00:52:48.540 --> 00:53:02.719
+Prof. John Tsitsiklis: I figure out the values of these for any individual I know x, one and x 2, so I can fill in those entries I get a bigger spreadsheet, and I just run my regression on this bigger spreadsheet.
+
+241
+00:53:02.910 --> 00:53:32.060
+Prof. John Tsitsiklis: So nothing wrong here regression can apply to this setting as well. So mathematically. What happened is that we started with a short feature, vector just 2 features and the dummy value of one and making predictions as a linear combination of this. And we went to an augmented feature. Vector so we have more features. We have more columns. And we're building predictions that are linear functions of the augmented set of features.
+
+242
+00:53:32.330 --> 00:53:47.999
+Prof. John Tsitsiklis: So the general, the abstract version of this is that we're trying to make a prediction by using a linear combination of various features. So Phi. Here stands for a generic feature.
+
+243
+00:53:48.400 --> 00:53:49.460
+Prof. John Tsitsiklis: the
+
+244
+00:53:49.810 --> 00:53:57.829
+Prof. John Tsitsiklis: so in this example we might have that the 5th feature is x, one x. 2.
+
+245
+00:53:57.920 --> 00:54:07.771
+Prof. John Tsitsiklis: The 4th feature is log of x 2, and so on, so they can be any features that you might think that they're that they're useful.
+
+246
+00:54:08.190 --> 00:54:17.999
+Prof. John Tsitsiklis: The important thing mathematically is that we're still talking about a linear combination of stuff that we can store in a spreadsheet.
+
+247
+00:54:18.610 --> 00:54:40.340
+Prof. John Tsitsiklis: So we just store feature vectors in a spreadsheet, and we then take linear combinations of these to make predictions. The least squares. Methodology says that we should choose the coefficients by trying to fit the data you try to fit the actually observed labels from the predicted labels
+
+248
+00:54:40.340 --> 00:54:49.309
+Prof. John Tsitsiklis: for any theta. We have some predictions, and we choose the theta that gives you the best predictions in the sense of minimizing the sum of least squares.
+
+249
+00:54:49.370 --> 00:54:56.609
+Prof. John Tsitsiklis: Very good. But why choose log x. 2. And why choose x 1 times x. 2, or anything else.
+
+250
+00:54:57.120 --> 00:55:04.349
+Prof. John Tsitsiklis: What should those functions? Fi. What should they be? What features should they be using?
+
+251
+00:55:04.900 --> 00:55:11.760
+Prof. John Tsitsiklis: This is the business that sometimes is referred to as feature engineering for a given application.
+
+252
+00:55:12.470 --> 00:55:14.049
+Prof. John Tsitsiklis: Think about it.
+
+253
+00:55:14.260 --> 00:55:25.120
+Prof. John Tsitsiklis: Think what you know about the underlying physics, and try to guess some features that could plausibly be important. You use domain knowledge.
+
+254
+00:55:25.470 --> 00:55:34.490
+Prof. John Tsitsiklis: Well, in these days of AI, wouldn't you hope that a computer can do that for you automatically? A computer
+
+255
+00:55:34.560 --> 00:55:40.260
+Prof. John Tsitsiklis: program that discovers the ideal features for a given application.
+
+256
+00:55:40.850 --> 00:55:45.910
+Prof. John Tsitsiklis: Well, in this cannot be done with linear regression.
+
+257
+00:55:46.220 --> 00:55:52.319
+Prof. John Tsitsiklis: but in some sense deep neural networks. That's what they try to do
+
+258
+00:55:52.340 --> 00:56:06.590
+Prof. John Tsitsiklis: so. Now I'm running ahead of what you're going to see later in this course. But a deep neural network has many layers, as you probably aware, you can think of the beginning layers as forming some features.
+
+259
+00:56:06.630 --> 00:56:10.779
+Prof. John Tsitsiklis: and the final layer takes a linear combination of these features.
+
+260
+00:56:10.800 --> 00:56:23.940
+Prof. John Tsitsiklis: and the training of the be of the initial stages of your deep neural network. The training is essentially a process of useful feature discovery.
+
+261
+00:56:24.040 --> 00:56:45.410
+Prof. John Tsitsiklis: Alright. So this does tie into the broader picture, and it's a kind of segue to the statement that I made that there's a sort of transition from linear regression. We start throwing in nonlinear aspects until we get to the full power of nonlinear methods, including deep neural networks.
+
+262
+00:56:45.830 --> 00:56:46.790
+Prof. John Tsitsiklis: So
+
+263
+00:56:47.150 --> 00:56:57.150
+Prof. John Tsitsiklis: someone is asking, are we introducing multicollinearity because one feature is going to be dependent on another feature.
+
+264
+00:56:57.650 --> 00:57:02.719
+Prof. John Tsitsiklis: Indeed, if you take x 2 s. One feature and log x. 2.
+
+265
+00:57:02.790 --> 00:57:08.810
+Prof. John Tsitsiklis: As another feature, the 2 features are completely determined, one by the other.
+
+266
+00:57:09.000 --> 00:57:11.440
+Prof. John Tsitsiklis: They're completely dependent.
+
+267
+00:57:12.000 --> 00:57:15.009
+Prof. John Tsitsiklis: However, they are not Collinear
+
+268
+00:57:15.070 --> 00:57:18.829
+Prof. John Tsitsiklis: because their dependence is not a linear one.
+
+269
+00:57:19.300 --> 00:57:27.170
+Prof. John Tsitsiklis: If you plot one feature and the log of that feature. Okay, the log function goes like this.
+
+270
+00:57:27.470 --> 00:57:33.640
+Prof. John Tsitsiklis: This is not a 1-dimensional subspace. Subspace would be a straight line
+
+271
+00:57:33.780 --> 00:57:34.970
+Prof. John Tsitsiklis: here.
+
+272
+00:57:35.140 --> 00:57:45.880
+Prof. John Tsitsiklis: It's a 1-dimensional curve, but it actually has variation in all directions. So it's rich enough, and we do not have multicollinearity.
+
+273
+00:57:45.920 --> 00:57:52.759
+Prof. John Tsitsiklis: Of course, if you introduce many features together that are really strongly related with each other.
+
+274
+00:57:52.800 --> 00:58:03.159
+Prof. John Tsitsiklis: You might accidentally introduce multiple linearity, but generically and necessarily generically. That would not necessarily be the case
+
+275
+00:58:04.460 --> 00:58:08.730
+Prof. John Tsitsiklis: alright. So let's go to our marketing example and
+
+276
+00:58:09.230 --> 00:58:23.849
+Prof. John Tsitsiklis: ours. Just with the features that we have, we're getting pretty good performance, R squared of almost 90%. But then somebody says, let us introduce an additional feature which is multiplicative.
+
+277
+00:58:23.990 --> 00:58:27.190
+Prof. John Tsitsiklis: Multiply TV and radio
+
+278
+00:58:27.210 --> 00:58:39.370
+Prof. John Tsitsiklis: use that it is an additional feature. So we now run a new regression in which the spreadsheet is a little bigger. We have an extra column with this new feature, and we get some results.
+
+279
+00:58:39.790 --> 00:58:44.990
+Prof. John Tsitsiklis: And interestingly, R squared improves a lot.
+
+280
+00:58:45.220 --> 00:58:53.820
+Prof. John Tsitsiklis: So that means that this new feature has a lot of explanatory power, at least for the data that we have in our data set.
+
+281
+00:58:53.830 --> 00:58:57.460
+Prof. John Tsitsiklis: It allows us to make much better predictions.
+
+282
+00:58:58.320 --> 00:59:01.339
+Prof. John Tsitsiklis: Hmm, okay. If you see that
+
+283
+00:59:02.030 --> 00:59:16.189
+Prof. John Tsitsiklis: you should answer, there's 2 questions to ask. One is, what's the interpretation of this feature. And the other question is, how can it be that this is such a useful feature? If that coefficient is so small?
+
+284
+00:59:17.050 --> 00:59:19.349
+Prof. John Tsitsiklis: Let me start with the second question.
+
+285
+00:59:20.200 --> 00:59:23.790
+Prof. John Tsitsiklis: the coefficient is very small. On the other hand.
+
+286
+00:59:24.660 --> 00:59:29.180
+Prof. John Tsitsiklis: if TV is of the order of a hundred.
+
+287
+00:59:29.280 --> 00:59:37.150
+Prof. John Tsitsiklis: and radio is of the order of a hundred. Then TV times radio would be of the order of 10 to the 4.th
+
+288
+00:59:37.200 --> 00:59:39.929
+Prof. John Tsitsiklis: So this is going to be a big number
+
+289
+00:59:40.050 --> 00:59:47.149
+Prof. John Tsitsiklis: and big number times a small one could still have a significant impact it
+
+290
+00:59:47.240 --> 00:59:48.850
+Prof. John Tsitsiklis: a big impact.
+
+291
+00:59:48.890 --> 01:00:05.990
+Prof. John Tsitsiklis: So the fact that it's small doesn't necessarily mean by itself anything. If you want to interpret coefficients, and to really say, if it is small or not, that you can do in an easier way if the different variables are scaled, so that
+
+292
+01:00:06.940 --> 01:00:20.010
+Prof. John Tsitsiklis: so that they have comparable ranges, and if they all have comparable ranges, then they can look. You can look at the magnitude of the coefficients and say, okay, that coefficient is small, that coefficient is big.
+
+293
+01:00:21.880 --> 01:00:28.060
+Prof. John Tsitsiklis: Now, the other question was, What's in? What in the world is the interpretation of this?
+
+294
+01:00:28.240 --> 01:00:37.179
+Prof. John Tsitsiklis: Okay, here's a story. Suppose that people are like as follows, if I see something on TV, I don't pay attention.
+
+295
+01:00:38.330 --> 01:00:42.810
+Prof. John Tsitsiklis: If I just see something on the radio, I don't pay attention.
+
+296
+01:00:44.110 --> 01:00:51.110
+Prof. John Tsitsiklis: but if I hear something on the radio in the morning, and then I see an advertisement for the same product
+
+297
+01:00:51.561 --> 01:01:07.208
+Prof. John Tsitsiklis: in the evening. Somehow my brain clicks and says, Oh, that's a familiar thing. So the simultaneous presence of significant TV and radio advertisement happens to hit people. There is some synergy between the tie, the 2 types of
+
+298
+01:01:07.830 --> 01:01:11.090
+Prof. John Tsitsiklis: between the 2 types of advertisements.
+
+299
+01:01:11.330 --> 01:01:21.070
+Prof. John Tsitsiklis: So such synergies are not imagined. They're real. They're called interaction effects. And they're present in many, many phenomena.
+
+300
+01:01:23.056 --> 01:01:35.189
+Prof. John Tsitsiklis: An important case is in biology, where you might have as xj to be the oops xj being the
+
+301
+01:01:38.930 --> 01:01:45.649
+Prof. John Tsitsiklis: xj being the activity, the expression level of a certain gene.
+
+302
+01:01:46.720 --> 01:01:55.019
+Prof. John Tsitsiklis: So it could be that a certain gene has 0 effect on a certain disease.
+
+303
+01:01:55.120 --> 01:02:01.469
+Prof. John Tsitsiklis: It could be that another gene xk has 0 effect on a certain disease.
+
+304
+01:02:01.540 --> 01:02:05.520
+Prof. John Tsitsiklis: But when 2, both genes are present.
+
+305
+01:02:05.590 --> 01:02:07.000
+Prof. John Tsitsiklis: maybe
+
+306
+01:02:07.120 --> 01:02:08.490
+Prof. John Tsitsiklis: together.
+
+307
+01:02:08.610 --> 01:02:17.200
+Prof. John Tsitsiklis: they have a substantial effect on the disease. So definitely in biology. There's many, many relations in which
+
+308
+01:02:17.200 --> 01:02:40.810
+Prof. John Tsitsiklis: the various factors, like expression levels of genes by themselves, do not do not signal that the disease is present, but when both of them, they might correlate quite strongly with particular diseases. So in gene interactions would be captured by interaction. Variables of this type, and something similar happened
+
+309
+01:02:40.830 --> 01:02:42.120
+Prof. John Tsitsiklis: in the
+
+310
+01:02:42.740 --> 01:03:11.909
+Prof. John Tsitsiklis: In. In our advertising example. By the way, I notice a coincidence on this slide, 0 0 1 showing up here, 0 0 1 showing up there. That's just a numerical accident. There's no relation between these 2. This 0 0 1 is indeed a small number, and it's not significant. It doesn't pass the world test. But actually, this one is statistically significant, and it does pass the world test.
+
+311
+01:03:13.810 --> 01:03:30.090
+Prof. John Tsitsiklis: So how do you know if such interaction variables are present, or whether you should model them there. And here you use domain knowledge. If you're a biologist, you think biologically whether interactions are present and all that.
+
+312
+01:03:30.900 --> 01:03:35.729
+Prof. John Tsitsiklis: Notice that if you have a 10 different features, you're going to get
+
+313
+01:03:36.219 --> 01:03:59.830
+Prof. John Tsitsiklis: about 50 interaction variables if you try all interactions. So the size of the model does increase substantially. And in biology, if you're talking about thousands of genes, you get millions of interaction variables. And that could be an issue. So you might want to have some methods of pruning the candidate interaction variables.
+
+314
+01:04:02.350 --> 01:04:07.620
+Prof. John Tsitsiklis: I think I'm going to take a break
+
+315
+01:04:07.990 --> 01:04:13.092
+Prof. John Tsitsiklis: at this point. Let's see what's the time?
+
+316
+01:04:14.330 --> 01:04:21.700
+Prof. John Tsitsiklis: short break to look at some questions, and then, a little later, we're going to take a a real break
+
+317
+01:04:25.310 --> 01:04:32.349
+Prof. John Tsitsiklis: if the new feature is not multiplied, can be anything else. Yeah, the new feature can be anything.
+
+318
+01:04:32.490 --> 01:04:44.009
+Prof. John Tsitsiklis: So it could be an arbitrary function. Well, you cannot try all arbitrary functions. Just so you should try functions that are plausible. Given any understanding of the physics.
+
+319
+01:04:46.120 --> 01:04:47.640
+Prof. John Tsitsiklis: he.
+
+320
+01:04:48.360 --> 01:04:52.220
+Prof. John Tsitsiklis: these are hypothetical assumptions are the
+
+321
+01:04:53.440 --> 01:04:58.459
+Prof. John Tsitsiklis: even with domain knowledge. There could be lots and lots of different interactions.
+
+322
+01:04:58.640 --> 01:05:03.660
+Prof. John Tsitsiklis: Well, you just include interactions between the variables that you started from.
+
+323
+01:05:08.460 --> 01:05:19.070
+Prof. John Tsitsiklis: And again, we're passing now from the point where one can do things mathematically to the point where domain knowledge starts to come in and to be important
+
+324
+01:05:21.415 --> 01:05:26.665
+Prof. John Tsitsiklis: continuing multiplicative feature same as interaction.
+
+325
+01:05:29.020 --> 01:05:48.730
+Prof. John Tsitsiklis: yes, any any feature of this type? You would call it an interaction. That would be a binary interaction. You could also think of 3 way interactions like this. Then there would be lots and lots of variables and lots and lots of parameters that would have to be fit
+
+326
+01:05:49.502 --> 01:05:52.949
+Prof. John Tsitsiklis: so that goes out of hand at some point.
+
+327
+01:05:53.010 --> 01:05:58.330
+Prof. John Tsitsiklis: So how many variables should you include before it goes out of hand.
+
+328
+01:05:58.770 --> 01:06:02.190
+Prof. John Tsitsiklis: and that has to do with the business of overfitting.
+
+329
+01:06:02.510 --> 01:06:08.330
+Prof. John Tsitsiklis: If you add more variables, you will always fit the data a little better.
+
+330
+01:06:08.410 --> 01:06:24.180
+Prof. John Tsitsiklis: So you have better explanations of the data. But these explanations could be an illusion, as in this case in this picture that I also showed last time. We have 11 data points, and we're trying to, and we try to fit them
+
+331
+01:06:24.370 --> 01:06:33.000
+Prof. John Tsitsiklis: if you fit them with linear regression, you get a line, and it's a line, theta 0 plus theta one x.
+
+332
+01:06:33.320 --> 01:06:38.350
+Prof. John Tsitsiklis: and then you say, well, let me try to include a second feature
+
+333
+01:06:38.440 --> 01:06:39.840
+Prof. John Tsitsiklis: X squared.
+
+334
+01:06:39.860 --> 01:06:47.020
+Prof. John Tsitsiklis: and they can do a regression and build a model. That is a quadratic function of X.
+
+335
+01:06:47.230 --> 01:06:56.590
+Prof. John Tsitsiklis: It's a quadratic function of X, but it is actually still linear regression using an additional feature. X squared.
+
+336
+01:06:56.980 --> 01:07:03.289
+Prof. John Tsitsiklis: So one moral of this story is that fitting a polynomial to the data
+
+337
+01:07:03.720 --> 01:07:08.559
+Prof. John Tsitsiklis: is actually a special case of linear regression and is easily solvable.
+
+338
+01:07:08.820 --> 01:07:20.260
+Prof. John Tsitsiklis: And then you can say, Okay, using X squared. I did. I got a better fit. Let me keep trying, and use higher and higher powers, and go up all the way to the 10th power.
+
+339
+01:07:20.470 --> 01:07:23.190
+Prof. John Tsitsiklis: Once I reached the 10th power.
+
+340
+01:07:23.500 --> 01:07:28.790
+Prof. John Tsitsiklis: then I have 11 coefficients, free coefficients.
+
+341
+01:07:28.850 --> 01:07:49.760
+Prof. John Tsitsiklis: If I have 11 data points and 11 coefficients, I can fit the data perfectly, and I get the blue line here. So the blue line here is a polynomial of degree 11 that fits the data perfectly. And with this blue line R squared is going to be one
+
+342
+01:07:49.760 --> 01:08:12.860
+Prof. John Tsitsiklis: you're doing perfectly on your training set. On the other hand, no reasonable person would believe a prediction that caused that corresponds to this peak out there. So it's artificial. So we shouldn't go that far. We should keep only some variables. Which ones which ones do we keep? Which ones do we throw away?
+
+343
+01:08:12.960 --> 01:08:33.840
+Prof. John Tsitsiklis: You buy some statistics, books, and start reading them. You read hundreds of pages, and you see theorems and all that, and rules for adding and removing variables and various forms of tests and F tests and W tests, and who knows what I learned all these in my childhood, and never use them once I have to say
+
+344
+01:08:33.840 --> 01:08:47.050
+Prof. John Tsitsiklis: so, and one big reason is that those tests they tend to rely on some mathematical assumptions that will almost surely be completely violated in in practice. And instead.
+
+345
+01:08:47.149 --> 01:09:04.120
+Prof. John Tsitsiklis: the way that we avoid overfitting and choosing variables is by doing some doing things other in different ways, more algorithmic data driven. And one approach is to change the algorithm.
+
+346
+01:09:04.180 --> 01:09:06.209
+Prof. John Tsitsiklis: Consider algorithms that
+
+347
+01:09:06.790 --> 01:09:10.840
+Prof. John Tsitsiklis: explicitly are told, please do not over fit
+
+348
+01:09:11.370 --> 01:09:19.550
+Prof. John Tsitsiklis: or to use data, driven methods that do not use any formulas at all. But just look at the data, and somehow figure out
+
+349
+01:09:20.546 --> 01:09:30.950
+Prof. John Tsitsiklis: how to avoid overfitting. So these are the 2 topics for the rest of the hour. I will briefly talk about regularization for the next
+
+350
+01:09:31.270 --> 01:09:34.620
+Prof. John Tsitsiklis: 4, 5 min, and then we're going to have a break.
+
+351
+01:09:35.490 --> 01:09:38.409
+Prof. John Tsitsiklis: Okay, so how do we avoid overfitting.
+
+352
+01:09:38.819 --> 01:09:48.109
+Prof. John Tsitsiklis: So overfitting happens when the parameters move around a lot enough to fit the data perfectly.
+
+353
+01:09:48.850 --> 01:09:58.739
+Prof. John Tsitsiklis: To. To avoid that, we give an incentive to the mathematics. We tell to the parameters, please do not move around. Do not go too far.
+
+354
+01:09:58.860 --> 01:10:00.200
+Prof. John Tsitsiklis: Stay small.
+
+355
+01:10:00.440 --> 01:10:05.420
+Prof. John Tsitsiklis: So we're trying to fit the data by using small values of parameters.
+
+356
+01:10:05.560 --> 01:10:08.219
+Prof. John Tsitsiklis: How do we tell the mathematics to do that?
+
+357
+01:10:08.550 --> 01:10:12.389
+Prof. John Tsitsiklis: Let's take the original list squares for relation.
+
+358
+01:10:12.400 --> 01:10:20.969
+Prof. John Tsitsiklis: That's the order, the sum of squares that we're trying to minimize in linear regression and include an extra penalty.
+
+359
+01:10:21.160 --> 01:10:25.219
+Prof. John Tsitsiklis: It's a penalty on having large coefficients.
+
+360
+01:10:25.420 --> 01:10:29.249
+Prof. John Tsitsiklis: So this penalty term penalizes
+
+361
+01:10:29.390 --> 01:10:31.150
+Prof. John Tsitsiklis: large. Theta's.
+
+362
+01:10:31.650 --> 01:10:45.100
+Prof. John Tsitsiklis: So it so this formulation, this optimization problem says, please try to keep the residuals small. But at the same time, while trying to keep the coefficients to be small
+
+363
+01:10:45.680 --> 01:11:05.650
+Prof. John Tsitsiklis: in case we're lost with all the summations and the indices that's going on here in the squared residuals, we have one term for each one of the data records. This is how well we're fitting a particular data record. In the second part, we have one term for each one of the parameters.
+
+364
+01:11:06.210 --> 01:11:21.010
+Prof. John Tsitsiklis: What is this symbol. Alpha, another Greek symbol. Okay, it's called the hype it's called the regularization hyper parameter. So Alpha is a constant. Let's say, I like to have alpha equals to 2.
+
+365
+01:11:21.050 --> 01:11:26.319
+Prof. John Tsitsiklis: And I run this optimization. It's 1 particular algorithm.
+
+366
+01:11:26.760 --> 01:11:32.899
+Prof. John Tsitsiklis: Somebody else likes alpha equal to 4. That's essentially a different algorithm.
+
+367
+01:11:33.110 --> 01:11:49.690
+Prof. John Tsitsiklis: So a hyperparameter is like this tunable knob that lets you choose a specific algorithm. It is a parameter, but it's not a parameter in the sense of in the sense of the Thetas, the Thetas get tuned to fit the data.
+
+368
+01:11:49.790 --> 01:12:07.130
+Prof. John Tsitsiklis: The Alpha alpha of the so the theta is a tuning of the specific predictor, whereas alpha is more like a choice of method. It's a higher level knob that we use. And we call these hyper hyper parameters.
+
+369
+01:12:09.060 --> 01:12:18.609
+Prof. John Tsitsiklis: Alright. So what does these methods do, how do you apply it in practice? Well, you just try different values of Alpha.
+
+370
+01:12:20.570 --> 01:12:30.759
+Prof. John Tsitsiklis: and you see which one works best for you. How do we know which one works best? Well, that has to do with performance evaluation, which we're going to do later
+
+371
+01:12:30.940 --> 01:12:46.969
+Prof. John Tsitsiklis: in practice? This is not a difficult computational problem because we're still minimizing a quadratic function of Theta. And so it can be solved by solving a system of linear equations and standard scripts in python and all that. They do it for you.
+
+372
+01:12:47.110 --> 01:13:02.910
+Prof. John Tsitsiklis: for those who want to go one level deeper. This has an interpretation as a Bayesian formulation. If you know Bayesian statistics, if if you don't know, just forget it, but it's equivalent to pretending that the Thetas
+
+373
+01:13:03.510 --> 01:13:05.449
+Prof. John Tsitsiklis: random variables
+
+374
+01:13:05.530 --> 01:13:16.580
+Prof. John Tsitsiklis: they have a prior distribution which is normal. And then we're trying to calculate the posterior distribution and find the peak of the posterior distribution.
+
+375
+01:13:17.230 --> 01:13:26.539
+Prof. John Tsitsiklis: Okay, let's leave that aside. But it's equivalent to assuming a prior distribution for the Thetas, which is normal.
+
+376
+01:13:31.170 --> 01:13:32.770
+Prof. John Tsitsiklis: Okay, now.
+
+377
+01:13:34.315 --> 01:13:41.000
+Prof. John Tsitsiklis: Now reach regression the same way as lasso is something that you would use after
+
+378
+01:13:41.080 --> 01:13:55.969
+Prof. John Tsitsiklis: selecting lots and lots of features, so a typical flow might be. I started with a few features. I'm not really satisfied with the results, so I decide to throw in an extra 1 million features into my problem.
+
+379
+01:13:55.990 --> 01:13:58.590
+Prof. John Tsitsiklis: Well, I'm going to start overfitting.
+
+380
+01:13:58.850 --> 01:14:17.520
+Prof. John Tsitsiklis: Okay? And then I say, well, let me keep the 1 million features, but use regularization to avoid overfitting. That's the sort of the idea. And even better, I would like to be able to say out of the 1 million features that I threw in. Can I actually keep just a few of them
+
+381
+01:14:18.040 --> 01:14:19.999
+Prof. John Tsitsiklis: in a systematic way?
+
+382
+01:14:20.090 --> 01:14:23.310
+Prof. John Tsitsiklis: That's what the next method lasso does.
+
+383
+01:14:23.690 --> 01:14:36.189
+Prof. John Tsitsiklis: What lasso does is very similar to rage regression, except that the penalty term, instead of being a quadratic penalty on the Thetas. It's the absolute value penalty.
+
+384
+01:14:37.590 --> 01:14:40.300
+Prof. John Tsitsiklis: Okay, it looks almost the same.
+
+385
+01:14:40.680 --> 01:14:43.520
+Prof. John Tsitsiklis: Both are minimized at 0.
+
+386
+01:14:43.800 --> 01:14:45.020
+Prof. John Tsitsiklis: However.
+
+387
+01:14:46.780 --> 01:14:53.329
+Prof. John Tsitsiklis: the the absolute value function has a very sharp minimum.
+
+388
+01:14:53.670 --> 01:15:01.039
+Prof. John Tsitsiklis: It's a corner and has the tendency to push, to push the values to exactly 0.
+
+389
+01:15:02.080 --> 01:15:06.210
+Prof. John Tsitsiklis: If you have a quadratic term, as in linear regression.
+
+390
+01:15:06.500 --> 01:15:14.860
+Prof. John Tsitsiklis: it's almost never going to be the case that the optimal Thetas are going to be 0. That would be a numerical accident. It would never happen.
+
+391
+01:15:15.090 --> 01:15:31.970
+Prof. John Tsitsiklis: You'd get the thetas to be small. Some will be smaller than others, but never exactly 0, but with ridge regression. Because of the sharpness of the penalty, it turns out that the optimal solution actually pushes many of the Thetas to 0.
+
+392
+01:15:33.400 --> 01:16:03.290
+Prof. John Tsitsiklis: And the word that's being used here is that it produces parameter vectors, theta that are sparse. So a typical theta produced by the lasso method, that is when you have this absolute value penalty is that you're going to get an estimated theta that maybe has a value. Then the next thetas are zeros, maybe another value, then lots of zeros, and so on.
+
+393
+01:16:03.430 --> 01:16:08.199
+Prof. John Tsitsiklis: So many of the Thetas are going to be pushed to exactly 0.
+
+394
+01:16:09.920 --> 01:16:26.439
+Prof. John Tsitsiklis: So that would be a situation in which you would say, Okay, only some of the features are important. And so you could move to a next stage and throw away the other features and say, These are the important features.
+
+395
+01:16:26.490 --> 01:16:32.759
+Prof. John Tsitsiklis: So it's again like more intelligent future feature selection. But it's done automatically.
+
+396
+01:16:33.270 --> 01:16:49.079
+Prof. John Tsitsiklis: So this is what you would do if you have a prior belief, for whatever reason, if you're a biologist, you know that there's a thousands of genes. But in a typical disease there's only 3 or 5 genes involved. Maybe
+
+397
+01:16:49.180 --> 01:17:09.600
+Prof. John Tsitsiklis: so. I know that my theta is sparse, but I don't know which genes are the important ones, so I don't know the locations of the non zeros. So you can run lasso and hopefully, it produces a sparse vector theta. So it produces for you a sparse
+
+398
+01:17:10.040 --> 01:17:32.320
+Prof. John Tsitsiklis: by producing a sparse theta. Vector it kind of suggests to you which are the important features to use. So it's this is really a beautiful thing that happens here. There's a little bit of a computational price, because it's no longer a system of linear equations to be solved. You have to use
+
+399
+01:17:32.350 --> 01:17:52.559
+Prof. John Tsitsiklis: general nonlinear optimization methods, but still it's a convex problem that admits fast solutions. So these days, with the fast computers that we have, it can still work. And there's lots of theory. There's actually 500 page books that are written just on lasso.
+
+400
+01:17:52.590 --> 01:18:17.699
+Prof. John Tsitsiklis: And a key topic. Here is the theoretical guarantees that if the true parameter vector is sparse, that is most. The entries are 0. Then, under lots of mathematical conditions, some of them idealized, of course, as mathematics go under those idealized conditions actually lasso does discover the true sparsity structure underlying the phenomenon of interest.
+
+401
+01:18:17.890 --> 01:18:37.129
+Prof. John Tsitsiklis: And applying this to our example, we try different values of Alpha. And here's a plot of the values of the coefficients for different choices of Alpha. And we see that when Alpha is large, newspaper coefficient settles to 0 radio coefficient settles to 0 TV and the
+
+402
+01:18:37.130 --> 01:18:54.029
+Prof. John Tsitsiklis: the interaction one do not settle to 0. So we might by that time, after running lasso, saying that the final model that I'm going to take my to my boss and propose, as our predictive model would include just 2 features.
+
+403
+01:18:54.630 --> 01:18:58.760
+Prof. John Tsitsiklis: Now, of course, if you let Alpha be very, very large.
+
+404
+01:18:58.880 --> 01:19:02.270
+Prof. John Tsitsiklis: All the coefficients are going to settle to 0.
+
+405
+01:19:02.620 --> 01:19:06.050
+Prof. John Tsitsiklis: So there's no hard and hard rule of
+
+406
+01:19:06.370 --> 01:19:28.369
+Prof. John Tsitsiklis: what value of Alpha to use. And when do you stop. Maybe you use you let Alpha increase until you're left with just 5 features and say, Okay, that's where I want to stop. We're getting into the heuristic land here, and there's nothing very concrete that one can say other than trial and error.
+
+407
+01:19:28.500 --> 01:19:31.910
+Prof. John Tsitsiklis: How large is large for Alpha. Well.
+
+408
+01:19:32.800 --> 01:19:46.419
+Prof. John Tsitsiklis: it really depends on the scaling of the very, the various variables that you have and typical values of theta compared to typical sizes of the residuals. It's it's hard. It's hard to tell
+
+409
+01:19:46.840 --> 01:19:48.020
+Prof. John Tsitsiklis: any time.
+
+410
+01:19:48.080 --> 01:19:52.507
+Prof. John Tsitsiklis: Yeah, how big is big and how small is small.
+
+411
+01:19:52.960 --> 01:20:10.099
+Prof. John Tsitsiklis: This is. This is where judgment starts to come. We try to understand as much as we can from about those things that can be understood, and hopefully build some intuition about things that we th, that there's no way for us to be precise.
+
+412
+01:20:11.900 --> 01:20:19.319
+Prof. John Tsitsiklis: Okay, we'll just take 2 questions. So I'm running a little bit behind of time and then give you a real break
+
+413
+01:20:20.900 --> 01:20:44.380
+Prof. John Tsitsiklis: in lasso. Is it guaranteed that there's only one minimum? Yes, that's 1 good thing about lasso. I said that the optimization problem in lasso is a convex problem which means that as a function of theta, we're minimizing a function of the vector theta, which is a convex function and convex functions have. Oh, I'm sorry.
+
+414
+01:20:44.460 --> 01:20:47.730
+Prof. John Tsitsiklis: Convex functions have
+
+415
+01:20:48.210 --> 01:20:52.119
+Prof. John Tsitsiklis: a local optimum is going to also be a global optimum.
+
+416
+01:20:52.330 --> 01:20:57.150
+Prof. John Tsitsiklis: Now, it's not going to be necessarily unique
+
+417
+01:20:57.410 --> 01:20:59.420
+Prof. John Tsitsiklis: unless you put
+
+418
+01:20:59.550 --> 01:21:10.239
+Prof. John Tsitsiklis: some additional assumptions, but under reasonable, mild assumptions. It's going to be unique. If you have multi-linearity.
+
+419
+01:21:10.320 --> 01:21:29.819
+Prof. John Tsitsiklis: you're not going to get a unique theta. When you have multiple linearity, there's no way to identify relative effects. So you're there's no way to identify the Thetas. But without multiple linearity, I believe that's enough to get unique minima in lasso, at least generically.
+
+420
+01:21:30.821 --> 01:21:44.829
+Prof. John Tsitsiklis: Somebody mentioned the work tone of regularization. Yes, regularization is an idea that's being used, not just in machine learning. It's a method that people use in a numerical solution of
+
+421
+01:21:44.860 --> 01:21:57.330
+Prof. John Tsitsiklis: many high dimensional problems, and shows up in partial differential equations and all that. So it's an instance of of a particular general idea in applied mathematics
+
+422
+01:21:58.700 --> 01:22:09.949
+Prof. John Tsitsiklis: with reigression, it would be important to scale the data, but also equally important it is to yes, it's important to scale the data, because
+
+423
+01:22:10.600 --> 01:22:14.520
+Prof. John Tsitsiklis: scaling does matter a lot in these methods. Why
+
+424
+01:22:14.820 --> 01:22:19.200
+Prof. John Tsitsiklis: scaling of the X's affects the scaling of the Thetas?
+
+425
+01:22:19.510 --> 01:22:26.789
+Prof. John Tsitsiklis: If my XI scale it to be small, my Theta will have to be big to produce the same effect.
+
+426
+01:22:26.850 --> 01:22:49.520
+Prof. John Tsitsiklis: So scaling of X's affects the scaling of the Thetas and the relative scaling of the Thetas affects the relative importance of the different terms that we have in the sum we're penalizing each Theta the same way. So we're thinking that the Thetas should be in the same range, and for that to happen, we probably want the X's to be in the same range.
+
+427
+01:22:49.520 --> 01:22:57.020
+Prof. John Tsitsiklis: So scaling unfortunately, does matter. And so it's going to be just. One more thing to
+
+428
+01:22:57.690 --> 01:23:01.370
+Prof. John Tsitsiklis: that can cause pain and exploration.
+
+429
+01:23:01.550 --> 01:23:11.810
+Prof. John Tsitsiklis: As the number of features becomes large oops I lost. That question is the number of of nonzero theta dependent on n
+
+430
+01:23:13.581 --> 01:23:22.159
+Prof. John Tsitsiklis: here, my, as the number of features becomes large, would you want to include more
+
+431
+01:23:23.020 --> 01:23:28.500
+Prof. John Tsitsiklis: features or not. And what assumptions do you make? People have studied
+
+432
+01:23:28.570 --> 01:23:38.030
+Prof. John Tsitsiklis: both versions of the problem in some versions they assume that the underlying real world has, only a fixed number
+
+433
+01:23:38.140 --> 01:24:04.379
+Prof. John Tsitsiklis: of thetas, and take the asymptotic limit as we get more and more features. But only let's say 5 of them are significant. They're going to be discovered. But even if you have login features that are significant now, you consider a sequence of statistical problems with more and more significant features, then Lasso will still be identifying them correctly, and there is a fundamental limit
+
+434
+01:24:04.380 --> 01:24:15.315
+Prof. John Tsitsiklis: on, on how much it can identify all that, so that now takes us to the 500 page book on glasses. So I will not discuss that further.
+
+435
+01:24:16.240 --> 01:24:37.540
+Prof. John Tsitsiklis: So when some features are nonlinear, do we still them treat as an linear regression. Yes, we still call that linear regression when people use the term nonlinear regression. Usually it refers to cases where we also have quadratic functions of theta in our predictor.
+
+436
+01:24:37.680 --> 01:24:40.470
+Prof. John Tsitsiklis: So suppose that we had
+
+437
+01:24:42.030 --> 01:24:52.000
+Prof. John Tsitsiklis: a model like this, theta one x 1 plus theta, 2 x 2 plus theta, one theta 2 times x 3
+
+438
+01:24:54.195 --> 01:24:59.279
+Prof. John Tsitsiklis: that would be a genuine case of nonlinear regression.
+
+439
+01:24:59.590 --> 01:25:28.329
+Prof. John Tsitsiklis: Non, it's the nonlinearity in the Thetas that actually makes the qualitative jump in the difficulty of solving problems so neural networks involve are nonlinear in the weights in the parameter. So they're truly nonlinear if we're linear in Theta. But nonlinear in X. We just think of that as a linear regression problem. But with augmented features.
+
+440
+01:25:28.380 --> 01:25:41.589
+Prof. John Tsitsiklis: Okay, time to give you a real break now. And unfortunately, with those, there's lots of interesting questions. There's also important stuff that we still need to cover right after the break.
+
+441
+01:25:41.740 --> 01:25:42.660
+Prof. John Tsitsiklis: So
+
+442
+01:25:45.120 --> 01:25:52.320
+Prof. John Tsitsiklis: let's maybe we're getting drowned by now the goat is contemplating whether should
+
+443
+01:25:52.600 --> 01:25:59.070
+Prof. John Tsitsiklis: drown itself or not. Let you contemplate this picture for a few minutes and come back
+
+444
+01:29:53.190 --> 01:29:54.750
+Prof. John Tsitsiklis: all right.
+
+445
+01:29:54.910 --> 01:29:57.230
+Prof. John Tsitsiklis: So let's continue. Now.
+
+446
+01:29:57.540 --> 01:30:06.359
+Prof. John Tsitsiklis: with our final topic of the day, which is actually very important, it has to do with performance assessments.
+
+447
+01:30:06.400 --> 01:30:08.460
+Prof. John Tsitsiklis: How well are we doing?
+
+448
+01:30:09.820 --> 01:30:13.680
+Prof. John Tsitsiklis: And this becomes an important question, because
+
+449
+01:30:14.060 --> 01:30:20.889
+Prof. John Tsitsiklis: there's too many optimal predictors to use from, or too many optimal.
+
+450
+01:30:21.930 --> 01:30:24.870
+Prof. John Tsitsiklis: There's too many methods to use from
+
+451
+01:30:25.030 --> 01:30:27.930
+Prof. John Tsitsiklis: not optimal methods, too many methods.
+
+452
+01:30:28.280 --> 01:30:37.489
+Prof. John Tsitsiklis: So we need a systematic way to choose. We set the hyper parameters. We had those alphans in ridge and lasso. How do we set them.
+
+453
+01:30:38.020 --> 01:30:43.879
+Prof. John Tsitsiklis: You can choose different features. Which ones do you include in your model?
+
+454
+01:30:44.610 --> 01:30:49.789
+Prof. John Tsitsiklis: You can try more complex models or less complex. Which one do you pick?
+
+455
+01:30:50.060 --> 01:30:57.729
+Prof. John Tsitsiklis: And there's different algorithms. Do we try lasso? We try Ridge? Do we try plane regression? What do we do
+
+456
+01:30:58.020 --> 01:31:12.029
+Prof. John Tsitsiklis: and what I'm going to say in the rest of this session actually applies to any method that you're going to hear about in subsequent weeks of this course. So they're pretty generic considerations.
+
+457
+01:31:13.630 --> 01:31:22.939
+Prof. John Tsitsiklis: So in order to have a systematic way to do that, we need to remind ourselves of what is the purpose of prediction.
+
+458
+01:31:23.600 --> 01:31:33.169
+Prof. John Tsitsiklis: Well, one purpose, what we're trying to do so far is to take the existing data and come up with a model that fits them well.
+
+459
+01:31:33.220 --> 01:31:39.630
+Prof. John Tsitsiklis: or in some lingo, is to explain the existing data by using a MoD,
+
+460
+01:31:39.970 --> 01:31:52.119
+Prof. John Tsitsiklis: but that's not really the real purpose. You want a predictive model that allows you to predict when you get a new individual. And this is the issue of generalization.
+
+461
+01:31:52.270 --> 01:32:04.400
+Prof. John Tsitsiklis: Maybe you've heard this mantra that in machine learning what really matters is generalization. You get trained on some examples. But you want to be able to perform well on new data.
+
+462
+01:32:07.120 --> 01:32:09.880
+Prof. John Tsitsiklis: Okay? So that's 1 1st step.
+
+463
+01:32:10.140 --> 01:32:23.339
+Prof. John Tsitsiklis: And we want to do well on new data in terms of prediction which is ideally, we would like our predictions to be true, to be close to the true label for true data.
+
+464
+01:32:24.010 --> 01:32:29.800
+Prof. John Tsitsiklis: Now, once we have settled on a method that has good predictions.
+
+465
+01:32:30.050 --> 01:32:36.390
+Prof. John Tsitsiklis: That method is going to provide us a model, and that model is going to have some parameters. Theta.
+
+466
+01:32:36.670 --> 01:33:05.980
+Prof. John Tsitsiklis: once a method is chosen. You want to assess the standard errors and standard errors have to do with the question whether the parameter estimates are close to the true values of the parameters. So for a specific method, you get estimated parameters, and you're interested in their accuracy. But the 1st step is, of course, to choose a particular method. So we're going to talk about those 2 things, one at a time.
+
+467
+01:33:06.590 --> 01:33:13.120
+Prof. John Tsitsiklis: The more important one is this one that has to do with predictive models.
+
+468
+01:33:13.330 --> 01:33:32.060
+Prof. John Tsitsiklis: It's something that we touched very briefly at the end of the of the previous lecture on Monday, because the practical way of doing it is what we're going to do today. That doesn't involve formulas. It just involves playing with the data.
+
+469
+01:33:32.470 --> 01:33:35.109
+Prof. John Tsitsiklis: I'm going to skip a slide.
+
+470
+01:33:35.520 --> 01:33:40.629
+Prof. John Tsitsiklis: And we're going to do all that in a formula, free way, just computation.
+
+471
+01:33:40.740 --> 01:33:45.089
+Prof. John Tsitsiklis: I'm going to skip this slide in the interest of time.
+
+472
+01:33:45.410 --> 01:34:01.269
+Prof. John Tsitsiklis: And we're going to start with the topic of assessing predictor performance and validation. And again, that's the question that we're dealing with. Do we get predictions that are close to the true values
+
+473
+01:34:01.330 --> 01:34:07.799
+Prof. John Tsitsiklis: we have R squared. But R squared only talks about performance on the training data.
+
+474
+01:34:07.920 --> 01:34:15.770
+Prof. John Tsitsiklis: We want to talk about performance on new individuals that we have not seen before.
+
+475
+01:34:16.790 --> 01:34:40.029
+Prof. John Tsitsiklis: Okay. So we need some individuals that we have not seen either. Some new individuals will come, and we'll see how we're doing on the new individuals. But if you're just working with a data set, then we can pretend that some of these are new individuals. So here's where how we do it. Let's take our data set, and suppose that we have a hundred different individuals.
+
+476
+01:34:40.740 --> 01:34:44.240
+Prof. John Tsitsiklis: We take some of them to be used
+
+477
+01:34:44.370 --> 01:34:49.520
+Prof. John Tsitsiklis: to train a method to estimate parameters and the model
+
+478
+01:34:49.690 --> 01:34:51.700
+Prof. John Tsitsiklis: to build a predictor.
+
+479
+01:34:52.560 --> 01:34:54.860
+Prof. John Tsitsiklis: and we keep aside
+
+480
+01:34:55.320 --> 01:35:05.360
+Prof. John Tsitsiklis: the remaining ones and call that the validation set. So our training, our regression, only runs on the training set.
+
+481
+01:35:05.410 --> 01:35:17.530
+Prof. John Tsitsiklis: It gives us a predictor, and then we apply the predictor on the validation set, which is individuals that we had not seen before, and check to see how well we're doing on them.
+
+482
+01:35:18.120 --> 01:35:32.310
+Prof. John Tsitsiklis: So that's the simplest but the most kind of reasonable way of valid of seeing how a model does by assessing performance on the validation set.
+
+483
+01:35:32.440 --> 01:35:40.590
+Prof. John Tsitsiklis: Okay? And we can get something like an R squared or mean squared error on the new data that we have not seen before.
+
+484
+01:35:41.240 --> 01:35:53.607
+Prof. John Tsitsiklis: So if you use that approach, here's something that you might see typical typically, this is just the picture to build a little bit of intuition here.
+
+485
+01:35:54.460 --> 01:35:58.159
+Prof. John Tsitsiklis: Suppose that we want to compare different.
+
+486
+01:35:59.920 --> 01:36:07.380
+Prof. John Tsitsiklis: Let's say methods or different model classes. Do I use one feature, 2 features, 5 features, 10 features.
+
+487
+01:36:07.590 --> 01:36:16.579
+Prof. John Tsitsiklis: So you run your method with one feature, 2 features, 5 features, and so on. And you look at the performance on your training set.
+
+488
+01:36:17.170 --> 01:36:28.219
+Prof. John Tsitsiklis: So when we, I say, prediction, error. This could be something like r squared or mean squared error is essentially the same thing.
+
+489
+01:36:28.290 --> 01:36:42.290
+Prof. John Tsitsiklis: So the mean, squared error will go down as you have more and more features. If you have more features, you have more ways of more coefficients to play with, and you're going to fit your data better and better.
+
+490
+01:36:43.310 --> 01:36:55.459
+Prof. John Tsitsiklis: So performance is going to improve on you. The training set you do better and better on the training set. However, what happens when you assess performance of the validation set.
+
+491
+01:36:55.510 --> 01:36:58.779
+Prof. John Tsitsiklis: Typically, you will see a curve like this.
+
+492
+01:36:58.950 --> 01:37:11.780
+Prof. John Tsitsiklis: In the beginning you have so-called underfitting you have too few parameters, very few features, and you cannot get a very good, a very good fit to the date.
+
+493
+01:37:12.040 --> 01:37:23.119
+Prof. John Tsitsiklis: On the other hand, if you have too many features, then you enter the domain of overfitting where you're just trying to fit the noise.
+
+494
+01:37:23.390 --> 01:37:40.110
+Prof. John Tsitsiklis: So a little bit of noise here and there affects your parameters a little too much, because you have so many parameters, they can be driven by individual pieces of noise instead of trying to average out the noise. And so performance starts to get worse.
+
+495
+01:37:40.270 --> 01:37:50.080
+Prof. John Tsitsiklis: So this is the typical shape of a plot that you would see in statistics as you use more and more features.
+
+496
+01:37:52.140 --> 01:37:58.330
+Prof. John Tsitsiklis: So what should you do? Which number of features should you? Should you pick well.
+
+497
+01:37:58.570 --> 01:38:06.159
+Prof. John Tsitsiklis: you pick that model structure, that number of features that performs best on the validation set.
+
+498
+01:38:07.010 --> 01:38:13.959
+Prof. John Tsitsiklis: In this case it would be. This would be the ideal number of features that corresponds to this performance here.
+
+499
+01:38:14.580 --> 01:38:26.570
+Prof. John Tsitsiklis: By the way, something I should have mentioned, somebody asked, How do we split our data into training and validation? The standard way is just randomly
+
+500
+01:38:26.790 --> 01:38:32.659
+Prof. John Tsitsiklis: out of the hundreds. I'm going to choose 20 at random to be the validation set.
+
+501
+01:38:32.910 --> 01:38:41.010
+Prof. John Tsitsiklis: or it could be 30 at random to be the validation set. So typically, you hear numbers of this at this range
+
+502
+01:38:41.380 --> 01:38:47.329
+Prof. John Tsitsiklis: between 40 between 20 and 40%, let's say, to be in the validation set.
+
+503
+01:38:47.650 --> 01:38:57.719
+Prof. John Tsitsiklis: But the important thing is that you do that at random, so that the new individuals in the validation set are representative of the
+
+504
+01:38:57.800 --> 01:39:00.300
+Prof. John Tsitsiklis: overall population of individuals.
+
+505
+01:39:00.930 --> 01:39:04.629
+Prof. John Tsitsiklis: But here's now a more subtle thing that can happen.
+
+506
+01:39:05.780 --> 01:39:08.090
+Prof. John Tsitsiklis: Suppose that I try
+
+507
+01:39:08.210 --> 01:39:11.570
+Prof. John Tsitsiklis: a billion different methods.
+
+508
+01:39:12.890 --> 01:39:18.129
+Prof. John Tsitsiklis: a billion different types of features or a billion different algorithms.
+
+509
+01:39:18.610 --> 01:39:21.139
+Prof. John Tsitsiklis: Then, just by luck.
+
+510
+01:39:21.200 --> 01:39:24.200
+Prof. John Tsitsiklis: one of those methods
+
+511
+01:39:24.330 --> 01:39:28.360
+Prof. John Tsitsiklis: may happen to work very well on the validation set.
+
+512
+01:39:30.150 --> 01:39:36.170
+Prof. John Tsitsiklis: This might remind you to something that I believe you heard of in the previous week.
+
+513
+01:39:36.370 --> 01:39:50.910
+Prof. John Tsitsiklis: that if you have too many hypotheses just by accident. One of the hypotheses will fit the data very well, and you will think that you have discovered something, but it's just a matter of luck.
+
+514
+01:39:51.870 --> 01:39:55.840
+Prof. John Tsitsiklis: So what happens is that by choosing the method
+
+515
+01:39:56.010 --> 01:40:03.869
+Prof. John Tsitsiklis: I'm looking at the validation set to choose which method I use. So the choice of the method
+
+516
+01:40:04.900 --> 01:40:10.710
+Prof. John Tsitsiklis: is affected by all the data to assess the chosen methods.
+
+517
+01:40:10.800 --> 01:40:19.110
+Prof. John Tsitsiklis: I need some independent assessments based on things that were not used in selecting the method itself.
+
+518
+01:40:19.160 --> 01:40:24.800
+Prof. John Tsitsiklis: So to do that final evaluation, you should have another
+
+519
+01:40:24.860 --> 01:40:49.220
+Prof. John Tsitsiklis: sort of data set that we call the test set on which you do your final performance assessment. So instead of taking your data set and splitting it into now, you would split it into 3. And how do you do it? Okay, you might do as somebody suggested. 80, 1010, that would be one possible split or 70 15. That would also be reasonable.
+
+520
+01:40:50.530 --> 01:40:54.079
+Prof. John Tsitsiklis: really depends also on how many data points you have.
+
+521
+01:40:54.220 --> 01:40:57.262
+Prof. John Tsitsiklis: So this is the generic.
+
+522
+01:40:58.490 --> 01:41:03.110
+Prof. John Tsitsiklis: it's sort of general methodology for going about validation.
+
+523
+01:41:03.540 --> 01:41:30.149
+Prof. John Tsitsiklis: but not quite in practice. People will do it a little bit differently. By the way, I framed that discussion in terms of choosing the number of features, but you might want to do the same thing to choose a hyper parameter, like the alpha that we had at the Velasso. You try different values of Alpha, and you see which one is doing best on the validation set. And that's the final method that you use.
+
+524
+01:41:31.140 --> 01:41:37.430
+Prof. John Tsitsiklis: So the difference between validation and testing is that validation is used
+
+525
+01:41:38.150 --> 01:41:39.760
+Prof. John Tsitsiklis: to assess
+
+526
+01:41:39.980 --> 01:41:44.140
+Prof. John Tsitsiklis: each one of the different methods in order to pick
+
+527
+01:41:44.180 --> 01:41:46.360
+Prof. John Tsitsiklis: your preferred methods.
+
+528
+01:41:46.610 --> 01:41:50.049
+Prof. John Tsitsiklis: The test set is used to test
+
+529
+01:41:50.210 --> 01:41:54.429
+Prof. John Tsitsiklis: the chosen method, the one that won.
+
+530
+01:41:54.630 --> 01:42:02.229
+Prof. John Tsitsiklis: and to to get an idea. How well is that method performing on stuff that it hadn't seen before.
+
+531
+01:42:02.550 --> 01:42:16.809
+Prof. John Tsitsiklis: I'm going to come back into this shortly with workflow summary. But 1st let me say that this type of validation method does have some drawbacks.
+
+532
+01:42:17.100 --> 01:42:21.710
+Prof. John Tsitsiklis: and the drawbacks are that some data are wasted.
+
+533
+01:42:22.160 --> 01:42:29.239
+Prof. John Tsitsiklis: The data that you set aside in the validation set. They're never used for training. So they're being wasted.
+
+534
+01:42:29.790 --> 01:42:37.120
+Prof. John Tsitsiklis: And also you choose your validation set just once. Let's say you chose 10%. It was a random choice.
+
+535
+01:42:37.380 --> 01:42:50.750
+Prof. John Tsitsiklis: and that random choice could be a particularly unlucky 1, one that chose some non representative individuals. So you're getting evaluated on non representative individuals.
+
+536
+01:42:50.960 --> 01:42:55.449
+Prof. John Tsitsiklis: and because of that, this validation procedure is a little bit noisy.
+
+537
+01:42:56.400 --> 01:43:08.709
+Prof. John Tsitsiklis: In order to remedy these drawbacks, there's an alternative which is a sort of gold standard which is so called. Leave one out cross validation. Here's the idea.
+
+538
+01:43:09.500 --> 01:43:12.180
+Prof. John Tsitsiklis: Let's say we have a hundred data points.
+
+539
+01:43:13.680 --> 01:43:17.500
+Prof. John Tsitsiklis: We split them into 99 and one.
+
+540
+01:43:17.960 --> 01:43:21.650
+Prof. John Tsitsiklis: We trained on the 99 data points.
+
+541
+01:43:22.200 --> 01:43:30.829
+Prof. John Tsitsiklis: the predictor that we get, we applied to make a prediction for the last individual. See how well it did.
+
+542
+01:43:31.360 --> 01:43:33.529
+Prof. John Tsitsiklis: and then repeat that
+
+543
+01:43:33.620 --> 01:43:38.969
+Prof. John Tsitsiklis: for each one of the possible individuals. So we leave out
+
+544
+01:43:39.230 --> 01:43:52.189
+Prof. John Tsitsiklis: the second individual. We leave out the 3rd individual. And we repeat that same procedure for each individual. We train on the remaining ones, and see how well we predict that particular individual.
+
+545
+01:43:52.680 --> 01:44:01.120
+Prof. John Tsitsiklis: And once you are done with this you you can calculate the mean, squared error that you get over the N or over the 100 repetitions.
+
+546
+01:44:01.160 --> 01:44:03.889
+Prof. John Tsitsiklis: This is this is the method.
+
+547
+01:44:04.080 --> 01:44:09.780
+Prof. John Tsitsiklis: So this method has some advantages. There's no random choices for validation set.
+
+548
+01:44:10.110 --> 01:44:18.090
+Prof. John Tsitsiklis: All of the data, or almost all, are used in training. Each one of the times that you do the training.
+
+549
+01:44:18.490 --> 01:44:22.860
+Prof. John Tsitsiklis: What's the drawback? We have to train? N. Times.
+
+550
+01:44:23.150 --> 01:44:24.990
+Prof. John Tsitsiklis: We have to leave out
+
+551
+01:44:25.270 --> 01:44:41.880
+Prof. John Tsitsiklis: a particular individual, and we have to do that for each one of the particular individuals. So that's computationally expensive. It turns out that for linear regression, ordinary, least squares, there's some computational shortcuts, but otherwise it is very expensive.
+
+552
+01:44:42.650 --> 01:44:57.309
+Prof. John Tsitsiklis: So this is considered to be the gold standard. Our 1st method, we said that it's a little bit naive, so the dominant approach in practice is something which is in between, and it's called K. Fold. Cross validation
+
+553
+01:44:57.790 --> 01:45:09.459
+Prof. John Tsitsiklis: in K fall cross validation, let's say K equals to 4. We have 4 groups or falls. So we take our data, our data set and split it into 4 groups
+
+554
+01:45:09.630 --> 01:45:12.439
+Prof. John Tsitsiklis: for each one of the groups. What we do
+
+555
+01:45:12.450 --> 01:45:14.359
+Prof. John Tsitsiklis: is, we keep
+
+556
+01:45:14.610 --> 01:45:16.540
+Prof. John Tsitsiklis: one group out
+
+557
+01:45:16.730 --> 01:45:19.110
+Prof. John Tsitsiklis: as a so-called holdout.
+
+558
+01:45:19.650 --> 01:45:21.569
+Prof. John Tsitsiklis: we do the training
+
+559
+01:45:21.740 --> 01:45:33.870
+Prof. John Tsitsiklis: based on the remaining ones. So in this case we use these data in our data set to train, make predictions about the ones that were held out.
+
+560
+01:45:33.980 --> 01:45:35.820
+Prof. John Tsitsiklis: and then repeat
+
+561
+01:45:36.360 --> 01:45:42.599
+Prof. John Tsitsiklis: for each possible choice of which one is held out.
+
+562
+01:45:44.330 --> 01:45:59.290
+Prof. John Tsitsiklis: Each time we do an evaluation on the set that was held out, and we evaluate the mean squared error on the ones that were held out. And then we take the average over the different choices of which group was held out.
+
+563
+01:45:59.630 --> 01:46:27.150
+Prof. John Tsitsiklis: If we take that method into an extreme, and the number of faults is the name is the same as the number of individuals, then each individual is a fold, and in this picture we would have only one here, and let's say 99 there, and so that's the leave one out cross validation. But, on the other hand, in practice we would be using a moderate value of K. Not as big as N.
+
+564
+01:46:27.190 --> 01:46:32.190
+Prof. John Tsitsiklis: So it is more expensive. Computationally, you have to run your regression.
+
+565
+01:46:32.300 --> 01:46:40.309
+Prof. John Tsitsiklis: let's say 5 or 10 times, but it's only 5 or 10 times more regression, more regressions
+
+566
+01:46:42.624 --> 01:46:52.180
+Prof. John Tsitsiklis: just for a sort of picture that's from some actual numerical experiments. But it's more to we just trade the qualitative behavior
+
+567
+01:46:52.320 --> 01:46:55.729
+Prof. John Tsitsiklis: leave one out. Cross validation is the gold standard.
+
+568
+01:46:55.850 --> 01:47:01.050
+Prof. John Tsitsiklis: So presumably this is the performance of a particular method.
+
+569
+01:47:01.670 --> 01:47:04.590
+Prof. John Tsitsiklis: That's what we want to know what it is
+
+570
+01:47:04.620 --> 01:47:12.000
+Prof. John Tsitsiklis: because it's hard to run Leva one out. Cross validation we approximated with K. Fold cross validation.
+
+571
+01:47:12.080 --> 01:47:16.730
+Prof. John Tsitsiklis: If K. Is very small, let's say K. Equals to 2
+
+572
+01:47:16.780 --> 01:47:23.410
+Prof. John Tsitsiklis: the estimated performance. So the vertical axis here is something like mean squared error
+
+573
+01:47:23.730 --> 01:47:26.810
+Prof. John Tsitsiklis: is quite far from the true value.
+
+574
+01:47:26.990 --> 01:47:33.099
+Prof. John Tsitsiklis: But as K. Increases, let's say, K, around 8 or 10
+
+575
+01:47:33.260 --> 01:47:38.589
+Prof. John Tsitsiklis: k. Fold. Cross validation gives us numbers that are close to the true value.
+
+576
+01:47:39.380 --> 01:47:45.219
+Prof. John Tsitsiklis: So okay, what does true value mean here? We're trying to do performance assessment
+
+577
+01:47:46.610 --> 01:47:50.349
+Prof. John Tsitsiklis: in performance assessment. We assess how
+
+578
+01:47:50.930 --> 01:47:53.779
+Prof. John Tsitsiklis: accurate are our predictions.
+
+579
+01:47:54.110 --> 01:47:55.280
+Prof. John Tsitsiklis: Now
+
+580
+01:47:56.570 --> 01:48:06.700
+Prof. John Tsitsiklis: you are doing an approximate performance assessment. So it's a question how accurate is the performance. Assessment itself?
+
+581
+01:48:06.970 --> 01:48:26.700
+Prof. John Tsitsiklis: Well, with 5 or 10 folds the general statement, or generally in practice, it turns out that it's a reasonably accurate performance assessment. So you can rely on tenfold cross validation and take that as the sort of final performance assessment of
+
+582
+01:48:28.130 --> 01:48:29.790
+Prof. John Tsitsiklis: or for methods.
+
+583
+01:48:30.150 --> 01:48:42.469
+Prof. John Tsitsiklis: How the error increases with more phones. Oh, this is random. Actually, the error, the the true performance of the methods is the same.
+
+584
+01:48:42.800 --> 01:48:45.130
+Prof. John Tsitsiklis: Having more phones.
+
+585
+01:48:47.470 --> 01:48:58.709
+Prof. John Tsitsiklis: having different numbers of faults, you get a noisy performance assessment which would be on the high side, or it could be on the low side. It's kind of random.
+
+586
+01:48:58.740 --> 01:49:02.470
+Prof. John Tsitsiklis: but in the limit of having many folds.
+
+587
+01:49:02.530 --> 01:49:03.840
+Prof. John Tsitsiklis: K. Fold
+
+588
+01:49:04.370 --> 01:49:11.589
+Prof. John Tsitsiklis: cross validation gives you the same performance assessment as leave one out cross validation
+
+589
+01:49:16.270 --> 01:49:35.770
+Prof. John Tsitsiklis: alright. So now let me, through a few ideas here. It's good to summarize all that in a workflow in a summary. How does K. Faf cross validation, business work? Or so? This is a workflow of how you might go about in practice.
+
+590
+01:49:36.100 --> 01:49:44.389
+Prof. John Tsitsiklis: So you consider one possible statistical method, machine learning method. It could be ordinary, least squares.
+
+591
+01:49:45.140 --> 01:49:49.419
+Prof. John Tsitsiklis: This I call method a method. Number one.
+
+592
+01:49:49.620 --> 01:49:55.670
+Prof. John Tsitsiklis: What do you do for method number one with, let's say, fourfold K cross validation.
+
+593
+01:49:56.110 --> 01:50:03.499
+Prof. John Tsitsiklis: You train you take the 1st left out. Hold out! You train on those 3.
+
+594
+01:50:04.970 --> 01:50:08.779
+Prof. John Tsitsiklis: From your training you get a parameter estimate.
+
+595
+01:50:08.810 --> 01:50:12.769
+Prof. John Tsitsiklis: You apply that parameter estimate to make predictions
+
+596
+01:50:12.820 --> 01:50:16.620
+Prof. John Tsitsiklis: on the held out and you get a performance.
+
+597
+01:50:17.050 --> 01:50:20.110
+Prof. John Tsitsiklis: You repeat that for each choice
+
+598
+01:50:20.300 --> 01:50:22.730
+Prof. John Tsitsiklis: of the holdout group
+
+599
+01:50:23.510 --> 01:50:34.760
+Prof. John Tsitsiklis: this is the cross validation part, and by taking the average performance that you got of the held out groups, you get an estimate
+
+600
+01:50:34.940 --> 01:50:39.960
+Prof. John Tsitsiklis: of the mean, squared error of this particular method.
+
+601
+01:50:41.730 --> 01:50:45.530
+Prof. John Tsitsiklis: Then we consider another method.
+
+602
+01:50:46.040 --> 01:50:51.610
+Prof. John Tsitsiklis: This other method could be oil ordinarily squares, but with more features.
+
+603
+01:50:51.780 --> 01:50:57.690
+Prof. John Tsitsiklis: or it could even be a deep neural network, whatever that is.
+
+604
+01:50:58.440 --> 01:51:00.179
+Prof. John Tsitsiklis: And you do the same thing.
+
+605
+01:51:00.270 --> 01:51:02.420
+Prof. John Tsitsiklis: You train your method.
+
+606
+01:51:03.400 --> 01:51:08.380
+Prof. John Tsitsiklis: you see what performance it has on the held out groups.
+
+607
+01:51:08.660 --> 01:51:14.179
+Prof. John Tsitsiklis: and you take that performance to estimate the performance of the methods overall.
+
+608
+01:51:14.470 --> 01:51:22.049
+Prof. John Tsitsiklis: So for each method, you evaluate it by getting a score the mean, squared error of that method
+
+609
+01:51:22.430 --> 01:51:26.649
+Prof. John Tsitsiklis: as validated on data that you had not seen before.
+
+610
+01:51:27.320 --> 01:51:34.939
+Prof. John Tsitsiklis: So finally, you need to choose which is your method of choice. Which one do you want to deploy?
+
+611
+01:51:35.470 --> 01:51:45.460
+Prof. John Tsitsiklis: You just look at the mean, squared errors of the different methods, and select the one that has the smallest one. And this is the method of choice.
+
+612
+01:51:45.900 --> 01:51:48.300
+Prof. John Tsitsiklis: Once you have a method of choice.
+
+613
+01:51:49.398 --> 01:51:57.159
+Prof. John Tsitsiklis: What would be the parameter estimate to be used. For example, if this is my method of choice, it produced
+
+614
+01:51:57.230 --> 01:52:00.750
+Prof. John Tsitsiklis: 4 different parameter estimates.
+
+615
+01:52:01.240 --> 01:52:03.859
+Prof. John Tsitsiklis: Which one do I pick? Well.
+
+616
+01:52:04.010 --> 01:52:12.369
+Prof. John Tsitsiklis: actually, you might do a little better if you just retrain once more and train on the full data set
+
+617
+01:52:12.870 --> 01:52:21.910
+Prof. John Tsitsiklis: so that you're not wasting any data train on the full data set. And yet a parameter. Vector and this is your final parameter. Vector
+
+618
+01:52:22.330 --> 01:52:43.490
+Prof. John Tsitsiklis: so suppose you were a pharmaceutical company, you do all that you pick your preferred method for evaluating, for doing some regression that says something about the effectiveness of some drug, or whatever you get your final parameter estimates, and you take that model and you go to the FDA
+
+619
+01:52:44.529 --> 01:52:55.299
+Prof. John Tsitsiklis: the regulatory agency that's going to approve or not approve your drug. Well, the regulatory agency has set aside another data set
+
+620
+01:52:55.430 --> 01:52:56.760
+Prof. John Tsitsiklis: which we would
+
+621
+01:52:56.820 --> 01:53:00.970
+Prof. John Tsitsiklis: call the data set the the test set.
+
+622
+01:53:01.080 --> 01:53:05.179
+Prof. John Tsitsiklis: and it does an independent evaluation of the method.
+
+623
+01:53:06.190 --> 01:53:19.930
+Prof. John Tsitsiklis: How well, how good are the predictions on the test set? And that's the final mean, squared error that's being used to assess the statistical method that you presented to them.
+
+624
+01:53:20.280 --> 01:53:37.650
+Prof. John Tsitsiklis: So in this story here, actually, this red thing, this big red thing here was not the entire data set. There was an additional test set, but that test set is completely set aside and you don't use it.
+
+625
+01:53:38.570 --> 01:53:40.190
+Prof. John Tsitsiklis: Do people
+
+626
+01:53:41.190 --> 01:53:46.109
+Prof. John Tsitsiklis: Do people use a test set in the real world? In practice
+
+627
+01:53:46.230 --> 01:53:49.670
+Prof. John Tsitsiklis: it really depends on what business you are in.
+
+628
+01:53:50.000 --> 01:54:03.789
+Prof. John Tsitsiklis: If it's a sort of very serious business that has to do, go through regulatory approvals. And if it's matter of life and death and all that, there would be an independent test set and the final performance evaluation.
+
+629
+01:54:04.030 --> 01:54:10.370
+Prof. John Tsitsiklis: if it is about running somewhat different advertising budgets and all that.
+
+630
+01:54:10.430 --> 01:54:15.979
+Prof. John Tsitsiklis: It's not necessarily that important, and all that. And people with some
+
+631
+01:54:16.080 --> 01:54:28.089
+Prof. John Tsitsiklis: usually will be more cavalier and not really bother about having a separate test set. So it's a matter of habit and practice that changes from one domain to another.
+
+632
+01:54:32.627 --> 01:54:46.290
+Prof. John Tsitsiklis: Okay, the test set is supposed to be something that the Pharma Company has not seen at all. Now, what? How are the data generated and processed? And
+
+633
+01:54:48.208 --> 01:54:56.910
+Prof. John Tsitsiklis: because presumably all the data. Okay. Now, this is becoming a very real world question, but the idea is that at least the machine learning
+
+634
+01:54:57.300 --> 01:55:02.030
+Prof. John Tsitsiklis: division of the Pharma Company has not seen the data set.
+
+635
+01:55:02.170 --> 01:55:10.020
+Prof. John Tsitsiklis: Now, if whoever produces the data set through experiments kind of tells it to them through a back channel or not.
+
+636
+01:55:10.503 --> 01:55:15.949
+Prof. John Tsitsiklis: I'm sure that there are protocols that try to secure against that.
+
+637
+01:55:18.230 --> 01:55:19.440
+Prof. John Tsitsiklis: So
+
+638
+01:55:22.570 --> 01:55:23.290
+Prof. John Tsitsiklis: no.
+
+639
+01:55:23.530 --> 01:55:31.369
+Prof. John Tsitsiklis: that's what I wanted to say about performance assessment. And it was about choosing a method
+
+640
+01:55:31.380 --> 01:55:34.890
+Prof. John Tsitsiklis: with the objective of having good
+
+641
+01:55:35.080 --> 01:55:37.180
+Prof. John Tsitsiklis: predictive performance.
+
+642
+01:55:37.550 --> 01:55:41.009
+Prof. John Tsitsiklis: That's what we're interested in. And we choose a method.
+
+643
+01:55:41.740 --> 01:55:44.000
+Prof. John Tsitsiklis: Now, we switch gear.
+
+644
+01:55:44.480 --> 01:55:46.149
+Prof. John Tsitsiklis: How did that happen?
+
+645
+01:55:46.470 --> 01:55:47.220
+Prof. John Tsitsiklis: Wow.
+
+646
+01:55:48.660 --> 01:55:52.920
+Prof. John Tsitsiklis: okay, we changed year, and
+
+647
+01:55:53.210 --> 01:55:57.010
+Prof. John Tsitsiklis: we're going to talk about assessment of parameters.
+
+648
+01:55:57.510 --> 01:56:02.209
+Prof. John Tsitsiklis: So assessment of parameters has to do with
+
+649
+01:56:02.460 --> 01:56:10.200
+Prof. John Tsitsiklis: after we have fixed the methods we want to know if our Theta hat is good or not.
+
+650
+01:56:14.080 --> 01:56:18.980
+Prof. John Tsitsiklis: Okay, and this can be done using formulas.
+
+651
+01:56:19.790 --> 01:56:39.130
+Prof. John Tsitsiklis: I we discussed last time that we can, that the parameter estimates are random variables that are unbiased. They have a normal distribution, and the software gives you the standard errors. That's true for ordinary linear list squares. But it's no longer true for more complicated methods.
+
+652
+01:56:39.260 --> 01:56:53.910
+Prof. John Tsitsiklis: Sometimes the software will report standard errors, but they are to be taken with the grain of salt because they rely on lots of approximations. They might not be trustworthy, and for some methods it's just impossible to calculate
+
+653
+01:56:54.030 --> 01:56:56.609
+Prof. John Tsitsiklis: standard standard errors.
+
+654
+01:56:56.790 --> 01:57:02.060
+Prof. John Tsitsiklis: Is there a way of figuring out the standard errors
+
+655
+01:57:02.070 --> 01:57:08.169
+Prof. John Tsitsiklis: without using any formulas, just using the data that we have.
+
+656
+01:57:08.600 --> 01:57:24.400
+Prof. John Tsitsiklis: And it is indeed possible. It's a method that's purely data driven. It's called the boost strap, and unfortunately it's a little bit of a mind twister not the best thing to have in the last 10 min of a 2 h session. But I'll
+
+657
+01:57:24.760 --> 01:57:27.120
+Prof. John Tsitsiklis: I'll present it, nevertheless.
+
+658
+01:57:27.190 --> 01:57:30.619
+Prof. John Tsitsiklis: So here's the setting. It's a general statistical method.
+
+659
+01:57:30.800 --> 01:57:35.119
+Prof. John Tsitsiklis: this. What? So what are we doing? There's some phenomenon out there.
+
+660
+01:57:35.220 --> 01:57:37.869
+Prof. John Tsitsiklis: and we're trying to choose
+
+661
+01:57:38.010 --> 01:57:42.760
+Prof. John Tsitsiklis: to fit a parameter. That kind of describes that phenomenon.
+
+662
+01:57:43.090 --> 01:57:46.549
+Prof. John Tsitsiklis: We're trying to fit a particular model of that phenomenon.
+
+663
+01:57:46.760 --> 01:57:53.169
+Prof. John Tsitsiklis: We have a data set, and we have settled on a particular method for doing the estimation.
+
+664
+01:57:54.530 --> 01:58:01.769
+Prof. John Tsitsiklis: So the picture is that there is a phenomenon that produces data according to some random mechanism
+
+665
+01:58:01.840 --> 01:58:09.980
+Prof. John Tsitsiklis: that random mechanism that produces the data, of course, depends on a parameter that we don't know.
+
+666
+01:58:10.750 --> 01:58:17.910
+Prof. John Tsitsiklis: So we get data. And we have some histogram of data. So if you think of your data as being your X's
+
+667
+01:58:18.310 --> 01:58:20.029
+Prof. John Tsitsiklis: up something cause
+
+668
+01:58:22.640 --> 01:58:23.670
+Prof. John Tsitsiklis: the draw.
+
+669
+01:58:27.574 --> 01:58:30.269
+Prof. John Tsitsiklis: So this is a
+
+670
+01:58:30.750 --> 01:58:31.520
+Prof. John Tsitsiklis: and
+
+671
+01:58:33.940 --> 01:58:34.900
+Prof. John Tsitsiklis: of line.
+
+672
+01:58:39.250 --> 01:58:43.019
+Prof. John Tsitsiklis: Okay, some pencil functions here.
+
+673
+01:58:43.240 --> 01:58:45.709
+Prof. John Tsitsiklis: Okay, this is supposed to.
+
+674
+01:58:46.640 --> 01:58:47.870
+Prof. John Tsitsiklis: Oh, my.
+
+675
+01:58:53.610 --> 01:58:54.380
+Prof. John Tsitsiklis: hmm.
+
+676
+01:58:58.960 --> 01:59:03.620
+Prof. John Tsitsiklis: okay, my pencil is malfunctioning. I'm sorry for that.
+
+677
+01:59:12.150 --> 01:59:13.039
+Prof. John Tsitsiklis: Did all
+
+678
+01:59:13.690 --> 01:59:15.460
+Prof. John Tsitsiklis: line. Okay.
+
+679
+01:59:15.710 --> 01:59:26.569
+Prof. John Tsitsiklis: okay, so these are the X's actually in regression. A typical data point would be a pair of XY, but let's pretend that this is a 1-dimensional thing.
+
+680
+01:59:26.770 --> 01:59:30.090
+Prof. John Tsitsiklis: So we get various data points
+
+681
+01:59:30.230 --> 01:59:36.589
+Prof. John Tsitsiklis: each in our data set. And we collect all those data points to create a a histogram.
+
+682
+01:59:37.980 --> 01:59:39.959
+Prof. John Tsitsiklis: So that's our data set.
+
+683
+01:59:40.270 --> 01:59:45.050
+Prof. John Tsitsiklis: We take our data set, and we apply a statistical method.
+
+684
+01:59:45.100 --> 01:59:47.949
+Prof. John Tsitsiklis: And that gives us a parameter estimate.
+
+685
+01:59:48.040 --> 01:59:55.030
+Prof. John Tsitsiklis: So that's what happens generically in statistics and machine learning. There's some underlying phenomenon.
+
+686
+01:59:55.630 --> 02:00:01.460
+Prof. John Tsitsiklis: and that underlying phenomenon has some true parameter in there that we don't know
+
+687
+02:00:01.570 --> 02:00:08.709
+Prof. John Tsitsiklis: it produces data. We take the data, apply a method and get a parameter estimate.
+
+688
+02:00:10.490 --> 02:00:29.430
+Prof. John Tsitsiklis: Now, this Theta hat, as you may well remember, is a random, variable. It's random. Why is it random? Because the data set that we have is random, it's produced by the phenomenon, by random sampling or simulation, or whatever.
+
+689
+02:00:30.010 --> 02:00:35.890
+Prof. John Tsitsiklis: So we would like to know or understand the distribution of this Theta hat.
+
+690
+02:00:37.600 --> 02:00:49.400
+Prof. John Tsitsiklis: So suppose that that distribution basically means that different statisticians that use different data sets would be getting different parameter estimates.
+
+691
+02:00:51.760 --> 02:00:54.170
+Prof. John Tsitsiklis: How can we get that distribution?
+
+692
+02:00:54.310 --> 02:01:01.840
+Prof. John Tsitsiklis: Well, we could just apply the method to different data, sets, independent data sets.
+
+693
+02:01:02.390 --> 02:01:04.700
+Prof. John Tsitsiklis: Each one of the data sets
+
+694
+02:01:04.880 --> 02:01:07.499
+Prof. John Tsitsiklis: would produce an estimate
+
+695
+02:01:07.930 --> 02:01:12.270
+Prof. John Tsitsiklis: and take those estimates and
+
+696
+02:01:12.870 --> 02:01:26.540
+Prof. John Tsitsiklis: take those estimates, form a histogram from these estimates, and take that histogram of estimates produced, and that histogram would allow us to learn the distribution of the Theta hats.
+
+697
+02:01:27.860 --> 02:01:39.320
+Prof. John Tsitsiklis: Now, the unfortunate thing is that we do not have multiple data sets. If we had multiple data sets, we could repeat the estimation many, many times
+
+698
+02:01:39.390 --> 02:01:45.649
+Prof. John Tsitsiklis: and record the Theta hats that we get and form a histogram of Theta hats.
+
+699
+02:01:45.940 --> 02:01:47.669
+Prof. John Tsitsiklis: But they're not available.
+
+700
+02:01:48.230 --> 02:01:53.280
+Prof. John Tsitsiklis: What can we try to do? Well, let's generate synthetic data sets
+
+701
+02:01:53.390 --> 02:02:01.270
+Prof. John Tsitsiklis: to run the estimation procedure multiple times on different data sets. So what does different data set mean?
+
+702
+02:02:01.280 --> 02:02:11.810
+Prof. John Tsitsiklis: Let's say, I'm trying to estimate the bias of a coin. A data set is, I flip it 10 times and I get 0 heads and tails. That's a data set.
+
+703
+02:02:11.830 --> 02:02:16.990
+Prof. John Tsitsiklis: Then another data set is, I flip it again 1010 times independently.
+
+704
+02:02:17.320 --> 02:02:19.909
+Prof. John Tsitsiklis: Or if you think about polling.
+
+705
+02:02:20.060 --> 02:02:25.339
+Prof. John Tsitsiklis: I sample a thousand people and ask them, What are you going to vote. That's a data set.
+
+706
+02:02:25.430 --> 02:02:35.020
+Prof. John Tsitsiklis: Then I sample another statistician. The next day samples another 1,000 people and acts. And what are they going to vote? That's another data set.
+
+707
+02:02:36.980 --> 02:02:37.680
+Prof. John Tsitsiklis: Aye.
+
+708
+02:02:40.170 --> 02:02:57.270
+Prof. John Tsitsiklis: So they're different data sets. But we in reality, we only have one data set. Can we create new independent data sets from the existing ones. You would think that it's impossible to create new stuff
+
+709
+02:02:57.550 --> 02:03:07.079
+Prof. John Tsitsiklis: from nothing. But there's a clever idea that does it, and the clever idea is to use the original data set
+
+710
+02:03:07.140 --> 02:03:08.440
+Prof. John Tsitsiklis: to create
+
+711
+02:03:08.540 --> 02:03:11.220
+Prof. John Tsitsiklis: new synthetic data sets
+
+712
+02:03:11.270 --> 02:03:16.800
+Prof. John Tsitsiklis: by just taking data at random from the original data set.
+
+713
+02:03:17.600 --> 02:03:21.100
+Prof. John Tsitsiklis: new data sets of the same size.
+
+714
+02:03:21.250 --> 02:03:26.660
+Prof. John Tsitsiklis: but picked at random from the original data datasets.
+
+715
+02:03:26.950 --> 02:03:30.869
+Prof. John Tsitsiklis: Okay, the I'll try to
+
+716
+02:03:30.980 --> 02:03:35.139
+Prof. John Tsitsiklis: describe that ideally with a different picture.
+
+717
+02:03:35.673 --> 02:03:50.859
+Prof. John Tsitsiklis: And try to get it through. It's quite complicated, I admit. But if we manage to create those data, synthetic data sets from each synthetic data set, we're going to get a different Theta hat.
+
+718
+02:03:51.410 --> 02:04:04.470
+Prof. John Tsitsiklis: So different data sets give rise to different estimates. We plot the different data hats we get. Actually, we don't literally plot them. We make a histogram of them, and that histogram is
+
+719
+02:04:04.890 --> 02:04:12.439
+Prof. John Tsitsiklis: essentially a way to put get a handle on the true distribution of Theta hat.
+
+720
+02:04:12.500 --> 02:04:16.599
+Prof. John Tsitsiklis: So how do we create those new synthetic data sets.
+
+721
+02:04:18.450 --> 02:04:29.149
+Prof. John Tsitsiklis: So we start with an initial data set. Suppose that the initial data set is some numbers like 2, 4, 2, 5, and one.
+
+722
+02:04:29.280 --> 02:04:31.660
+Prof. John Tsitsiklis: So 3 data records.
+
+723
+02:04:32.190 --> 02:04:36.139
+Prof. John Tsitsiklis: they're simple ones. Just for the purpose of registration.
+
+724
+02:04:36.500 --> 02:04:44.009
+Prof. John Tsitsiklis: Bootstrap creates a new synthetic data set by sampling at random from here.
+
+725
+02:04:44.390 --> 02:04:47.419
+Prof. John Tsitsiklis: So I pick the 1st entry at random.
+
+726
+02:04:47.480 --> 02:04:49.340
+Prof. John Tsitsiklis: Maybe I pick a 1.
+
+727
+02:04:49.980 --> 02:04:52.590
+Prof. John Tsitsiklis: I pick a second entry at random.
+
+728
+02:04:52.660 --> 02:04:55.070
+Prof. John Tsitsiklis: Maybe I pick a 5.
+
+729
+02:04:55.860 --> 02:04:58.460
+Prof. John Tsitsiklis: I pick a 3rd entry at random.
+
+730
+02:04:58.540 --> 02:05:01.710
+Prof. John Tsitsiklis: Maybe I pick one once more.
+
+731
+02:05:02.670 --> 02:05:04.180
+Prof. John Tsitsiklis: So one
+
+732
+02:05:04.390 --> 02:05:09.279
+Prof. John Tsitsiklis: in this new data set one was picked twice.
+
+733
+02:05:09.310 --> 02:05:12.189
+Prof. John Tsitsiklis: but the number 2 was not picked at all
+
+734
+02:05:12.430 --> 02:05:19.560
+Prof. John Tsitsiklis: this can happen because we're doing so-called sampling with replacements each time that we pick
+
+735
+02:05:19.630 --> 02:05:26.720
+Prof. John Tsitsiklis: a data record at random from the initial data set, everything gets considered.
+
+736
+02:05:27.000 --> 02:05:53.469
+Prof. John Tsitsiklis: Whatever was chosen still is available to be chosen next time as well. So we might choose a few items, a few records, multiple times, and we might not choose at all some of the other records. And then we repeat this process several times. Let's say that we have K repetitions. This number K is something of our choice, let's say
+
+737
+02:05:53.670 --> 02:05:57.280
+Prof. John Tsitsiklis: reasonable value would be something like K 100.
+
+738
+02:05:57.590 --> 02:06:14.879
+Prof. John Tsitsiklis: But the number n. That we have here, how many we choose at random is the same as the size of our original data set. So they are synthetic data sets of the same size. From each synthetic data set we get a parameter estimate.
+
+739
+02:06:14.970 --> 02:06:23.470
+Prof. John Tsitsiklis: and then we take all those parameter estimates and use them to form a histogram of thetas.
+
+740
+02:06:23.740 --> 02:06:47.750
+Prof. John Tsitsiklis: and that histogram tells us about how Ra. How the estimate moves randomly around. If, when we change data sets, and if we take the width of this histogram or the standard deviation of that histogram. Then this is basically an estimate of the standard error associated with this parameter.
+
+741
+02:06:48.750 --> 02:07:15.510
+Prof. John Tsitsiklis: Okay, just just forgot all those symbols there. We're just calculating the standard deviation of that histogram, and that estimates the standard error of the parameter estimates. Unfortunately, here we're dealing with layers of estimation. The thetas are estimates, but we're also want to estimate properties of the distribution of the thetas. So it's a sort of higher level procedure.
+
+742
+02:07:15.960 --> 02:07:20.700
+Prof. John Tsitsiklis: So how are what can we say about this synthetic data sets.
+
+743
+02:07:20.980 --> 02:07:44.430
+Prof. John Tsitsiklis: Sometimes these synthetic data sets just by random sampling will happen to be identical to the original data set may be permuted. But it's essentially the same data records. But more often than not they're going to be different. They're different, but not very different. They're quite representative of the original data sets
+
+744
+02:07:44.690 --> 02:08:11.570
+Prof. John Tsitsiklis: miraculously this idea does work, and it is sound, and when K is a decently large number like K equals, 100, gives us the pretty solid approximation of the distribution of the Theta hat. How is it different from the central limit, theorem, the central limit, theorem, when it applies like in ordinary least squares would actually predict that this distribution is normal.
+
+745
+02:08:11.980 --> 02:08:27.919
+Prof. John Tsitsiklis: But with complicated methods, even with lots of the sampling distribution is not necessarily normal. It's some other weird shape that's very hard to describe, so we can only simulate it. And this is a simulation method
+
+746
+02:08:27.920 --> 02:08:45.559
+Prof. John Tsitsiklis: for obtaining the distribution of the Theta hat out of curiosity. We did run this method on our advertising example and Bootstrap gave us this sampling distribution. This is the distribution of Theta hat.
+
+747
+02:08:46.694 --> 02:08:56.460
+Prof. John Tsitsiklis: What does that correspond to that? We're generating synthetic data sets of the same size, that is, with 200 different markets.
+
+748
+02:08:56.640 --> 02:09:09.470
+Prof. John Tsitsiklis: And on each synthetic data set, we run regression, and we get a parameter, a value for the coefficients. We do it 200 times and make a histogram of the parameters that we got each time.
+
+749
+02:09:09.540 --> 02:09:16.859
+Prof. John Tsitsiklis: This is the plot of the theoretical sampling distribution that was obtained from the central limit theorem
+
+750
+02:09:17.340 --> 02:09:29.739
+Prof. John Tsitsiklis: and from the formulas, and luckily the 2 turn out to be very close, and the confidence intervals that we get, and the standard errors are essentially the same.
+
+751
+02:09:30.710 --> 02:09:35.819
+Prof. John Tsitsiklis: That is a nice miracle. It happens often, but it doesn't
+
+752
+02:09:35.880 --> 02:09:52.180
+Prof. John Tsitsiklis: always happen, because this normal that we get and the formulas for standard errors and that underlie that come together with that normal distribution are based on lots of mathematical assumptions that are certainly violated in practice to some extent.
+
+753
+02:09:52.230 --> 02:09:54.459
+Prof. John Tsitsiklis: But nevertheless.
+
+754
+02:09:54.710 --> 02:09:57.020
+Prof. John Tsitsiklis: sometimes it's quite accurate.
+
+755
+02:09:57.310 --> 02:10:06.039
+Prof. John Tsitsiklis: And here now, you might ask, are we really nitpicking with esoteric stuff that nobody ever uses?
+
+756
+02:10:07.086 --> 02:10:15.189
+Prof. John Tsitsiklis: I had that curiosity even myself, because I had seen and worked with Bootstrap more in a
+
+757
+02:10:15.320 --> 02:10:30.959
+Prof. John Tsitsiklis: in a theoretical setting. So I asked my daughter, who works at the data Science in a Life Sciences Company, and she said that they actually do it all the time. It's serious business. When you want to
+
+758
+02:10:31.140 --> 02:10:57.769
+Prof. John Tsitsiklis: present your results and say something about their confidence, you really need to report your standard errors, and to get confidence intervals that you use in statistical tests and all that. And so you need those standard errors, and you cannot rely on mathematical formulas that depend on lots of unverifiable assumptions. So here, you just do it in a data driven way.
+
+759
+02:10:59.020 --> 02:11:09.519
+Prof. John Tsitsiklis: Okay, we're just out of time. But the important question that I think we have to answer is, what's the difference between K. Fold and Bootstrap?
+
+760
+02:11:10.270 --> 02:11:23.419
+Prof. John Tsitsiklis: There are some similarities. The similarity is that we, reusing the data multiple times in a clever way. But we're doing it for very different purposes in K fold.
+
+761
+02:11:23.910 --> 02:11:27.080
+Prof. John Tsitsiklis: We use it to choose a method.
+
+762
+02:11:28.170 --> 02:11:31.580
+Prof. John Tsitsiklis: Careful validation is to choose a method
+
+763
+02:11:32.030 --> 02:11:40.070
+Prof. John Tsitsiklis: and choose a method, so that the predicted labels are close to the true labels.
+
+764
+02:11:40.380 --> 02:11:41.820
+Prof. John Tsitsiklis: Bootstrap
+
+765
+02:11:42.430 --> 02:11:46.429
+Prof. John Tsitsiklis: assumes that we have chosen a method.
+
+766
+02:11:48.010 --> 02:11:50.050
+Prof. John Tsitsiklis: We have chosen a method
+
+767
+02:11:50.390 --> 02:11:54.999
+Prof. John Tsitsiklis: oops my pen. Okay, in good strap
+
+768
+02:11:55.120 --> 02:11:59.860
+Prof. John Tsitsiklis: we have chosen a method. The method is given.
+
+769
+02:12:01.930 --> 02:12:06.840
+Prof. John Tsitsiklis: and the problem is to assess, for example.
+
+770
+02:12:06.940 --> 02:12:12.200
+Prof. John Tsitsiklis: the standard error of a particular parameter estimate.
+
+771
+02:12:12.220 --> 02:12:19.239
+Prof. John Tsitsiklis: So the Bootstrap is about when you get a model, that model will have parameters.
+
+772
+02:12:19.250 --> 02:12:31.409
+Prof. John Tsitsiklis: How confident are we about the accuracy or the the precision of of those estimated parameters. So it's something that's a lot more specific.
+
+773
+02:12:32.010 --> 02:12:39.120
+Prof. John Tsitsiklis: So I'll stop here. I have some conclusions concluding slides. But these are sort of
+
+774
+02:12:39.190 --> 02:12:47.469
+Prof. John Tsitsiklis: self explanatory, so I'd rather not take more time and let the mentoring session start.
+
+775
+02:12:55.170 --> 02:13:03.529
+Moderator - Ankit Agrawal: There we go. Thank you so much, Professor, for that lecture. I do see a lot of questions towards the end about the bootstrapping method.
+
+776
+02:13:03.969 --> 02:13:15.659
+Moderator - Ankit Agrawal: I do. Wanna point out that next week, when we talk about decision trees and random forest, we will talk a lot more about bootstrapping method again.
+
+777
+02:13:16.098 --> 02:13:27.889
+Moderator - Ankit Agrawal: So like I mean, I know that it is a little bit tricky method, as Professor has mentioned also. But we will again bring this method into a full discussion next week.
+
+778
+02:13:28.549 --> 02:13:33.749
+Moderator - Ankit Agrawal: When we talk about decision trees and random forest that being said
+
+779
+02:13:34.340 --> 02:13:42.040
+Moderator - Ankit Agrawal: we have our mentor today again. Freeman is here to answer some questions. Hello, Freeman, good morning.
+
+780
+02:13:42.860 --> 02:13:46.119
+Mentor - Freeman Goja: Morning and Kate morning, Professor, Hi, everyone.
+
+781
+02:13:46.120 --> 02:13:48.069
+Prof. John Tsitsiklis: Oh, good morning!
+
+782
+02:13:48.270 --> 02:13:52.459
+Prof. John Tsitsiklis: I'll join in a few minutes again. But please go on.
+
+783
+02:13:53.540 --> 02:13:54.640
+Moderator - Ankit Agrawal: Thank you, Professor.
+
+784
+02:13:55.517 --> 02:14:04.039
+Moderator - Ankit Agrawal: Let's get started with the questions over here. One of the questions we have is, how important is it to get the math behind each method.
+
+785
+02:14:07.290 --> 02:14:11.880
+Mentor - Freeman Goja: As a data sciences. That's the super important aspect.
+
+786
+02:14:12.350 --> 02:14:19.970
+Mentor - Freeman Goja: He helps in a lot of ways practically right. So in real life, all this fancy stuff we're talking about here could get
+
+787
+02:14:20.260 --> 02:14:22.539
+Mentor - Freeman Goja: little tricky pretty quickly.
+
+788
+02:14:22.890 --> 02:14:29.790
+Mentor - Freeman Goja: Given a particular use case. Your understanding of the math behind this different techniques
+
+789
+02:14:30.030 --> 02:14:34.550
+Mentor - Freeman Goja: does a lot of good for you. Number one is it helps you navigate
+
+790
+02:14:34.570 --> 02:14:37.520
+Mentor - Freeman Goja: difficult situations when you get stuck.
+
+791
+02:14:37.610 --> 02:14:41.139
+Mentor - Freeman Goja: because you know what's happening in the back end, you can tap
+
+792
+02:14:41.716 --> 02:15:02.750
+Mentor - Freeman Goja: that. A particular technique is maybe not very suitable for a given use case. You can think of all the techniques that might might be best suited in that particular situation. You can think of ways to get around a given problem. So you see, sometimes to say things like get more data.
+
+793
+02:15:02.960 --> 02:15:08.900
+Mentor - Freeman Goja: It sounds vague. When should you start thinking of getting vague data? If you don't understand what's going on?
+
+794
+02:15:08.970 --> 02:15:22.009
+Mentor - Freeman Goja: Well, we see maybe down sample or up sample data and things like that. What does that really mean? If you don't understand what's happening in the back end and what you're trying to achieve with any of those techniques
+
+795
+02:15:22.050 --> 02:15:23.489
+Mentor - Freeman Goja: or things like that.
+
+796
+02:15:23.760 --> 02:15:29.099
+Mentor - Freeman Goja: It won't make so much sense when you run into problem of overfitting. How do you
+
+797
+02:15:29.140 --> 02:15:30.630
+Mentor - Freeman Goja: assess that
+
+798
+02:15:30.730 --> 02:15:36.630
+Mentor - Freeman Goja: in a model or on a fitting. How do you assess that if you don't understand the math behind it?
+
+799
+02:15:36.770 --> 02:15:41.499
+Mentor - Freeman Goja: When you do, it helps you choose the right method or technique to
+
+800
+02:15:41.740 --> 02:15:44.309
+Mentor - Freeman Goja: get around those problems
+
+801
+02:15:47.290 --> 02:15:48.020
+Mentor - Freeman Goja: didn't.
+
+802
+02:15:49.750 --> 02:16:03.590
+Moderator - Ankit Agrawal: Another question we have is similar to leave an out cross validation. Bootstrap is computationally very expensive. Isn't that correct? With the end data set that's in to the power of end arrangements to the test.
+
+803
+02:16:05.880 --> 02:16:07.310
+Mentor - Freeman Goja: Yeah, it could be.
+
+804
+02:16:07.750 --> 02:16:11.689
+Mentor - Freeman Goja: Bootstrapping could easily approach the
+
+805
+02:16:11.700 --> 02:16:18.019
+Mentor - Freeman Goja: computationally complexity levels of leave one out methods. But
+
+806
+02:16:18.660 --> 02:16:22.550
+Mentor - Freeman Goja: it it also depends on. You know how many samples
+
+807
+02:16:23.270 --> 02:16:33.600
+Mentor - Freeman Goja: you you make from the Bootstrap. So with leave one out, you're going all the way to end samples with Bootstrap. You may not necessarily have to go all the way to end samples. So
+
+808
+02:16:33.860 --> 02:16:39.310
+Mentor - Freeman Goja: if you don't go all the way to end samples, they will have the same level of complexity. But if you do, then
+
+809
+02:16:39.469 --> 02:16:40.680
+Mentor - Freeman Goja: you might be
+
+810
+02:16:41.170 --> 02:16:43.450
+Mentor - Freeman Goja: faced with a similar problem.
+
+811
+02:16:45.320 --> 02:16:53.790
+Moderator - Ankit Agrawal: Yeah. Just to add to that. Also, we are not trying all the different combinations into the bootstrap. Right? We
+
+812
+02:16:54.205 --> 02:16:59.089
+Moderator - Ankit Agrawal: initialize how many samples we want to create. So you can go ahead and create
+
+813
+02:16:59.160 --> 02:17:17.999
+Moderator - Ankit Agrawal: 10 samples. Or you can go ahead and create 20 samples like in K. 4. We were doing the K 4 as size of 5 or 10 you can. Similarly, you can assign the number of Bootstrap Bootstrap samples you want to create. You're not trying to create every single possible combination.
+
+814
+02:17:18.190 --> 02:17:23.719
+Moderator - Ankit Agrawal: So it it is computationally very similar to what K. 4 would do.
+
+815
+02:17:25.773 --> 02:17:31.440
+Moderator - Ankit Agrawal: Other questions we have is, is there a method to find? If we have overfitted the data.
+
+816
+02:17:32.389 --> 02:17:32.949
+Prof. John Tsitsiklis: Hmm.
+
+817
+02:17:40.260 --> 02:17:43.469
+Mentor - Freeman Goja: Okay, I thought proof was wanted to say something. So.
+
+818
+02:17:44.340 --> 02:17:45.420
+Prof. John Tsitsiklis: No go ahead!
+
+819
+02:17:45.940 --> 02:17:48.609
+Mentor - Freeman Goja: Okay, yeah, absolutely right. So
+
+820
+02:17:49.096 --> 02:17:56.839
+Mentor - Freeman Goja: you can, you can measure the performance of the model you can access. I mean, you can assess the performance of the model.
+
+821
+02:17:56.910 --> 02:18:04.415
+Mentor - Freeman Goja: So if you use some of this techniques that we're talking about like cross validation, leave one out
+
+822
+02:18:05.129 --> 02:18:15.170
+Mentor - Freeman Goja: cross validation. Okay for cross validation methods. You can assess the performance of your model, and you can tell when it's overfitting
+
+823
+02:18:16.209 --> 02:18:18.869
+Mentor - Freeman Goja: or even when it's on the fitting on the data.
+
+824
+02:18:18.940 --> 02:18:23.849
+Mentor - Freeman Goja: there are also other like. Practically, there are also other ways of doing that.
+
+825
+02:18:24.389 --> 02:18:25.389
+Mentor - Freeman Goja: So
+
+826
+02:18:26.190 --> 02:18:39.159
+Mentor - Freeman Goja: if if you build, if we train a model, for example, and you have a training set. You have a test set. You train the model. You see the performance like, say, the R squared on the training data set.
+
+827
+02:18:39.420 --> 02:18:44.729
+Mentor - Freeman Goja: And then you see the R squared on the test data set. From a practical standpoint.
+
+828
+02:18:44.790 --> 02:18:51.529
+Mentor - Freeman Goja: we have a huge difference, let's say, the R square on the training data set
+
+829
+02:18:51.670 --> 02:18:58.779
+Mentor - Freeman Goja: is 10 points more than the R squared on the test data set is that suspecting
+
+830
+02:18:58.850 --> 02:19:00.020
+Mentor - Freeman Goja: overfitting.
+
+831
+02:19:00.059 --> 02:19:06.730
+Mentor - Freeman Goja: and it's also a case of maybe the R. Square is poor on both data sets.
+
+832
+02:19:07.059 --> 02:19:11.969
+Mentor - Freeman Goja: And then you start thinking on the feeding problem in those kind of situations.
+
+833
+02:19:16.209 --> 02:19:26.430
+Moderator - Ankit Agrawal: Essentially when the performance of the model is very good on the training data, but not at the same level on the validation data or on the test data, then basically.
+
+834
+02:19:26.430 --> 02:19:26.950
+Mentor - Freeman Goja: The.
+
+835
+02:19:26.959 --> 02:19:29.289
+Moderator - Ankit Agrawal: Conclude that the model is overfitting.
+
+836
+02:19:29.469 --> 02:19:34.959
+Moderator - Ankit Agrawal: You want the performance of the model to be similar across all 3 splits of the data set.
+
+837
+02:19:35.820 --> 02:19:36.370
+Mentor - Freeman Goja: Alright!
+
+838
+02:19:38.110 --> 02:19:38.950
+Moderator - Ankit Agrawal: Okay,
+
+839
+02:19:40.209 --> 02:19:52.590
+Moderator - Ankit Agrawal: one of the questions we have is, how do we address the inherent data bias? We aren't always going to be able to collect a normal distribution for samples. Does the algorithm correct for that.
+
+840
+02:19:55.730 --> 02:20:04.519
+Mentor - Freeman Goja: This. This, a lot of this is a lot of inherings, biases, and data, and they are different ways of addressing, depending on which particular
+
+841
+02:20:06.050 --> 02:20:09.339
+Mentor - Freeman Goja: issues that could bias is
+
+842
+02:20:09.720 --> 02:20:13.319
+Mentor - Freeman Goja: actually presenting in a given use case. So the
+
+843
+02:20:13.520 --> 02:20:14.580
+Mentor - Freeman Goja: bowed.
+
+844
+02:20:14.610 --> 02:20:18.300
+Mentor - Freeman Goja: The randomness problem, for example, is something that
+
+845
+02:20:18.810 --> 02:20:21.690
+Mentor - Freeman Goja: bootstrapping methods do address.
+
+846
+02:20:21.700 --> 02:20:23.660
+Mentor - Freeman Goja: It helps mitigate that.
+
+847
+02:20:24.470 --> 02:20:25.909
+Mentor - Freeman Goja: There are also.
+
+848
+02:20:25.920 --> 02:20:35.179
+Mentor - Freeman Goja: you know, imbalances in data. And there are other techniques that you could use to address that. Some of these inherent bias and practical chance.
+
+849
+02:20:35.470 --> 02:20:36.720
+Mentor - Freeman Goja: Okay.
+
+850
+02:20:37.250 --> 02:20:47.509
+Mentor - Freeman Goja: and you will see things, especially with like balance of classes. And we haven't talked about this. So I don't want to, Dave too much into it, but in those kind of situations
+
+851
+02:20:47.650 --> 02:21:03.609
+Mentor - Freeman Goja: is reality, and you don't want to, you know, just change the reality in certain situations. But you could do other techniques like on the sampling and oversampling of classes and those kind of situations to downplay the impact.
+
+852
+02:21:04.320 --> 02:21:12.650
+Mentor - Freeman Goja: So depending on the problem that the inherent bias is presenting. You could take different approaches to
+
+853
+02:21:12.870 --> 02:21:14.200
+Mentor - Freeman Goja: mitigate that.
+
+854
+02:21:18.933 --> 02:21:31.999
+Moderator - Ankit Agrawal: So one of the other questions we have is, it would be very useful to recap on the purpose of the techniques we saw on high level, and end to end from supervised learning, purpose to bootstrapping.
+
+855
+02:21:32.840 --> 02:21:48.070
+Moderator - Ankit Agrawal: So I think a lot of people are still confused about the Bootstrap strap framework on when to use it. So bootstrapping is used during the training part of the model right? It is not used on the testing or validation data. It is used on the training data.
+
+856
+02:21:49.003 --> 02:21:57.239
+Moderator - Ankit Agrawal: So maybe freeman, you can walk through like, just summarize like how we can use bootstrapping or
+
+857
+02:21:57.861 --> 02:22:04.930
+Moderator - Ankit Agrawal: we can use cross validation or something, you know, for in a end to end approach over here. Just briefly.
+
+858
+02:22:05.800 --> 02:22:13.499
+Mentor - Freeman Goja: Alright. So 1st of all, the number one thing you have to keep in mind is, let's say you start working on a new
+
+859
+02:22:14.170 --> 02:22:15.210
+Mentor - Freeman Goja: problem.
+
+860
+02:22:15.440 --> 02:22:18.140
+Mentor - Freeman Goja: You're building a supervised learning technique
+
+861
+02:22:18.570 --> 02:22:21.649
+Mentor - Freeman Goja: like linear aggression, or whatever that technique might be.
+
+862
+02:22:21.910 --> 02:22:30.189
+Mentor - Freeman Goja: You train an algorithm, you want to be able to understand how well, the algorithm is performing on
+
+863
+02:22:30.390 --> 02:22:32.349
+Mentor - Freeman Goja: the training data set
+
+864
+02:22:32.680 --> 02:22:35.689
+Mentor - Freeman Goja: before you can move forward to test it.
+
+865
+02:22:35.970 --> 02:22:39.060
+Mentor - Freeman Goja: or you can confidently discuss
+
+866
+02:22:39.070 --> 02:22:45.129
+Mentor - Freeman Goja: whatever findings or observations that you have seen so far with somebody.
+
+867
+02:22:45.250 --> 02:22:49.980
+Mentor - Freeman Goja: So it makes it super important for you, 1st of all, as a data scientist, to understand
+
+868
+02:22:50.010 --> 02:22:53.450
+Mentor - Freeman Goja: how your algorithm is doing during training.
+
+869
+02:22:53.550 --> 02:22:54.829
+Mentor - Freeman Goja: Now, the thing is.
+
+870
+02:22:54.880 --> 02:23:02.589
+Mentor - Freeman Goja: you don't have a bad training you don't have a bad performing algorithm during training and then expected to do magic
+
+871
+02:23:02.760 --> 02:23:08.949
+Mentor - Freeman Goja: in the real world. Right? So you want to have a good model from the training 1st of all.
+
+872
+02:23:09.070 --> 02:23:17.130
+Mentor - Freeman Goja: And so you use this techniques like cross validation, or leave one out to kind of evaluate the performance of the model.
+
+873
+02:23:17.440 --> 02:23:25.539
+Mentor - Freeman Goja: But sometimes it's not just evaluating the performance of the model. You want to also kind of prove some concepts and
+
+874
+02:23:25.720 --> 02:23:30.170
+Mentor - Freeman Goja: get buy in from stakeholders. Bootstrapping
+
+875
+02:23:30.320 --> 02:23:37.639
+Mentor - Freeman Goja: does have in those kind of situations a lot, because you're able to compute some
+
+876
+02:23:39.020 --> 02:23:41.250
+Mentor - Freeman Goja: standard errors
+
+877
+02:23:41.430 --> 02:23:49.619
+Mentor - Freeman Goja: with respect to a particular estimate that the business is interested in, or that your model is trying to predict.
+
+878
+02:23:49.800 --> 02:23:58.899
+Mentor - Freeman Goja: and then put that in front of the business. They quote us to kind of make them understand while we are very close to the actual values with this model.
+
+879
+02:23:58.910 --> 02:24:03.040
+Mentor - Freeman Goja: And so it gets people's buying from a practical standpoint.
+
+880
+02:24:03.210 --> 02:24:12.870
+Mentor - Freeman Goja: Now, when you evaluate this different aspect during training, and you see that you're getting a good performance, then you feel confident yourself in moving forward
+
+881
+02:24:12.970 --> 02:24:16.770
+Mentor - Freeman Goja: to test that model, and finally put it to production
+
+882
+02:24:16.830 --> 02:24:18.239
+Mentor - Freeman Goja: for generate use.
+
+883
+02:24:21.000 --> 02:24:22.250
+Mentor - Freeman Goja: I don't know if that's
+
+884
+02:24:22.430 --> 02:24:24.320
+Mentor - Freeman Goja: what you were looking for, but.
+
+885
+02:24:27.050 --> 02:24:33.406
+Moderator - Ankit Agrawal: I mean, they can ask for that question. Oh, okay, it seems like it was a very clear explanation. Okay,
+
+886
+02:24:34.730 --> 02:24:49.470
+Moderator - Ankit Agrawal: another question we have over here is, I do not know. Why is it more beneficial over the single calculation that we do over the entire data set? This question is again more related towards bootstrapping or careful cross validation.
+
+887
+02:24:49.670 --> 02:24:50.540
+Moderator - Ankit Agrawal: Why is it, I mean
+
+888
+02:24:50.960 --> 02:24:52.850
+Moderator - Ankit Agrawal: over and over again? Better.
+
+889
+02:24:53.750 --> 02:25:07.530
+Mentor - Freeman Goja: It sounds more like, leave one out versus key forward, cross validation, right? And so you see, we key forward, cross validation. When you run key forward. You subset your data into
+
+890
+02:25:07.997 --> 02:25:15.209
+Mentor - Freeman Goja: a few samples. Right? So what you are doing is, let's say we take all of us on this call right now
+
+891
+02:25:15.530 --> 02:25:17.040
+Mentor - Freeman Goja: as the
+
+892
+02:25:17.090 --> 02:25:18.460
+Mentor - Freeman Goja: original sample.
+
+893
+02:25:18.590 --> 02:25:19.800
+Mentor - Freeman Goja: And if we take
+
+894
+02:25:19.860 --> 02:25:23.439
+Mentor - Freeman Goja: subsets, let's say 5 subsets of us.
+
+895
+02:25:23.950 --> 02:25:31.180
+Mentor - Freeman Goja: and then, if we group ourselves into 5 subsets, and then we train the model on 4 subsets
+
+896
+02:25:31.380 --> 02:25:32.710
+Mentor - Freeman Goja: out of the 5,
+
+897
+02:25:32.970 --> 02:25:36.890
+Mentor - Freeman Goja: and then we test. We hold out one subset, and then we test
+
+898
+02:25:37.020 --> 02:25:45.240
+Mentor - Freeman Goja: the model on the 5th one. So each iteration we train on 4. We test on a head out subset.
+
+899
+02:25:45.780 --> 02:25:50.370
+Mentor - Freeman Goja: Now, during the training, you actually did not consider everybody.
+
+900
+02:25:50.530 --> 02:25:54.899
+Mentor - Freeman Goja: So if we're taking impute from everyone during training.
+
+901
+02:25:54.940 --> 02:26:03.260
+Mentor - Freeman Goja: then you didn't take everyone's impute into consideration during training. The subset that you head out for testing
+
+902
+02:26:03.460 --> 02:26:04.460
+Mentor - Freeman Goja: is
+
+903
+02:26:04.590 --> 02:26:09.229
+Mentor - Freeman Goja: must could probably be massive, right? Depending on the size. It could be huge.
+
+904
+02:26:09.280 --> 02:26:20.529
+Mentor - Freeman Goja: And you could have a lot of variations resulting from this process through this iterations that you are going through in 5 steps would leave one out.
+
+905
+02:26:20.950 --> 02:26:24.189
+Mentor - Freeman Goja: You take every individual's
+
+906
+02:26:24.230 --> 02:26:32.100
+Mentor - Freeman Goja: impute into consideration eventually, because you are just going to take, let's say 211
+
+907
+02:26:32.480 --> 02:26:36.879
+Mentor - Freeman Goja: for training, and leave the the 200 and 12th person
+
+908
+02:26:36.930 --> 02:26:46.869
+Mentor - Freeman Goja: for test. So each time you do that, and because you're going to do that in total, 212 times. You're going to consider everybody's impute at the end of the day.
+
+909
+02:26:47.130 --> 02:26:50.049
+Mentor - Freeman Goja: And so you kind of like have
+
+910
+02:26:50.130 --> 02:26:59.779
+Mentor - Freeman Goja: less. Will you tolerate less randomness with leave one out method as compared to Key Ford Cross validation.
+
+911
+02:27:01.930 --> 02:27:08.759
+Mentor - Freeman Goja: Now they both have the advantages, apart from competition and disadvantages as well. And so sometimes
+
+912
+02:27:09.060 --> 02:27:15.389
+Mentor - Freeman Goja: it's not really very straightforward to say that one is better you were preferred over the other one.
+
+913
+02:27:20.920 --> 02:27:22.610
+Moderator - Ankit Agrawal: Andrea asked.
+
+914
+02:27:24.720 --> 02:27:30.672
+Moderator - Ankit Agrawal: okay, yeah. And he's saying that, did. That answer was not very clear.
+
+915
+02:27:31.320 --> 02:27:43.119
+Moderator - Ankit Agrawal: So a quick comment that maybe I could make over on that explanation. Just to summarize it is that when you take an entire data set, you still have to evaluate that data
+
+916
+02:27:43.240 --> 02:27:47.220
+Moderator - Ankit Agrawal: right? So you will split the data into training and testing data as it.
+
+917
+02:27:47.330 --> 02:27:57.059
+Moderator - Ankit Agrawal: But when you split the data into training and testing your test, data might be biased. Right? You don't, because you're doing the split at random.
+
+918
+02:27:57.070 --> 02:28:03.559
+Moderator - Ankit Agrawal: You don't know what that test data is going to look like, and you may end up with a bad test data over there.
+
+919
+02:28:03.650 --> 02:28:05.280
+Moderator - Ankit Agrawal: Right? So it is not
+
+920
+02:28:05.330 --> 02:28:11.799
+Moderator - Ankit Agrawal: easy to evaluate your model properly on just one iteration of the data set.
+
+921
+02:28:11.840 --> 02:28:19.209
+Moderator - Ankit Agrawal: So if we just split the data into multiple groups and train over an entire data set, we generalize better for you.
+
+922
+02:28:20.500 --> 02:28:23.840
+Moderator - Ankit Agrawal: So so that would be like an approach for it.
+
+923
+02:28:24.050 --> 02:28:33.359
+Moderator - Ankit Agrawal: Hopefully, that kind of clears up a little bit, if not feel free to ask that question again. Maybe the next session, or
+
+924
+02:28:33.756 --> 02:28:38.260
+Moderator - Ankit Agrawal: during mental learning session. Maybe that will be easier over there.
+
+925
+02:28:39.994 --> 02:28:45.939
+Moderator - Ankit Agrawal: Simple question. What is a good r square? What is a good Mse.
+
+926
+02:28:47.600 --> 02:28:48.160
+Moderator - Ankit Agrawal: not.
+
+927
+02:28:48.160 --> 02:28:52.380
+Mentor - Freeman Goja: The good R. Square would be one that would be perfect. Right? So
+
+928
+02:28:52.912 --> 02:28:56.790
+Mentor - Freeman Goja: that would be. That would be a good R. Squared. But
+
+929
+02:28:57.050 --> 02:28:58.110
+Mentor - Freeman Goja: I'll
+
+930
+02:28:58.700 --> 02:29:04.320
+Mentor - Freeman Goja: I mean it. It it's it's hard to achieve that in real life. And so
+
+931
+02:29:04.670 --> 02:29:09.050
+Mentor - Freeman Goja: generally, we want to get as close to one as possible.
+
+932
+02:29:09.290 --> 02:29:30.360
+Mentor - Freeman Goja: And it's really hard to tell you a particular number if it is no one, because sometimes you could try all possible fine tuning methods and improvements and a data, all the possible transformations and everything. And the best you can still get is maybe 0 point 7 or 70%
+
+933
+02:29:30.870 --> 02:29:41.610
+Mentor - Freeman Goja: in those kind of situations. From a practical standpoint, at least we would have. We would have identified some areas that needs to be improved. Maybe the data quality
+
+934
+02:29:41.660 --> 02:29:49.239
+Mentor - Freeman Goja: or some additional features of data that we would like to collect and train the model on.
+
+935
+02:29:49.380 --> 02:29:53.660
+Mentor - Freeman Goja: and then we can move forward with that kind of solution
+
+936
+02:29:54.210 --> 02:29:55.300
+Mentor - Freeman Goja: and
+
+937
+02:29:55.450 --> 02:30:11.660
+Mentor - Freeman Goja: provide the pathway for improving it in the future. So I've had situations where I had deployed models with less than 80% r squared, which is something that I would normally not want to do.
+
+938
+02:30:11.790 --> 02:30:17.260
+Mentor - Freeman Goja: but because we've tried every other possible thing, and that's the best that we could get.
+
+939
+02:30:17.350 --> 02:30:32.640
+Mentor - Freeman Goja: And we just form a strategy on improving that going forward. So wanna get it as close to one as possible. Usually, I like to get our squared. We are possible in the range of like 0 point 8 5 upwards. But
+
+940
+02:30:32.920 --> 02:30:41.379
+Mentor - Freeman Goja: I can't see that I'm very strict with that. I just the 1st thing I check is, have we taken every consideration into account to get this R squared. Better
+
+941
+02:30:41.420 --> 02:30:45.900
+Mentor - Freeman Goja: so if that question is answered, and this is still the best that we can get.
+
+942
+02:30:46.380 --> 02:30:50.000
+Mentor - Freeman Goja: then we can make a decision from that point.
+
+943
+02:30:50.360 --> 02:30:53.649
+Mentor - Freeman Goja: Mc. Is kind of relative. So
+
+944
+02:30:53.750 --> 02:30:58.969
+Mentor - Freeman Goja: you kind of want to tie it back to the skill of your
+
+945
+02:30:59.430 --> 02:31:01.029
+Mentor - Freeman Goja: target variable.
+
+946
+02:31:01.380 --> 02:31:03.229
+Mentor - Freeman Goja: So an Msc. Of
+
+947
+02:31:03.460 --> 02:31:05.370
+Mentor - Freeman Goja: 1,000, my son.
+
+948
+02:31:05.480 --> 02:31:08.280
+Mentor - Freeman Goja: huge versus an Msc. Of 10.
+
+949
+02:31:08.830 --> 02:31:13.009
+Mentor - Freeman Goja: But if the target variable is in millions.
+
+950
+02:31:13.820 --> 02:31:15.679
+Mentor - Freeman Goja: and you're getting 1,000
+
+951
+02:31:16.110 --> 02:31:24.359
+Mentor - Freeman Goja: and the the other situation. Your target variable is intense, and you're getting it. 10 to one of 10 is higher than the one of 1,000.
+
+952
+02:31:25.240 --> 02:31:29.529
+Mentor - Freeman Goja: So it's kind of like relative to the skill of your target, variable.
+
+953
+02:31:34.645 --> 02:31:47.779
+Moderator - Ankit Agrawal: Andre is asking, is there a minimum amount of data that we must have to be able to generate synthetic data? Obviously, it will depend on the case. But is it okay? A few 1,000 records.
+
+954
+02:31:49.690 --> 02:31:51.509
+Mentor - Freeman Goja: If that's all that's available.
+
+955
+02:31:51.530 --> 02:31:58.070
+Mentor - Freeman Goja: a few 1,000 is a good starting point. But if you have more, then you would definitely want to get more.
+
+956
+02:32:01.500 --> 02:32:02.430
+Prof. John Tsitsiklis: Even though.
+
+957
+02:32:02.540 --> 02:32:03.260
+Prof. John Tsitsiklis: But
+
+958
+02:32:05.240 --> 02:32:09.180
+Prof. John Tsitsiklis: but let's see, when you get more data
+
+959
+02:32:09.530 --> 02:32:21.999
+Prof. John Tsitsiklis: generally, your estimation will be more accurate. So let's say, with N equals 100. The distribution of Theta hat might be something like this. When N. Is a thousand.
+
+960
+02:32:22.030 --> 02:32:26.069
+Prof. John Tsitsiklis: your distribution of Theta hat could be that one.
+
+961
+02:32:27.140 --> 02:32:32.190
+Prof. John Tsitsiklis: So in even in the case of 100
+
+962
+02:32:34.708 --> 02:32:37.740
+Prof. John Tsitsiklis: Bootstrap will give you.
+
+963
+02:32:38.190 --> 02:32:39.100
+Prof. John Tsitsiklis: There
+
+964
+02:32:39.340 --> 02:32:41.800
+Prof. John Tsitsiklis: you'll get a decent
+
+965
+02:32:42.410 --> 02:32:50.190
+Prof. John Tsitsiklis: Bootstrap will often work well enough so that you do approximate this and get the right kind of histogram.
+
+966
+02:32:50.360 --> 02:32:56.620
+Prof. John Tsitsiklis: What matters a lot is how many repetitions you do in your bootstrap?
+
+967
+02:32:57.449 --> 02:33:03.140
+Prof. John Tsitsiklis: There, I would say that you definitely need a certain number to do it.
+
+968
+02:33:03.760 --> 02:33:11.469
+Prof. John Tsitsiklis: But in principle Bootstrap can be pretty close even for small N, for the data set.
+
+969
+02:33:13.090 --> 02:33:16.759
+Mentor - Freeman Goja: Alright! You just have to do more petitions.
+
+970
+02:33:18.900 --> 02:33:19.480
+Mentor - Freeman Goja: Yeah.
+
+971
+02:33:22.740 --> 02:33:23.620
+Moderator - Ankit Agrawal: 39,
+
+972
+02:33:26.440 --> 02:33:41.320
+Moderator - Ankit Agrawal: going back to the idea of hidden variables. How do we address this in real life? Like if we are given a data set that has a given number of parameters of variables. How can we think of additional variables that we need to consider.
+
+973
+02:33:41.640 --> 02:33:46.670
+Moderator - Ankit Agrawal: add, or collect to produce a better model. How do we address this practically.
+
+974
+02:33:48.130 --> 02:33:54.449
+Mentor - Freeman Goja: Good question. Subject matter. Expertise usually is very helpful
+
+975
+02:33:55.100 --> 02:33:57.160
+Mentor - Freeman Goja: in those kind of situations.
+
+976
+02:33:57.370 --> 02:34:02.269
+Mentor - Freeman Goja: and from a practical standpoint. You could
+
+977
+02:34:02.660 --> 02:34:17.119
+Mentor - Freeman Goja: you could get that information fairly easily if you take the right approach. What I find working you know very well in those kind of situations I have conversations with subject matter expert? And I ask them
+
+978
+02:34:17.150 --> 02:34:21.409
+Mentor - Freeman Goja: the question, sometimes I ask, like, Okay, what would you like to have?
+
+979
+02:34:21.750 --> 02:34:26.900
+Mentor - Freeman Goja: In addition to this? Or what would you do if you had?
+
+980
+02:34:28.210 --> 02:34:29.140
+Mentor - Freeman Goja: these
+
+981
+02:34:29.360 --> 02:34:37.549
+Mentor - Freeman Goja: Abcd. In place? How would you have considered them, or how would you have factored them into this decision-making process.
+
+982
+02:34:37.670 --> 02:34:44.430
+Mentor - Freeman Goja: and you start gauging some ideas of what they consider important that is not available.
+
+983
+02:34:44.580 --> 02:34:47.849
+Mentor - Freeman Goja: And so if we're building a model, let's say, for
+
+984
+02:34:47.860 --> 02:34:49.959
+Mentor - Freeman Goja: predicting house prices.
+
+985
+02:34:50.020 --> 02:34:52.519
+Mentor - Freeman Goja: And there are some data points
+
+986
+02:34:52.790 --> 02:34:55.570
+Mentor - Freeman Goja: like, maybe the
+
+987
+02:34:55.770 --> 02:34:58.760
+Mentor - Freeman Goja: square footage is not in the data.
+
+988
+02:34:59.210 --> 02:35:05.670
+Mentor - Freeman Goja: And then you're having a conversation with the subject matter expertise and the experts, and they are telling you
+
+989
+02:35:05.760 --> 02:35:10.810
+Mentor - Freeman Goja: that were some of the other important factors that could also.
+
+990
+02:35:11.260 --> 02:35:16.069
+Mentor - Freeman Goja: the timing house price is the square footage. But you don't have it in the data.
+
+991
+02:35:16.260 --> 02:35:22.739
+Mentor - Freeman Goja: And so you could, you know, straight away, start thinking. Well, I would love to have that in the data and see what it looks like
+
+992
+02:35:23.150 --> 02:35:32.480
+Mentor - Freeman Goja: that someone has an assumption. A hunch is a good starting point, but it's not definitive until you actually throw it in there and see what it looks like.
+
+993
+02:35:39.040 --> 02:35:53.990
+Moderator - Ankit Agrawal: one of the other questions we have is for my day to day use. Is there any package or libraries available so that I could, input the data set, and it will run all those individual methods until at the end, if the data is overfitted.
+
+994
+02:35:57.320 --> 02:36:01.565
+Mentor - Freeman Goja: There are a lot of packages, a lot of models
+
+995
+02:36:02.760 --> 02:36:06.880
+Mentor - Freeman Goja: Would I advise you to take that approach very early on no.
+
+996
+02:36:07.552 --> 02:36:12.620
+Mentor - Freeman Goja: I mean, there are some packages like pie carrots, for example.
+
+997
+02:36:12.680 --> 02:36:16.210
+Mentor - Freeman Goja: that could, you could throw in data. And you do build like
+
+998
+02:36:16.370 --> 02:36:24.689
+Mentor - Freeman Goja: many models for you. So you would. Do. You know all those like feature selection you would do encoding. It would do all of those data
+
+999
+02:36:24.890 --> 02:36:44.030
+Mentor - Freeman Goja: paying for data, pre processing steps for you, but you have no idea exactly what is doing in the back end, and so you don't have so much control. It will return an output, for, like several models for you, and even tell you the best performing model on the data set, you could take that and go to the market. But
+
+1000
+02:36:44.100 --> 02:36:48.539
+Mentor - Freeman Goja: if you wanted to optimize something, or you wanted to.
+
+1001
+02:36:48.600 --> 02:36:52.480
+Mentor - Freeman Goja: you know, implement any sort of improvements in there, you don't know
+
+1002
+02:36:52.610 --> 02:36:54.199
+Mentor - Freeman Goja: where to go to
+
+1003
+02:36:54.754 --> 02:36:58.310
+Mentor - Freeman Goja: because you don't have much control over it.
+
+1004
+02:36:58.470 --> 02:37:00.059
+Mentor - Freeman Goja: So good luck, cottageies
+
+1005
+02:37:00.250 --> 02:37:02.210
+Mentor - Freeman Goja: that will help you with those things.
+
+1006
+02:37:02.550 --> 02:37:07.250
+Mentor - Freeman Goja: But when you starting off as a deer scientist, I would say, you know.
+
+1007
+02:37:07.320 --> 02:37:09.110
+Mentor - Freeman Goja: try and do the dirty stuff
+
+1008
+02:37:10.600 --> 02:37:11.780
+Mentor - Freeman Goja: he has you
+
+1009
+02:37:11.790 --> 02:37:14.669
+Mentor - Freeman Goja: more than jumping on those solutions.
+
+1010
+02:37:16.860 --> 02:37:17.600
+Moderator - Ankit Agrawal: Yeah.
+
+1011
+02:37:19.600 --> 02:37:28.300
+Moderator - Ankit Agrawal: so one of the questions we have is, what if you have only 100 rows and 10 columns? If each fold is of size, 10.
+
+1012
+02:37:28.636 --> 02:37:29.309
+Prof. John Tsitsiklis: We just.
+
+1013
+02:37:29.310 --> 02:37:35.700
+Moderator - Ankit Agrawal: Is that too small is, should there be a minimum number of rows or ratio of rows to columns
+
+1014
+02:37:35.770 --> 02:37:38.719
+Moderator - Ankit Agrawal: when selecting the value of K in in
+
+1015
+02:37:39.010 --> 02:37:40.760
+Moderator - Ankit Agrawal: cross validation. Approach.
+
+1016
+02:37:51.020 --> 02:37:54.429
+Mentor - Freeman Goja: I saw profit in his head. He was trying to say something.
+
+1017
+02:37:54.430 --> 02:38:00.379
+Prof. John Tsitsiklis: Yeah, I I think that the ratio columns to rows. That is
+
+1018
+02:38:00.530 --> 02:38:04.759
+Prof. John Tsitsiklis: essentially how many data points you have per parameter
+
+1019
+02:38:05.130 --> 02:38:12.270
+Prof. John Tsitsiklis: that has to do with whether you have a hope to identify the model without overfitting.
+
+1020
+02:38:12.390 --> 02:38:39.160
+Prof. John Tsitsiklis: So in the old days the wisdom would be that you need at least 5 or 10 data records per unknown parameter to do anything that's even beginning to be decent, although with regularization you can afford to have lots and lots of parameters. And these days with deep neural networks, people even do what's called over parameterization.
+
+1021
+02:38:39.370 --> 02:38:46.120
+Prof. John Tsitsiklis: where you have more parameters in some sense more columns than you even have data.
+
+1022
+02:38:46.620 --> 02:38:52.440
+Prof. John Tsitsiklis: So that's 1 story with for the K. Fold. This issue doesn't really
+
+1023
+02:38:52.680 --> 02:38:53.960
+Prof. John Tsitsiklis: come in.
+
+1024
+02:38:57.930 --> 02:39:04.999
+Prof. John Tsitsiklis: I. I think that ratio is sort of independent of any considerations about K phone.
+
+1025
+02:39:05.280 --> 02:39:11.329
+Prof. John Tsitsiklis: The thing about K. Fold is that you just want each one of the folds not to be too small.
+
+1026
+02:39:12.080 --> 02:39:19.530
+Prof. John Tsitsiklis: Mean if the fault on which you're doing. Evaluation only has a few points. Then it's going to be very noisy.
+
+1027
+02:39:23.940 --> 02:39:24.839
+Moderator - Ankit Agrawal: I don't know.
+
+1028
+02:39:25.460 --> 02:39:33.270
+Moderator - Ankit Agrawal: I think, this is a good place. Okay? I see one final question, are you okay?
+
+1029
+02:39:33.953 --> 02:39:43.356
+Moderator - Ankit Agrawal: I can maybe answer this question later on. Okay, so I think we are out of time now. So this is a good place to stop. Thank you. Everybody for joining.
+
+1030
+02:39:44.133 --> 02:39:54.759
+Moderator - Ankit Agrawal: and we will see everybody on Friday where we'll talk about classification methods. So the other type of supervised learning methods than regression, which is called classification.
+
+1031
+02:39:54.790 --> 02:39:58.499
+Moderator - Ankit Agrawal: We'll spend time on Friday talking about that method.
+
+1032
+02:39:58.890 --> 02:40:03.020
+Moderator - Ankit Agrawal: So thank you so much, Professor, for the wonderful lecture. Thank you, Freeman, for.
+
+1033
+02:40:03.020 --> 02:40:03.700
+Prof. John Tsitsiklis: Well.
+
+1034
+02:40:03.700 --> 02:40:06.189
+Moderator - Ankit Agrawal: All the questions in such great detail.
+
+1035
+02:40:08.320 --> 02:40:11.580
+Mentor - Freeman Goja: Alright. Thank you, Professor. Thanks. And Kate, thank you. Everyone.
+
+1036
+02:40:12.230 --> 02:40:13.383
+Prof. John Tsitsiklis: You're frank.
+
+1037
+02:40:13.960 --> 02:40:14.360
+Moderator - Ankit Agrawal: Nice.
+
+1038
+02:40:14.360 --> 02:40:14.785
+Mentor - Freeman Goja: Right.
+
+1039
+02:40:16.950 --> 02:40:17.939
+Moderator - Ankit Agrawal: Yep, bye
+
+1040
+02:40:19.529 --> 02:40:28.809
+Moderator - Ankit Agrawal: question. Yes. I was mentioning that if if it is N by a matrix that n is the number of rows. And M is the number of columns.
+
+1041
+02:40:29.040 --> 02:40:32.689
+Moderator - Ankit Agrawal: That's how we define a matrix XN, by M.
+
+1042
+02:40:33.010 --> 02:40:39.239
+Moderator - Ankit Agrawal: So, yeah, n, is the number of rows. And M is the number of columns or the number of features.
+
+1043
+02:40:41.937 --> 02:40:47.750
+Moderator - Ankit Agrawal: Thank you so much. Everyone. Take care. And yeah, enjoy learning. Bye, bye.
+

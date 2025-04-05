@@ -1,0 +1,5394 @@
+[Moderator - Ankit Agrawal] 18:51:54
+Good morning uh! Good afternoon and good evening, everyone.
+
+[Moderator - Ankit Agrawal] 18:51:58
+Um. I hope I'm audible to you guys.
+
+[Moderator - Ankit Agrawal] 18:52:02
+Um.
+
+[Moderator - Ankit Agrawal] 18:52:04
+Can somebody confirm if I'm article.
+
+[Moderator - Ankit Agrawal] 18:52:06
+Okay. Great. Thank you.
+
+[Moderator - Ankit Agrawal] 18:52:09
+Um alright, so welcome everybody back to this course. Um, I hope you guys had a good 2 weeks of rest, and you have gone.
+
+[Moderator - Ankit Agrawal] 18:52:19
+Through the prelude material.
+
+[Moderator - Ankit Agrawal] 18:52:21
+Uh already, for for this week. Um! I'm still waiting for the Professor to join the call.
+
+[Moderator - Ankit Agrawal] 18:52:31
+Ah!
+
+[Moderator - Ankit Agrawal] 18:52:35
+Let's see.
+
+[Moderator - Ankit Agrawal] 18:52:38
+Okay, uh, let me get back uh follow up with what's going on.
+
+[Moderator - Ankit Agrawal] 18:53:33
+Alright. So I see that we are now joined with Professor Stephanie. Here. Uh! Good morning, Professor.
+
+[Moderator - Ankit Agrawal] 18:53:42
+Uh, I think you're muted, Professor. Uh, just.
+
+[Faculty (Olympus)] 18:53:47
+Okay. Good morning. Um, I have to. Just.
+
+[Moderator - Ankit Agrawal] 18:53:49
+Alright, great.
+
+[Faculty (Olympus)] 18:53:51
+Um bear with me log in with my other laptop, because.
+
+[Faculty (Olympus)] 18:53:56
+I'll have to try to.
+
+[Moderator - Ankit Agrawal] 18:53:59
+That's okay, is it? Okay? If I go ahead and uh introduce you. In the meantime.
+
+[Faculty (Olympus)] 18:54:05
+Yes.
+
+[Moderator - Ankit Agrawal] 18:54:06
+Okay. Great.
+
+[Moderator - Ankit Agrawal] 18:54:08
+Uh, so thank you for that. Uh. So we're today joined with Professor Stephanie. She's an associate professor at Mit uh Electrical uh Department uh, and a humble professor at Tu Munich uh at Mit. She's also a member of computer science and AI Labs Idss center for statistics and machine learning.
+
+[Moderator - Ankit Agrawal] 18:54:31
+Uh. She's also affiliated with the Operations Research Center at Mit.
+
+[Moderator - Ankit Agrawal] 18:54:35
+Uh before that she was a post in Amp Labs uh with the computer vision group at Uc. Berkeley, and she got her Phd. Uh. She was a Phd. Student at Max Planck Institute in tubing at Ethi.
+
+[Moderator - Ankit Agrawal] 18:54:50
+Her research includes algorithmic machine learning, modeling, optimization algorithms, optimization theory and applications. Uh, in particular, her research group has been working on exploring mathematical structures.
+
+[Moderator - Ankit Agrawal] 18:55:04
+For district and combinatorial machine learning problems, for robustness and for scaling machine learning algorithms. Um, I will put a link to her website uh her page in the chat.
+
+[Moderator - Ankit Agrawal] 18:55:16
+So if anybody is interested in looking at her research, you can go to the link and follow up a little bit more over there.
+
+[Moderator - Ankit Agrawal] 18:55:24
+Um. That being said, uh welcome, everybody um. Please remember that. Uh.
+
+[Moderator - Ankit Agrawal] 18:55:31
+You only put your questions in the chat section. We will be monitoring the chat section throughout this call.
+
+[Moderator - Ankit Agrawal] 18:55:37
+Uh, please do not raise your hand during the lecture. Uh, we cannot give you microphone access. Please do not put anything in the QA. Box. We are not moderating the QA. Box.
+
+[Moderator - Ankit Agrawal] 18:55:47
+Uh! With that being said, I will hand over the session to Professor, where we are going to start talking about deep learning this week.
+
+[Moderator - Ankit Agrawal] 18:55:54
+So very excited about this lectures. Professor.
+
+[Faculty (Olympus)] 18:55:59
+Ah, thank you very much for the introduction.
+
+[Faculty (Olympus)] 18:56:03
+And I'm happy to meet you all, and just shifting.
+
+[Faculty (Olympus)] 18:56:07
+Okay, my second computer here that I can actually see your uh comments in the chat as well.
+
+[Faculty (Olympus)] 18:56:12
+Um, which I think it's very important. If you have questions, please ask, and I'll try to answer them as well as I can.
+
+[Faculty (Olympus)] 18:56:21
+Okay, um, so today, uh, or actually.
+
+[Faculty (Olympus)] 18:56:25
+This week. Um, we'll be talking about deep learning.
+
+[Faculty (Olympus)] 18:56:32
+So it's obviously a very vast topic. And so today we'll take sort of the 1st steps in introducing what is in your network.
+
+[Faculty (Olympus)] 18:56:41
+And then.
+
+[Faculty (Olympus)] 18:56:43
+We'll go from there in the next um.
+
+[Faculty (Olympus)] 18:56:46
+If.
+
+[Faculty (Olympus)] 18:56:48
+2 lectures. After that we'll talk about some more specific architectures and specific problems.
+
+[Faculty (Olympus)] 18:56:54
+But today's lecture is kind of the foundation that the building block for understanding all of these other models.
+
+[Faculty (Olympus)] 18:57:04
+Alright um, so I guess you already have heard about who I am. Uh, so I don't really want to uh spend more time uh talking about that.
+
+[Faculty (Olympus)] 18:57:15
+But.
+
+[Faculty (Olympus)] 18:57:16
+Um. What I want to do is I want to um.
+
+[Faculty (Olympus)] 18:57:22
+Okay.
+
+[Faculty (Olympus)] 18:57:23
+Sorry.
+
+[Faculty (Olympus)] 18:57:32
+Managed.
+
+[Faculty (Olympus)] 18:57:34
+Okay, good uh. So now I can see the time, and I can see the chat. Alright. Um.
+
+[Faculty (Olympus)] 18:57:40
+Okay. So today we'll talk about fully connected neural networks, which is maybe the oldest form of a neural network.
+
+[Faculty (Olympus)] 18:57:46
+And we'll talk about, well, how do neural networks actually represent data? And that is very important, because.
+
+[Faculty (Olympus)] 18:57:53
+The main strength of neural networks lies in their ability to find good representations of data.
+
+[Faculty (Olympus)] 18:58:00
+And.
+
+[Faculty (Olympus)] 18:58:01
+Then we'll talk about, how do we actually train a neural network? So first, st what is an annual network do? And then we'll see. How do you actually find the correct parameters, the correct representation given an architecture.
+
+[Faculty (Olympus)] 18:58:12
+Then we'll go into an example, and that's probably gonna be in the very end.
+
+[Faculty (Olympus)] 18:58:18
+And.
+
+[Faculty (Olympus)] 18:58:19
+Um in lecture 2 and 3 we'll talk more about, as I said, specific architectures, that is, neural networks for images and neural networks for text and a lot of other data.
+
+[Faculty (Olympus)] 18:58:32
+So with that, let me actually start.
+
+[Faculty (Olympus)] 18:58:35
+Um.
+
+[Faculty (Olympus)] 18:58:38
+It's.
+
+[Faculty (Olympus)] 18:58:39
+Always.
+
+[Faculty (Olympus)] 18:58:40
+Okay. Good. Um, alright. So I hope you can see this.
+
+[Faculty (Olympus)] 18:58:45
+Correctly, now.
+
+[Faculty (Olympus)] 18:58:48
+This is my.
+
+[Faculty (Olympus)] 18:58:51
+Computers, making some.
+
+[Faculty (Olympus)] 18:58:53
+Trouble. But anyways.
+
+[Faculty (Olympus)] 18:58:54
+Okay? So I think this works. Okay. So um, what I want to really start with is the bigger picture uh of why, on your networks important? Um, so how did they become important? And why now.
+
+[Faculty (Olympus)] 18:59:08
+And one uh. Well, one reason is that as we have more and more data in machine learning methods have become better and better.
+
+[Faculty (Olympus)] 18:59:17
+We want we get, we're getting more demanding. We really want to make predictions from all sorts of different data.
+
+[Faculty (Olympus)] 18:59:24
+And we want to make all sorts of.
+
+[Faculty (Olympus)] 18:59:26
+Predictions, very complicated ones.
+
+[Faculty (Olympus)] 18:59:29
+And now the problem is, there's all these different types of data, and they come in the form of images or videos, or maybe text.
+
+[Faculty (Olympus)] 18:59:37
+Or maybe graphs or Time Series or other things.
+
+[Faculty (Olympus)] 18:59:41
+Or molecules. In this picture.
+
+[Faculty (Olympus)] 18:59:43
+How do we even encode such data to be learning with such data? This is not a vector this is all sorts of other things? How do we actually encode this.
+
+[Faculty (Olympus)] 18:59:53
+And that's when your networks shine.
+
+[Faculty (Olympus)] 18:59:56
+And so they really help us to work with all sorts of different data. And then, given that, we have a lot of data, it actually.
+
+[Faculty (Olympus)] 19:00:04
+Really makes them work.
+
+[Faculty (Olympus)] 19:00:07
+So how can we think about this? And there, this is a picture that I want to get back to through my lecture.
+
+[Faculty (Olympus)] 19:00:16
+So this is the idea that we can encode data as feature.
+
+[Faculty (Olympus)] 19:00:20
+And so once we have a feature vector that encodes the data, the rest is really just.
+
+[Faculty (Olympus)] 19:00:27
+A classification problem. As you have seen in the 1st lectures on machine learning methods.
+
+[Faculty (Olympus)] 19:00:33
+This is like a linear regression or a linear classification or some other thing where we have a vector our data point is a vector, and we are predicting. So this is kind of I'll call this the classification part.
+
+[Faculty (Olympus)] 19:00:44
+And this one is the encoding part, or the embedding part.
+
+[Faculty (Olympus)] 19:00:48
+Or representation, learning.
+
+[Faculty (Olympus)] 19:00:51
+So here we have some data point or an image, and we have to encode it as a vector we have text, we have to encode it as a vector or a graph like a molecule or something like that.
+
+[Faculty (Olympus)] 19:01:03
+So this 1st part.
+
+[Faculty (Olympus)] 19:01:06
+Is when neural networks shine.
+
+[Faculty (Olympus)] 19:01:10
+And.
+
+[Faculty (Olympus)] 19:01:11
+In fact.
+
+[Faculty (Olympus)] 19:01:13
+Finding a good encoding.
+
+[Faculty (Olympus)] 19:01:15
+In a vector is nothing new. So that we actually think about it. So this is a slide that.
+
+[Faculty (Olympus)] 19:01:20
+Uh professor status used to use.
+
+[Faculty (Olympus)] 19:01:23
+And it's about well, what, how? You can make a linear, a nonlinear classifier from a linear classifier. You may have seen um.
+
+[Faculty (Olympus)] 19:01:31
+This method.
+
+[Faculty (Olympus)] 19:01:33
+And basically, the idea is that well, maybe I know that what I want is a classifier. That's a quadratic classifier. So what I'll do is I'll.
+
+[Faculty (Olympus)] 19:01:43
+Re encode my data. So my data in here is in 2D, so it has.
+
+[Faculty (Olympus)] 19:01:48
+Coordinates x. 1 and x 2.
+
+[Faculty (Olympus)] 19:01:51
+And.
+
+[Faculty (Olympus)] 19:01:53
+Uh. What we want is we want a nonlinear classifier that looks like this.
+
+[Faculty (Olympus)] 19:01:57
+With some coefficients. Theta there that we'll be learning.
+
+[Faculty (Olympus)] 19:02:02
+So what we'll do is we'll make a new feature vector, for the data point. So the original one was just x 1 and x 2.
+
+[Faculty (Olympus)] 19:02:08
+And now we'll have. We'll add this product of the 2.
+
+[Faculty (Olympus)] 19:02:13
+1st 2 coordinates.
+
+[Faculty (Olympus)] 19:02:14
+And then we make a linear classifier on this new representation.
+
+[Faculty (Olympus)] 19:02:19
+And if we do this, then we get a nonlinear classifier.
+
+[Faculty (Olympus)] 19:02:23
+So you can actually get nonlinear classifiers.
+
+[Faculty (Olympus)] 19:02:27
+From.
+
+[Faculty (Olympus)] 19:02:28
+By just knowing how to do linear classification.
+
+[Faculty (Olympus)] 19:02:32
+But the crack series. We have to know what we want. We have to come up with this encoding.
+
+[Faculty (Olympus)] 19:02:40
+And.
+
+[Faculty (Olympus)] 19:02:42
+The question is, now, if I go back to my example of the image, or of the graph, or text, or anything.
+
+[Faculty (Olympus)] 19:02:48
+What is a good encoding of that data.
+
+[Faculty (Olympus)] 19:02:52
+So.
+
+[Faculty (Olympus)] 19:02:53
+This is not at all obvious, and people have thought about this even before the times of Neon's people have thought about this for a long time.
+
+[Faculty (Olympus)] 19:03:02
+So.
+
+[Faculty (Olympus)] 19:03:06
+It's not easy. And the idea of neural networks is that, why don't we just learn this representation from data.
+
+[Faculty (Olympus)] 19:03:13
+So we have this data, and we want this encoding. And instead of doing it from hand, because it's not exactly clear.
+
+[Faculty (Olympus)] 19:03:20
+What is the thing that we want to extract from images that will be useful as a description.
+
+[Faculty (Olympus)] 19:03:27
+For.
+
+[Faculty (Olympus)] 19:03:27
+Like predicting what kind of object is in the image, what animal or so.
+
+[Faculty (Olympus)] 19:03:33
+So the idea of neural networks is, we'll just learn it from the data.
+
+[Faculty (Olympus)] 19:03:37
+But then this is a bit of a chicken and egg problem, because if I have a good encoding, then well, I can just learn as a simple classifier very easily.
+
+[Faculty (Olympus)] 19:03:45
+If I have to classifier, then I know what encoding is good.
+
+[Faculty (Olympus)] 19:03:51
+But what comes first.st So here we'll actually learn everything jointly. And that's what the neural network is doing. So these 2 parts essentially are just 2 different.
+
+[Faculty (Olympus)] 19:04:01
+Parts of the neural network. The 1st layers and the last layers.
+
+[Faculty (Olympus)] 19:04:04
+And when we talk about the different architectures.
+
+[Faculty (Olympus)] 19:04:07
+On Thursday, and on Friday I'll point out these parts of the neural networks for you.
+
+[Faculty (Olympus)] 19:04:13
+So we'll get back to this picture again and again.
+
+[Faculty (Olympus)] 19:04:17
+And now the idea is that for this encoder part.
+
+[Faculty (Olympus)] 19:04:22
+We can have specialized encoders for different types of data.
+
+[Faculty (Olympus)] 19:04:26
+So we'll have something for images. We'll have something for a text for graphs, etc.
+
+[Faculty (Olympus)] 19:04:33
+And.
+
+[Faculty (Olympus)] 19:04:34
+Then we can plug in play. Essentially. So we can put these together, we can combine them. We can do many different things with them. So it's a bit like um sort of flexible pieces that we can work with here.
+
+[Faculty (Olympus)] 19:04:46
+And we'll talk about these specialized architectures a bit.
+
+[Faculty (Olympus)] 19:04:51
+Um. What we learn today is kind of the main building block of these architectures, and the main ideas.
+
+[Faculty (Olympus)] 19:04:59
+So.
+
+[Faculty (Olympus)] 19:05:01
+There's a few other reasons, sort of, for the success of deep learning is, as I mentioned, we have lots of data.
+
+[Faculty (Olympus)] 19:05:08
+And many problems really can be solved only at scale, because you have to extract the signal from this complicated data and to be able to extract that signal. And essentially those correlations. You need enough data.
+
+[Faculty (Olympus)] 19:05:21
+You also need enough data to learn in your network, because that representation, learning part that we have in the beginning, that's actually the thing. That's very data. Hungry.
+
+[Faculty (Olympus)] 19:05:32
+That's very intense.
+
+[Faculty (Olympus)] 19:05:35
+Then, second, that we have the computational resources to even support running.
+
+[Faculty (Olympus)] 19:05:40
+Uh! Such.
+
+[Faculty (Olympus)] 19:05:41
+Big models on big data at scale.
+
+[Faculty (Olympus)] 19:05:44
+So a lot of modern machine learning is also Ben has benefited a lot or is due to systems research that we actually have good scalable systems.
+
+[Faculty (Olympus)] 19:05:57
+Another factor is that if we make the model Slider they tend to be easier to train, which is not exactly intuitive. But I try to give you some intuition. Um, as we go along today.
+
+[Faculty (Olympus)] 19:06:10
+And finally, as I said once, we have these different types of neural networks for different types of data, we can plug them together.
+
+[Faculty (Olympus)] 19:06:17
+We can now combine text and images, for instance, and call from text to image and back. You'll see an examples of this. Uh, probably.
+
+[Faculty (Olympus)] 19:06:26
+And so on and so forth. So this allows us now to actually be a bit flexible and kind of tinker with it a little bit.
+
+[Faculty (Olympus)] 19:06:38
+Okay. So this was all for my little introduction. Now I want to go on and talk about.
+
+[Faculty (Olympus)] 19:06:45
+Well.
+
+[Faculty (Olympus)] 19:06:46
+What does a neural network actually do? How does it represent data? So what goes into this magical feature? Vector that comes out of the 1st part of that neural network.
+
+[Faculty (Olympus)] 19:06:57
+And for that, let's 1st have a look how sort of the most standard.
+
+[Faculty (Olympus)] 19:07:03
+Plastic neural network looks like.
+
+[Faculty (Olympus)] 19:07:06
+So here you see these circles, so you can think of each circle as a little computational unit.
+
+[Faculty (Olympus)] 19:07:13
+That spits out one number.
+
+[Faculty (Olympus)] 19:07:15
+One, scalar, number.
+
+[Faculty (Olympus)] 19:07:17
+As a result of its computation. So it gets as input a bunch of numbers. That's what these arrows.
+
+[Faculty (Olympus)] 19:07:24
+Indicate, and then it outputs a number. It sends it.
+
+[Faculty (Olympus)] 19:07:27
+To other units.
+
+[Faculty (Olympus)] 19:07:28
+Now, these units, these circles, I'll call them units on neurons like in a in the real brain.
+
+[Faculty (Olympus)] 19:07:35
+Um.
+
+[Faculty (Olympus)] 19:07:37
+They are organized in layers. So the 1st layer here actually is not computational unit. These are just the Co input coordinates.
+
+[Faculty (Olympus)] 19:07:46
+Of my input. Vector, so for the moment, for today, we will assume that the input data point is actually a vector and not an image or something. We are generalized to images and other things. Later in the week.
+
+[Faculty (Olympus)] 19:07:57
+So for the moment, this is a vector so vector has a bunch of coordinates. So each coordinate here is depicted by a circle.
+
+[Faculty (Olympus)] 19:08:05
+So, for instance, in this example, maybe these are medical uh measurements of a patient. So maybe we've measured whether they have fevers. Or maybe that's the temperature. This is like whether they have stomach ache, whether they have what amount of pain they have, and so on and so forth. Maybe blood pressure, and so on.
+
+[Faculty (Olympus)] 19:08:24
+And so this feature, this input vector goes into the neural network.
+
+[Faculty (Olympus)] 19:08:29
+And now these hidden layers, so they are called hidden, because we don't really observe what they are doing. We only observe the output of the neural network. We observe the input and the output. And what's in there is kind of a black box.
+
+[Faculty (Olympus)] 19:08:43
+But what happens in this black box is that your units are arranged in layers.
+
+[Faculty (Olympus)] 19:08:49
+And each unit gets as input.
+
+[Faculty (Olympus)] 19:08:54
+Um.
+
+[Faculty (Olympus)] 19:08:56
+Signal from all of the units in the previous layer.
+
+[Faculty (Olympus)] 19:08:59
+So you see, there's connections from one layer to the next.
+
+[Faculty (Olympus)] 19:09:04
+But no other connections. So these are not interconnected, and there's no backward connection, and so on. And because there's no backward loop, these are called feedforward. Neural networks.
+
+[Faculty (Olympus)] 19:09:13
+And because every layer is connected.
+
+[Faculty (Olympus)] 19:09:18
+With fully connected with the next layer. So each unit fits into all next units, and it gets input from all the units.
+
+[Faculty (Olympus)] 19:09:24
+This is also called a fully.
+
+[Faculty (Olympus)] 19:09:28
+Connected.
+
+[Faculty (Olympus)] 19:09:32
+Neural network.
+
+[Faculty (Olympus)] 19:09:35
+You may also sometimes.
+
+[Faculty (Olympus)] 19:09:36
+He adapt, or it's also called in multi-layer perceptron, Mlp.
+
+[Faculty (Olympus)] 19:09:41
+So these are kind of what these neural networks are referred to.
+
+[Faculty (Olympus)] 19:09:46
+So we have these hidden layers. And then what's this is the output unit. So in this case, this neural network just makes a classification. This patient has the flu or doesn't have the flu.
+
+[Faculty (Olympus)] 19:09:59
+Or maybe it outputs a probability.
+
+[Faculty (Olympus)] 19:10:02
+A confidence that this patient has the flu or not.
+
+[Faculty (Olympus)] 19:10:05
+So that's what comes out of the output layer. So this part here, this part is almost separate.
+
+[Faculty (Olympus)] 19:10:13
+And this part here is usually just.
+
+[Faculty (Olympus)] 19:10:16
+A normal linear classifier or a normal linear regression model, depending on what you want to predict.
+
+[Faculty (Olympus)] 19:10:23
+So this part here, you can really think of it as a linear classifier.
+
+[Faculty (Olympus)] 19:10:31
+Or linear regression.
+
+[Faculty (Olympus)] 19:10:35
+Just the last layer.
+
+[Faculty (Olympus)] 19:10:36
+So this one is always a little bit.
+
+[Faculty (Olympus)] 19:10:40
+Different from the rest.
+
+[Faculty (Olympus)] 19:10:42
+That's all. Now, what we're interested in.
+
+[Faculty (Olympus)] 19:10:45
+Is. Ca, mostly like, what is this.
+
+[Faculty (Olympus)] 19:10:47
+So these parts. Here is a linear regression or logistic regression. That's the logistic classifier. Something like that.
+
+[Faculty (Olympus)] 19:10:54
+But what is happening in here. So now we'll try to understand what's happening in this hidden layers.
+
+[Faculty (Olympus)] 19:11:00
+Because what these hidden layers do is they form a new vector that comes out. So each of these outputs and numbers. Or putting these numbers together, you get a vector.
+
+[Faculty (Olympus)] 19:11:10
+That vector is the input.
+
+[Faculty (Olympus)] 19:11:12
+To that classifier.
+
+[Faculty (Olympus)] 19:11:13
+That comes afterwards.
+
+[Faculty (Olympus)] 19:11:16
+So the question is, what is, what information is in this? What does this neural network do? How does it transform the data.
+
+[Faculty (Olympus)] 19:11:24
+Um.
+
+[Faculty (Olympus)] 19:11:27
+So what I want to do is I want to.
+
+[Faculty (Olympus)] 19:11:31
+First.st
+
+[Faculty (Olympus)] 19:11:32
+Go through this with you for one unit.
+
+[Faculty (Olympus)] 19:11:34
+What does one unit do.
+
+[Faculty (Olympus)] 19:11:36
+And then, once we have understood one unit, we'll put them in parallel.
+
+[Faculty (Olympus)] 19:11:40
+And then understand what kind of one layer does, and what the effect of the width of the layer is.
+
+[Faculty (Olympus)] 19:11:47
+And then the depth. So that brings me to 2 other important concepts. So the number of.
+
+[Faculty (Olympus)] 19:11:56
+Neurons.
+
+[Faculty (Olympus)] 19:11:57
+In one layer is called the width.
+
+[Faculty (Olympus)] 19:12:01
+And the number of layers.
+
+[Faculty (Olympus)] 19:12:04
+Is called the depth.
+
+[Faculty (Olympus)] 19:12:06
+Of the neural network.
+
+[Faculty (Olympus)] 19:12:07
+So there's a width and a depth, and that tells you somewhat.
+
+[Faculty (Olympus)] 19:12:11
+How large is this neural network.
+
+[Faculty (Olympus)] 19:12:19
+So I see one question in the chat. Um, do we have to restrict ourselves to one output unit? No, you can actually have more so if you do multi classification, and I'll show you that later.
+
+[Faculty (Olympus)] 19:12:34
+You'll actually have more than one output unit.
+
+[Faculty (Olympus)] 19:12:37
+They are just all take input from the same vector, so it looks a bit more like.
+
+[Faculty (Olympus)] 19:12:42
+This layer, then essentially.
+
+[Faculty (Olympus)] 19:12:46
+Okay. So now let's go into detail about.
+
+[Faculty (Olympus)] 19:12:51
+What does this unit do? So I just chose this randomly to show you, and let's for the moment stick with this example of the patient and the medical signals.
+
+[Faculty (Olympus)] 19:13:02
+So what does this unit do?
+
+[Faculty (Olympus)] 19:13:04
+So this unit actually takes a weighted sum of its inputs. Remember, each of these circles essentially mean one number. This is usually a continuous number. It could be discrete, it could be binary. But usually this is just some.
+
+[Faculty (Olympus)] 19:13:20
+Real Number.
+
+[Faculty (Olympus)] 19:13:21
+So any kind of fractional thing.
+
+[Faculty (Olympus)] 19:13:24
+So it takes a weighted combination, awaited some of its inputs.
+
+[Faculty (Olympus)] 19:13:30
+And.
+
+[Faculty (Olympus)] 19:13:32
+You could think of this a little bit as.
+
+[Faculty (Olympus)] 19:13:35
+Summing up evidence. So if you think about it, maybe we want to.
+
+[Faculty (Olympus)] 19:13:40
+Uh determine whether that patient is likely to have the flu. So we'll kind of.
+
+[Faculty (Olympus)] 19:13:46
+Select a few of the inputs.
+
+[Faculty (Olympus)] 19:13:49
+That are symptoms, maybe for the flu.
+
+[Faculty (Olympus)] 19:13:51
+So those will have high weight.
+
+[Faculty (Olympus)] 19:13:53
+And then.
+
+[Faculty (Olympus)] 19:13:55
+We compare this to a threshold.
+
+[Faculty (Olympus)] 19:13:57
+So basically, is there enough evidence. So this is actually a little bit also mimicking real neural networks where a neuron gets input from other neurons.
+
+[Faculty (Olympus)] 19:14:07
+And once there's enough input, it gets activated and it fires.
+
+[Faculty (Olympus)] 19:14:12
+So this is a little bit mimicking. That process here.
+
+[Faculty (Olympus)] 19:14:16
+So what we, what we'll do is we'll compare this weighted sum that is just in mathematical terms. It's an inner product.
+
+[Faculty (Olympus)] 19:14:23
+Between a vector of weights and your input vector. And we compare that score to a threshold. So this thing we also call the activation score.
+
+[Faculty (Olympus)] 19:14:37
+And then we compare it to a threshold.
+
+[Faculty (Olympus)] 19:14:39
+And if the score is high enough.
+
+[Faculty (Olympus)] 19:14:42
+Will.
+
+[Faculty (Olympus)] 19:14:43
+Determined that this neuron fire, so it will send off.
+
+[Faculty (Olympus)] 19:14:48
+Signal, which in this case is just the one and otherwise 0.
+
+[Faculty (Olympus)] 19:14:52
+And now.
+
+[Faculty (Olympus)] 19:14:55
+And that threshold and those weights. That's what we'll actually learn. So the threshold and the weights is what we learn.
+
+[Faculty (Olympus)] 19:15:02
+Now, what I wrote down here in this blue box is equivalent to what I wrote up there with a step, one, and step 2. So what this says is that your.
+
+[Faculty (Olympus)] 19:15:13
+3. This is the actually, the pre activation score.
+
+[Faculty (Olympus)] 19:15:15
+This one here. It has this offset term.
+
+[Faculty (Olympus)] 19:15:23
+This one here is kind of.
+
+[Faculty (Olympus)] 19:15:25
+Sort of that.
+
+[Faculty (Olympus)] 19:15:27
+Um, and what we'll do is we'll combine the threshold with a weighted sum, and then we'll just combine. See whether that is bigger or smaller than 0.
+
+[Faculty (Olympus)] 19:15:35
+And the reasoning is that I could either be bigger than 5, or I subtract 5.
+
+[Faculty (Olympus)] 19:15:41
+From my score, and then I should be bigger than 0. It's the same thing.
+
+[Faculty (Olympus)] 19:15:45
+So that's what this thing is doing. So this offset term and the weights, that's what we will be learning and how exactly we'll set that. That's what I'll tell you. In a second half of the lecture.
+
+[Faculty (Olympus)] 19:15:57
+So.
+
+[Faculty (Olympus)] 19:15:58
+Okay. So what we'll have now is.
+
+[Faculty (Olympus)] 19:15:59
+We'll have this pre activation score and we'll send it to a little function. F.
+
+[Faculty (Olympus)] 19:16:04
+Which is usually called the activation function.
+
+[Faculty (Olympus)] 19:16:13
+And that determines whether we are active or not. So this is a C.
+
+[Faculty (Olympus)] 19:16:17
+Function.
+
+[Faculty (Olympus)] 19:16:19
+Um.
+
+[Faculty (Olympus)] 19:16:23
+That's essentially what this little unit is doing.
+
+[Faculty (Olympus)] 19:16:28
+Now, if you think about this, if you look at it, it does a linear function of its input, vector.
+
+[Faculty (Olympus)] 19:16:35
+And then it just compares that to a threshold.
+
+[Faculty (Olympus)] 19:16:39
+Let's say, threshold bigger or smaller than 0.
+
+[Faculty (Olympus)] 19:16:45
+That's actually.
+
+[Faculty (Olympus)] 19:16:48
+Just a linear classifier. That's just what a linear classifier is doing.
+
+[Faculty (Olympus)] 19:16:53
+You basically have this weight vector of coefficient. And you determine whether your data, the score for your data point is bigger or smaller than.
+
+[Faculty (Olympus)] 19:17:04
+0. Which did basically tells you on which side of that hyperplane it's like.
+
+[Faculty (Olympus)] 19:17:08
+So this is actually just a linear classifier.
+
+[Faculty (Olympus)] 19:17:11
+So you can think of one unit. And in your network, just as a linear classifier, which is quite interesting.
+
+[Faculty (Olympus)] 19:17:19
+Um.
+
+[Faculty (Olympus)] 19:17:21
+Okay, I see a few questions. There's some confusion about what is this score? What is this offset term?
+
+[Faculty (Olympus)] 19:17:28
+So what you basically have is.
+
+[Faculty (Olympus)] 19:17:30
+You take this.
+
+[Faculty (Olympus)] 19:17:32
+Linear combination of its inputs. And I'll show you an actual numerical example on the next slide.
+
+[Faculty (Olympus)] 19:17:37
+And then you add some bias term.
+
+[Faculty (Olympus)] 19:17:41
+And then you come that.
+
+[Faculty (Olympus)] 19:17:44
+That entire thing is called the Activation Score. That's a linear score.
+
+[Faculty (Olympus)] 19:17:49
+It's just a way you can think of it just as the weighted sum of your input.
+
+[Faculty (Olympus)] 19:17:55
+The role of the offset of the ordered bias term here is just to see like, how harsh is it hard is it.
+
+[Faculty (Olympus)] 19:18:02
+To be above 0. If this thing is very high, then this is a very loose criterion. If B is a very is a negative number. Then you have to really have a high score to reach above 0. That's essentially what B is doing.
+
+[Faculty (Olympus)] 19:18:15
+It tells you a little bit what your actual threshold is.
+
+[Faculty (Olympus)] 19:18:19
+So.
+
+[Faculty (Olympus)] 19:18:21
+Okay, so this is the pre activation score. And then you sent that activation score through a nonlinear function which is the activation function.
+
+[Faculty (Olympus)] 19:18:29
+And that determines whether that score is high enough, essentially.
+
+[Faculty (Olympus)] 19:18:38
+Okay.
+
+[Faculty (Olympus)] 19:18:39
+Um. So I see another question. B is not an error term B is really just determining your threshold.
+
+[Faculty (Olympus)] 19:18:47
+How hard is it to be above 0.
+
+[Faculty (Olympus)] 19:18:51
+So let me actually show you this.
+
+[Faculty (Olympus)] 19:18:54
+In.
+
+[Faculty (Olympus)] 19:18:56
+A simple example.
+
+[Faculty (Olympus)] 19:18:58
+So here, what we have is this is just our unit here. And now I just go back to this.
+
+[Faculty (Olympus)] 19:19:05
+Example of the patient. So here we have simple, binary features, and we want to determine whether that patient has the flu.
+
+[Faculty (Olympus)] 19:19:12
+So they could have rashes. They could have fever or a cuff.
+
+[Faculty (Olympus)] 19:19:17
+And.
+
+[Faculty (Olympus)] 19:19:18
+Now, what we'll try to do is we'll try to find essentially.
+
+[Faculty (Olympus)] 19:19:22
+Rule that is like basically works with our pre activation score.
+
+[Faculty (Olympus)] 19:19:26
+So what's the preactivation here? It's weight one times.
+
+[Faculty (Olympus)] 19:19:32
+Whether the patient has rashes or not. So that's x 1, which is 0 or one way 2 times x 2 plus 3 times x 3.
+
+[Faculty (Olympus)] 19:19:42
+Plus that.
+
+[Faculty (Olympus)] 19:19:44
+Offset or bias term, which is now on the right hand side, currently.
+
+[Faculty (Olympus)] 19:19:48
+So now, what would you do? Well, you think about it? Well, what are symptoms of the flu.
+
+[Faculty (Olympus)] 19:19:55
+Rashes not really fever. Yes, cough, yes.
+
+[Faculty (Olympus)] 19:20:00
+So.
+
+[Faculty (Olympus)] 19:20:02
+Maybe rashes.
+
+[Faculty (Olympus)] 19:20:04
+Should get a very low rate.
+
+[Faculty (Olympus)] 19:20:06
+And maybe fever and calf should get high weight.
+
+[Faculty (Olympus)] 19:20:09
+Because if I have rashes it shouldn't increase my probability of having.
+
+[Faculty (Olympus)] 19:20:13
+The flow versus these 2.
+
+[Faculty (Olympus)] 19:20:17
+And then I have. And then, basically, I'll compare whether I'm exceeding some threshold. So here I put the threshold randomly at 5.
+
+[Faculty (Olympus)] 19:20:26
+It's a bit arbitrary.
+
+[Faculty (Olympus)] 19:20:27
+So now here is, for instance, here's 1 way I could set the weight. So here I set them by hand just for this example. Usually those weights are learned, and the offset term is also learned.
+
+[Faculty (Olympus)] 19:20:39
+So here rashes, gets.
+
+[Faculty (Olympus)] 19:20:42
+A minus one. Then fever and path. I gave them high, positive scores.
+
+[Faculty (Olympus)] 19:20:46
+So now I've come. If there comes a patient which has no rashes but calf, so this would be a.
+
+[Faculty (Olympus)] 19:20:54
+0, a 1 and a 1.
+
+[Faculty (Olympus)] 19:20:57
+Well, you would basically get here.
+
+[Faculty (Olympus)] 19:21:00
+0 plus 3 plus 3, and that is 6, and that is bigger than 5. So you would, your neuron would fire. You would detect that that person is likely to have the flu.
+
+[Faculty (Olympus)] 19:21:10
+What would happen if that person also has rashes. So I get 1 1.
+
+[Faculty (Olympus)] 19:21:16
+Where, then you get a score of 5 because you have the minus one. Here.
+
+[Faculty (Olympus)] 19:21:20
+Then you're really at the boundary.
+
+[Faculty (Olympus)] 19:21:23
+And if I don't have fever, so I have 1 0 1. For instance, then I have minus one.
+
+[Faculty (Olympus)] 19:21:31
+Plus 3, which is 2, and I'm very have very low score. I'm not above 5. I'm not likely to have.
+
+[Faculty (Olympus)] 19:21:38
+The flu, or maybe I left something else.
+
+[Faculty (Olympus)] 19:21:40
+This is, of course, a toy example, and I'm not a doctor, so don't take this actually um as is. But it's just to illustrate to you what is how, basically what the processing is here.
+
+[Faculty (Olympus)] 19:21:53
+And what you can basically think of this is.
+
+[Faculty (Olympus)] 19:21:57
+That each of these input coordinates is like a piece of possible piece of evidence, or also evidence for or against whatever decision you want to make. And so you wait those pieces of evidence and the weights.
+
+[Faculty (Olympus)] 19:22:11
+Are um the weights that you have here.
+
+[Faculty (Olympus)] 19:22:17
+Okay. Um.
+
+[Faculty (Olympus)] 19:22:19
+So again these weights and this threshold.
+
+[Faculty (Olympus)] 19:22:24
+If they are actually learned. So the threshold here is.
+
+[Faculty (Olympus)] 19:22:27
+Minus b. So you have.
+
+[Faculty (Olympus)] 19:22:29
+W transpose X is bigger than minus b, which is the same as W transpose x plus b.
+
+[Faculty (Olympus)] 19:22:36
+It's bigger than 0.
+
+[Faculty (Olympus)] 19:22:39
+That's essentially what I did here.
+
+[Faculty (Olympus)] 19:22:44
+Okay.
+
+[Faculty (Olympus)] 19:22:45
+And those weights are learned.
+
+[Faculty (Olympus)] 19:22:49
+So, okay, so now, we have kind of the most hopefully, the most basic intuition.
+
+[Faculty (Olympus)] 19:22:55
+For what this is doing is summing up some kind of pieces of evidence.
+
+[Faculty (Olympus)] 19:23:01
+And then you'll determine whether that pre activation score is high enough.
+
+[Faculty (Olympus)] 19:23:05
+So now with that.
+
+[Faculty (Olympus)] 19:23:08
+Way that we are processing the activation score is very intuitive. It's kind of like a natural neural networks that the neuron fires or doesn't fire.
+
+[Faculty (Olympus)] 19:23:19
+But it's not actually all that practical.
+
+[Faculty (Olympus)] 19:23:23
+When you want to do this on a computer with numerics.
+
+[Faculty (Olympus)] 19:23:26
+And the reason is that later.
+
+[Faculty (Olympus)] 19:23:29
+When we learn.
+
+[Faculty (Olympus)] 19:23:31
+Those.
+
+[Faculty (Olympus)] 19:23:33
+What we'll need is we'll need to determine whether we should increase or decrease those rates.
+
+[Faculty (Olympus)] 19:23:37
+To get a better prediction.
+
+[Faculty (Olympus)] 19:23:40
+And what will? Their need is something called gradients. And so basically, this big jump in our activation function.
+
+[Faculty (Olympus)] 19:23:49
+Is not good when I'm here. With my reactivation, I don't know that if I would increase it just a little by changing the weight a little, I would suddenly jump to one.
+
+[Faculty (Olympus)] 19:23:58
+There's this is all flat. I don't know.
+
+[Faculty (Olympus)] 19:24:01
+So what instead, we are doing so basically, the.
+
+[Faculty (Olympus)] 19:24:05
+Basic thing is.
+
+[Faculty (Olympus)] 19:24:05
+This.
+
+[Faculty (Olympus)] 19:24:07
+Staircasing. This jump is not good, is not useful for learning.
+
+[Faculty (Olympus)] 19:24:12
+So what we'll do instead is we're trying some kind of smoother approximation of this step function.
+
+[Faculty (Olympus)] 19:24:19
+And that's what we'll actually use instead.
+
+[Faculty (Olympus)] 19:24:22
+So here are some examples, and there's many more in the literature, but they all kind of have some shape similar to this.
+
+[Faculty (Olympus)] 19:24:32
+Um, so he, this one is the sigmoid activation function.
+
+[Faculty (Olympus)] 19:24:36
+It has.
+
+[Faculty (Olympus)] 19:24:39
+It, it goes between 0 and one also. So it's really just like a smooth approximation of this step.
+
+[Faculty (Olympus)] 19:24:45
+And it can have different steepness.
+
+[Faculty (Olympus)] 19:24:47
+This is the formula what it looks like, but that's essentially just. Look at the form, the shape.
+
+[Faculty (Olympus)] 19:24:53
+Then we have something that's called the hyperbolic tangent, which has a very similar shape.
+
+[Faculty (Olympus)] 19:24:58
+And the only difference is that it goes between minus one and one instead of between 0 and one.
+
+[Faculty (Olympus)] 19:25:05
+So what do this mean if this is my pre activation score here to see.
+
+[Faculty (Olympus)] 19:25:10
+This is my weighted sum. Is this.
+
+[Faculty (Olympus)] 19:25:13
+Small? Or is it large?
+
+[Faculty (Olympus)] 19:25:15
+So, if the weighted sum is very small, then my evidence should be pretty low.
+
+[Faculty (Olympus)] 19:25:21
+And then this hyperbolic tangent essentially outputs minus one, the sigmoid, essentially output 0.
+
+[Faculty (Olympus)] 19:25:27
+If the preactivation score is very high. So that means there's a lot of evidence, for for instance, for the flu.
+
+[Faculty (Olympus)] 19:25:35
+Then the hyperbolic tangent outputs one, and the sigmoid also outputs one.
+
+[Faculty (Olympus)] 19:25:40
+Approximately.
+
+[Faculty (Olympus)] 19:25:42
+Then the last one is the rectified linear unit, the rail unit.
+
+[Faculty (Olympus)] 19:25:47
+So this one looks a bit different. So when the activation is low, it's also 0.
+
+[Faculty (Olympus)] 19:25:53
+But when the pre activation is high, it actually just copies over the activation. So if that Z is.
+
+[Faculty (Olympus)] 19:26:00
+Positive.
+
+[Faculty (Olympus)] 19:26:02
+Then it just copies it over, and it doesn't do anything. So basically, it just cancels out the minuses.
+
+[Faculty (Olympus)] 19:26:09
+So now, these are these different ones. And there's actually a lot more. But let's for the moment focus on those ones.
+
+[Faculty (Olympus)] 19:26:16
+When would you use? What.
+
+[Faculty (Olympus)] 19:26:19
+Why do we have these different ones? So? More probably the most classical one is that sigmoid which is.
+
+[Faculty (Olympus)] 19:26:25
+Has exactly that staircase shape.
+
+[Faculty (Olympus)] 19:26:28
+Now.
+
+[Faculty (Olympus)] 19:26:29
+It turns out that the sigmoid activation function is not all that good for deep neural networks.
+
+[Faculty (Olympus)] 19:26:36
+So for one, it kind of cancels out a lot of signal, and then it actually is not so good for.
+
+[Faculty (Olympus)] 19:26:43
+Propagating information through the network, because it's pretty flat.
+
+[Faculty (Olympus)] 19:26:47
+So this rail activation unit kind of fixes that in that it doesn't flatten out at one.
+
+[Faculty (Olympus)] 19:26:54
+So this is very important when you want to make the networks very deep, as we want to, for instance, in computer vision. But this is really useful.
+
+[Faculty (Olympus)] 19:27:02
+This hyperbolic tangent is used a lot in recurrent neural networks.
+
+[Faculty (Olympus)] 19:27:06
+So here it can sort of remember both positive and negative, and propagate that information better.
+
+[Faculty (Olympus)] 19:27:14
+So what you can remember is.
+
+[Faculty (Olympus)] 19:27:16
+The sigmoid is mostly used for the output unit.
+
+[Faculty (Olympus)] 19:27:18
+If you use the sigmoid in the output unit.
+
+[Faculty (Olympus)] 19:27:21
+This is logistic regression that's like a logistical.
+
+[Faculty (Olympus)] 19:27:25
+And Israel unit is mostly used for computer vision.
+
+[Faculty (Olympus)] 19:27:29
+And this one for.
+
+[Faculty (Olympus)] 19:27:31
+But for recurring networks.
+
+[Faculty (Olympus)] 19:27:34
+And then there's others that are maybe like a smooth approximation of this thing, because that kink is also not so great, and so on and so forth.
+
+[Faculty (Olympus)] 19:27:45
+Okay, um, but it mostly has to do with like, how well does information propagate in the network.
+
+[Faculty (Olympus)] 19:27:52
+And.
+
+[Faculty (Olympus)] 19:27:53
+Yeah, that's mostly how they are selected that leads to better likes, more stable or less stable training.
+
+[Faculty (Olympus)] 19:28:02
+Okay? So in summary one, you're on in your network is essentially just a linear classifier.
+
+[Faculty (Olympus)] 19:28:08
+It.
+
+[Faculty (Olympus)] 19:28:10
+Can be a simple.
+
+[Faculty (Olympus)] 19:28:11
+Pattern detector. This is something I want to talk about more in the next lecture. Um.
+
+[Faculty (Olympus)] 19:28:16
+That you can also view this weighted sum just as a.
+
+[Faculty (Olympus)] 19:28:21
+Template pattern detector.
+
+[Faculty (Olympus)] 19:28:23
+For here. The my example here mostly showed that this is essentially as if you're summing up weighted.
+
+[Faculty (Olympus)] 19:28:31
+Well, this is for your intuition.
+
+[Faculty (Olympus)] 19:28:34
+Um. So now, before we put now multiple of these linear classifiers together in parallel, I want to see if there's any other question I should answer in the chat.
+
+[Faculty (Olympus)] 19:28:46
+Um.
+
+[Faculty (Olympus)] 19:28:49
+That uh.
+
+[Faculty (Olympus)] 19:28:51
+We? Because it's important to me that you actually uh can follow.
+
+[Faculty (Olympus)] 19:28:55
+Uh, okay.
+
+[Faculty (Olympus)] 19:28:58
+So when? Ah! When was the sigmoid used again? The sigmoid is.
+
+[Faculty (Olympus)] 19:29:01
+You can use it for shell on your networks, or you can just use it for um.
+
+[Faculty (Olympus)] 19:29:06
+The output unit. It's very often used for the output unit. If you want to do binary classification.
+
+[Faculty (Olympus)] 19:29:12
+Because it's just like uh.
+
+[Faculty (Olympus)] 19:29:14
+You see, it's sort of like a.
+
+[Faculty (Olympus)] 19:29:18
+Prop, it's actually between 0 1. So it looks like a probability. So it's kind of you can view it as the probability of, say, having the flu of one of the classes.
+
+[Faculty (Olympus)] 19:29:27
+And this this just corresponds, then, to logistic regression.
+
+[Faculty (Olympus)] 19:29:32
+In your last layer.
+
+[Faculty (Olympus)] 19:29:35
+Ah, okay.
+
+[Faculty (Olympus)] 19:29:38
+Do they create different thresholds? So these don't really create the thresholds. The threshold is really here you compare is the bigger than 0. So, you see, kind of they have their.
+
+[Faculty (Olympus)] 19:29:50
+50 50 point um between 0 and one.
+
+[Faculty (Olympus)] 19:29:55
+Exactly when the pre activation score is 0. So that's really the decision boundary.
+
+[Faculty (Olympus)] 19:30:00
+That's where we are maximally uncertain.
+
+[Faculty (Olympus)] 19:30:03
+And that decision boundary doesn't change for them. The decision boundary changes when your changes change that offset or bias term.
+
+[Faculty (Olympus)] 19:30:12
+What they change is, how exactly the output looks like, whether it's between 0 and one, or minus one and one or 0, and infinity.
+
+[Faculty (Olympus)] 19:30:23
+Um.
+
+[Faculty (Olympus)] 19:30:24
+Our multiple activation functions ever used in.
+
+[Faculty (Olympus)] 19:30:29
+Once more for more complex activations in your networks.
+
+[Faculty (Olympus)] 19:30:32
+So usually, at least for one big block in the neural network, you use the same activation function.
+
+[Faculty (Olympus)] 19:30:39
+In principle you could. But it's just.
+
+[Faculty (Olympus)] 19:30:42
+Hard to like optimize, which one to use where and there's already a lot of choices, as you'll see. So usually you just use the same one in that neural network.
+
+[Faculty (Olympus)] 19:30:52
+You pick it once, and then you stick with it, and the only changes for the output unit.
+
+[Faculty (Olympus)] 19:30:57
+There you may do something different, but for the.
+
+[Faculty (Olympus)] 19:31:00
+In our parts you usually have the same.
+
+[Faculty (Olympus)] 19:31:06
+Okay, there's a question about soft Max. I'll show you a soft Max later, so I'll defer that.
+
+[Faculty (Olympus)] 19:31:19
+Okay. Um.
+
+[Faculty (Olympus)] 19:31:33
+Okay, there's a how is information propagation measured in the neural network. So, yeah, this was a bit vague.
+
+[Faculty (Olympus)] 19:31:41
+So we'll get back to this when we talk about training. Basically, what I meant was that.
+
+[Faculty (Olympus)] 19:31:46
+When you get in the way you train your networks already, like as a preview, you'll have an error signal in the end. Your output. It has a certain error.
+
+[Faculty (Olympus)] 19:31:56
+So what will happen is that.
+
+[Faculty (Olympus)] 19:31:59
+You back. Propagate this error to your neural network, to update your weight and.
+
+[Faculty (Olympus)] 19:32:06
+When there is like better information flow.
+
+[Faculty (Olympus)] 19:32:09
+The that arrow propagation works better.
+
+[Faculty (Olympus)] 19:32:12
+So you're not kind of forgetting, or you're that propagation doesn't blow up, etc. So that's essentially what I meant.
+
+[Faculty (Olympus)] 19:32:20
+It's not quantitative, but I'll show you later.
+
+[Faculty (Olympus)] 19:32:23
+A bit more what I mean by that.
+
+[Faculty (Olympus)] 19:32:29
+Where does the activation function sits? So you'll have one activation function in each of your units in the neural network.
+
+[Faculty (Olympus)] 19:32:38
+The transformer also will have these units. So it has Mlps as part of it, and we'll talk about that on Friday, so they will be sitting in these.
+
+[Faculty (Olympus)] 19:32:48
+Nonlinear, Uh neural networks.
+
+[Faculty (Olympus)] 19:32:51
+So.
+
+[Faculty (Olympus)] 19:32:52
+In each of these networks.
+
+[Faculty (Olympus)] 19:32:55
+They are sitting kind of in each unit.
+
+[Faculty (Olympus)] 19:32:58
+There is a nonlinearity sitting there, an activation function.
+
+[Faculty (Olympus)] 19:33:06
+Okay, uh.
+
+[Faculty (Olympus)] 19:33:10
+So the activation function output can be different from 0 or one. Yes. So in these ones, it's actually between some, any number between 0 or one, any number between minus one and one, and this one, any number between 0 and.
+
+[Faculty (Olympus)] 19:33:24
+Plus infinity.
+
+[Faculty (Olympus)] 19:33:28
+Uh okay, um.
+
+[Faculty (Olympus)] 19:33:32
+When I compare with logistic regression is why nothing but the output layer. So yes, when you do a logistic regression.
+
+[Faculty (Olympus)] 19:33:40
+Um, what happens? Actually, no, my next slide has the output that way. So here.
+
+[Faculty (Olympus)] 19:33:46
+Um! Here's your output.
+
+[Faculty (Olympus)] 19:33:49
+The output layer is, here's your nonlinearity for the output that's usually like, if you want to do classification, this will be your sigmoid activation function, this little F here, and then you output a number. And that is essentially.
+
+[Faculty (Olympus)] 19:34:03
+The probability of being, say, class one.
+
+[Faculty (Olympus)] 19:34:07
+And for logistic regression you left exactly. This is gonna be a value between 0 and one. If it's close to one. You think it's class one, if it.
+
+[Faculty (Olympus)] 19:34:14
+Close to 0. You think it's Class 2.
+
+[Faculty (Olympus)] 19:34:16
+Something like that.
+
+[Faculty (Olympus)] 19:34:17
+So it's yeah. It's essentially the probability of that class. And you'll compare it to the true label.
+
+[Faculty (Olympus)] 19:34:24
+You compare whether they're correct. Label has.
+
+[Faculty (Olympus)] 19:34:26
+The higher probability.
+
+[Faculty (Olympus)] 19:34:30
+Okay, so so far. Now, I want to go on.
+
+[Faculty (Olympus)] 19:34:34
+Um, so so far. What we did was we looked at one of these units. So one of the processing units in your neural network. And usually there's a lot of them.
+
+[Faculty (Olympus)] 19:34:45
+Um. So next, I want to see, okay, we have not one, because one just would be a linear classifier. Let's do 2.
+
+[Faculty (Olympus)] 19:34:53
+So what happens, or what do we gain when we put them in parallel.
+
+[Faculty (Olympus)] 19:34:59
+Uh, so this is the.
+
+[Faculty (Olympus)] 19:35:01
+Tool, now that we put in parallel. And now what you see is, each of them has their own set of weights. That's why I have 4 rates here.
+
+[Faculty (Olympus)] 19:35:08
+They get the same input, but they process it in different ways.
+
+[Faculty (Olympus)] 19:35:12
+And then they essentially, if I look at them, I have 2 inputs. Now. I have 2 hidden coordinates.
+
+[Faculty (Olympus)] 19:35:20
+That's the hidden representation, also called a latent representation. That's a new representation of the data to a new coordinates.
+
+[Faculty (Olympus)] 19:35:27
+And now you could view your output unit as just.
+
+[Faculty (Olympus)] 19:35:31
+Running, a linear classifier.
+
+[Faculty (Olympus)] 19:35:34
+With this new representation as import.
+
+[Faculty (Olympus)] 19:35:37
+Just in the way that in my particular slide I have, like this new representation of the data where I multiplied the coordinates.
+
+[Faculty (Olympus)] 19:35:45
+So we have a new representation.
+
+[Faculty (Olympus)] 19:35:48
+And.
+
+[Faculty (Olympus)] 19:35:49
+We will do a linear classification on top of this.
+
+[Faculty (Olympus)] 19:35:53
+So now let's see what can happen.
+
+[Faculty (Olympus)] 19:35:56
+So 1st of all, here is my toy example data set. So it has these red circles and the blue dots.
+
+[Faculty (Olympus)] 19:36:04
+And I want to find these are the 2 classes. I want to find a classifier that separates.
+
+[Faculty (Olympus)] 19:36:12
+The red circles from the blue dots.
+
+[Faculty (Olympus)] 19:36:14
+And this is in 2 dimensions, so I can plot it.
+
+[Faculty (Olympus)] 19:36:17
+So now my 1st question is, is one single unit.
+
+[Faculty (Olympus)] 19:36:23
+And on your network, able.
+
+[Faculty (Olympus)] 19:36:25
+To correctly classify this data. In other words.
+
+[Faculty (Olympus)] 19:36:28
+If I have a single straight line that I can draw anywhere on this data set.
+
+[Faculty (Olympus)] 19:36:35
+Can this single straight line separate red from blue.
+
+[Faculty (Olympus)] 19:36:49
+Okay, I see a lot of.
+
+[Faculty (Olympus)] 19:36:51
+Knowles, in the.
+
+[Faculty (Olympus)] 19:36:53
+Ah! Chat!
+
+[Faculty (Olympus)] 19:36:54
+So it's indeed.
+
+[Faculty (Olympus)] 19:36:55
+Not possible. You can try it yourself. You do a straight line. You can maybe separate.
+
+[Faculty (Olympus)] 19:37:01
+One of the clusters out. But you cannot just carve out basically, this middle tape.
+
+[Faculty (Olympus)] 19:37:07
+So someone says, quadratic, yeah, with a curve I could do it, but with a straight line I could not.
+
+[Faculty (Olympus)] 19:37:12
+And each of these units is just a straight line. So each of these units is a linear classifier which corresponds to a straight line in my database.
+
+[Faculty (Olympus)] 19:37:22
+That's the decision boundary.
+
+[Faculty (Olympus)] 19:37:26
+Okay. So now we will actually use that idea. So now let's say, we had already had some weights for these 2 classifiers. So that means each of these units corresponds to a straight line in my database.
+
+[Faculty (Olympus)] 19:37:39
+So now I already chose them wisely. So here are my straight lines.
+
+[Faculty (Olympus)] 19:37:45
+And for the moment we'll be working with this.
+
+[Faculty (Olympus)] 19:37:49
+Step, function, activation function again, to make life simple.
+
+[Faculty (Olympus)] 19:37:53
+Okay, so what are these 2 classifiers? Basically for each linear classifier.
+
+[Faculty (Olympus)] 19:37:58
+If the data is on one side, the output 0, if the data is on the other side, the output one.
+
+[Faculty (Olympus)] 19:38:04
+So this is kind of what these arrows depict. This. What's the one? The plus one side.
+
+[Faculty (Olympus)] 19:38:10
+So the 1st one is gonna output, one on this side and 0 on this side, and the second one is gonna output, one on this side and 0 on this side.
+
+[Faculty (Olympus)] 19:38:20
+So now, what I want to do is I want to actually now explore with you a little bit what is the new representation of this data set.
+
+[Faculty (Olympus)] 19:38:29
+And to do that.
+
+[Faculty (Olympus)] 19:38:32
+Let's look at one data point. So I selected one of them. Remember, this is the.
+
+[Faculty (Olympus)] 19:38:38
+Plus one and 0 and one and 0.
+
+[Faculty (Olympus)] 19:38:41
+Side of the classifier.
+
+[Faculty (Olympus)] 19:38:42
+So now we'll see what are the outputs of my 2.
+
+[Faculty (Olympus)] 19:38:47
+Units.
+
+[Faculty (Olympus)] 19:38:47
+For this particular data point.
+
+[Faculty (Olympus)] 19:38:51
+And so.
+
+[Faculty (Olympus)] 19:38:54
+This unit corresponds to this. This classifier corresponds to this unit, and this classifier corresponds to a 2.
+
+[Faculty (Olympus)] 19:39:04
+Okay, so let's 1st look at a 1. So a 1 is that first.st
+
+[Faculty (Olympus)] 19:39:08
+Line, hyperplane.
+
+[Faculty (Olympus)] 19:39:11
+What's the output of that classifier for that circled data point.
+
+[Faculty (Olympus)] 19:39:18
+Does anyone see that? What would the 1st classifier output for this data point.
+
+[Faculty (Olympus)] 19:39:29
+Yeah, see a lot of zeros.
+
+[Faculty (Olympus)] 19:39:32
+Yes.
+
+[Faculty (Olympus)] 19:39:33
+So this, what out was 0?
+
+[Faculty (Olympus)] 19:39:37
+So now, what about.
+
+[Faculty (Olympus)] 19:39:39
+This Classifier.
+
+[Faculty (Olympus)] 19:39:41
+Is that data point on the one side or on the 0 side of that classifier.
+
+[Faculty (Olympus)] 19:39:50
+Okay, good. I see a lot of ones. I agree. So this will output.
+
+[Faculty (Olympus)] 19:39:54
+So that means the new coordinates of that particular data point.
+
+[Faculty (Olympus)] 19:40:00
+Uh 0 and one.
+
+[Faculty (Olympus)] 19:40:01
+That's the new representation of that data point.
+
+[Faculty (Olympus)] 19:40:06
+So we could now draw a new coordinate system, and I'm about to do that.
+
+[Faculty (Olympus)] 19:40:10
+Where I'll put in that new data, that data point and.
+
+[Faculty (Olympus)] 19:40:15
+I'll draw it at quarter and 0 1.
+
+[Faculty (Olympus)] 19:40:18
+But before I do this I want to make another remark, and that is, if you look at.
+
+[Faculty (Olympus)] 19:40:24
+What determined actually the 0 under one. The only thing that determined it was.
+
+[Faculty (Olympus)] 19:40:31
+On which side of the classifier was I.
+
+[Faculty (Olympus)] 19:40:36
+It didn't actually matter how far or how close it just mattered. Am I on the 0 side or in the one side.
+
+[Faculty (Olympus)] 19:40:42
+So this means this entire cluster of data points. They share.
+
+[Faculty (Olympus)] 19:40:48
+That was my point. They're all on the 0 side of the 1st one.
+
+[Faculty (Olympus)] 19:40:53
+They're all on the plus one side of the second one.
+
+[Faculty (Olympus)] 19:40:56
+So they would all actually get the same representation. So I've kind of collapsed my entire cluster here into one.
+
+[Faculty (Olympus)] 19:41:05
+Point.
+
+[Faculty (Olympus)] 19:41:09
+Okay, so.
+
+[Faculty (Olympus)] 19:41:12
+Here's my new coordinate system.
+
+[Faculty (Olympus)] 19:41:14
+Now the coordinates are a 1 and a 2. So these are the 2 outputs of this. And I determined at this point was 0 1.
+
+[Faculty (Olympus)] 19:41:24
+So this is the 0 1.
+
+[Faculty (Olympus)] 19:41:26
+Coordinates in this new coordinate system.
+
+[Faculty (Olympus)] 19:41:28
+So this is now in my so called latent space. Um, this is the new representation of my data point, and, in fact, that entire upper cluster.
+
+[Faculty (Olympus)] 19:41:39
+Alright! Now we'll do the same thing again, for the blue dots.
+
+[Faculty (Olympus)] 19:41:44
+So here I circled one of them.
+
+[Faculty (Olympus)] 19:41:46
+And we'll again.
+
+[Faculty (Olympus)] 19:41:48
+Determine what are the new coord.
+
+[Faculty (Olympus)] 19:41:51
+Off this blue dot.
+
+[Faculty (Olympus)] 19:41:56
+So to do this.
+
+[Faculty (Olympus)] 19:41:58
+Will again. I already see some answers. We'll again see. Okay, it's on the plus one side of number one. So it gets.
+
+[Faculty (Olympus)] 19:42:05
+a 1 for the 1st one, and it's on the.
+
+[Faculty (Olympus)] 19:42:09
+One side of the second one, so it gets a 1.
+
+[Faculty (Olympus)] 19:42:13
+So it has the new representation, 1 1, and again, the entire blue cluster has the same representation.
+
+[Faculty (Olympus)] 19:42:20
+So.
+
+[Faculty (Olympus)] 19:42:22
+We draw this into our coordinate system. That's the blue cluster.
+
+[Faculty (Olympus)] 19:42:29
+And finally.
+
+[Faculty (Olympus)] 19:42:33
+We look at.
+
+[Faculty (Olympus)] 19:42:34
+The last cluster. Well again.
+
+[Faculty (Olympus)] 19:42:37
+I'll draw 0 and one and one and 0.
+
+[Faculty (Olympus)] 19:42:40
+So the coordinates of that point by the same logic as before.
+
+[Faculty (Olympus)] 19:42:46
+Will be plus one and 0.
+
+[Faculty (Olympus)] 19:42:49
+So I draw that into my coordinate system.
+
+[Faculty (Olympus)] 19:42:53
+So now you see on the right hand side.
+
+[Faculty (Olympus)] 19:42:56
+This is the new or the latent.
+
+[Faculty (Olympus)] 19:43:01
+Representation.
+
+[Faculty (Olympus)] 19:43:03
+Of my data set.
+
+[Faculty (Olympus)] 19:43:05
+And that is now what will feed into the last layer. So this is.
+
+[Faculty (Olympus)] 19:43:10
+The representation of the data that the last layer sees.
+
+[Faculty (Olympus)] 19:43:14
+And now the last layer is also a linear classifier.
+
+[Faculty (Olympus)] 19:43:19
+And now, if you look at.
+
+[Faculty (Olympus)] 19:43:22
+The right-hand side.
+
+[Faculty (Olympus)] 19:43:23
+Is it possible to separate.
+
+[Faculty (Olympus)] 19:43:27
+The red and the blueprints with a single straight line.
+
+[Faculty (Olympus)] 19:43:37
+I see a lot of yeses. So yes, indeed it is so. We can draw a line like this social.
+
+[Faculty (Olympus)] 19:43:43
+That's a single straight line. And it correctly classifies our data.
+
+[Faculty (Olympus)] 19:43:49
+So what this illustrates is that actually, now that we have these.
+
+[Faculty (Olympus)] 19:43:54
+2 classifiers in parallel. We can do more than we can do with one classifier, with a single class linear classifier, and we could not correctly classify this data.
+
+[Faculty (Olympus)] 19:44:05
+With 2.
+
+[Faculty (Olympus)] 19:44:06
+And the last layer. In addition, we can actually.
+
+[Faculty (Olympus)] 19:44:10
+And.
+
+[Faculty (Olympus)] 19:44:12
+Let's take a look at what we actually did here.
+
+[Faculty (Olympus)] 19:44:15
+So what we basically did with our 2 straight lines. So these 2 classifiers are really just 2 straight lines.
+
+[Faculty (Olympus)] 19:44:22
+And they could go in parallel, they could somehow cross. This is okay. So what they do is they.
+
+[Faculty (Olympus)] 19:44:30
+Parsley upward. They divide up my data space here.
+
+[Faculty (Olympus)] 19:44:34
+Into regions.
+
+[Faculty (Olympus)] 19:44:37
+If this region and this region and this region.
+
+[Faculty (Olympus)] 19:44:40
+And now what I can do is I can give different labels to these regions.
+
+[Faculty (Olympus)] 19:44:44
+And this way.
+
+[Faculty (Olympus)] 19:44:46
+I could have something that's.
+
+[Faculty (Olympus)] 19:44:48
+Label one and 0 and one or 1 0 arbitrarily, I could basically make things. And I could get something that looks a bit like a curve.
+
+[Faculty (Olympus)] 19:44:58
+So I could, for instance.
+
+[Faculty (Olympus)] 19:45:01
+Label, this 0 and this 1 1 in my final output.
+
+[Faculty (Olympus)] 19:45:05
+So I could now get something that looks a bit like do it in a different color.
+
+[Faculty (Olympus)] 19:45:11
+A bit like a curve. Decision, boundary.
+
+[Faculty (Olympus)] 19:45:15
+And what you can see is that if I had more than 2 pieces.
+
+[Faculty (Olympus)] 19:45:20
+That would happen if I would put more than 2 in parallel.
+
+[Faculty (Olympus)] 19:45:23
+You would get more pieces you could make your you could carve out no more shapes.
+
+[Faculty (Olympus)] 19:45:30
+So the more pieces you have, the more.
+
+[Faculty (Olympus)] 19:45:33
+Cells, you essentially get in your input data space. And the more you can like.
+
+[Faculty (Olympus)] 19:45:38
+Make it a curve essentially by putting together pieces of linear classifiers.
+
+[Faculty (Olympus)] 19:45:43
+So that's essentially the power of putting these linear classifiers together in parallel.
+
+[Faculty (Olympus)] 19:45:55
+Um. So there's a question, can we label as we desire? And ones in these regions? So yes, you can actually.
+
+[Faculty (Olympus)] 19:46:04
+So you can label these regions essentially arbitrarily and.
+
+[Faculty (Olympus)] 19:46:08
+The then one can basically set the weights accordingly, so that this will be. This is possible.
+
+[Faculty (Olympus)] 19:46:14
+So yes.
+
+[Faculty (Olympus)] 19:46:17
+Um.
+
+[Faculty (Olympus)] 19:46:19
+Okay.
+
+[Faculty (Olympus)] 19:46:21
+So.
+
+[Faculty (Olympus)] 19:46:24
+I see a few questions. Um pieces, and this are layers. So no right now we only have one hidden layer. So this is only this thing and then this.
+
+[Faculty (Olympus)] 19:46:33
+Goals into my.
+
+[Faculty (Olympus)] 19:46:35
+Final output unit.
+
+[Faculty (Olympus)] 19:46:36
+So there's only one hidden layer. There's not more layers.
+
+[Faculty (Olympus)] 19:46:39
+But we put 2 in one layer. So that's the width of the network. So we are extending it. Basically here.
+
+[Faculty (Olympus)] 19:46:50
+Okay. Um.
+
+[Faculty (Olympus)] 19:46:53
+Now, what I want to show you is.
+
+[Faculty (Olympus)] 19:46:56
+What happens if we replace this unrealistic activation function by something that's a bit more realistic.
+
+[Faculty (Olympus)] 19:47:04
+And.
+
+[Faculty (Olympus)] 19:47:06
+Here is what this looks like, for instance, for the hyperbolic tangent.
+
+[Faculty (Olympus)] 19:47:11
+So what you see is you actually still get like a red cluster. Okay, now, the 1st thing is, it's no longer 3 dots on the right hand side. It's actually.
+
+[Faculty (Olympus)] 19:47:21
+Like a bit extended.
+
+[Faculty (Olympus)] 19:47:24
+Um. But you still can linearly separate.
+
+[Faculty (Olympus)] 19:47:28
+This.
+
+[Faculty (Olympus)] 19:47:29
+So you can still do. Ah, okay.
+
+[Faculty (Olympus)] 19:47:34
+Not like this, but roughly like this. Um.
+
+[Faculty (Olympus)] 19:47:37
+Like this.
+
+[Faculty (Olympus)] 19:47:39
+So you could still linearly separate this.
+
+[Faculty (Olympus)] 19:47:43
+Um, but the points are a bit more spread out.
+
+[Faculty (Olympus)] 19:47:46
+And this happens because the hyperbolic tangent, as you get close to the decision boundary.
+
+[Faculty (Olympus)] 19:47:53
+It becomes some other numbers between 0 and one.
+
+[Faculty (Olympus)] 19:47:55
+So your coordinates are not strictly zeros, and once there are other numbers too.
+
+[Faculty (Olympus)] 19:48:01
+But you see that you get closer to 0 if you're close to the decision boundary, that's actually what it really means.
+
+[Faculty (Olympus)] 19:48:10
+So that pre activation score is essentially also the distance to the decision boundary.
+
+[Faculty (Olympus)] 19:48:14
+So you see. And so now, what you're actually encoding here in this stretching out is how close your.
+
+[Faculty (Olympus)] 19:48:22
+To your decision boundary here. So, for instance, there's this 1 point that's really close.
+
+[Faculty (Olympus)] 19:48:26
+That's this guy here.
+
+[Faculty (Olympus)] 19:48:28
+That's really close. And then there's something that's very far away. So that's this one here.
+
+[Faculty (Olympus)] 19:48:34
+So that's the stretch encodes a little bit how far you are from the boundary, but other than that, it does.
+
+[Faculty (Olympus)] 19:48:41
+Pretty much the same as we had for the step function.
+
+[Faculty (Olympus)] 19:48:47
+Then with a rail it looks a bit different. Um.
+
+[Faculty (Olympus)] 19:48:51
+But it's it has the similar pattern.
+
+[Faculty (Olympus)] 19:48:59
+Okay, um. So what I want to show you next is.
+
+[Faculty (Olympus)] 19:49:03
+Not only what you can do with 2.
+
+[Faculty (Olympus)] 19:49:06
+But what you can do when you do more than 2.
+
+[Faculty (Olympus)] 19:49:08
+So what we'll do now is we have our.
+
+[Faculty (Olympus)] 19:49:13
+2 inputs units, and then we'll have.
+
+[Faculty (Olympus)] 19:49:17
+10.
+
+[Faculty (Olympus)] 19:49:20
+Hidden units. And we have one output unit. So these feed into all those 10.
+
+[Faculty (Olympus)] 19:49:25
+And then the 10 feed into this output unit.
+
+[Faculty (Olympus)] 19:49:30
+And what I'll do is I'll basically.
+
+[Faculty (Olympus)] 19:49:34
+Make this wider. I'll put more and more in here, and we'll see what happens.
+
+[Faculty (Olympus)] 19:49:39
+So now, what you see here is.
+
+[Faculty (Olympus)] 19:49:41
+When you have the data set that you see. So you have crosses and circles. You want to separate.
+
+[Faculty (Olympus)] 19:49:48
+What the neural network learns when you actually train it.
+
+[Faculty (Olympus)] 19:49:53
+And so you see, it's actually not perfect.
+
+[Faculty (Olympus)] 19:49:55
+But it it's not unreasonable.
+
+[Faculty (Olympus)] 19:49:59
+Um. So the interesting thing is, you could actually separate this data set with.
+
+[Faculty (Olympus)] 19:50:06
+Straight lines, only.
+
+[Faculty (Olympus)] 19:50:10
+So you can do it. You could, in fact, do it.
+
+[Faculty (Olympus)] 19:50:12
+I'll try to draw it. It's actually a bit challenging to draw it here like this.
+
+[Faculty (Olympus)] 19:50:17
+And like this, you could actually do it with 2. Alright. This is a straight line.
+
+[Faculty (Olympus)] 19:50:23
+Um.
+
+[Faculty (Olympus)] 19:50:24
+But the neural network.
+
+[Faculty (Olympus)] 19:50:27
+Doesn't actually even do it with cap.
+
+[Faculty (Olympus)] 19:50:30
+And the reason is that the way you're finding the weights, as you'll see, is more like a small local search. So you're wiggling these a bit.
+
+[Faculty (Olympus)] 19:50:39
+And finding the exact positioning for these 2 is really difficult. There's not much wiggle space, as you see on the left.
+
+[Faculty (Olympus)] 19:50:47
+This is actually really, really hard. Um to exactly position that line.
+
+[Faculty (Olympus)] 19:50:52
+And hence the new landmark wouldn't find it. And same for these 10. Actually, it.
+
+[Faculty (Olympus)] 19:50:59
+Doesn't actually find something that goes like exactly around your data.
+
+[Faculty (Olympus)] 19:51:03
+But it's not too bad. Um! Then another comment, what is this curve? Actually, it's basically what I showed you here.
+
+[Faculty (Olympus)] 19:51:13
+So here, I said, actually, with your 2 lines, you can cover something that's like a curve.
+
+[Faculty (Olympus)] 19:51:18
+So you get these 2 pieces. So now we have essentially.
+
+[Faculty (Olympus)] 19:51:24
+10 little pieces of line put together. So it looks a bit like a curve. But when you zoom in, you actually see that it's actually pieces of straight line.
+
+[Faculty (Olympus)] 19:51:33
+So now what happens when we make the layer wider. So we put more than 10. We put.
+
+[Faculty (Olympus)] 19:51:42
+A 100.
+
+[Faculty (Olympus)] 19:51:43
+So with a hundred hidden neurons, just one layer. We don't make it deeper. We just put them next to each other in parallel.
+
+[Faculty (Olympus)] 19:51:51
+You see that this curve? Now it has 100 linear pieces, so that looks.
+
+[Faculty (Olympus)] 19:51:57
+Smoother.
+
+[Faculty (Olympus)] 19:51:58
+It actually can do it.
+
+[Faculty (Olympus)] 19:52:00
+And the reason is, now I have 100 pieces.
+
+[Faculty (Olympus)] 19:52:03
+And there's a lot of flexibility if I misplace one of them a bit, so it doesn't matter that much. I can wiggle each of them a little bit, but it's they have such a small piece. It doesn't matter that much. So there's just many more solutions. It's easier to find a correct placement of these 100 than it is for the 2 of them, where I have to be super careful.
+
+[Faculty (Olympus)] 19:52:24
+And now this is what happens with 500. You see, it becomes smoother.
+
+[Faculty (Olympus)] 19:52:28
+But.
+
+[Faculty (Olympus)] 19:52:30
+It also kind of.
+
+[Faculty (Olympus)] 19:52:32
+Curves out like things really close to the data.
+
+[Faculty (Olympus)] 19:52:37
+And.
+
+[Faculty (Olympus)] 19:52:39
+Exactly. I see it in the chat. This is, this may be actually starting to overfit.
+
+[Faculty (Olympus)] 19:52:45
+So we have to be careful. If we make it wider, we become more flexible. We can fit.
+
+[Faculty (Olympus)] 19:52:51
+Very flexible curves, all sorts of curves.
+
+[Faculty (Olympus)] 19:52:54
+But we may also be overfitting. So probably at the beginning of the next lecture, I'll tell you a bit more about overfitting and how we can.
+
+[Faculty (Olympus)] 19:53:04
+Uh reduce it.
+
+[Faculty (Olympus)] 19:53:09
+Um. Okay? So I see a question in the chat.
+
+[Faculty (Olympus)] 19:53:14
+Um. Is it better, in terms of efficiency to make the model deeper or wider.
+
+[Faculty (Olympus)] 19:53:21
+So I would say it depends. They do slightly different things, and there are certain things that are easier to learn with a wider, and there are certain things that are easier to learn with a deeper network.
+
+[Faculty (Olympus)] 19:53:33
+In and out.
+
+[Faculty (Olympus)] 19:53:34
+Talk more about depth in the next slide. But, for instance, in computer vision depth, it's really useful. So typically the networks are narrower.
+
+[Faculty (Olympus)] 19:53:43
+And deeper.
+
+[Faculty (Olympus)] 19:53:44
+If you just want to fit this like curve here.
+
+[Faculty (Olympus)] 19:53:48
+You could also make it wider. It's okay. And it doesn't have to be that deep.
+
+[Faculty (Olympus)] 19:53:52
+If you need to learn feature, hierarchies.
+
+[Faculty (Olympus)] 19:53:56
+Then deeper is better.
+
+[Faculty (Olympus)] 19:54:04
+Okay, so there's a lot of questions about depth uh. So I'll show you in the next slide.
+
+[Faculty (Olympus)] 19:54:11
+Uh.
+
+[Faculty (Olympus)] 19:54:17
+Okay.
+
+[Faculty (Olympus)] 19:54:18
+Um.
+
+[Faculty (Olympus)] 19:54:24
+Okay, there's a.
+
+[Faculty (Olympus)] 19:54:26
+Question is this form of classification much more accurate than other types of classification?
+
+[Faculty (Olympus)] 19:54:32
+It seems this process would be computationally expensive.
+
+[Faculty (Olympus)] 19:54:36
+Yes, it is so. If you want a linear classification, or even a simple polynomial, don't use in your network. It is indeed much more expensive.
+
+[Faculty (Olympus)] 19:54:46
+And it'll over fit more. You don't need it. So neural networks are useful where our other cheaper classifiers don't do that. Well.
+
+[Faculty (Olympus)] 19:54:55
+Um.
+
+[Faculty (Olympus)] 19:54:56
+So this is super flexible. It can actually fit any sort of curve if you make it quite enough.
+
+[Faculty (Olympus)] 19:55:02
+But yes, it also comes uh, with some expense.
+
+[Faculty (Olympus)] 19:55:09
+Okay. Um.
+
+[Faculty (Olympus)] 19:55:12
+Now let me.
+
+[Faculty (Olympus)] 19:55:14
+Briefly make a comment on depth. So what we saw with these curves is essentially the effect of with what if you put these.
+
+[Faculty (Olympus)] 19:55:22
+Units in parallel.
+
+[Faculty (Olympus)] 19:55:23
+But what we can also do is we can put it in a hierarchy.
+
+[Faculty (Olympus)] 19:55:26
+So what happens when I make them deeper.
+
+[Faculty (Olympus)] 19:55:31
+And.
+
+[Faculty (Olympus)] 19:55:33
+At least my intuition with this is that it allows you.
+
+[Faculty (Olympus)] 19:55:36
+To learn hierarchies of decisions or features.
+
+[Faculty (Olympus)] 19:55:40
+And I find this most intuitive for computer vision examples. So let's say, we had an image.
+
+[Faculty (Olympus)] 19:55:46
+And it's actually pretty hard to describe. Say, what a monkey looks like.
+
+[Faculty (Olympus)] 19:55:54
+As a template per se.
+
+[Faculty (Olympus)] 19:55:55
+With like that curve or so.
+
+[Faculty (Olympus)] 19:55:58
+So what is much better is that you build this up because we don't also want to only want to describe the monkey. We want to describe cars and trees and houses and whatnot.
+
+[Faculty (Olympus)] 19:56:08
+Um. So what you will do is you'll break up your complicated decisions of detecting cars and monkeys, and so on.
+
+[Faculty (Olympus)] 19:56:16
+Into hierarchies.
+
+[Faculty (Olympus)] 19:56:17
+And so what this 1st layer is gonna do is it'll detect simple features that are easy to extract from raw pixels.
+
+[Faculty (Olympus)] 19:56:25
+Like edges or colors, and such things, patterns, simple textures.
+
+[Faculty (Olympus)] 19:56:32
+Then you can take edges and put them together into parts.
+
+[Faculty (Olympus)] 19:56:37
+Like circles and squares, and such kinds of things.
+
+[Faculty (Olympus)] 19:56:40
+And then you can take your simple parts and build up more complicated parts from it, maybe eyes and noses and wheels and such things.
+
+[Faculty (Olympus)] 19:56:48
+And then from once you have those you can put together, basically faces and people, and so on.
+
+[Faculty (Olympus)] 19:56:56
+Uh so. But each of these.
+
+[Faculty (Olympus)] 19:57:00
+Features uses. Then, like the input from the lower levels, like, okay, I for to build a part, I use edges and so on.
+
+[Faculty (Olympus)] 19:57:08
+And this makes it actually much easier to learn than if I had to do everything in one layer.
+
+[Faculty (Olympus)] 19:57:14
+In principle. You quote, maybe, but.
+
+[Faculty (Olympus)] 19:57:17
+That those neural networks never learn like depth really helps.
+
+[Faculty (Olympus)] 19:57:21
+In computer vision. The other thing is that you can now share.
+
+[Faculty (Olympus)] 19:57:25
+Parts. So maybe I learned some edges here. Well, these Edge detections I can reuse for different shapes.
+
+[Faculty (Olympus)] 19:57:33
+If I have learned that there's a vertical sha edge. Well, I can use this for a square. I can use that for a circle. I can use it for a rectangle, so I can reuse those features.
+
+[Faculty (Olympus)] 19:57:46
+When I do the hierarchy. If they're in parallel, I cannot actually reuse anything. They have to be all in parallel. Somehow.
+
+[Faculty (Olympus)] 19:57:53
+So the that's the benefit of depth is you can do this. Reuse.
+
+[Faculty (Olympus)] 19:57:58
+If you have some complicated patterns that you want to detect.
+
+[Faculty (Olympus)] 19:58:02
+That may be a better choice.
+
+[Faculty (Olympus)] 19:58:04
+But at the end of the day it's a little bit do. It's quite domain dependent. So the best.
+
+[Faculty (Olympus)] 19:58:10
+That is to look.
+
+[Faculty (Olympus)] 19:58:12
+What do typical your networks look like in this domain on this kind of data that you have.
+
+[Faculty (Olympus)] 19:58:18
+And.
+
+[Faculty (Olympus)] 19:58:18
+To start from there.
+
+[Faculty (Olympus)] 19:58:21
+To are they typically shallow because we don't really need that much depth because we just need a nonlinear function.
+
+[Faculty (Olympus)] 19:58:28
+Like the parts someone mentioned transformers. There's these networks are part of a transformer, and then there are usually small.
+
+[Faculty (Olympus)] 19:58:36
+Shell.
+
+[Faculty (Olympus)] 19:58:37
+But when you have a big, deep, convolutional network, that thing is deep.
+
+[Faculty (Olympus)] 19:58:42
+So that's for images.
+
+[Faculty (Olympus)] 19:58:43
+So it really depends.
+
+[Faculty (Olympus)] 19:58:49
+Okay. Um.
+
+[Faculty (Olympus)] 19:58:53
+Alright!
+
+[Faculty (Olympus)] 19:58:56
+I do see a lot of questions. So let me answer a few questions and then go on with the multiple outputs, and then we'll talk about training.
+
+[Faculty (Olympus)] 19:59:06
+Uh okay, um.
+
+[Faculty (Olympus)] 19:59:15
+Why does each neuron have to be linear? So each neuron has this.
+
+[Faculty (Olympus)] 19:59:20
+Um is. As we said, this is the linear function of its inputs.
+
+[Faculty (Olympus)] 19:59:24
+Plus. Okay, then we send that through a nonlinearity. But it's really like a decision.
+
+[Faculty (Olympus)] 19:59:30
+So each neuron is like a simple decision maker.
+
+[Faculty (Olympus)] 19:59:33
+The thing is that.
+
+[Faculty (Olympus)] 19:59:36
+When it's a linear function. We just parameterize.
+
+[Faculty (Olympus)] 19:59:39
+It by its weight, and that offset term.
+
+[Faculty (Olympus)] 19:59:42
+So it's simple and easy. Already. This neural network is complex.
+
+[Faculty (Olympus)] 19:59:46
+It gets its nonlinearity from its activation function. And then we get more nonlinearity, as you see.
+
+[Faculty (Olympus)] 19:59:53
+By putting them together.
+
+[Faculty (Olympus)] 19:59:57
+So in some sense, the Lin, being linear, is good enough for a neuron.
+
+[Faculty (Olympus)] 20:00:02
+It would add more complexity. The idea here is that we have a very simple unit.
+
+[Faculty (Olympus)] 20:00:08
+And we just use a lot of these very simple units, and that gives us the power.
+
+[Faculty (Olympus)] 20:00:18
+Ah, more details. There's a question about how does the 1st layer identify something like an edge? I'll explain that on Thursday.
+
+[Faculty (Olympus)] 20:00:27
+Um. So we'll talk when we talk about Cnn's. I'll illustrate this for you. How you can actually do this.
+
+[Faculty (Olympus)] 20:00:33
+Um.
+
+[Faculty (Olympus)] 20:00:34
+Is hierarchical representation helpful in Nlp. Yes, multiple layers are also helpful.
+
+[Faculty (Olympus)] 20:00:40
+Networks tend to be not as deep as for vision.
+
+[Faculty (Olympus)] 20:00:45
+Um. And there, there's some other intuition. So we can talk about this on Friday, when we talk about transformers and text.
+
+[Faculty (Olympus)] 20:00:54
+Can we limit how wide each layer can get.
+
+[Faculty (Olympus)] 20:00:57
+Um, yes. So you determine um. So maybe to make this clear when you train in your network, the 1st thing you have to determine is.
+
+[Faculty (Olympus)] 20:01:06
+What is the shape?
+
+[Faculty (Olympus)] 20:01:07
+That means what you determine is.
+
+[Faculty (Olympus)] 20:01:10
+How many layers you want, and how many units you want in each layer.
+
+[Faculty (Olympus)] 20:01:17
+And which activation function you want. And then you can start training it. So the neural network doesn't decide by itself how large it is that's predicated, and the only thing you learn is, what are those weights? How much.
+
+[Faculty (Olympus)] 20:01:30
+Wait. Does each unit put on it, its input.
+
+[Faculty (Olympus)] 20:01:34
+So you have to determine the shape, and this is.
+
+[Faculty (Olympus)] 20:01:37
+Difficult.
+
+[Faculty (Olympus)] 20:01:39
+It's a difficult problem. So.
+
+[Faculty (Olympus)] 20:01:41
+The true answer is.
+
+[Faculty (Olympus)] 20:01:43
+There is no like. You can't look at your data and say, this is what I need. So it would typically be trial and error.
+
+[Faculty (Olympus)] 20:01:50
+Now this trial and error can be very costly in that there is a lot of different options you have in shaping this thing.
+
+[Faculty (Olympus)] 20:01:58
+And making it big so uh, and making it like different sizes and different widths and different depth. So my suggestion would be to look at neural networks that have been successful on the data type. You have.
+
+[Faculty (Olympus)] 20:02:12
+Often this architectures are publicly available, even pre trained. We'll talk about that. What that means on Friday.
+
+[Faculty (Olympus)] 20:02:19
+So you can start with those. You don't have to determine that yourself.
+
+[Faculty (Olympus)] 20:02:23
+If you want to do it, there's also methods. This is also called like auto Ml method. So this is architecture.
+
+[Faculty (Olympus)] 20:02:31
+Uh learning. Essentially so. But that's a difficult problem. It's very costly.
+
+[Faculty (Olympus)] 20:02:36
+If you just want to stick on your network to try out for something.
+
+[Faculty (Olympus)] 20:02:40
+I would suggest to go with something to take an existing architecture that others have determined, and just go with that, and then modify it a little bit.
+
+[Faculty (Olympus)] 20:02:54
+Okay. Um.
+
+[Faculty (Olympus)] 20:02:58
+So now I want to go back to that question that we had in the.
+
+[Faculty (Olympus)] 20:03:02
+Earlier in the lecture about. Can I have more than one output.
+
+[Faculty (Olympus)] 20:03:06
+And this would happen if you don't only want to do a binary classification. So you have basically more than 2 classes.
+
+[Faculty (Olympus)] 20:03:14
+So one example here is this amnest data where each of these digits is an input to our neural network.
+
+[Faculty (Olympus)] 20:03:22
+Um. I just.
+
+[Faculty (Olympus)] 20:03:24
+Glute them together here. And what you want in your network to output is the number that's in the picture.
+
+[Faculty (Olympus)] 20:03:32
+Um. And the now we have. That means we have our 10 different classes, 0 to 9.
+
+[Faculty (Olympus)] 20:03:39
+How do we.
+
+[Faculty (Olympus)] 20:03:41
+Have the neural network output that.
+
+[Faculty (Olympus)] 20:03:43
+And what we'll do is essentially the same that we would do with logistic regression.
+
+[Faculty (Olympus)] 20:03:49
+Now, we'll basically have.
+
+[Faculty (Olympus)] 20:03:52
+One output unit for each class.
+
+[Faculty (Olympus)] 20:03:56
+And you can think of this is now that.
+
+[Faculty (Olympus)] 20:03:59
+We, we will be learned outputting a probability uh.
+
+[Faculty (Olympus)] 20:04:04
+Distribution.
+
+[Faculty (Olympus)] 20:04:06
+Probability for each class.
+
+[Faculty (Olympus)] 20:04:08
+And so, if you are super certain, then if you have a tool, then you would basically have 0 1 and all other 0, like a so-called one hot encoding of the output.
+
+[Faculty (Olympus)] 20:04:19
+If you're uncertain whether it's a 2 or one, you'd have point 5.5, and the rest Zeros.
+
+[Faculty (Olympus)] 20:04:26
+And so on.
+
+[Faculty (Olympus)] 20:04:27
+So how do you get that.
+
+[Faculty (Olympus)] 20:04:29
+And you get it actually by the same activation score thing, and then you just transform it differently. So now you don't use a sigmoid use a so-called soft max.
+
+[Faculty (Olympus)] 20:04:39
+So the soft Max is useful.
+
+[Faculty (Olympus)] 20:04:42
+And we will be meeting that friend or our friend Softmax again later on this week. Um, so here's what it is.
+
+[Faculty (Olympus)] 20:04:52
+So what you have is again, that each of these units has its free activation. Remember that linear sum of weights.
+
+[Faculty (Olympus)] 20:05:00
+Of its input.
+
+[Faculty (Olympus)] 20:05:02
+Plus the offset.
+
+[Faculty (Olympus)] 20:05:03
+And so each of them has a Z score. That's these activation. And now what we want is we want to transform this.
+
+[Faculty (Olympus)] 20:05:12
+Into.
+
+[Faculty (Olympus)] 20:05:13
+Probabilities. That means there should be between 0 and one, and they should sum up to one.
+
+[Faculty (Olympus)] 20:05:19
+And obviously, if a score is very high, that should get a higher probability, if a score is lower, it should get a low probability.
+
+[Faculty (Olympus)] 20:05:26
+So the 1st thing we do is we exponentiate each of these. So if the sum number X of Z is always a positive number.
+
+[Faculty (Olympus)] 20:05:35
+It cannot be a negative number.
+
+[Faculty (Olympus)] 20:05:38
+That's the 1st thing. But now they are not between 0 and one. They are arbitrary.
+
+[Faculty (Olympus)] 20:05:42
+So. What we do then is, we sum up all of those numbers, and we divide by that.
+
+[Faculty (Olympus)] 20:05:48
+That brings all of our numbers here into the range of 0 1. And that's going to be our output.
+
+[Faculty (Olympus)] 20:05:56
+So again, what we'll do for the 1st one here is.
+
+[Faculty (Olympus)] 20:06:00
+It has the Z 0.
+
+[Faculty (Olympus)] 20:06:02
+We do exp z. 0, and then we divide it by the sum of all of the exponentiated preactivations.
+
+[Faculty (Olympus)] 20:06:11
+That's what Magda so softmax couples essentially.
+
+[Faculty (Olympus)] 20:06:16
+All of these units.
+
+[Faculty (Olympus)] 20:06:19
+And what it'll also do is that if someone has a very high.
+
+[Faculty (Olympus)] 20:06:24
+Activation because of the exponentiation. It'll be really pronounced that guy will get a lot.
+
+[Faculty (Olympus)] 20:06:30
+Mass in the output, so we'll be very close to one. All the others will be suppressed.
+
+[Faculty (Olympus)] 20:06:36
+If someone has a negative score that will be suppressed very much.
+
+[Faculty (Olympus)] 20:06:41
+So it kind of just accentuates uh the scores and brings them in the range of 0 1.
+
+[Faculty (Olympus)] 20:06:50
+Okay. So to summarize each unit, and in your network is like a linear classifier.
+
+[Faculty (Olympus)] 20:06:57
+And it can uh break up complicated decision into simpler questions and.
+
+[Faculty (Olympus)] 20:07:03
+That's why it's easier to learn.
+
+[Faculty (Olympus)] 20:07:06
+And the power of the neural network is to take a lot of simple units and put a ton of them together.
+
+[Faculty (Olympus)] 20:07:13
+And that brings its power.
+
+[Faculty (Olympus)] 20:07:15
+And to put them in parallel and in a hierarchy.
+
+[Faculty (Olympus)] 20:07:22
+Okay, so.
+
+[Faculty (Olympus)] 20:07:26
+Now.
+
+[Faculty (Olympus)] 20:07:27
+I want to go on.
+
+[Faculty (Olympus)] 20:07:31
+Also in the interest of time, and I want to talk a bit about how we can train in your network.
+
+[Faculty (Olympus)] 20:07:35
+So we talked about how, what in your network does.
+
+[Faculty (Olympus)] 20:07:38
+But what we haven't really talked about is, how do I determine those weights? Because the weights determine.
+
+[Faculty (Olympus)] 20:07:44
+Where are those?
+
+[Faculty (Olympus)] 20:07:46
+Decision boundaries of my linear classifiers.
+
+[Faculty (Olympus)] 20:07:49
+What is actually each unit looking for. So how do we determine all those weights.
+
+[Faculty (Olympus)] 20:07:55
+And now, if you think about it, and your network has a lot of weight, let's have, even if it just has a hundred dimensional input.
+
+[Faculty (Olympus)] 20:08:05
+And the 1st layer is a hundred dimensions.
+
+[Faculty (Olympus)] 20:08:08
+Already with the 1st layer you have a hundred times a hundred weights.
+
+[Faculty (Olympus)] 20:08:13
+And then you have even more rates because you have more layers. So it quickly becomes a lot of weight.
+
+[Faculty (Olympus)] 20:08:23
+So.
+
+[Faculty (Olympus)] 20:08:26
+Okay, so how do we deal with those weights?
+
+[Faculty (Olympus)] 20:08:29
+What we'll do is we'll of course not do this by hand.
+
+[Faculty (Olympus)] 20:08:33
+We'll try to optimize a criterion for making good predictions.
+
+[Faculty (Olympus)] 20:08:39
+So that we don't have to look at the predictions by hand.
+
+[Faculty (Olympus)] 20:08:42
+So this is called a loss function, and I believe you have seen this before.
+
+[Faculty (Olympus)] 20:08:46
+Uh, so basically, the loss function quantifies. How? Well, then, your network does on my training data.
+
+[Faculty (Olympus)] 20:08:54
+So the 2 most common ones.
+
+[Faculty (Olympus)] 20:08:56
+Here for the um supervised learning with neural networks.
+
+[Faculty (Olympus)] 20:09:00
+One is for regression. We use the squared.
+
+[Faculty (Olympus)] 20:09:04
+So that means basically, we take the prediction of the neural network.
+
+[Faculty (Olympus)] 20:09:08
+That's the output.
+
+[Faculty (Olympus)] 20:09:10
+And we compare it to the true label.
+
+[Faculty (Olympus)] 20:09:17
+And then we just take the square difference.
+
+[Faculty (Olympus)] 20:09:20
+So it tells me how wrong the neural networks prediction is.
+
+[Faculty (Olympus)] 20:09:24
+And what we'll then try to do is.
+
+[Faculty (Olympus)] 20:09:27
+We had tweaked the weights. So this here.
+
+[Faculty (Olympus)] 20:09:30
+Is basically all the weights.
+
+[Faculty (Olympus)] 20:09:39
+In my neural network. So I just this vector is a really big vector with all my weights sitting in them. So that's I will also call those weights theta.
+
+[Faculty (Olympus)] 20:09:50
+So that's for regression. What do we do with classification? So for classification, we typically use the logistic laws.
+
+[Faculty (Olympus)] 20:10:00
+So, as I said, if you use that sigmoid as output, or also the cross entropy, the neural network essentially outputs.
+
+[Faculty (Olympus)] 20:10:10
+How likely is it that this data point belongs to this class.
+
+[Faculty (Olympus)] 20:10:14
+And what essentially this loss does is, it looks super complicated.
+
+[Faculty (Olympus)] 20:10:20
+It.
+
+[Faculty (Olympus)] 20:10:21
+Basically said, my observe data should be very likely under.
+
+[Faculty (Olympus)] 20:10:26
+With those predictions, or whenever in the binary classification case, whenever I observe.
+
+[Faculty (Olympus)] 20:10:33
+The label, one.
+
+[Faculty (Olympus)] 20:10:35
+The label, one should have very high probability.
+
+[Faculty (Olympus)] 20:10:39
+Under my model.
+
+[Faculty (Olympus)] 20:10:40
+And whenever I observed the label.
+
+[Faculty (Olympus)] 20:10:44
+Then the label 0 should have very high probability under my model. That's essentially what this loss says.
+
+[Faculty (Olympus)] 20:10:52
+So both of them are kind of nice losses, and they can, and what we will do is we will use those losses.
+
+[Faculty (Olympus)] 20:11:00
+As the criterion.
+
+[Faculty (Olympus)] 20:11:03
+To see whether, when your network performs well, and we will try to find a set of weights.
+
+[Faculty (Olympus)] 20:11:08
+Such that this loss is small.
+
+[Faculty (Olympus)] 20:11:12
+And that if the loss is small, we will say, Okay, we have at least fit our training data well.
+
+[Faculty (Olympus)] 20:11:18
+Talk about regularization next time.
+
+[Faculty (Olympus)] 20:11:22
+So.
+
+[Faculty (Olympus)] 20:11:25
+Okay. So now the thing is, I still okay, I have a way to quantify how well the neural network does.
+
+[Faculty (Olympus)] 20:11:31
+But I still have a ton of weights. I have these millions and billions of weights. What do I do.
+
+[Faculty (Olympus)] 20:11:39
+And.
+
+[Faculty (Olympus)] 20:11:40
+I cannot. That's like seems very intractable, like. What should I do with this mass of weights? What? How should I set them.
+
+[Faculty (Olympus)] 20:11:49
+So.
+
+[Faculty (Olympus)] 20:11:50
+This is too difficult a decision. So we always like, let's make our decision. So what we'll do is.
+
+[Faculty (Olympus)] 20:11:58
+We're not the site. This at one shot.
+
+[Faculty (Olympus)] 20:12:01
+But all we'll do is.
+
+[Faculty (Olympus)] 20:12:03
+Will make small adjustments to our weight.
+
+[Faculty (Olympus)] 20:12:06
+And we made these adjustments in a way that.
+
+[Faculty (Olympus)] 20:12:09
+Reduce the loss. So at least we know we are getting better. We are not perfect, but we're getting better.
+
+[Faculty (Olympus)] 20:12:14
+And then we'll keep doing this.
+
+[Faculty (Olympus)] 20:12:17
+Until.
+
+[Faculty (Olympus)] 20:12:19
+Basically not that much more changes.
+
+[Faculty (Olympus)] 20:12:22
+And now let's just look at one. Wait. So IJ, here means just some weight from Unit I to unit J, so this Ij is kind of from arbitrary index.
+
+[Faculty (Olympus)] 20:12:32
+So I have what? That W Ij is one manual network. And if I just look at one, wait, it's 1 number.
+
+[Faculty (Olympus)] 20:12:40
+And what I really have to.
+
+[Faculty (Olympus)] 20:12:42
+Now it's a slightly simpler decision in the sense.
+
+[Faculty (Olympus)] 20:12:46
+For that single weight. All I have to decide is, should I make it.
+
+[Faculty (Olympus)] 20:12:50
+Larger? Or should I make it smaller?
+
+[Faculty (Olympus)] 20:12:54
+Okay for a single number. So there's now only 2 options that seems a bit more tractable.
+
+[Faculty (Olympus)] 20:13:01
+And now the only thing I have to know is.
+
+[Faculty (Olympus)] 20:13:06
+Which direction should I do? Should I make it larger? Should I make it smaller?
+
+[Faculty (Olympus)] 20:13:11
+And.
+
+[Faculty (Olympus)] 20:13:12
+To know that.
+
+[Faculty (Olympus)] 20:13:15
+Well.
+
+[Faculty (Olympus)] 20:13:16
+One thing.
+
+[Faculty (Olympus)] 20:13:17
+Um. I have.
+
+[Faculty (Olympus)] 20:13:19
+If I could estimate that is.
+
+[Faculty (Olympus)] 20:13:22
+What, how would a small change in my weight.
+
+[Faculty (Olympus)] 20:13:27
+Affect the loss. So this means now I make my wait a bit larger by some delta.
+
+[Faculty (Olympus)] 20:13:34
+Would the loss go up or down.
+
+[Faculty (Olympus)] 20:13:36
+That's all I want to know.
+
+[Faculty (Olympus)] 20:13:38
+And this is a quantity. If you think back at some calculus class or so.
+
+[Faculty (Olympus)] 20:13:45
+That may be something you have.
+
+[Faculty (Olympus)] 20:13:47
+Seen before. I have some function in this case. It's a lost function. It has an argument in this case.
+
+[Faculty (Olympus)] 20:13:53
+The last function. In some sense it's influenced by the weight. So this weight is an argument to the loss function within big neural network sitting in between, somewhere.
+
+[Faculty (Olympus)] 20:14:03
+So if I now change my argument to the function a little bit, the function input.
+
+[Faculty (Olympus)] 20:14:08
+How does the function value change.
+
+[Faculty (Olympus)] 20:14:11
+And this is.
+
+[Faculty (Olympus)] 20:14:14
+The quantity that tells us that mathematically is called the derivative.
+
+[Faculty (Olympus)] 20:14:18
+So derivative tells me if I increase the input to the function a little bit.
+
+[Faculty (Olympus)] 20:14:24
+So let's just say it's a single number. I increase it a little bit. How does the output of the function change? How does the function value change.
+
+[Faculty (Olympus)] 20:14:32
+So that's what we compute here. And since actually, there's a lot of weights that influence the loss.
+
+[Faculty (Olympus)] 20:14:40
+We only look at that single weight here. So this is called a partial derivative. But it's the same. It's basically we keep everything else fixed, and we just look at wiggling the single little weight.
+
+[Faculty (Olympus)] 20:14:51
+If I make this a little bigger.
+
+[Faculty (Olympus)] 20:14:55
+Does my loss increase or decrease? And how much.
+
+[Faculty (Olympus)] 20:14:59
+That's essentially what this.
+
+[Faculty (Olympus)] 20:15:01
+Red term in that box tells us here.
+
+[Faculty (Olympus)] 20:15:04
+So this is called the partial derivative. Okay? So.
+
+[Faculty (Olympus)] 20:15:08
+This thing, I'll just tell you you can compute it. I'll give you a little bit of intuition how this is done in a later slide.
+
+[Faculty (Olympus)] 20:15:14
+But for the moment we assume we can compute it. That's great.
+
+[Faculty (Olympus)] 20:15:18
+So now, what we want is so we don't have any influence on this thing, because it comes from our network.
+
+[Faculty (Olympus)] 20:15:26
+But we have an influence on this delta. Do we basically increase or decrease? So do we make that positive or negative? Do we increase or decrease our weight.
+
+[Faculty (Olympus)] 20:15:37
+So now we have to think for a moment. What do we want.
+
+[Faculty (Olympus)] 20:15:41
+We want the loss.
+
+[Faculty (Olympus)] 20:15:43
+To decrease.
+
+[Faculty (Olympus)] 20:15:44
+We want it to be small.
+
+[Faculty (Olympus)] 20:15:47
+So.
+
+[Faculty (Olympus)] 20:15:49
+We want this.
+
+[Faculty (Olympus)] 20:15:50
+Together is basically, roughly, the change you will get.
+
+[Faculty (Olympus)] 20:15:55
+The derivative times, the Delta. This is roughly the change. You will get.
+
+[Faculty (Olympus)] 20:16:01
+When you change the weight this way.
+
+[Faculty (Olympus)] 20:16:02
+So we want this.
+
+[Faculty (Olympus)] 20:16:05
+To be negative, because we want the loss to go down. So we want the change to be negative.
+
+[Faculty (Olympus)] 20:16:11
+So well, we just now have to determine the sign of this, so that this entire term, this is the product of 2 numbers. This times, this becomes negative.
+
+[Faculty (Olympus)] 20:16:23
+So what this means is, if the partial derivative is positive.
+
+[Faculty (Olympus)] 20:16:28
+Then we decrease the weight, so partial, derivative, positive meaning. If I increase the weight.
+
+[Faculty (Olympus)] 20:16:34
+The loss increases.
+
+[Faculty (Olympus)] 20:16:35
+That's not what I want, so they decrease it.
+
+[Faculty (Olympus)] 20:16:38
+And the other way around. If the partial derivative is negative, that means I increase the weight. The loss goes down. That's good. So I increase the weight.
+
+[Faculty (Olympus)] 20:16:47
+So that's essentially how I can determine.
+
+[Faculty (Olympus)] 20:16:52
+Now I only have to determine how much.
+
+[Faculty (Olympus)] 20:16:54
+And what we will do is.
+
+[Faculty (Olympus)] 20:16:58
+We will essentially just subtract that partial derivative from my weight.
+
+[Faculty (Olympus)] 20:17:03
+So remember, we always want to go in the opposite direction of that partial derivative. This means we always want to do the opposite.
+
+[Faculty (Olympus)] 20:17:11
+So that's why we subtract it. We put a negative.
+
+[Faculty (Olympus)] 20:17:15
+So here is what we'll do. This is our iteration. We have some weight.
+
+[Faculty (Olympus)] 20:17:20
+We subtract.
+
+[Faculty (Olympus)] 20:17:22
+The partial, derivative.
+
+[Faculty (Olympus)] 20:17:23
+Because we want to change it in the opposite direction.
+
+[Faculty (Olympus)] 20:17:27
+And that's our new weight.
+
+[Faculty (Olympus)] 20:17:29
+And what we'll have is we'll have some scaling here which is called the learning rate, or the step size.
+
+[Faculty (Olympus)] 20:17:39
+We have to determine that.
+
+[Faculty (Olympus)] 20:17:42
+And then we can just iterate it.
+
+[Faculty (Olympus)] 20:17:44
+But this is actually doing is, if you have some, if you draw the losses. A function of this weight, as I did here.
+
+[Faculty (Olympus)] 20:17:50
+You will actually always go down, you'll always go down the slope into some value of the loss.
+
+[Faculty (Olympus)] 20:17:58
+So now.
+
+[Faculty (Olympus)] 20:18:00
+Next question you will ask, so this is one way, what do you do with the other weight.
+
+[Faculty (Olympus)] 20:18:06
+So you do actually the same thing with always in parallel. That means what you 1st do is for each weight. This thing.
+
+[Faculty (Olympus)] 20:18:14
+And then you update all of the weights together simultaneously.
+
+[Faculty (Olympus)] 20:18:19
+And then you would do this over and over and over and over again for many, many iterations, because the update is usually very small.
+
+[Faculty (Olympus)] 20:18:28
+Otherwise this becomes too erratic. So this has to be very small.
+
+[Faculty (Olympus)] 20:18:34
+Okay. Now.
+
+[Faculty (Olympus)] 20:18:35
+You will ask me that is not.
+
+[Faculty (Olympus)] 20:18:38
+Fully specified what you told us here, because.
+
+[Faculty (Olympus)] 20:18:41
+There's a few things you didn't tell us, for instance.
+
+[Faculty (Olympus)] 20:18:44
+How do you start? What are the ways to start with.
+
+[Faculty (Olympus)] 20:18:48
+And what is the step size? So you've already asked me this.
+
+[Faculty (Olympus)] 20:18:51
+Um, how and how do you compute this direction that you call the partial derivative.
+
+[Faculty (Olympus)] 20:18:57
+Um. So this direction is actually also called the gradient, in the sense that if you take this thing.
+
+[Faculty (Olympus)] 20:19:05
+For all your rates.
+
+[Faculty (Olympus)] 20:19:06
+So it's.
+
+[Faculty (Olympus)] 20:19:08
+A big vector as many entries as your weights have.
+
+[Faculty (Olympus)] 20:19:12
+That's called the gradient. So the gradients, just a collection of all the partial derivatives.
+
+[Faculty (Olympus)] 20:19:21
+So.
+
+[Faculty (Olympus)] 20:19:23
+Now we have to determine.
+
+[Faculty (Olympus)] 20:19:26
+What are these?
+
+[Faculty (Olympus)] 20:19:27
+Um. But before we do this I just want to have one.
+
+[Faculty (Olympus)] 20:19:30
+Small other slide and show you what we actually do.
+
+[Faculty (Olympus)] 20:19:34
+So this is what like this is the reasoning and the actual just essentially refers to this. So this would be the loss.
+
+[Faculty (Olympus)] 20:19:41
+For the entire data set. What we actually do in practices.
+
+[Faculty (Olympus)] 20:19:46
+Um. So what my previous slide would be gradient descent. We do what's called stochastic gradient descent.
+
+[Faculty (Olympus)] 20:19:52
+And the only difference is, you see, ignore those this should be. I.
+
+[Faculty (Olympus)] 20:19:57
+Maybe. Ij, also, I had your index, I for the data point. So this is some weight all the way we do the same thing.
+
+[Faculty (Olympus)] 20:20:04
+The update is the same.
+
+[Faculty (Olympus)] 20:20:06
+But what we do is we pick one data point at random and just update the loss for this data point. That means we make the prediction better for that data point.
+
+[Faculty (Olympus)] 20:20:16
+And at that moment we ignore everything else.
+
+[Faculty (Olympus)] 20:20:19
+We could all need to also do it for a small set of data points.
+
+[Faculty (Olympus)] 20:20:23
+And the reason is that looking at all data points is too expensive.
+
+[Faculty (Olympus)] 20:20:26
+So we do it in batches.
+
+[Faculty (Olympus)] 20:20:30
+That's it. But otherwise it's the same.
+
+[Faculty (Olympus)] 20:20:34
+So now let me get back.
+
+[Faculty (Olympus)] 20:20:37
+To these questions?
+
+[Faculty (Olympus)] 20:20:39
+How do we compute the derivative.
+
+[Faculty (Olympus)] 20:20:43
+How do we initialize the weights? What's the initial.
+
+[Faculty (Olympus)] 20:20:45
+Weights.
+
+[Faculty (Olympus)] 20:20:46
+And what is the good step side? How do we determine this.
+
+[Faculty (Olympus)] 20:20:51
+Um.
+
+[Faculty (Olympus)] 20:20:53
+Okay.
+
+[Faculty (Olympus)] 20:20:56
+So let me start with a direction. So this is basically this partial derivative or gradient.
+
+[Faculty (Olympus)] 20:21:03
+And so what I said was, well, what this really tells me is, if I let's take this weight as an example for the moment. If I wiggle this weight a little bit, I increase it a little bit.
+
+[Faculty (Olympus)] 20:21:15
+How does the loss change.
+
+[Faculty (Olympus)] 20:21:17
+So of course, there's this weight somehow goes into the computation of my prediction, which into the loss.
+
+[Faculty (Olympus)] 20:21:24
+But it's a fairly complicated thing, and there's it's like the rest of the neural network here.
+
+[Faculty (Olympus)] 20:21:30
+So how do we determine this? So what we do is basically, we'll follow kind of the path of influence of this weight.
+
+[Faculty (Olympus)] 20:21:38
+This weight influences my preactivation.
+
+[Faculty (Olympus)] 20:21:42
+It feeds into some reactivation of that unit.
+
+[Faculty (Olympus)] 20:21:45
+And then this is after pre activation. I have applied my activation. This is the output of that unit.
+
+[Faculty (Olympus)] 20:21:55
+It affects that output indirectly, too, and then it affects what we feed into the next layer.
+
+[Faculty (Olympus)] 20:22:01
+With a weight we want.
+
+[Faculty (Olympus)] 20:22:03
+And then this next layer. Here is the output layer.
+
+[Faculty (Olympus)] 20:22:07
+And this goes.
+
+[Faculty (Olympus)] 20:22:09
+Makes a prediction. And this goes into the loss. So this is again the pre activation of the output layer has a sigmoid here. It's a classification problem. And then it goes into the loss.
+
+[Faculty (Olympus)] 20:22:18
+So this is kind of the path.
+
+[Faculty (Olympus)] 20:22:22
+Through which this wait.
+
+[Faculty (Olympus)] 20:22:23
+Influences, the loss.
+
+[Faculty (Olympus)] 20:22:25
+So now we want to know.
+
+[Faculty (Olympus)] 20:22:28
+If I change this weight a little bit, if I increase it.
+
+[Faculty (Olympus)] 20:22:32
+How is the loss?
+
+[Faculty (Olympus)] 20:22:33
+Change? Is it changed a lot? Is it changed a little bit?
+
+[Faculty (Olympus)] 20:22:37
+That's this way to have a lot of influence, is it?
+
+[Faculty (Olympus)] 20:22:40
+Positive or negative influence.
+
+[Faculty (Olympus)] 20:22:43
+And.
+
+[Faculty (Olympus)] 20:22:44
+What we'll do is we'll compute these influences step by step.
+
+[Faculty (Olympus)] 20:22:49
+So we buy basically tracing that path.
+
+[Faculty (Olympus)] 20:22:53
+So this weight influences the pre activation score. So I have this pre activation here.
+
+[Faculty (Olympus)] 20:22:59
+This, this.
+
+[Faculty (Olympus)] 20:23:01
+Think? Just asks, okay, how much does the activation depend on the weight.
+
+[Faculty (Olympus)] 20:23:07
+Then this pre activation goes into the activation. So how much does the activation or output depend on the activation.
+
+[Faculty (Olympus)] 20:23:15
+Then I go further. How much does the output on its preactivation depend on this? a 1.
+
+[Faculty (Olympus)] 20:23:22
+And so on, and so forth, until we reach the.
+
+[Faculty (Olympus)] 20:23:24
+And this is also this is just the chain rule of calculus. Essentially I have a nested set of functions. So I multiply that derivatives.
+
+[Faculty (Olympus)] 20:23:33
+That's what mathematically this is.
+
+[Faculty (Olympus)] 20:23:35
+Now the interesting thing is.
+
+[Faculty (Olympus)] 20:23:40
+This is actually.
+
+[Faculty (Olympus)] 20:23:42
+Pretty interpretable what I get.
+
+[Faculty (Olympus)] 20:23:44
+So this is what comes out. So let's go from the back.
+
+[Faculty (Olympus)] 20:23:48
+This is.
+
+[Faculty (Olympus)] 20:23:50
+The derivative of the loss. With respect to my activation here.
+
+[Faculty (Olympus)] 20:23:53
+This is just the error. This is the true label. This is what I'm predicting. So this is the difference between what I want and what I do.
+
+[Faculty (Olympus)] 20:24:03
+So that's the error term. So that means the error term scales my weight update. That's what I meant by it propagates back the error, propagates back.
+
+[Faculty (Olympus)] 20:24:12
+Because this is the error. And if there's 0 error, if I'm correct, then I'm not updating the weights anymore.
+
+[Faculty (Olympus)] 20:24:20
+Then this part is basically, how much does, how does a influence? Z.
+
+[Faculty (Olympus)] 20:24:25
+This goes via the weight of that.
+
+[Faculty (Olympus)] 20:24:28
+Ah, that arrow here! That's the weight we want.
+
+[Faculty (Olympus)] 20:24:32
+And then the next one.
+
+[Faculty (Olympus)] 20:24:35
+The influence of c 1 on Avon. That's the derivative of my activation.
+
+[Faculty (Olympus)] 20:24:40
+So, for renew what this is is, if the rail is not active.
+
+[Faculty (Olympus)] 20:24:45
+Basically it output 0, then this term would also be 0, and I get no influence on the.
+
+[Faculty (Olympus)] 20:24:51
+Update, because this way does not actually contribute to the prediction.
+
+[Faculty (Olympus)] 20:24:56
+And only if the unit is active do I contribute, and only then I get feedback updates.
+
+[Faculty (Olympus)] 20:25:02
+And then finally, the input data point.
+
+[Faculty (Olympus)] 20:25:06
+And.
+
+[Faculty (Olympus)] 20:25:08
+Basically, the thing to remember is, there's some error of my prediction that scales debate updates. And then there's the weights that we have along the way, so that could be more. If this is a deeper network.
+
+[Faculty (Olympus)] 20:25:19
+And the activations.
+
+[Faculty (Olympus)] 20:25:23
+And to just be more of those middle terms.
+
+[Faculty (Olympus)] 20:25:27
+Okay. This is just my.
+
+[Faculty (Olympus)] 20:25:30
+What I said.
+
+[Faculty (Olympus)] 20:25:31
+So now what happens when I have more than one hidden layer.
+
+[Faculty (Olympus)] 20:25:38
+Then it becomes a little bit more complicated, and if you actually draw it.
+
+[Faculty (Olympus)] 20:25:43
+Each weight suddenly has.
+
+[Faculty (Olympus)] 20:25:45
+Multiple paths.
+
+[Faculty (Olympus)] 20:25:46
+Towards the output.
+
+[Faculty (Olympus)] 20:25:49
+So you have to somehow take care of all of these paths.
+
+[Faculty (Olympus)] 20:25:52
+So this is a bit more complicated. But essentially, you see, there will be more.
+
+[Faculty (Olympus)] 20:25:58
+Terms, like.
+
+[Faculty (Olympus)] 20:25:59
+On the path along the path and the activations along the path.
+
+[Faculty (Olympus)] 20:26:05
+This you can actually take care of if you write everything in matrix form which I didn't do here.
+
+[Faculty (Olympus)] 20:26:11
+Um, you can actually take care of this.
+
+[Faculty (Olympus)] 20:26:15
+But it still looks pretty complicated. And the other thing is, it's an expensive computation.
+
+[Faculty (Olympus)] 20:26:21
+There's a lot. If there's a lot of layers, there's a lot of terms you have to compute on the way and multiply, and some.
+
+[Faculty (Olympus)] 20:26:29
+So.
+
+[Faculty (Olympus)] 20:26:30
+This is, can become quickly.
+
+[Faculty (Olympus)] 20:26:33
+Quite expensive.
+
+[Faculty (Olympus)] 20:26:34
+But luckily there's a trick.
+
+[Faculty (Olympus)] 20:26:37
+This trick is essentially memorization, and it's known as back propagation.
+
+[Faculty (Olympus)] 20:26:42
+So what back propagation does? Is it 1st all the activations? Because we need them.
+
+[Faculty (Olympus)] 20:26:48
+And then what we can observe is.
+
+[Faculty (Olympus)] 20:26:52
+For this wait, for instance.
+
+[Faculty (Olympus)] 20:26:53
+It's a pretty short path to the output, but the path of this waste to the output is shared by this.
+
+[Faculty (Olympus)] 20:27:00
+So what I can do is I can 1st compute the gradients.
+
+[Faculty (Olympus)] 20:27:05
+Port, short of the last weight in the late in the.
+
+[Faculty (Olympus)] 20:27:09
+Deepest layers closest to the output, and then I go backwards. These ones can reuse what I computed here, and these ones can reuse what I computed here. And that's essentially what back propagation does is you compute the gradients.
+
+[Faculty (Olympus)] 20:27:24
+From the back to the front, and you, because you can reuse.
+
+[Faculty (Olympus)] 20:27:28
+The computations over those paths that you have computed before.
+
+[Faculty (Olympus)] 20:27:33
+And that's essentially what it's doing.
+
+[Faculty (Olympus)] 20:27:39
+So now. There's, however.
+
+[Faculty (Olympus)] 20:27:42
+Still some issue with this. So this back propagation has been, and nowadays is just auto differentiation essentially been super useful.
+
+[Faculty (Olympus)] 20:27:51
+To make this actually practical, practical.
+
+[Faculty (Olympus)] 20:27:54
+But there's still some complications, and these complications arise.
+
+[Faculty (Olympus)] 20:27:58
+Because, I said, if you're, you're multiplying essentially along the path.
+
+[Faculty (Olympus)] 20:28:04
+You're multiplying the weights along the path.
+
+[Faculty (Olympus)] 20:28:06
+That's what we did here.
+
+[Faculty (Olympus)] 20:28:08
+Uh 2 slides back.
+
+[Faculty (Olympus)] 20:28:10
+Here, these weights, we are multiplying them.
+
+[Faculty (Olympus)] 20:28:14
+And so if you have long paths, because you have a deep network, then the following can happen.
+
+[Faculty (Olympus)] 20:28:20
+If.
+
+[Faculty (Olympus)] 20:28:24
+Number. Your weights in the path are very small. You're multiplying a lot of small numbers.
+
+[Faculty (Olympus)] 20:28:30
+What happens if you multiply a lot of small numbers.
+
+[Faculty (Olympus)] 20:28:33
+You get a really tiny number.
+
+[Faculty (Olympus)] 20:28:37
+So your update is going to be really tiny.
+
+[Faculty (Olympus)] 20:28:40
+And it's not really gonna have much of an effect at all.
+
+[Faculty (Olympus)] 20:28:44
+So that's 1 thing that can happen.
+
+[Faculty (Olympus)] 20:28:47
+The other bad thing that can. So basically, that would mean you. It takes forever.
+
+[Faculty (Olympus)] 20:28:51
+To learn anything.
+
+[Faculty (Olympus)] 20:28:54
+The other thing that can happen is that you have.
+
+[Faculty (Olympus)] 20:28:56
+Large Numbers.
+
+[Faculty (Olympus)] 20:28:58
+As he awaits.
+
+[Faculty (Olympus)] 20:28:58
+So the weights are pretty large, so you multiply a bunch of large numbers.
+
+[Faculty (Olympus)] 20:29:03
+And what you'll get is a huge number.
+
+[Faculty (Olympus)] 20:29:07
+And.
+
+[Faculty (Olympus)] 20:29:08
+Once you have a huge number, your update is also gonna be huge. And that means you're making a an enormous update here. And you're changing this network a lot.
+
+[Faculty (Olympus)] 20:29:19
+And now this gradient is only a good approximation for the change of your performance. When you make a small update, and not when you make a large update.
+
+[Faculty (Olympus)] 20:29:29
+So you will actually become very erratic, and you may also not learn anything.
+
+[Faculty (Olympus)] 20:29:35
+So basically, what we want to avoid is this, I problem of these very small or very large grad.
+
+[Faculty (Olympus)] 20:29:41
+So we want to keep the weight somehow in a reasonable scale. And there's other ways to things to that. People do like normalizations, etc.
+
+[Faculty (Olympus)] 20:29:51
+To keep things that pay.
+
+[Faculty (Olympus)] 20:29:52
+So this is very important. Otherwise the learning process doesn't work that well.
+
+[Faculty (Olympus)] 20:30:01
+Um.
+
+[Faculty (Olympus)] 20:30:03
+Okay.
+
+[Faculty (Olympus)] 20:30:07
+Where this basically comes in already is when we think about how, even how we initialize our rates, because that's what we start with.
+
+[Faculty (Olympus)] 20:30:14
+And if we start with something very large, then.
+
+[Faculty (Olympus)] 20:30:17
+Well, we're gonna continue with something very large, and we'll easily explode or the other way around. If it's very small.
+
+[Faculty (Olympus)] 20:30:28
+So.
+
+[Faculty (Olympus)] 20:30:30
+How do we initialize.
+
+[Faculty (Olympus)] 20:30:33
+And there's some initialization rules.
+
+[Faculty (Olympus)] 20:30:36
+For different architectures and different activations.
+
+[Faculty (Olympus)] 20:30:38
+This is the one.
+
+[Faculty (Olympus)] 20:30:40
+For the reloop.
+
+[Faculty (Olympus)] 20:30:42
+And so basically, what you do is you take into account.
+
+[Faculty (Olympus)] 20:30:47
+When you're in the layer you'll have to. Actually, because you have these many
+
+[Faculty (Olympus)] 20:31:32
+Because they also don't know should they be positive or negative, you don't know. So you make it 0 mean, you make it a normal distribution, and you scale the variance. The variance is, how large are the values.
+
+[Faculty (Olympus)] 20:31:36
+And that depends on how, by how many units you have.
+
+[Faculty (Olympus)] 20:31:40
+And this can have a big impact, especially when your networks become deep, because then your paths are longer.
+
+[Faculty (Olympus)] 20:31:48
+So what you see here is.
+
+[Faculty (Olympus)] 20:31:51
+Essentially the number of training iterations. An epoch.
+
+[Faculty (Olympus)] 20:31:55
+Is basically when you do stochastic gradient.
+
+[Faculty (Olympus)] 20:31:58
+Once going through your network, through all your data.
+
+[Faculty (Olympus)] 20:32:01
+Think of it as iterations, training, iterations.
+
+[Faculty (Olympus)] 20:32:04
+And this is the error.
+
+[Faculty (Olympus)] 20:32:06
+So you see. And these are the training curves. So you plot basically the error of your network as you train it.
+
+[Faculty (Olympus)] 20:32:13
+It should got arrow should go down because you want to learn something, and you but you see they go at different speeds, and the only difference between these 2 is the initialization.
+
+[Faculty (Olympus)] 20:32:24
+And this is even more so.
+
+[Faculty (Olympus)] 20:32:27
+Um. The difference is even more striking when you have a deeper network.
+
+[Faculty (Olympus)] 20:32:33
+So then um, there's really.
+
+[Faculty (Olympus)] 20:32:36
+Is a big difference.
+
+[Faculty (Olympus)] 20:32:38
+So the initialization makes a big impact.
+
+[Faculty (Olympus)] 20:32:40
+If when you use packages for deep learning, they usually help you doing with doing that, that's pre implemented.
+
+[Faculty (Olympus)] 20:32:46
+That's good to know.
+
+[Faculty (Olympus)] 20:32:52
+Okay. Um.
+
+[Faculty (Olympus)] 20:32:55
+Let me!
+
+[Faculty (Olympus)] 20:32:57
+Show you one more thing, and then I'll answer some questions.
+
+[Faculty (Olympus)] 20:33:00
+Um initialization also plays a role for the following, and I've seen this question in the chat like.
+
+[Faculty (Olympus)] 20:33:08
+When I looked at the chat with my like in the side.
+
+[Faculty (Olympus)] 20:33:12
+Um.
+
+[Faculty (Olympus)] 20:33:14
+There's when you actually do this optimization of the loss function.
+
+[Faculty (Olympus)] 20:33:19
+There's 2 cases that can happen.
+
+[Faculty (Olympus)] 20:33:22
+One thing is that your loss function essentially, if you plot it as a function of your weight.
+
+[Faculty (Olympus)] 20:33:29
+It is a nice ball shape.
+
+[Faculty (Olympus)] 20:33:33
+And what happens here is you're starting out at some point, and you're always going down the slope with your gradient descent.
+
+[Faculty (Olympus)] 20:33:40
+And you're going down until you're in the valley, and that's it. And no matter from where you start, you'll always go into the same valley.
+
+[Faculty (Olympus)] 20:33:51
+Now, the way it looks like for neural networks. Closer to this, there's not one single valley. There's different many different valleys, and there's shallow ones, and deep ones.
+
+[Faculty (Olympus)] 20:34:02
+And deeper ones, and like shallower ones, and wider ones, and narrow ones. Whatnot.
+
+[Faculty (Olympus)] 20:34:07
+So.
+
+[Faculty (Olympus)] 20:34:10
+Now, depending on where you start, you'll actually.
+
+[Faculty (Olympus)] 20:34:13
+Go into a different valley.
+
+[Faculty (Olympus)] 20:34:15
+Depends on your starting point.
+
+[Faculty (Olympus)] 20:34:17
+When you always go down the slope.
+
+[Faculty (Olympus)] 20:34:21
+You'll get into one of them. That also means that in general you are. You can never guarantee.
+
+[Faculty (Olympus)] 20:34:26
+That you will find the deepest value, the best possible loss, function.
+
+[Faculty (Olympus)] 20:34:31
+But it turns out that's okay. Maybe this one would actually be overfitting, because this is the loss on the training data.
+
+[Faculty (Olympus)] 20:34:40
+But what it means is that when you retrain your neural network with a different random initialization.
+
+[Faculty (Olympus)] 20:34:46
+The weights. When you stop.
+
+[Faculty (Olympus)] 20:34:50
+Will probably be different. So you'll have a slightly different trained neural network.
+
+[Faculty (Olympus)] 20:34:54
+The predictions will likely be quite similar, because you trained it on the same data.
+
+[Faculty (Olympus)] 20:34:58
+But the actual rates will be different.
+
+[Faculty (Olympus)] 20:35:03
+And the good news is so that there are many of these local minima that are pretty good.
+
+[Faculty (Olympus)] 20:35:08
+So it's okay. Um.
+
+[Faculty (Olympus)] 20:35:12
+But you don't know which one you'll reach.
+
+[Faculty (Olympus)] 20:35:18
+Okay, so.
+
+[Faculty (Olympus)] 20:35:19
+I saw that there were several questions. So I wanna make a brief stop.
+
+[Faculty (Olympus)] 20:35:24
+And see which of the questions haven't been answered yet.
+
+[Faculty (Olympus)] 20:35:29
+Um.
+
+[Faculty (Olympus)] 20:35:37
+Okay, this is.
+
+[Faculty (Olympus)] 20:35:41
+Okay, what does large and small mean? Yeah, large for the weight.
+
+[Faculty (Olympus)] 20:35:46
+Yeah, basically. So that when you multiply them there, um.
+
+[Faculty (Olympus)] 20:35:51
+A large number. So you see, from the initialization we divide.
+
+[Faculty (Olympus)] 20:35:56
+The variance by the number of unit, like the width of the network. So it's gonna be a number that's quite small. Actually.
+
+[Faculty (Olympus)] 20:36:06
+Mm-hmm.
+
+[Faculty (Olympus)] 20:36:09
+Is the railroadable at 0? It's actually not so. This is a question, I think.
+
+[Faculty (Olympus)] 20:36:16
+Regarding like this.
+
+[Faculty (Olympus)] 20:36:20
+Um differentiation. So I'm actually.
+
+[Faculty (Olympus)] 20:36:23
+Differentiating the reloivation function which looks like this king function.
+
+[Faculty (Olympus)] 20:36:30
+So it looks like this.
+
+[Faculty (Olympus)] 20:36:32
+And here, at this point.
+
+[Faculty (Olympus)] 20:36:33
+It is. Indeed, it doesn't really have a derivative. Strictly speaking.
+
+[Faculty (Olympus)] 20:36:38
+So in practice, what people do they just determine? So the derivatives. Often this function are either 0 or one.
+
+[Faculty (Olympus)] 20:36:46
+They are 0 here and one here. So they just.
+
+[Faculty (Olympus)] 20:36:48
+Predefining.
+
+[Faculty (Olympus)] 20:36:49
+And that's it.
+
+[Faculty (Olympus)] 20:36:50
+Um.
+
+[Faculty (Olympus)] 20:36:52
+So for practical purposes, this works. There's a lot of.
+
+[Faculty (Olympus)] 20:36:56
+Fairly, involved theory.
+
+[Faculty (Olympus)] 20:36:59
+When you can actually do this with these nested functions and whatnot? Um.
+
+[Faculty (Olympus)] 20:37:04
+And practice. It works. Um, most neural network satisfy these conditions. Um, but they are also, for that reason smoother approximations to the reload.
+
+[Faculty (Olympus)] 20:37:14
+Um.
+
+[Faculty (Olympus)] 20:37:16
+That are a bit. Yeah, that are then differentiable.
+
+[Faculty (Olympus)] 20:37:23
+Are the multiple layers updated simultaneously or one at a time. So the layers are all updated simultaneously.
+
+[Faculty (Olympus)] 20:37:32
+What we'll do is we'll.
+
+[Faculty (Olympus)] 20:37:35
+Compute the gradients for all bits, and then update all of them together.
+
+[Faculty (Olympus)] 20:37:44
+Okay. Um.
+
+[Faculty (Olympus)] 20:37:51
+Shouldn't the 1st term be w. 1 rather than x 1 in the error formula is that this one here.
+
+[Faculty (Olympus)] 20:37:58
+Um, this is the import data point. This is my neural network prediction. F capital. F is my neural network. So this gets as input.
+
+[Faculty (Olympus)] 20:38:07
+The data. It sure it's also a function of the weights which is kind of skipped here.
+
+[Faculty (Olympus)] 20:38:12
+Um. Yeah. Maybe it should be both.
+
+[Faculty (Olympus)] 20:38:18
+Okay, there's a question, what are epochs? Okay? So I can briefly say, what are epochs that comes from my stochastic gradient descent?
+
+[Faculty (Olympus)] 20:38:26
+I said, basically in stochastic gradient descent.
+
+[Faculty (Olympus)] 20:38:30
+Um you look at.
+
+[Faculty (Olympus)] 20:38:33
+One data point at a time, or maybe a small set of data points at a time.
+
+[Faculty (Olympus)] 20:38:37
+And this is for efficiency reasons. This actually works better.
+
+[Faculty (Olympus)] 20:38:42
+And now what you'll do is.
+
+[Faculty (Olympus)] 20:38:44
+You actually scramble your data. And you.
+
+[Faculty (Olympus)] 20:38:48
+Take the 1st set, the second set, and so on in each iteration and different set. And when you have once gone through your data. That's 1 epoch. So let's say you had a hundred data point.
+
+[Faculty (Olympus)] 20:38:58
+And you look at 10 at a time.
+
+[Faculty (Olympus)] 20:39:02
+Hmm.
+
+[Faculty (Olympus)] 20:39:04
+Sorry, then one you would have.
+
+[Faculty (Olympus)] 20:39:07
+One epoch would be 10 steps.
+
+[Faculty (Olympus)] 20:39:11
+In your stochastic gradient descent.
+
+[Faculty (Olympus)] 20:39:18
+Okay. Um.
+
+[Faculty (Olympus)] 20:39:27
+Okay. Um.
+
+[Faculty (Olympus)] 20:39:31
+Okay. So now I think I will just uh continue a little bit.
+
+[Faculty (Olympus)] 20:39:38
+So the next thing that so we've talked about initialization, we've talked about how you compute the direction in which we go. That means this partial.
+
+[Faculty (Olympus)] 20:39:47
+Derivative.
+
+[Faculty (Olympus)] 20:39:50
+Now let me get to the last thing that's the step sizes or the learning rate.
+
+[Faculty (Olympus)] 20:39:56
+So, and I just want to give you a bit of an intuition about the effect of these.
+
+[Faculty (Olympus)] 20:40:01
+So what could happen is that your step sizes are very small. So this is this, it's called an ita. This thing here, this scales your Update.
+
+[Faculty (Olympus)] 20:40:11
+If this is very small, it's the similar to when your gradients are very small.
+
+[Faculty (Olympus)] 20:40:16
+You make a very tiny update. So we're essentially making very, very small steps.
+
+[Faculty (Olympus)] 20:40:22
+Shift this only a little bit.
+
+[Faculty (Olympus)] 20:40:24
+So it takes you very, very long to go to your minimum.
+
+[Faculty (Olympus)] 20:40:28
+And now remember that every iteration takes a lot of compute is expensive, so you don't necessarily want to take more than necessary.
+
+[Faculty (Olympus)] 20:40:37
+Or at least significantly, more.
+
+[Faculty (Olympus)] 20:40:39
+But you are. You will still go to a minimum just very slow.
+
+[Faculty (Olympus)] 20:40:46
+Um. The other extreme is, if your step size is very large.
+
+[Faculty (Olympus)] 20:40:50
+So this would be, we are here, and we determine we have to go to the right. This is a Monday. We can go right or left.
+
+[Faculty (Olympus)] 20:40:57
+And we take a huge step to the right. So we go to the right a lot. So we are here.
+
+[Faculty (Olympus)] 20:41:03
+And what happens is we've overshot. We've overshot our valley. So we end up on the hill on the other side.
+
+[Faculty (Olympus)] 20:41:11
+That's all we are here. We determine. Now we have to go left. The down slide down is left.
+
+[Faculty (Olympus)] 20:41:16
+So we go left, and it's again a huge step, and we again have overshopped the belly. And what can happen is that you're just sort of jumping around here.
+
+[Faculty (Olympus)] 20:41:25
+And you'll never be able to go in here.
+
+[Faculty (Olympus)] 20:41:28
+Because their steps are too big.
+
+[Faculty (Olympus)] 20:41:31
+Um.
+
+[Faculty (Olympus)] 20:41:32
+So you wanna have kind of the balance between those.
+
+[Faculty (Olympus)] 20:41:35
+And the actual magnitude, in truth, depends on how steep is your function.
+
+[Faculty (Olympus)] 20:41:42
+So let's say your function is very steep. This is fairly steep. You want to tread carefully, go more slowly.
+
+[Faculty (Olympus)] 20:41:48
+If we have function here, would be very sh very like.
+
+[Faculty (Olympus)] 20:41:54
+Wide.
+
+[Faculty (Olympus)] 20:41:55
+Then you can take a large step, and not much will change.
+
+[Faculty (Olympus)] 20:41:59
+So it actually also depends on the shape of your function.
+
+[Faculty (Olympus)] 20:42:04
+And this one. This you don't know, of course, so you have to.
+
+[Faculty (Olympus)] 20:42:09
+Tested or do it. There's also called adaptive methods that will help you do these things.
+
+[Faculty (Olympus)] 20:42:16
+Um. But mostly you have to.
+
+[Faculty (Olympus)] 20:42:20
+Tested.
+
+[Faculty (Olympus)] 20:42:21
+Um.
+
+[Faculty (Olympus)] 20:42:22
+And there's also some rules of thumb, etc. But one way you can check it is by plotting again.
+
+[Faculty (Olympus)] 20:42:29
+The learning of your network. So what you do is you plot here the iterations.
+
+[Faculty (Olympus)] 20:42:34
+So after each few updates, you compute the loss, and you see how has it become smaller or not?
+
+[Faculty (Olympus)] 20:42:41
+So the cost here is the loss.
+
+[Faculty (Olympus)] 20:42:44
+Until you do that. And do you see these are the curves for different rates.
+
+[Faculty (Olympus)] 20:42:50
+If I have a small, super, small learning rate, you see, the loss goes down. So I'm actually learning something.
+
+[Faculty (Olympus)] 20:42:58
+But it's actually quite small. It takes me a lot of iteration.
+
+[Faculty (Olympus)] 20:43:02
+If I have an intermediate rate, that's the yellow one. I'm going down.
+
+[Faculty (Olympus)] 20:43:07
+Quicker.
+
+[Faculty (Olympus)] 20:43:07
+And more quickly, I reach into a good regime of my loss function. I'm pretty much done here.
+
+[Faculty (Olympus)] 20:43:14
+And then, if my learning rate is really large.
+
+[Faculty (Olympus)] 20:43:19
+Then.
+
+[Faculty (Olympus)] 20:43:20
+This thing happens.
+
+[Faculty (Olympus)] 20:43:22
+That I'm actually just jumping around. And I'm being too erratic. And you see, this curve never really goes down. It jumps around.
+
+[Faculty (Olympus)] 20:43:30
+So if your training curve looks like this, then you may want to try.
+
+[Faculty (Olympus)] 20:43:35
+Reducing your step size a bit, and maybe then it'll actually go down.
+
+[Faculty (Olympus)] 20:43:39
+So this is some tuning you have to do.
+
+[Faculty (Olympus)] 20:43:42
+Um, but that will. That's how you can determine.
+
+[Faculty (Olympus)] 20:43:48
+As I said, there's some.
+
+[Faculty (Olympus)] 20:43:50
+The what I described to you is sort of the vanilla, stochastic, gradient descent.
+
+[Faculty (Olympus)] 20:43:55
+What people use in your networks these days are advanced versions of this, so they still use the same intuition. They still use the same reasoning.
+
+[Faculty (Olympus)] 20:44:04
+But they have some add-ons that help you.
+
+[Faculty (Olympus)] 20:44:09
+Overcome some difficult landscapes. Essentially so. These adaptive methods that.
+
+[Faculty (Olympus)] 20:44:14
+Basically take into account that maybe for some weights.
+
+[Faculty (Olympus)] 20:44:18
+The loss may be really steep, and for some of them, and maybe really like flat.
+
+[Faculty (Olympus)] 20:44:23
+So you can adjust this automatically.
+
+[Faculty (Olympus)] 20:44:25
+Momentum also helps when you have these so called ill condition landscape. So where you may go zigzag, it goes more straight to the minimal.
+
+[Faculty (Olympus)] 20:44:34
+And this Adam method did. You may see it combines both of them.
+
+[Faculty (Olympus)] 20:44:41
+Um. Okay, so that brings me to my summary about neural network training.
+
+[Faculty (Olympus)] 20:44:46
+So in summary, what we do in training is we minimize a loss function over the training data. That's our metric, our, how we quantify how well the network does.
+
+[Faculty (Olympus)] 20:44:58
+And instead of determining everything at once, we do some very small updates.
+
+[Faculty (Olympus)] 20:45:03
+And adjustments to our network rates.
+
+[Faculty (Olympus)] 20:45:06
+With stochastic gradient descent, and the actual.
+
+[Faculty (Olympus)] 20:45:10
+Direction in which we have to update up or down. That's.
+
+[Faculty (Olympus)] 20:45:14
+Computed with back propagation.
+
+[Faculty (Olympus)] 20:45:19
+Okay, so.
+
+[Faculty (Olympus)] 20:45:21
+I hope this gave you a little bit of an idea how we actually learn in a neural network, how we do the training.
+
+[Faculty (Olympus)] 20:45:28
+There's still a question about.
+
+[Faculty (Olympus)] 20:45:30
+Overfitting or not, which is related to regularization. I'll talk about it in the next lecture.
+
+[Faculty (Olympus)] 20:45:37
+Um. So in the remaining like.
+
+[Faculty (Olympus)] 20:45:39
+Few minutes. What I'll do is I'll show you the case. Study.
+
+[Faculty (Olympus)] 20:45:43
+And then I'll open it up for questions and answer hopefully all the remaining questions.
+
+[Faculty (Olympus)] 20:45:50
+So now.
+
+[Faculty (Olympus)] 20:45:52
+With a case, study.
+
+[Faculty (Olympus)] 20:45:54
+Let's.
+
+[Faculty (Olympus)] 20:45:55
+Put everything together.
+
+[Faculty (Olympus)] 20:45:57
+So and actually apply what we just learned in these 2 h.
+
+[Faculty (Olympus)] 20:46:02
+I know it was a lot. Let's remind ourselves what it was, and put it to practice with a example.
+
+[Faculty (Olympus)] 20:46:09
+So our example here is an image data set of 60,000 training images.
+
+[Faculty (Olympus)] 20:46:15
+Which are article images from Salano, from a fashion website. So these are fashion items, clothing items essentially.
+
+[Faculty (Olympus)] 20:46:24
+And.
+
+[Faculty (Olympus)] 20:46:25
+The input to the neural network is a small image, and the neural network has to tell me what's in the image.
+
+[Faculty (Olympus)] 20:46:30
+So there are also 10 classes.
+
+[Faculty (Olympus)] 20:46:33
+Different types of clothing, items.
+
+[Faculty (Olympus)] 20:46:37
+Now the 1st question is, how do we import this into the neural network.
+
+[Faculty (Olympus)] 20:46:40
+This is an image.
+
+[Faculty (Olympus)] 20:46:42
+But an image.
+
+[Faculty (Olympus)] 20:46:44
+A grayscale image. I could actually view it as a matrix of numbers.
+
+[Faculty (Olympus)] 20:46:49
+They if the Grayscale intensities.
+
+[Faculty (Olympus)] 20:46:51
+So what I'll do is I'll reshape this matrix into a vector.
+
+[Faculty (Olympus)] 20:46:56
+So I just take this column and this column, and I'll stack them on top of each other.
+
+[Faculty (Olympus)] 20:47:02
+So now, I have a vector now, this vector, I input into my.
+
+[Faculty (Olympus)] 20:47:06
+Fully connected your network. So this is input one, input 2, etc.
+
+[Faculty (Olympus)] 20:47:13
+So if it goes through my hidden layers, and then I'll get an out.
+
+[Faculty (Olympus)] 20:47:20
+So what are the outputs? I have 10 classes.
+
+[Faculty (Olympus)] 20:47:24
+If you remember, if I have 10 club, if I have a multi-class problem.
+
+[Faculty (Olympus)] 20:47:29
+So I will use the soft Max activation in the output unit.
+
+[Faculty (Olympus)] 20:47:34
+So I have 10 output units.
+
+[Faculty (Olympus)] 20:47:36
+And now, instead of the numbers from 0 to 9, I have.
+
+[Faculty (Olympus)] 20:47:40
+These different clothing items, classes.
+
+[Faculty (Olympus)] 20:47:44
+And now what I have to specify the loss will be the cross entropy, because it's classification. Now, what I'll have to specify is, how large is this network in here.
+
+[Faculty (Olympus)] 20:47:55
+That I have to determine so how many units.
+
+[Faculty (Olympus)] 20:47:59
+How deep, and how.
+
+[Faculty (Olympus)] 20:48:01
+These are small images. So we don't need a huge network.
+
+[Faculty (Olympus)] 20:48:05
+We'd also don't have that many.
+
+[Faculty (Olympus)] 20:48:07
+Um, and then we can train it.
+
+[Faculty (Olympus)] 20:48:09
+So we'll train it with stochastic gradient.
+
+[Faculty (Olympus)] 20:48:13
+And then.
+
+[Faculty (Olympus)] 20:48:14
+We'll see what comes out.
+
+[Faculty (Olympus)] 20:48:19
+So that brings me to the end of my lecture. Um, this is just a little summary, and I'll open it up now.
+
+[Faculty (Olympus)] 20:48:27
+For questions, and we can.
+
+[Faculty (Olympus)] 20:48:28
+I think, just uh, I guess it's 3 min, so we can just go into the QA.
+
+[Faculty (Olympus)] 20:48:34
+And see what questions haven't been answered, or feel free to ask other questions.
+
+[Faculty (Olympus)] 20:48:40
+If that you have. If something was unclear, something.
+
+[Faculty (Olympus)] 20:48:44
+Uh other questions you have.
+
+[Moderator - Ankit Agrawal] 20:48:47
+Uh, thank you, Professor, for that wonderful lecture. Um, we have Christiana with us. Uh, as a mentor available as well today.
+
+[Moderator - Ankit Agrawal] 20:48:57
+Uh! Hello, Cristiano!
+
+[Moderator - Ankit Agrawal] 20:49:01
+Morning.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:49:01
+Hey, hi, uh yeah. Good morning.
+
+[Moderator - Ankit Agrawal] 20:49:02
+Okay.
+
+[Moderator - Ankit Agrawal] 20:49:04
+We will get right into the QA. For the post session. Uh, Andrew is asking, considering the fashionist example, is it important that images are of this.
+
+[Moderator - Ankit Agrawal] 20:49:16
+Images of the same class are aligned geometrically.
+
+[Faculty (Olympus)] 20:49:21
+Yes, actually, when you have. Uh.
+
+[Faculty (Olympus)] 20:49:26
+Fully connected neural network that we are using here.
+
+[Faculty (Olympus)] 20:49:29
+It is actually important that they are aligned. Um, that actually, the.
+
+[Faculty (Olympus)] 20:49:34
+Item is always in the same place.
+
+[Faculty (Olympus)] 20:49:36
+When we use convolutional networks that we'll talk about in the next lecture. This is not necessary, but here.
+
+[Faculty (Olympus)] 20:49:44
+It is necessary, and the reason is that here we are really looking at like which coordinates are important.
+
+[Faculty (Olympus)] 20:49:49
+So it would basically learn which coordinates typically have high.
+
+[Faculty (Olympus)] 20:49:55
+Input values when there's, say, a pad as the input.
+
+[Faculty (Olympus)] 20:49:59
+And if you shift the hand around, those units will change because.
+
+[Faculty (Olympus)] 20:50:04
+Then like.
+
+[Faculty (Olympus)] 20:50:05
+It'll be sitting somewhere different in your image, so like it'll go from here to here, so that, like high value will go from here to here or so.
+
+[Faculty (Olympus)] 20:50:15
+So it'll actually change. Any of your network cannot deal with that.
+
+[Moderator - Ankit Agrawal] 20:50:21
+Yeah. Um. One of the other questions for Professor is, could you explain soft Max function again?
+
+[Faculty (Olympus)] 20:50:29
+Okay, so the soft mix.
+
+[Faculty (Olympus)] 20:50:31
+Activation function. Let's do it with this example.
+
+[Faculty (Olympus)] 20:50:36
+So we have.
+
+[Faculty (Olympus)] 20:50:37
+10 output glasses.
+
+[Faculty (Olympus)] 20:50:39
+And what we'll want is we'll want the outputs.
+
+[Faculty (Olympus)] 20:50:43
+Basically, we want the actual true class to have the I. So.
+
+[Faculty (Olympus)] 20:50:47
+To have the highest output out of these. So for each input.
+
+[Faculty (Olympus)] 20:50:51
+Each of these green guys gives an output.
+
+[Faculty (Olympus)] 20:50:54
+And we kind of want.
+
+[Faculty (Olympus)] 20:50:57
+The true class to have the largest output. So we will basically classify by the Max output.
+
+[Faculty (Olympus)] 20:51:02
+So if this is actually a pullover, and this would be like a very high number. We want this thing.
+
+[Faculty (Olympus)] 20:51:08
+To. Uh, yeah, we want the pullover unit to have the highest output.
+
+[Faculty (Olympus)] 20:51:12
+That's the main idea. Now, the thing is um, I could do this even by just doing a linear combination of your inputs with your activations.
+
+[Faculty (Olympus)] 20:51:23
+But they are like all over the place. They can be minuses and pluses and positives and negatives.
+
+[Faculty (Olympus)] 20:51:28
+So what the soft Max does, it rescales them.
+
+[Faculty (Olympus)] 20:51:33
+To bring them between 0 and one, and to actually make them interpretable also as probabilities.
+
+[Faculty (Olympus)] 20:51:40
+Probabilities. If I have 2 options, the probabilities for option, one, and option 2 sum to one.
+
+[Faculty (Olympus)] 20:51:45
+And if I have 10 options, the probability for option, 1, 2, 3, etc. If I take all of them, they sum to one.
+
+[Faculty (Olympus)] 20:51:53
+So how do I achieve this.
+
+[Faculty (Olympus)] 20:51:55
+I have my activation scores.
+
+[Faculty (Olympus)] 20:51:58
+So each of these has a pre activation.
+
+[Faculty (Olympus)] 20:52:02
+This is my Z 0, and z 1 and z. 2, etc. So this is just.
+
+[Faculty (Olympus)] 20:52:10
+Wait. Times. Okay, it's not really the X, input it's like what comes out of the last layer. The previous layer.
+
+[Faculty (Olympus)] 20:52:17
+Plus b, that's the form of it.
+
+[Faculty (Olympus)] 20:52:20
+So these numbers, these activation scores are all over the place.
+
+[Faculty (Olympus)] 20:52:24
+So the 1st thing I do is.
+
+[Faculty (Olympus)] 20:52:27
+I make them non-negative.
+
+[Faculty (Olympus)] 20:52:30
+By exponentiating them. So I do this expo exp. Of.
+
+[Faculty (Olympus)] 20:52:37
+c. 1, etc.
+
+[Faculty (Olympus)] 20:52:38
+So what this also does is, if the number is large, if you exponentiated, it becomes really large.
+
+[Faculty (Olympus)] 20:52:44
+If a number is negative, you exponentiate, it is essentially 0.
+
+[Faculty (Olympus)] 20:52:49
+So that's the 1st thing it does.
+
+[Faculty (Olympus)] 20:52:51
+Then the second thing is, I want to put them back in the range of 0 1.
+
+[Faculty (Olympus)] 20:52:57
+And the way I get this is that I now just.
+
+[Faculty (Olympus)] 20:53:00
+Divide by all these exponentiated things, so.
+
+[Faculty (Olympus)] 20:53:04
+I.
+
+[Faculty (Olympus)] 20:53:05
+To the sum over all my.
+
+[Faculty (Olympus)] 20:53:08
+But now I have 10.
+
+[Faculty (Olympus)] 20:53:11
+No, this is wrong.
+
+[Faculty (Olympus)] 20:53:13
+This has to be the exponentiated one.
+
+[Faculty (Olympus)] 20:53:20
+ZI sorry.
+
+[Faculty (Olympus)] 20:53:21
+So all, I basically sum over all the.
+
+[Faculty (Olympus)] 20:53:26
+Um scores the exponentiated scores, and that then they will sum up to all.
+
+[Faculty (Olympus)] 20:53:33
+And what this really does is it.
+
+[Faculty (Olympus)] 20:53:35
+Squashes together the small numbers, and it really brings out the largest. The max of them.
+
+[Faculty (Olympus)] 20:53:41
+So it's really like as if the name says it's a soft version of the Max. What you want is something like a maximum.
+
+[Faculty (Olympus)] 20:53:49
+What's the Max activation in here? We move in essentially, which class wins, and that is like a soft version of this that tells me which of these classes has the best score.
+
+[Moderator - Ankit Agrawal] 20:54:04
+Um.
+
+[Moderator - Ankit Agrawal] 20:54:05
+Thank you, Professor, for that. Uh, just a quick reminder to everybody before we continue with our questions. The next class will be on Thursday, not on Wednesday, but on Thursday. Okay, uh.
+
+[Moderator - Ankit Agrawal] 20:54:19
+Okay. Um.
+
+[Moderator - Ankit Agrawal] 20:54:21
+Continuing on that. Uh, somebody's asking a question can fix this from the original image, be stored into a vector, in different order. So instead of reading row after row, we read column after column. Would this result into different outcomes?
+
+[Faculty (Olympus)] 20:54:43
+Okay, I can take this question. Um.
+
+[Faculty (Olympus)] 20:54:48
+So you can. You don't have to do it. Column back column. You can do it also, row by row. The only thing is that you're consistent.
+
+[Faculty (Olympus)] 20:54:57
+Um, so that you do the same order for all the images. So if you do a row by road, that's also fine, but then you have to always do it, row by row. If some of them you do column by column, some row by row, so even if I take the same image, and I do.
+
+[Faculty (Olympus)] 20:55:11
+Row by row and then call him by column. I get 2 different vectors, and then your network doesn't even know that this is the same image.
+
+[Faculty (Olympus)] 20:55:19
+Thought it wouldn't.
+
+[Faculty (Olympus)] 20:55:20
+What do something different for those? So it's okay to do either. But you just have to be consistent.
+
+[Moderator - Ankit Agrawal] 20:55:29
+Okay. Uh. Now, we can move to the mentoring. QA. Session part of the uh lecture today. Uh. So maybe we can have Christian go first, st and then maybe Professor can add on to uh the responses where we're needed.
+
+[Moderator - Ankit Agrawal] 20:55:47
+Um, leader is asking, can we decide if we need fully connected or not? Uh, and how do we optimize the architecture.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:55:59
+Uh, when you say when you say like, in terms of fully connect or not, I think when you build in the architecture the way it is uh built uh here. Uh, I think it's always going to be fully connected, or or you're going to have weights connecting one.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:56:10
+Set of notes when layers to the next one.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:56:12
+Uh, and the next uh question terms of optimizing.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:56:16
+I mean, that's a that's a.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:56:18
+1 million dollar question, because usually we start with a simple architecture, like with simple number of layers, like one or 2, and you start to increase that based on on all the the let's say.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:56:31
+Diagnostic technique that the the professor explain in terms of how.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:56:35
+Your model is learning across all the the apps. These something that are gonna cover in other sessions, other lectures, as always, kind of understanding how the model is learning from there you are going to increase or decrease the size of your network that that's going to be the the process.
+
+[Faculty (Olympus)] 20:56:53
+Maybe I can add to this also. So for the really.
+
+[Faculty (Olympus)] 20:56:57
+Big models like the Llms. What people do is they actually try to.
+
+[Faculty (Olympus)] 20:57:04
+Um predict.
+
+[Faculty (Olympus)] 20:57:05
+How many more like?
+
+[Faculty (Olympus)] 20:57:08
+Basically, how much more performance gain you would get for a certain increase in the size of the network.
+
+[Faculty (Olympus)] 20:57:14
+Because there, it's impossible to train the neural network like multiple times, because it's so big. And there's so much data. So you have to kind of like you say I have this compute, and I try to estimate.
+
+[Faculty (Olympus)] 20:57:26
+Okay, how much.
+
+[Faculty (Olympus)] 20:57:28
+Can I fit, and how much gain would I be getting by either? Like using more runs? More training runs like more data.
+
+[Faculty (Olympus)] 20:57:36
+Or by making the model bigger, and in what way you would shape it? Uh. So then there's like extrapolation curves and things people do to try to determine that.
+
+[Faculty (Olympus)] 20:57:46
+It's complicated.
+
+[Faculty (Olympus)] 20:57:47
+It's a difficult question.
+
+[Moderator - Ankit Agrawal] 20:57:51
+Mm-hmm.
+
+[Moderator - Ankit Agrawal] 20:57:53
+Um.
+
+[Moderator - Ankit Agrawal] 20:57:54
+1st is saying, I understood the gradient descent algorithm, but I did not understand what stochastic gradient does.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:58:05
+That's fine. Okay? Uh in in terms of. So that's okay. As as I was explaining, was going to update the weight.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:58:13
+Uh as you were incurring new samples like going over all the samples.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:58:18
+Uh advanced, and the Batch Mini Batch credit is sent to chunk your data set into several different.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:58:25
+You know, chunks of data essentially, and updates all the way to according to one single chunk. Those are the steps that you're going to comprise your.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:58:33
+Uh, you know whole web, hook.
+
+[Moderator - Ankit Agrawal] 20:58:39
+Um.
+
+[Moderator - Ankit Agrawal] 20:58:41
+Another question we have is for a neural network. The complexity and initialization coming for the left or right will come to a minimum.
+
+[Moderator - Ankit Agrawal] 20:58:50
+The minimum should be able to be determined via Second level differentiation. Right? So can we not collect all the minimum to determine the best uh position.
+
+[Moderator - Ankit Agrawal] 20:59:01
+However, then again would it be moving towards overfitting.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:59:08
+Yeah, so in that case, like.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:59:09
+I mean the the the whole thing is non-convex. Right? You're gonna essentially.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:59:15
+At some point do they end up with a local minimum, not a global minimum. It could be the local minimum. If you look.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:59:21
+But in in this case you are going to end up with the same problem that are discussing in terms of optimizer architecture. Right? You have to train so many different uh uh.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:59:32
+Networks. And what's going to play a role there is going to be how we're going to initialize essentially a weight in a way to develop in a different local minimum. And you're gonna end up finding which the minimum which better local minimum is going to give you the best result so essentially that that.
+
+[Cristiano Aguiar - Faculty (Olympus)] 20:59:48
+That's essentially the process of training those those uh, those models gonna end up training different ones to see if they're going to end up with the best uh minimum.
+
+[Moderator - Ankit Agrawal] 20:59:59
+Christiana, do you have a comment on using second order differentiation instead of just the 1st order, partial derivatives uh, to compute the minimum.
+
+[Faculty (Olympus)] 21:00:12
+Yeah. Oh, yeah.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:00:13
+Done. Yeah.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:00:14
+Yeah. No no go ahead. Go ahead. Sorry.
+
+[Faculty (Olympus)] 21:00:17
+So, yeah, one thing is that for neural network already the gradients are really large and expensive.
+
+[Faculty (Olympus)] 21:00:24
+And the second order.
+
+[Faculty (Olympus)] 21:00:27
+They've like pre differentiation. The hashion is like the gradient square, so if migrated, is the length of 100, then this will be 100 by a hundred matrix. So that is one thing that is, gonna be huge.
+
+[Faculty (Olympus)] 21:00:39
+And even having that like computing it, having it in memory, is.
+
+[Faculty (Olympus)] 21:00:43
+Enormous and typically not feasible.
+
+[Faculty (Olympus)] 21:00:46
+The other thing is that determining whether this is like actually global or like.
+
+[Faculty (Olympus)] 21:00:52
+Okay, you can say it's it's locally. It's like, it looks like a minimum or a maxim. You could do that. Um. It doesn't tell you what is the global optimum. So this is infeasible. The other thing is, there is so many in terms of like the enumeration.
+
+[Faculty (Olympus)] 21:01:08
+There's so many.
+
+[Faculty (Olympus)] 21:01:10
+Local minima or so-called stationary points where the gradient is 0, that you cannot enumerate them.
+
+[Faculty (Olympus)] 21:01:16
+It's too expensive. You would have to search for them. Still, you don't know what they are.
+
+[Faculty (Olympus)] 21:01:21
+Um so.
+
+[Faculty (Olympus)] 21:01:23
+That's why. Usually you just.
+
+[Faculty (Olympus)] 21:01:26
+Do your random initialization and run, and if it doesn't look good, then you do it again. But mostly.
+
+[Faculty (Olympus)] 21:01:32
+Yeah, you cannot.
+
+[Faculty (Olympus)] 21:01:34
+Optimise it, better.
+
+[Faculty (Olympus)] 21:01:35
+And indeed, people have also tried to do use better optimization methods.
+
+[Faculty (Olympus)] 21:01:41
+And it turns out that.
+
+[Faculty (Olympus)] 21:01:44
+Stochastic, gradient descent has this extra randomness that's actually good. It has some implicit regularization. It prevents overfitting.
+
+[Faculty (Olympus)] 21:01:51
+So it doesn't actually necessarily lead to a better solution.
+
+[Faculty (Olympus)] 21:01:56
+If you use a better optimization method.
+
+[Moderator - Ankit Agrawal] 21:02:00
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:02:02
+Um. I see somebody just says, do you use the second order derivative? So no, we do not use second order derivative, as professor just mentioned because of, uh, primarily, the computational issues that arise with taking second order derivatives uh for more. You can maybe go to stack, overflow and search.
+
+[Moderator - Ankit Agrawal] 21:02:18
+Via Hcn. Matrices not used for neural network computations, or via not used for back propagation.
+
+[Moderator - Ankit Agrawal] 21:02:26
+There's like very long detail answer available over there.
+
+[Moderator - Ankit Agrawal] 21:02:30
+Um, if if something is unclear.
+
+[Moderator - Ankit Agrawal] 21:02:33
+Uh Farus is asking for Professor. Just if we can have a quick little concrete example of stochastic gradient that can explain the idea more in more detail.
+
+[Faculty (Olympus)] 21:02:46
+Hmm, okay, I can try to do this.
+
+[Moderator - Ankit Agrawal] 21:02:47
+So.
+
+[Faculty (Olympus)] 21:02:49
+Um oops, so let's say you had.
+
+[Faculty (Olympus)] 21:02:52
+3 data, points. Um.
+
+[Faculty (Olympus)] 21:02:54
+So what is the loss?
+
+[Faculty (Olympus)] 21:02:57
+The loss is uh.
+
+[Faculty (Olympus)] 21:03:01
+Um.
+
+[Faculty (Olympus)] 21:03:03
+Gonna be some.
+
+[Faculty (Olympus)] 21:03:05
+Over your 3 data points.
+
+[Faculty (Olympus)] 21:03:08
+Some loss function of your data. Point XI.
+
+[Faculty (Olympus)] 21:03:12
+And your prediction. F. Of xi. Right.
+
+[Faculty (Olympus)] 21:03:16
+So you're summing over these, and then you're dividing, maybe by 3. So this is 3 data points. You do the average loss.
+
+[Faculty (Olympus)] 21:03:22
+So now, when you do the gradient, if you remember the gradient, it had that arrow part in it.
+
+[Faculty (Olympus)] 21:03:29
+Which is how much error? What's the difference between what you want to predict and what you're actually predicting? So this should also maybe take the label. Actually, the correct label in there.
+
+[Faculty (Olympus)] 21:03:41
+Um, so that gradient had, like some term which was the Y.
+
+[Faculty (Olympus)] 21:03:47
+Minus.
+
+[Faculty (Olympus)] 21:03:49
+F. Of XI.
+
+[Faculty (Olympus)] 21:03:53
+Um.
+
+[Faculty (Olympus)] 21:03:53
+So now, what this actually would look like for uh in gradient descent would actually be the sum over all. I.
+
+[Faculty (Olympus)] 21:04:02
+When you do, the derivative of the.
+
+[Faculty (Olympus)] 21:04:05
+Um, it's actually the derivative.
+
+[Faculty (Olympus)] 21:04:08
+Um of the like, the sum of the derivatives for each data point. So if I now do, the.
+
+[Faculty (Olympus)] 21:04:15
+Lost derivative. With respect to some weight, it's essentially.
+
+[Faculty (Olympus)] 21:04:21
+Some over the data points.
+
+[Faculty (Olympus)] 21:04:26
+Loss of the is data point.
+
+[Faculty (Olympus)] 21:04:29
+etc.
+
+[Faculty (Olympus)] 21:04:31
+Um. So this would actually buys basically back, propagate kind of the.
+
+[Faculty (Olympus)] 21:04:36
+Average error, and this would also have a 1 over 3 in here. Um.
+
+[Faculty (Olympus)] 21:04:43
+Okay. Strictly speaking, it would have because of the square that um. But so this would be the average error.
+
+[Faculty (Olympus)] 21:04:48
+For all the data points. So now, what happens in stochastic gradient descent.
+
+[Faculty (Olympus)] 21:04:53
+You don't use the average error for all the data points, but you pick out one or a small batch of them. So let's hear we have 3, so that means we would do one of them.
+
+[Faculty (Olympus)] 21:05:04
+And now I'll do it in a different color.
+
+[Faculty (Olympus)] 21:05:06
+Um and see if I have space. So in Sgd.
+
+[Faculty (Olympus)] 21:05:11
+Yeah, what we'll do is we'll pick one data point. Let's call it J at random.
+
+[Faculty (Olympus)] 21:05:17
+So let's say, J, equals 2.
+
+[Faculty (Olympus)] 21:05:19
+And we do the update only for that data point. So that means.
+
+[Faculty (Olympus)] 21:05:24
+My.
+
+[Faculty (Olympus)] 21:05:25
+Here, this becomes just.
+
+[Faculty (Olympus)] 21:05:29
+Why, 2 minus f of x.
+
+[Faculty (Olympus)] 21:05:32
+Tool.
+
+[Faculty (Olympus)] 21:05:35
+In my gradient just for that single point in the next.
+
+[Faculty (Olympus)] 21:05:39
+Iteration. We pick another one. Maybe we pick number one. So we just use the error for data point number one.
+
+[Faculty (Olympus)] 21:05:46
+In the next iteration. Maybe we pick data for Number 3.
+
+[Faculty (Olympus)] 21:05:49
+So in the green term we would only pick data point number 3 here.
+
+[Faculty (Olympus)] 21:05:54
+So you see, after 3 iterations, we have also seen all the data points, and in gradient descent we would have done them all at once in one step.
+
+[Faculty (Olympus)] 21:06:03
+So that's the difference in gradient descent. You do all of them at one shot.
+
+[Faculty (Olympus)] 21:06:08
+In stochastic gradient December to update for one data point, update for the other data point and update for the other data point.
+
+[Faculty (Olympus)] 21:06:15
+And it's just random, because.
+
+[Faculty (Olympus)] 21:06:17
+We don't want necessarily like that, the order matters. So we we shuffle them around.
+
+[Faculty (Olympus)] 21:06:24
+Um! Why don't we use all of them? All of them are more informative. Right.
+
+[Faculty (Olympus)] 21:06:29
+That's true.
+
+[Faculty (Olympus)] 21:06:31
+But it's also much more expensive. So now I think you don't have 3 data points. You have a billion data points.
+
+[Faculty (Olympus)] 21:06:38
+So they don't even fit in your memory. So we have to like even to compute the gradient. You have to shuffle your data in and out and in and out, and it is actually very expensive to even compute one step.
+
+[Faculty (Olympus)] 21:06:48
+And now the thing is in the time that you have done one gradient step. I have.
+
+[Faculty (Olympus)] 21:06:54
+Already done many Sgd steps. So the stochastic gradient steps, and even with a few data points, it's already learned quite a bit.
+
+[Faculty (Olympus)] 21:07:01
+Because there's also some redundancy in the data. So stochastic gradient descent converges faster. It's actually more efficient that way.
+
+[Faculty (Olympus)] 21:07:11
+But basically think of it, you up, you basically do the updates with the loss for all data points.
+
+[Faculty (Olympus)] 21:07:18
+Or with.
+
+[Faculty (Olympus)] 21:07:19
+For just one data point. So that is like when you go. So this part.
+
+[Faculty (Olympus)] 21:07:25
+Here. That is basically the.
+
+[Faculty (Olympus)] 21:07:28
+Term I'll try to find my slide again.
+
+[Faculty (Olympus)] 21:07:31
+Um.
+
+[Faculty (Olympus)] 21:07:34
+There I wrote down what the gradient looks like, roughly.
+
+[Faculty (Olympus)] 21:07:39
+Have to scroll a bit.
+
+[Faculty (Olympus)] 21:07:40
+But uh yeah.
+
+[Faculty (Olympus)] 21:07:44
+Too many slides uh find it. Um!
+
+[Faculty (Olympus)] 21:07:47
+Here, that one. So this.
+
+[Faculty (Olympus)] 21:07:50
+Would either be. This is actually also for one data point here. So this part would either be for one data point, or it would be for the average.
+
+[Faculty (Olympus)] 21:07:57
+Of all of your data point, or averaged over a small subset like a batch of data points.
+
+[Moderator - Ankit Agrawal] 21:08:09
+Another question we have is.
+
+[Moderator - Ankit Agrawal] 21:08:11
+Is it in a similar way, as we studied in fashionist neural networks are also used in medical imaging.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:08:22
+Yes, uh, sorry, and that is yes, the the approach is going to be similar.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:08:26
+The only difference is always is uh the architecture that you. It's usually applied to those problems. The same thing that you're gonna learn in that next lecture which is the convolution even.
+
+[Moderator - Ankit Agrawal] 21:08:38
+Um.
+
+[Moderator - Ankit Agrawal] 21:08:41
+Profession amnest as an example, would you need a deeper and wider neural network to determine similar inputs? Let's say, sweater versus pullover.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:08:54
+Okay, let let me break down the the question. So.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:08:59
+That case, the the way you're looking at the the problem is, pixel by Pixel, right.
+
+[Moderator - Ankit Agrawal] 21:09:03
+Mm-hmm.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:04
+So.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:05
+In that case you're going to need to. Let's think about. I think if you.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:10
+If you look at the problem with the the amount of.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:13
+Uh.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:14
+Classes that you have.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:15
+And you're going to try to find a boundary that's going to separate them.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:19
+That's going to be.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:20
+Quite tumbling. Given the the difference on the on the pixels that you're looking at.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:26
+I would say like.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:27
+Making the network wider. I'm not sure like I I'm not sure what's going to be the.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:32
+The actual uh thing. I think it. Why, there's gonna be able to capture a little bit better.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:36
+Uh Thenlinarities.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:38
+But yeah, something to to try.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:40
+Honestly.
+
+[Moderator - Ankit Agrawal] 21:09:42
+Yeah. And in general, we don't rely on like a straightforward neural network to do that, we go through something like convolutional network which, uh, which works a lot better. Um, I think that when in the case study we will see. Uh, when we run uh, just a simple neural network on this data set. You can try this as well. You will see that pullovers and sliders have a lot of.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:09:48
+No.
+
+[Moderator - Ankit Agrawal] 21:10:06
+Overlap, meaning that you'll get a lot of misclassification between those classes in that data set.
+
+[Moderator - Ankit Agrawal] 21:10:12
+Uh, so convolutional networks are usually considered better for it.
+
+[Moderator - Ankit Agrawal] 21:10:18
+Um.
+
+[Moderator - Ankit Agrawal] 21:10:19
+Somebody is asking uh. So experimentation in a practical sense, so like notes that classified has a zipper or not.
+
+[Moderator - Ankit Agrawal] 21:10:30
+Uh, so just a continuation to that question.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:10:36
+Yeah, I think that the answer is gonna be to what we discussing here. I think that's not a lot.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:10:41
+Ah related to the type architecture that you're using. I think you know, using convolution, the convolution is gonna learn different patterns. And you know, we're gonna learn.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:10:49
+How did the conversion network works? But essentially, you're going to be learning those type of patterns with discussing terms of.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:10:55
+Edges, or some other uh.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:10:59
+Types of behavior, the feature, that of the image that that belongs to a certain class.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:11:04
+And, for example, the the existence of a zipper, or types of of uh images that have these particular patterns that's going to be learned to do some some of the layers in your in your network.
+
+[Moderator - Ankit Agrawal] 21:11:17
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:11:18
+I agree with that. Um.
+
+[Moderator - Ankit Agrawal] 21:11:22
+So somebody is asking uh.
+
+[Moderator - Ankit Agrawal] 21:11:26
+Can we limit how wide each layer can get? So, for example, 1st layer will be as big as possible, but second layer will be a maximum of 10 nodes, and so on.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:11:38
+Uh, yes, I can. Right? Those are the your hyper parameter. Those are things that you have to define as a as a data scientist to to design these architectures.
+
+[Moderator - Ankit Agrawal] 21:11:49
+Yep.
+
+[Moderator - Ankit Agrawal] 21:11:52
+Mm.
+
+[Moderator - Ankit Agrawal] 21:11:55
+Okay? So I'm trying to see how is in neural network different from a decision tree.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:06
+Uh I I think um.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:07
+It's kind of hard question to compare those directly in terms of the decision. But if you look at the.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:14
+Uh, how the the nodes and how they they are going to be looking at the activation function. Nonlinear.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:20
+Uh, with several different deaths of your ofers that are gonna look at going to to be able to separate uh more.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:30
+Um a lot nonlinear type of separation rather than looking at the uh.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:35
+A random force that's going to be mostly focus on each feature, and that they see you into features and the ranges of the 2 features to make the decision. So a problem like the one that you're looking at uh before that has a.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:48
+3 different 2 different classes, but they are separated by.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:52
+Cheap.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:52
+3 different clusters. Let's say those those are the kind of problems a little bit harder for you to solve. Using a window force.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:12:59
+And, on the other hand, if you look at uh neural network, there are going to be easier to separate that.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:13:04
+Right. I think the the way they're going to find the boundary between classes is going to be more complex. Let's say.
+
+[Moderator - Ankit Agrawal] 21:13:12
+Um, also, just if you think about it, the way we are trying to identify the separators is different, right? Like in a neural network. We are doing a linear uh operation and applying an activation function.
+
+[Moderator - Ankit Agrawal] 21:13:24
+On top of it to learn a function. But in in a decision tree we are using the amount of.
+
+[Moderator - Ankit Agrawal] 21:13:32
+Uh like entropy or information gain to to be able to learn the classifiers over there. Right? So we are basically looking at the homogenity within the data to do the classification. So the approach is kind of completely different.
+
+[Moderator - Ankit Agrawal] 21:13:45
+Uh.
+
+[Moderator - Ankit Agrawal] 21:13:46
+Uh in in how we are learning the function itself. Uh, but, as Christiana said, there are definitely certain types of problems which neural networks will work really well on compared to decision. Trees.
+
+[Moderator - Ankit Agrawal] 21:13:58
+Uh.
+
+[Moderator - Ankit Agrawal] 21:14:00
+So one of the other questions we have is, does the choice of the activation function have an impact on the mean value of the bias?
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:14:16
+Does. The the official function is uh in terms of the.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:14:20
+Buyers on the result of.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:14:22
+I.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:14:24
+Yeah, if you think of like activation activation functions definitely gonna is gonna be something that's going to affect your.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:14:30
+Uh your final outcome overall like the how you're going to fit the problem.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:14:34
+And you'll see in that case. Yes, like in terms of bias, gonna is it gonna affect that.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:14:40
+Uh the defining which activation function is gonna give you either or uh lower bias on higher. So something like that is that is, that is a bit harder to to do that.
+
+[Moderator - Ankit Agrawal] 21:14:41
+Um.
+
+[Moderator - Ankit Agrawal] 21:14:54
+Yeah. Um.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:14:54
+Makes understood your question correctly.
+
+[Moderator - Ankit Agrawal] 21:14:55
+Yeah, I don't know if the bias over here is being referred to as bias. I think the bias over here is being referred to as the threshold or the bias in the neural network.
+
+[Moderator - Ankit Agrawal] 21:15:06
+Like the way sent biases, or the weights and thresholds.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:15:10
+Okay.
+
+[Moderator - Ankit Agrawal] 21:15:11
+So I think the question over here is, does the activation function, the choice of the activation function we use have a overall impact on the mean value of the biases. So because we are treating biases as threshold, do those do those thresholds change.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:15:14
+You can't.
+
+[Moderator - Ankit Agrawal] 21:15:27
+Uh, depending on our choice of activation.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:15:33
+Uh, it may change because of the of the behavior, some activation. They are not bounded between 0 1, some other, I mean the good check of the bounded by 0 1 minus one and one. So that case yes, it did affect your your bias.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:15:48
+Corrected. Am I wrong? I think you will. Yeah.
+
+[Moderator - Ankit Agrawal] 21:15:51
+Yeah. I agree with that, too. Uh, yes. Um.
+
+[Moderator - Ankit Agrawal] 21:15:56
+Um. So the other questions we have is, how is information propagation measured in a neural network?
+
+[Moderator - Ankit Agrawal] 21:16:03
+Oh!
+
+[Moderator - Ankit Agrawal] 21:16:03
+I think, Professor, kind of answered this a little bit during the lecture, that we cannot really do that.
+
+[Moderator - Ankit Agrawal] 21:16:10
+Uh, like exact quantitative measures are not possible. Right? That also makes neural networks highly non interpretable in nature.
+
+[Faculty (Olympus)] 21:16:19
+Yeah, I think when I mentioned it in the lecture I referred to mostly back propagation, because I.
+
+[Moderator - Ankit Agrawal] 21:16:25
+Mm-hmm.
+
+[Faculty (Olympus)] 21:16:25
+Uh, like the different activation functions.
+
+[Faculty (Olympus)] 21:16:28
+Um may actually influence. How much of your error signal.
+
+[Faculty (Olympus)] 21:16:34
+But here back propagates toward updating the weights, because this is where the derivative of the activation functions comes in.
+
+[Faculty (Olympus)] 21:16:42
+And so for a sigmoid, a sigmoid becomes flat. It has this S shape.
+
+[Faculty (Olympus)] 21:16:49
+So this thing um.
+
+[Faculty (Olympus)] 21:16:51
+Thought.
+
+[Faculty (Olympus)] 21:16:51
+If you are here or you're here, your gradient is essentially 0.
+
+[Faculty (Olympus)] 21:16:56
+So.
+
+[Faculty (Olympus)] 21:16:57
+You would basically get like a very small number here. So you would squash that error.
+
+[Faculty (Olympus)] 21:17:03
+Um. That's 1 reason why, like for deep networks, the sigmoid doesn't propagate the error so well, because it's like it.
+
+[Faculty (Olympus)] 21:17:11
+Yeah, it gets washed from this. Derivatives.
+
+[Faculty (Olympus)] 21:17:14
+That's what I meant. But we hadn't talked about gradient descent. So I just said, Okay, the different activation functions are like.
+
+[Faculty (Olympus)] 21:17:22
+Behave differently when you train them. So that's essentially what I meant is that.
+
+[Faculty (Olympus)] 21:17:26
+They come up in within the update of the weights, and some of them.
+
+[Faculty (Olympus)] 21:17:30
+Behave better offers when you do that training.
+
+[Faculty (Olympus)] 21:17:34
+Roughly so. But yeah, it's hard to measure. It's like, this is kind of the intuition.
+
+[Faculty (Olympus)] 21:17:39
+Why, for instance, you usually don't use a sigmoid activation function when you have a very deep network.
+
+[Moderator - Ankit Agrawal] 21:17:48
+Um.
+
+[Moderator - Ankit Agrawal] 21:17:52
+What is the Danage activation used for usually.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:18:00
+I think, uh 1 1 particular type of application, some some types on that uh architecture they they make use of uh time, each with a similar approach to that that the process I mentioned here, which kind of is squishing the.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:18:13
+The output of certain layers, and that case is our.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:18:18
+In those situations that that between 0 1 is going to be between minus one and one. So depending on some applications that might be useful in some part of the architecture.
+
+[Moderator - Ankit Agrawal] 21:18:32
+Um.
+
+[Moderator - Ankit Agrawal] 21:18:33
+Is there a repository of artificial neural network, or a website where I can find all the different architectures or all the different artificial neural networks.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:18:45
+Uh, yeah. So 1 1 thing that you're gonna do is things that are gonna learn that next lecture is the the learning uh approach.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:18:52
+Which is going to leverage some architecture, some neural network, people training very large amount of data.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:18:58
+And those are available online, like, there are some websites that you're gonna look at that, some of them. They're gonna download uh the the models from tensorflow. There are other ones like Kago is the the popular uh data science uh, website.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:19:12
+And that they also have models. Uh, that is also another one that's very popular. It's called Hudd Face, that has models uh a lot related to computer vision and also natural language processing. Yes, there's a lot of options for to get your your models.
+
+[Moderator - Ankit Agrawal] 21:19:28
+Um, I think the question was more related to different neural network uh available like we have regular neural networks. Then we have Cnns Lstm transformers, Boltzmann machines, auto encoders, so on, so forth. So I think the question was more about just different types of neural networks like, Is there like a repository? Or is it like a Google sheets, or something like that, where we can find.
+
+[Moderator - Ankit Agrawal] 21:19:54
+The names of all of these architectures.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:19:57
+Like a single word presenter with everything I'm not aware of. Uh, maybe the professor uh, you may know in your well, I I'm not sure that this is something. It's a very scattered all over the place right everywhere.
+
+[Moderator - Ankit Agrawal] 21:20:08
+Yeah, I'm trying to ask Chad Gbt about it.
+
+[Faculty (Olympus)] 21:20:12
+Yeah, I think Amazon like in there, like Alex, smaller like they had built some.
+
+[Faculty (Olympus)] 21:20:19
+Library, and they had ex.
+
+[Faculty (Olympus)] 21:20:21
+Like he has this book on dive into deep learning. And I think there's a website. And they describe a lot of things in there.
+
+[Faculty (Olympus)] 21:20:28
+Um, a lot of different architectures.
+
+[Faculty (Olympus)] 21:20:31
+I have to search for the.
+
+[Faculty (Olympus)] 21:20:34
+Link to this.
+
+[Faculty (Olympus)] 21:20:36
+Um i.
+
+[Moderator - Ankit Agrawal] 21:20:36
+Yeah. Uh, I just did a search on chat. Gpt, uh list, all the different neural networks for different types of business problems. And it starts with neural network convolution. So I guess, yeah, that's that's yeah. That's a query that you can put over there.
+
+[Moderator - Ankit Agrawal] 21:20:53
+Uh, get generative adversarial networks, variational encoders, reinforcement learning networks, transformer networks, caption, stuff, self organizing maps.
+
+[Moderator - Ankit Agrawal] 21:21:03
+A radial basis function networks and so on and so forth. So I guess you can just go on.
+
+[Moderator - Ankit Agrawal] 21:21:08
+Tool like Chat Gbt and say, List all the different neural networks for uh different types of business problems.
+
+[Moderator - Ankit Agrawal] 21:21:15
+And that might give you a more complete list over there.
+
+[Moderator - Ankit Agrawal] 21:21:19
+Uh.
+
+[Moderator - Ankit Agrawal] 21:21:20
+Yeah, I I am not familiar with the any list.
+
+[Moderator - Ankit Agrawal] 21:21:25
+Out there.
+
+[Moderator - Ankit Agrawal] 21:21:26
+Um.
+
+[Moderator - Ankit Agrawal] 21:21:29
+Okay. Um.
+
+[Moderator - Ankit Agrawal] 21:21:33
+I'm trying to see if there are any other questions that we have not answered.
+
+[Moderator - Ankit Agrawal] 21:21:40
+Um.
+
+[Moderator - Ankit Agrawal] 21:21:41
+So? Bruno asked, is it better, in terms of efficiency, to make the model deeper or wider.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:21:52
+In terms of efficiency. Uh.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:21:54
+I'd say that there's a lot of difference between making it deeper or wider.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:21:58
+I think that's what related to the size, the the global, the final size of your.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:22:04
+Spectacular in terms of the the number of parameters that they have at the end.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:22:08
+Uh, that's going to be tied to number of gradient uh matrix. So I think it's a lot about the total size of the number parameters of the model.
+
+[Moderator - Ankit Agrawal] 21:22:19
+Yeah, uh, I agree. But I mean in general.
+
+[Moderator - Ankit Agrawal] 21:22:24
+Wouldn't, making the model wider, or increasing the number of neurons in a layer.
+
+[Moderator - Ankit Agrawal] 21:22:30
+Introduce less number of total parameters than adding a completely new layer.
+
+[Moderator - Ankit Agrawal] 21:22:35
+Mathematically, speaking um.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:22:40
+Hmm cap.
+
+[Moderator - Ankit Agrawal] 21:22:42
+Making it wider, might, in in terms of controlling the number of trainable parameters, making it wider, might actually be easier.
+
+[Moderator - Ankit Agrawal] 21:22:53
+Uh, or less computationally intensive than making it deeper right.
+
+[Moderator - Ankit Agrawal] 21:22:59
+Uh, I guess it depends on how many new, how many neurons we are talking about.
+
+[Faculty (Olympus)] 21:23:00
+I think.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:23:02
+Yeah.
+
+[Faculty (Olympus)] 21:23:03
+Yeah, I think theoretically, there are like your control. There's some.
+
+[Moderator - Ankit Agrawal] 21:23:07
+Mhm.
+
+[Faculty (Olympus)] 21:23:08
+Extra functions. They are unrealistic, but like as theoretical examples that are.
+
+[Moderator - Ankit Agrawal] 21:23:10
+Yeah.
+
+[Faculty (Olympus)] 21:23:12
+Much.
+
+[Faculty (Olympus)] 21:23:13
+More efficient to represent with.
+
+[Faculty (Olympus)] 21:23:16
+Deep networks, then white networks.
+
+[Faculty (Olympus)] 21:23:18
+And I think the other way around also exists. So it depends a little bit what you want to do.
+
+[Faculty (Olympus)] 21:23:24
+Um. So I guess if that's even. But this may be in terms of units. But then, if you have like, exponentially fewer units, then you also have fewer weights. I think so.
+
+[Moderator - Ankit Agrawal] 21:23:35
+Yeah.
+
+[Faculty (Olympus)] 21:23:35
+It depends, I and I would say, probably depends on your task.
+
+[Faculty (Olympus)] 21:23:39
+For some tasks. Depth really helps like in computer vision.
+
+[Faculty (Olympus)] 21:23:43
+And for some tasks.
+
+[Faculty (Olympus)] 21:23:45
+It doesn't have that much.
+
+[Faculty (Olympus)] 21:23:47
+Because of the way, like the thing you want to learn.
+
+[Moderator - Ankit Agrawal] 21:23:52
+Yeah, um great uh. So I think this is a good place to stop uh for today.
+
+[Moderator - Ankit Agrawal] 21:23:58
+Uh, thank you. Everybody for joining us. Uh, thank you, Professor, for wonderful lecture, and answering all the questions in detail. Thank you, Christiana, for your wonderful insights on all the questions today.
+
+[Moderator - Ankit Agrawal] 21:24:10
+Um. I hope that everybody learned a lot, and we will see everybody on Thursday. Then.
+
+[Moderator - Ankit Agrawal] 21:24:16
+Take care!
+
+[Faculty (Olympus)] 21:24:19
+Thank you. Everyone.
+
+[Faculty (Olympus)] 21:24:22
+And things, and Kit and Cristiano.
+
+[Faculty (Olympus)] 21:24:25
+See you on Thursday.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:24:26
+Thank you.
+
+[Moderator - Ankit Agrawal] 21:24:27
+Hey!
+
+[Moderator - Ankit Agrawal] 21:24:28
+Think.
+
+[Cristiano Aguiar - Faculty (Olympus)] 21:24:28
+Okay? Bye.
+

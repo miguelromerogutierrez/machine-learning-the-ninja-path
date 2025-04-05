@@ -1,0 +1,2808 @@
+[Moderator - Ankit Agrawal] 19:00:30
+Hello everyone. Good morning, good afternoon, good evening, depending on where you are joining from.
+
+[Moderator - Ankit Agrawal] 19:00:38
+I see a lot of people in the chat are already interacting with each other. A couple of key important announcements before we get started with our class today.
+
+[Moderator - Ankit Agrawal] 19:00:49
+So this is in listen only mode session. Please do not try to raise your hand during the session.
+
+[Moderator - Ankit Agrawal] 19:00:55
+We will not be able to enable your microphone. You can interact with us in the chat section.
+
+[Moderator - Ankit Agrawal] 19:01:02
+So if you have any questions, comments, please put them in the chat section. Please avoid the QA box.
+
+[Moderator - Ankit Agrawal] 19:01:09
+We will be moderating the chat section, but we will not be moderating the QA section.
+
+[Moderator - Ankit Agrawal] 19:01:13
+Other than that the recording for this live class and all the future life classes will be available to you few hours after the classes that along with the transcript and the chat history.
+
+[Moderator - Ankit Agrawal] 19:01:28
+And there will be a Q&A session at the end of the lecture for 30 min. With a great learning mentor where you can also ask more questions.
+
+[Moderator - Ankit Agrawal] 19:01:37
+We will try to answer as many questions as we can during the class. As well, but we will also have a dedicated mentor who will answer a lot of questions towards the end of the class as well.
+
+[Moderator - Ankit Agrawal] 19:01:49
+So with that being said, welcome to the 1st life class. We have Professor Kolyn, with us over here.
+
+[Moderator - Ankit Agrawal] 19:01:59
+A little bit about Professor. She is a professor in department of electrical engineering and computer science at MIT.
+
+[Moderator - Ankit Agrawal] 19:02:08
+She's also a member of core institute and scientific leadership team. Of the board of MIT and Harvard.
+
+[Moderator - Ankit Agrawal] 19:02:16
+Her research lies at the intersection of machine learning statistics and genomics with a particular focus on causal inference representation learning and gene regulation.
+
+[Moderator - Ankit Agrawal] 19:02:27
+So good morning, Professor. I'm excited to have you here and get started with our, live lectures for this week.
+
+[Prof. Uhler] 19:02:34
+Good morning. I'm very excited to be here and see so many of you here. Already.
+
+[Prof. Uhler] 19:02:40
+So welcome everyone. So I'm looking forward, to being with you this week, and we'll have lectures, today and then on Wednesday and then on Friday.
+
+[Prof. Uhler] 19:02:51
+And I want to start off with just giving you a little bit of an overview of what we're actually going to do here.
+
+[Prof. Uhler] 19:02:59
+And before I go on to that, I also want to ask everyone to please, when you put, messages in the chat, please put them to everyone.
+
+[Prof. Uhler] 19:03:09
+So there are still a few messages that are coming in just to hosts and panelists. It would be great if you can change that to everyone so that everyone can learn from your questions, can see what others are asking and you can also interact with each other.
+
+[Prof. Uhler] 19:03:21
+A little bit more, in this way as well. So please change it. There's still messages coming in just to host and panelists.
+
+[Prof. Uhler] 19:03:30
+So please change this so that it goes to everyone. Okay, so with that, let me get started and, you know, giving you a little bit of an overview.
+
+[Prof. Uhler] 19:03:39
+So I was just introduced. So I'm a faculty at MIT and also at the Broad Institute where I'm really excited about this interface between statistics.
+
+[Prof. Uhler] 19:03:50
+Data science, machine learning, and then applications to the biomedical sciences, data science, machine learning, and then applications to the biomedical sciences, data science, machine learning, and then applications to the biomedical sciences.
+
+[Prof. Uhler] 19:03:57
+In particular, I care about questions about how can we infer causality. So how can we just from data be able to tell which variable or you know which action makes has what type of effect or is it going the other way around right what is the cause and what is the effect?
+
+[Prof. Uhler] 19:04:15
+So trying to disentangle that in particular the biomedical science is of course very important. Because in the end you want to be able to intervene in the system, the biomedical science is of course very important because in the end you want to be able to intervene in the system, you want to develop drugs and so a drug will only have an effect downstream so you need to know what is upstream and what is downstream in order to
+
+[Prof. Uhler] 19:04:29
+be able to move the system back to the state, to the healthy state where you would like it to be. So those are the types of questions that excite me.
+
+[Prof. Uhler] 19:04:39
+So we're thinking more about, you know, coming from the motivation, from really important medical questions and then, thinking about, the challenges on the machine learning and on the statistics and on the data science side and then developing new methods.
+
+[Prof. Uhler] 19:04:54
+So what is the overview for, for this, for this, for this week?
+
+[Prof. Uhler] 19:05:01
+So 1st of all, while most of this course that you're in will be concentrating on data analysis, right?
+
+[Prof. Uhler] 19:05:09
+So assuming you already are given a data set and then we're trying to analyze it to try to see what is in it.
+
+[Prof. Uhler] 19:05:16
+We may want to do classification, regression, all of the things that that I'm sure you know all these words that that and you have probably also already worked a lot with some of these types of methods but you know what is actually really exciting is that often I mean or sometimes you are in this really lucky position where you can actually be involved in the data collection process already.
+
+[Prof. Uhler] 19:05:36
+And so today, before we start talking about data analysis, we'll talk a little bit about what is important when you can actually be involved in that process and data collection?
+
+[Prof. Uhler] 19:05:47
+How do you come up with the right question and then the right data set to then actually answer the question that is of interest to you.
+
+[Prof. Uhler] 19:05:52
+And after that we'll go into, What we often, you know, what do you do when you get a large scale data set?
+
+[Prof. Uhler] 19:05:59
+What are the 1st thing you do? Well, you may want to get a 1st impression of it. And so we'll talk about visualization of data sets and exploratory data analysis, understand outliers and like what is in the data set or there may be some meaningful clusters in the data set, etc.
+
+[Prof. Uhler] 19:06:14
+So that's what we're going to try to do today. Now then on Wednesday, we also want to talk a lot about different types of data modalities.
+
+[Prof. Uhler] 19:06:23
+So I'm sure that if you're thinking of just, you know, your standard data set and most people will think about, you know, a big table of data, maybe an Excel sheet, where you have say your individuals, as rows and then as columns, you maybe have all of the different features or covariates that you're measuring.
+
+[Prof. Uhler] 19:06:42
+Or instead of individuals, maybe these are time series. Maybe these are stocks or all of your rows.
+
+[Prof. Uhler] 19:06:49
+And then, you know, the different days are all of your columns and then the entries are all of the prices.
+
+[Prof. Uhler] 19:06:54
+Okay, or if you have, individuals, maybe you have, A customer base, right?
+
+[Prof. Uhler] 19:06:59
+And the rows are your customers and then all of the columns could be all kinds of covariates about the about the customers maybe age, maybe income, maybe some of the things that they have bought.
+
+[Prof. Uhler] 19:07:10
+On your, in your system before. So what is their spending in the different years? etc.
+
+[Prof. Uhler] 19:07:19
+So that's how we're often thinking about large data sets. But of course there is all kinds of other data as well and so that's on Wednesday we'll look at other types of data sets.
+
+[Prof. Uhler] 19:07:27
+So in particular, you know, we could have network data, right? So think of all of the different social network data sets that we actually have access to.
+
+[Prof. Uhler] 19:07:35
+Or recommend your systems where you know that, you know, maybe you get access to ratings that and individual has bought this product, but also that product.
+
+[Prof. Uhler] 19:07:44
+And so suddenly and and maybe they have rated them, so suddenly you have a network of an individual and different items and also edge weights in terms of the ratings that they've given to them or you know like systems where you're looking for for drivers like Upper right where you have like these large recommended systems that's not a social network but then of course also social networks are these large networks and so maybe if
+
+[Prof. Uhler] 19:08:08
+we also take into account not just right this table or data of like you know an individual and and their covariates, but maybe also what who is in their social network who are they connected to or what in a, but maybe also what who is in their social network who are they connected to or what in a recommended system what items are more similar to each other well then maybe you can do so much more right by also taking into account who are
+
+[Prof. Uhler] 19:08:30
+the individuals that are closest to you or more similar to you? Who are the items? Say on Amazon that are more similar to you.
+
+[Prof. Uhler] 19:08:41
+And so that's what we're going to talk about on Wednesday. So taking into account this other data modality that we often do too little with, but is really everywhere in the world we now have access to large scale network data sets.
+
+[Prof. Uhler] 19:08:53
+And then finally on Friday, we'll start talking about, this one topic that, you know, is always one of the 1st analyses that I do in any of the data sets because often in the data sets you are not in the supervised setting so you're not in the setting where like say, with email, well, or by hand, you know, people can go through some emails and say, and label
+
+[Prof. Uhler] 19:09:16
+this as spam and this is not spam. And then afterwards you're in the supervised setting where I want to be able to give you a new email and you know you need a model.
+
+[Prof. Uhler] 19:09:23
+And you know like for example Gmail does this right for you. You need a model that you know suggests whether this is spam or not spam.
+
+[Prof. Uhler] 19:09:30
+That's a classification setting. That's a supervised setting. We're at some supervised data.
+
+[Prof. Uhler] 19:09:35
+And now I give you a new one and I want to figure out which one. And which label it should get.
+
+[Prof. Uhler] 19:09:39
+However, most often we actually don't know what we're looking for. We get a large scale data sets, like for example, you know, say, my medical setting, I get a large scale data set of blood cells.
+
+[Prof. Uhler] 19:09:52
+And now I want to, I want to 1st be able to look at it and see whether there is anything special in it, right?
+
+[Prof. Uhler] 19:09:59
+Can I identify maybe clusters that correspond to certain patients that or maybe suggest a particular disease, but I don't know yet what I'm looking for.
+
+[Prof. Uhler] 19:10:07
+So it's not a supervised setting. So that's the unsupervised setting where I need to make structure or find structure in the large-scale data set in a customer base, right?
+
+[Prof. Uhler] 19:10:17
+You don't, most of the time you don't know yet what you're looking for but you would like to understand cluster so that maybe you can say these customers are more similar to each other.
+
+[Prof. Uhler] 19:10:26
+So you should have an advertising. Strategy that treats these customers similarly and these customers similarly, etc.
+
+[Prof. Uhler] 19:10:33
+Okay, so that's so that's how, how we're thinking about, what, the 3 things are that we're actually going to do.
+
+[Prof. Uhler] 19:10:43
+During this week here. So, so that's an overview. Now, what we're going to date to do today is just point one here.
+
+[Prof. Uhler] 19:10:50
+So we'll start off by thinking about data collection. And in particular, I like to do everything based on, you know, particular examples.
+
+[Prof. Uhler] 19:11:01
+So real case studies that we'll be looking at and then through these will actually be thinking about the underlying problems.
+
+[Prof. Uhler] 19:11:06
+So here, I will start with a. Mammography example to think about, you know, what is important when you're actually looking at the data collection process and how to set up the question in the right way and then collect the right data sets.
+
+[Prof. Uhler] 19:11:20
+So I'm taking a medical example here because these are the examples. Where you know the decision if you make it wrong the decision this is really about life and death has a huge impact but exactly the same questions and we'll talk about it show up in all kinds of other domains.
+
+[Prof. Uhler] 19:11:37
+But there, you know, it's often, and I'll put in in quotation marks, you know, wrong decisions often just mean, money, that is, you know, being spent that shouldn't be spent.
+
+[Prof. Uhler] 19:11:48
+Whereas I really want to put it here in this setting where this this decision is just like really really critical and has consequences for life.
+
+[Prof. Uhler] 19:11:56
+Then we'll talk about, you know, once we have a data set, we often have the questions like, you know, for example, for mammography, the goal was that if you now invite women or you want to understand whether inviting women to actually get a mammogram done, whether that reduces the number of deaths due to breast cancer.
+
+[Prof. Uhler] 19:12:13
+Now that of course, that leads, we need to now come up with, you know, we need to be able to answer this question, right?
+
+[Prof. Uhler] 19:12:19
+Not just saying, oh, yes, in this data set that seems like it, but more generally we believe that, you know, this signal is so significant, statistically significant that we should really introduce mammography.
+
+[Prof. Uhler] 19:12:30
+So that leads to this hypothesis testing framework. And then as I said, in the second part, we'll then talk about, you know, now that you have a large scale data set or if you have a large scale data set, so move on from data collection to actually data analysis, what are some of the 1st things that you're actually doing?
+
+[Prof. Uhler] 19:12:46
+Okay, so that is, so this here is, is all about, an overview of what we're actually going to do.
+
+[Prof. Uhler] 19:12:56
+So let's, move on to actually just diving right into it. And I really want to start with a case study.
+
+[Prof. Uhler] 19:13:05
+So here is a case study, where, you know, we all know and the breast cancer is still one of the most common malignancies among women in the United States and in fact also worldwide in most countries nowadays.
+
+[Prof. Uhler] 19:13:18
+And mammography had, you know, is nowadays, is, recommended for women in different countries.
+
+[Prof. Uhler] 19:13:25
+Above different ages. So often here it's, above, H 4 day to be done.
+
+[Prof. Uhler] 19:13:35
+Every one year or every 2 years, again, dependent on different, policies or different recommendations in different countries.
+
+[Prof. Uhler] 19:13:42
+And what does a mammogram mean? So it is at the screening of women for breast cancer, breast cancer by x-rays.
+
+[Prof. Uhler] 19:13:49
+So at some point, brightest had to be introduced. It's now a worldwide, you know, worldwide test that, that has been introduced.
+
+[Prof. Uhler] 19:13:58
+But, you know, somehow they had people had to decide that this was really reducing the number of deaths due to breast cancer.
+
+[Prof. Uhler] 19:14:05
+And I what I want to do here is actually to look at the 1st large scale study that was at the basis of then introducing or or recommending mammography among women above a certain age.
+
+[Prof. Uhler] 19:14:19
+So really the question that we have to answer is, does mammography really speed up detection enough to matter?
+
+[Prof. Uhler] 19:14:25
+Right? So does it really help, reduce the number of deaths due to breast cancer?
+
+[Prof. Uhler] 19:14:31
+And so what I want to ask you, and so let's start a little bit of thinking together.
+
+[Prof. Uhler] 19:14:37
+Is, you know, if you are in this situation, okay, so say you were in the situation where you had to set up such a study.
+
+[Prof. Uhler] 19:14:42
+What is important in order to then, you know, what is important when you're thinking about the data collection in order to then be able to analyze whether really, offering mammography really reduces the number of deaths enough to imagine.
+
+[Prof. Uhler] 19:14:58
+Okay. And there is a lot of questions about is it advisable and, you know, nowadays, of course, a lot of discussion still now, right, of how often should one do it as it's just put into the chat.
+
+[Prof. Uhler] 19:15:10
+How often should one get a mammogram done? Does it lead to possible overtreatments because often something is seen that might actually not develop into cancer.
+
+[Prof. Uhler] 19:15:18
+So those are great points that are already brought up. And again, please put your comments. I see it again.
+
+[Prof. Uhler] 19:15:24
+Please put your comments to everyone instead of too, to just host and panelists. Again, another comments come in.
+
+[Prof. Uhler] 19:15:30
+Most of them are still put to host and panelists. Please change it to everyone. So that we can actually have a discussion here.
+
+[Prof. Uhler] 19:15:36
+Okay, so, so what was put in is for example, again, just to host some panelists, a large sample size, is a really important and so we'll have to talk about sample size and how large is large and how do what does one decide on sample size.
+
+[Prof. Uhler] 19:15:53
+So that's 1 that that definitely matters. Now the question is even, okay, so, so, Matthew brings up, again, to host some panelists, please change it, so that everyone so that we can really have a discussion.
+
+[Prof. Uhler] 19:16:06
+So, but a really great point about, A, B testing. So this is kind of what we're, what we're, so we'll have to talk about what this actually is.
+
+[Prof. Uhler] 19:16:15
+This A B testing. It suggests that we have 2 different groups, right? So we have one group that gets a treatment.
+
+[Prof. Uhler] 19:16:21
+And another group that gets V treatment. So we'll have to talk about what that is and Philip answers that.
+
+[Prof. Uhler] 19:16:29
+So we need a control group. So one group that just continues getting the same treatment.
+
+[Prof. Uhler] 19:16:35
+What was there before, right? And another group that will actually get is the test group, right? Which will actually get the treatment.
+
+[Prof. Uhler] 19:16:45
+And so that's a way for us to then be able to compare between what is the difference between getting a mammogram or not getting a mammogram.
+
+[Prof. Uhler] 19:16:56
+Then, Wylon puts in a really important point about random sampling and now random sampling is something that we have to talk about a lot.
+
+[Prof. Uhler] 19:17:07
+So to here there are like multiple different issues. So one is about, you know, like the study should be represented of the full population, right?
+
+[Prof. Uhler] 19:17:17
+So we have to, so from, from wherever we're actually collect or we're identifying individuals to be part of the study that should represent the full study.
+
+[Prof. Uhler] 19:17:26
+So if we're doing the full population, we can only make statements about this particular population. So here in particular, we're going to see a data set that was collected in New York by a very large health insurance plan.
+
+[Prof. Uhler] 19:17:40
+But still that meant that this is only representative of the types of populations that you see there that were part of this health insurance plan and in fact the same studies were repeated in many different countries in order to be sure that these are actually that the conclusions also hold in other types of populations.
+
+[Prof. Uhler] 19:17:57
+Okay. So, so random sampling is brought up multiple times. So there is an utter point about random sampling, that we have to talk about, which is, you know, we talked about a control group and a treatment group.
+
+[Prof. Uhler] 19:18:15
+Now they are also, it's really important that, whether we can put, you know, individuals at random into the different groups.
+
+[Prof. Uhler] 19:18:24
+Okay, and this is also something that is being brought up. Now, what is also important and Robbie or Nesto are bringing up and actually now I see it in many others all go etc are all bringing up that there are covariates that might be different right that puts you differently at risk for having breast cancer or for getting breast cancer.
+
+[Prof. Uhler] 19:18:44
+So that's age for example, definitely highly associated, right, with a risk of developing breast cancer.
+
+[Prof. Uhler] 19:18:53
+That's family history because genetics is highly associated with it. Family backgrounds, it's also all kinds of things on, on, You know lifestyle and and food that people are eating also it has with childbearing so childbearing is actually protective of breast cancer.
+
+[Prof. Uhler] 19:19:17
+So, people who have not had children are more at risk for developing breast cancer. Medical history more generally.
+
+[Prof. Uhler] 19:19:23
+So there are all these features that are critical that are with a risk for breast cancer. And so now the question is, and as is brought up, is like, how do we get a balance, right?
+
+[Prof. Uhler] 19:19:33
+So somehow it is important that we don't have say for example all older women in the treatment group and all younger women in the in the control group.
+
+[Prof. Uhler] 19:19:45
+Because then right even so it might it might end the outcome might be that actually mammography offering mammography doesn't seem to help but that's just because the older women had a higher risk already of getting, of developing, breast cancer.
+
+[Prof. Uhler] 19:20:03
+Maybe it did actually help but we don't really see the difference anymore because there was such a big difference in age.
+
+[Prof. Uhler] 19:20:09
+Okay, so as Raj puts it, you know, it's like very critical to randomize, between control and treatment.
+
+[Prof. Uhler] 19:20:16
+So that we have the same representation of people between the treatment group and the control group. So if you know for every individual at random, I attribute them to the controller to the treatment group, you actually don't have to worry anymore about anything like confounders, etc.
+
+[Prof. Uhler] 19:20:35
+Okay, so that's the really nice thing about it that then we don't have to worry so as long as we do right we randomize across control and treatment group we don't have to worry about whether all of the different covariates are similarly distributed in the treatment group or in the control group, which because we just ran theized so there is an equal probability of someone of an old being in the treatment group or
+
+[Prof. Uhler] 19:20:59
+being in the control group or someone with a history with a very strong history of breast cancer in their family being in a treatment group or a control group.
+
+[Prof. Uhler] 19:21:08
+So that's the power of randomization. That we actually get for free when, that we, get for free if we can randomize.
+
+[Prof. Uhler] 19:21:17
+So, is there some settings where you cannot randomize between control and treatment group? Can you think of settings like that?
+
+[Prof. Uhler] 19:21:31
+And there are great questions about. So here, so a treatment can be anything, right? So a mammal, so actually even offering a mammogram, taking a mammal where I'm taking a taking a book of drug.
+
+[Prof. Uhler] 19:21:43
+All of this is so the treatment here just means that it's different than what was offered before. So just the standard care was just not offering mammogram and as treatment we mean the group of people that now get something extra that wasn't there.
+
+[Prof. Uhler] 19:21:57
+This is a great question that was just problem.
+
+[Prof. Uhler] 19:22:01
+Okay, so, there is like now already answers to the question, right? Where can order settings where you can actually not randomize between treatment and control.
+
+[Prof. Uhler] 19:22:11
+And you know, there are, things brought up here that where, you know, things like gender cannot be randomized, for example, but, and there are particular settings where it's for ethical reasons it's actually not possible to randomize between treatment and control.
+
+[Prof. Uhler] 19:22:30
+Like for example, when, you know, we want it or when, I mean, the world wanted to find out whether smoking causes cancer.
+
+[Prof. Uhler] 19:22:37
+Right in that setting it was not ethical to randomize and to force some individuals to smoke and others not to because there was already the thought that smoking does cause cancer and so you cannot force someone to do something that might, that might cause them to develop, lung cancer afterwards.
+
+[Prof. Uhler] 19:22:57
+Those are settings for randomization is not possible. And those are settings where then instead what one did is actually try to randomize between different countries that are similar to each other in terms of demographics.
+
+[Prof. Uhler] 19:23:10
+For example, one actually introduced large taxes on cigarettes in one country and then not in the neighboring country.
+
+[Prof. Uhler] 19:23:17
+So in that way introduce something like, you know, a higher proportion of people or more people smoking in one country versus the other and then actually was able to compare the results against each other.
+
+[Prof. Uhler] 19:23:29
+But whenever one can randomize, one should randomize because that makes the analysis so much easier, right?
+
+[Prof. Uhler] 19:23:35
+Because now you don't have to keep track of whether the 2 groups are actually similar or not.
+
+[Prof. Uhler] 19:23:41
+Okay, so that's some the power of randomization. And we already talked about, you know, the importance of control, right?
+
+[Prof. Uhler] 19:23:53
+Of having something to compare against. So of having something like a control group that we can actually compare against and then the randomization between control and treatment and what the issue is if you cannot randomize.
+
+[Prof. Uhler] 19:24:07
+Right? The issue is that you might have confounding. Some people have brought it up here already in the chat, right?
+
+[Prof. Uhler] 19:24:12
+Those are these variables, some people have brought it up here already in the chat. Right? Those are these variables like say for example age.
+
+[Prof. Uhler] 19:24:16
+That definitely has a risk. Has is associated with a higher risk of breast cancer, but might also be associated with a different treatment, because older women might actually get, you know, more might get more tests, say for example for breast cancer.
+
+[Prof. Uhler] 19:24:33
+So when you have these variables that have an effect on treatment and on outcome, then you can suddenly not figure out whether it's now the treatment that actually helps for the outcome or whether it is something else that helps for the outcome.
+
+[Prof. Uhler] 19:24:47
+So that's the problem when you cannot randomize, but if you can randomize between treatment and control groups, then you have no issues with confounding and everything is very, very nice.
+
+[Prof. Uhler] 19:24:57
+Okay. So that's, so those are some of the points and also what was brought up and I should get back to it.
+
+[Prof. Uhler] 19:25:03
+So 1st of all, a lot of ethical concerns that we already talked about were brought up, right?
+
+[Prof. Uhler] 19:25:07
+So we talked about the example of smoking. And lung cancer, for example, there are many settings where actually it is not ethical to perform a randomized control trial.
+
+[Prof. Uhler] 19:25:20
+Then also the question about what it means to be a treatment was already brought up so we're here talk calling treatment anything that is different from the control group and control is just getting the same the same offerings as what was there before.
+
+[Prof. Uhler] 19:25:36
+Okay, so that's always. That's always the. That's always, the baseline is the control.
+
+[Prof. Uhler] 19:25:44
+And then sample size was brought up. So of course, so, when a sample size, when is a large sample size important?
+
+[Prof. Uhler] 19:25:52
+Well, when is the lower sample size important? So if you have, if say for example here offering mammography really has a very big impact on reducing the number of deaths due to press cancer, then actually in order to identify that you don't need such a big sample sense.
+
+[Prof. Uhler] 19:26:08
+However, if they're small effects that you have to identify, that's when you need big example size.
+
+[Prof. Uhler] 19:26:13
+Okay, so sample size is actually proportional to, to the, to this, to the strength of the effect of the treatment that you want to identify.
+
+[Prof. Uhler] 19:26:24
+And of course often you don't know that beforehand, but you know you will have like some intuition from in this case, you know, from in other examples from prior studies in this case also from biological knowledge of what you actually expect this at the sample size to be.
+
+[Prof. Uhler] 19:26:38
+And as is also just brought up. Right, you may for some things you might want to be really, really certain.
+
+[Prof. Uhler] 19:26:44
+That, you know, there is actually an effect. So even if it's a large effect, you want to be very, very sure that you were able to capture it.
+
+[Prof. Uhler] 19:26:52
+So that's where statistical comes in. So, you know, the smaller, the more sure you want to be, the larger your sample size again.
+
+[Prof. Uhler] 19:27:01
+Okay, so that's, so that's, that's where what all these important points that were brought up by everyone in here where they all fit in.
+
+[Prof. Uhler] 19:27:13
+So, so with that, let's, I think we went through many of the points that were brought up.
+
+[Prof. Uhler] 19:27:20
+So thank you. This was really great. Now with this, let's actually look at the 1st large scale data set that was ever collected.
+
+[Prof. Uhler] 19:27:28
+Okay. Based on which then afterwards, you know, mammography was in fact introduced and in many in many countries etcetera and it's still there today.
+
+[Prof. Uhler] 19:27:38
+So this is at the 1st large scale and in fact it was also and why I'm bringing up this example is because it was one of the 1st ones where you know where people thought very very carefully about how do we have to set up such an experiment.
+
+[Prof. Uhler] 19:27:52
+So that we can get the right conclusions from it. So this was also a goal standard for how one should do clinical trials.
+
+[Prof. Uhler] 19:28:01
+So, and this was this, this study here for in, in the mammography setting.
+
+[Prof. Uhler] 19:28:06
+Okay, so this was set up in the 19 sixties as I said in New York. It was, it was held by the health insurance plan.
+
+[Prof. Uhler] 19:28:17
+So this is just a large, very large health insurance plan, where women were selected were, who were in a particular age range.
+
+[Prof. Uhler] 19:28:26
+And so here there were 62,000 women that were selected. Okay, so 62,000, they were randomized so they were randomly assigned into the treatment group or into the control group.
+
+[Prof. Uhler] 19:28:41
+Now here comes something that again is due to ethical considerations. Well, or, due to ethical considerations and in fact also many other considerations.
+
+[Prof. Uhler] 19:28:52
+So here, the women that we're in the treatment group so we have to decide what is treatment.
+
+[Prof. Uhler] 19:28:57
+So in this case, what they decided what the treatment group was is these women were invited 4 times per year to come and get a mammogram done.
+
+[Prof. Uhler] 19:29:07
+Okay, so that was what the treatment, so, the control women, they just continued getting their, their general treatment, they just continued getting their, general treatment. So they were not invited for a mammal graph. Okay.
+
+[Prof. Uhler] 19:29:20
+So they just had their standard health insurance plan. Where as these women in the treatment group, so these 31,000 in the treatment group day 4 times per year they were invited for a mammogram.
+
+[Prof. Uhler] 19:29:29
+Okay, now, now among these women who are invited for a mammogram, 22,200 showed up.
+
+[Prof. Uhler] 19:29:38
+I got the mammogram done. 10,800 didn't show up. So they just didn't, they decide they for themselves decided that they didn't want to show up.
+
+[Prof. Uhler] 19:29:48
+So they didn't get a MAMMA RAM. So this is what it means to be in the refused group.
+
+[Prof. Uhler] 19:29:54
+Now let's go through all the other numbers that are listed here just so that we're all on the same page.
+
+[Prof. Uhler] 19:29:58
+So these numbers here are the, the number of women that died due to breast cancer. Within the 5 years of the study that the study was performed.
+
+[Prof. Uhler] 19:30:10
+So within these 5 years. Within the, the women who actually showed up for the mammogram and got screened, 23 women out of the 20,200, they died due to breast cancer.
+
+[Prof. Uhler] 19:30:22
+And what is this rate here? This is similar to a percent. Okay, so it's normalized, but it's per mill as you see here.
+
+[Prof. Uhler] 19:30:30
+So this means that 1.1 women among 1,000 die due to breast cancer, among the screen ones.
+
+[Prof. Uhler] 19:30:39
+Okay, there are a lot of great questions in the chat and we're getting to all of them.
+
+[Prof. Uhler] 19:30:43
+So then here's similarly among the refused group. We have 16 women who died among the 10,800.
+
+[Prof. Uhler] 19:30:51
+So that's, so that's what all these numbers are. Now, I also have another column here, which will be an interesting column when we're thinking about the data set.
+
+[Prof. Uhler] 19:31:01
+These are the women that died during this period in these groups due to all other causes other than breast cancer.
+
+[Prof. Uhler] 19:31:10
+Okay, so here for example, 428 women. Died among the screen group. You 2 causes that are other than breast cancer.
+
+[Prof. Uhler] 19:31:19
+And so again, normalize. So this is 428 divided by 20,200 times 1,000 that gives you 21 so this is 21 out of a thousand if you want to normalize it to being over attached.
+
+[Prof. Uhler] 19:31:32
+Okay, so we will talk about and now you know there are already very good questions in the chat. So what I would like to, and we'll get to all these questions, but what I would like to do 1st is ask you which numbers and I really would like you to put in the numbers not the words so which numbers would you compare in order to analyze whether offering mammography really reduces the number of deaths enough to
+
+[Prof. Uhler] 19:31:58
+matter. So which ones are the numbers that you're looking at, that you would use from these tables?
+
+[Prof. Uhler] 19:32:04
+In order to understand. Whether offering mammography really reduces the number of deaths enough to matter. Okay, and I love it.
+
+[Prof. Uhler] 19:32:13
+So there are already a lot of different numbers that are showing up. So for example, many people think that we should compare this number 1.1 versus 2.0.
+
+[Prof. Uhler] 19:32:26
+And I'll just write down the ones, that people are mentioning. So there is also 1.3 versus 2.0.
+
+[Prof. Uhler] 19:32:37
+There are things like 63 versus 39, etc. So this is the same as 1.3 versus 2.0.
+
+[Prof. Uhler] 19:32:45
+But there are also numbers like 23 versus 63. So let's make sure that 1st of all that we are all looking at these numbers here because if we're looking at numbers in this column, then they are not, the same based on the same sizes.
+
+[Prof. Uhler] 19:33:03
+Okay, so this is 23 out of 20,200. Whereas this is 63 out of 31,000 so we really cannot compare 23 versus 63 because these are different loop sizes.
+
+[Prof. Uhler] 19:33:17
+Okay, so if at all then we would want to compare 1.1 versus 2.0. So definitely we need numbers that we're looking at in here.
+
+[Prof. Uhler] 19:33:26
+Other than 39 versus 63, that's the same as comparing 1.3 versus 2 because the sample sizes are the same.
+
+[Prof. Uhler] 19:33:31
+Okay, so I see a lot of 1.1 versus 2 and 1.3 versus 2 and there is another one which is 1.1 versus 1.5.
+
+[Prof. Uhler] 19:33:40
+And we'll talk about that one as well. And I'm just scrolling through it.
+
+[Prof. Uhler] 19:33:46
+So I think I captured. Most of the ones that people are mentioning in here so since there are many different different types of opinions right whether it is 1.1 versus 2 or 1.3 versus 2 or 1.1 versus 1.5.
+
+[Prof. Uhler] 19:34:04
+Let's try to figure out. Factor is in this case there is one correct answer. Only one correct answer.
+
+[Prof. Uhler] 19:34:15
+And, and this was in fact, this was exactly the kind of, study where people had to understand why here there is one correct answer and also set up the study so that it was actually very, very clearly done.
+
+[Prof. Uhler] 19:34:23
+Okay, so let's maybe 1st look at the 1.3 versus one. Maybe the 1.1 versus 1.5.
+
+[Prof. Uhler] 19:34:31
+Let's maybe 1st see this one, the 1st 2 numbers. So, okay, so the 1.1 are the people who got screened, right?
+
+[Prof. Uhler] 19:34:38
+Who got a mammogram done and the 1.5 or the people who didn't get screened who didn't get a mammogram on.
+
+[Prof. Uhler] 19:34:46
+Okay, so now the question is whether these 2 numbers could be compared or why should these 2 numbers not be compared?
+
+[Prof. Uhler] 19:34:54
+And I would love if, people who suggested 1.1 versus 2 or, you know, 1.3 versus 2, whether they could, give comments on why we shouldn't do 1.1, compare 1.1 versus 1 point back.
+
+[Prof. Uhler] 19:35:08
+Okay, so Jishu puts, into the chat that there is a decision bias here. And so what is, what is meant by that?
+
+[Prof. Uhler] 19:35:17
+And this is very, very, very, right. So and then we also puts in that we don't know why they refused it.
+
+[Prof. Uhler] 19:35:25
+So, so there is so under selection bias exactly so all of these things so there is bias in here as many people are now putting in, right?
+
+[Prof. Uhler] 19:35:34
+So these are these people actually decided themselves whether they wanted to get screened or refused. So now you're exactly in the setting and that we talked about before we wanted to randomize so that the 2 groups are as similar as possible.
+
+[Prof. Uhler] 19:35:46
+Now if you look at 1.1 versus 1.5, suddenly these results are not randomized. They wanted to be in one or the other.
+
+[Prof. Uhler] 19:35:56
+And let's see that that actually introduced biases. Okay, so here in the back we can see that that introduced huge biases.
+
+[Prof. Uhler] 19:36:04
+So you see here that the death rate due to all other calls is about double as high in the people who refused, to get the, we didn't show up for a mammogram as compared to the people who bought screen.
+
+[Prof. Uhler] 19:36:15
+So this is not the same population of people. Okay, if you compare these 2 numbers and these people, these populations are so different based on so many criteria, based on so many different variables.
+
+[Prof. Uhler] 19:36:28
+And they have to be different because otherwise it wouldn't be the case that you have doubled the death rate in one population as compared to this population here.
+
+[Prof. Uhler] 19:36:35
+So what do you think is different among these people who actually showed up for screening, or didn't show up for screening that could actually lead to these very, very different differences in terms of their their death rates.
+
+[Prof. Uhler] 19:36:51
+So it has to do with things and now it's, it's great. All these, so demographics of age, and age, maybe I don't know how strong of an effect it was here but in particular education education is hugely associated with with social status and income and that was in fact and so this study was very well done so that we could actually go and look at all of these features that was the
+
+[Prof. Uhler] 19:37:16
+most the variables that we're most associated with, whether someone went, got the mammogram done or didn't.
+
+[Prof. Uhler] 19:37:24
+And those things are of course highly associated with, with general health outcomes. And here it is just, you know, if someone has to work all day and cannot even show up for a mammogram, for example, or also you got a lot of information about why, you know, this why a mammogram would be suggested and some people just, you know, either don't have the knowledge to understand why they should get
+
+[Prof. Uhler] 19:37:49
+a mammogram or also just simply don't have the time to go as carefully through the information that was provided.
+
+[Prof. Uhler] 19:37:57
+So, and here, this is a great question. So, so here nobody had to pay for the mammogram itself.
+
+[Prof. Uhler] 19:38:04
+So this meant that in the treatment group they were offered a mammogram as part of their health insurance plan.
+
+[Prof. Uhler] 19:38:08
+So that's a very important question. Okay, but still we see, right, that these 2, so the people who actually showed up for a mammogram and the people who didn't show up, they're very, very different population.
+
+[Prof. Uhler] 19:38:21
+So these 2 numbers here cannot be compared against each other. You have a whole lot of confounders like general health status, social economical status, education status that is different between these 2 groups of people.
+
+[Prof. Uhler] 19:38:35
+And therefore, they might have very different effects on their breast cancer risk. And does this these 2 numbers cannot be compared against each other.
+
+[Prof. Uhler] 19:38:46
+Okay. So that's 1 thing, why we cannot compare these 2 numbers. Also, you know, it was suggested that maybe they're refused group, it should be, you know, like say some for, for example, looking at the 1.5 versus the 2.
+
+[Prof. Uhler] 19:39:03
+Okay, but, now here, of course, you have the same issue that you have a much higher death rate in the refuse group as compared to the control or even the total group here.
+
+[Prof. Uhler] 19:39:12
+So again, there is just, there are few group is so different than anything, than anything else that we really cannot look at at these, types of numbers.
+
+[Prof. Uhler] 19:39:25
+So there is actually maybe something else that is interesting here that we should be looking at. And it's the following so it's let's look at and somehow people were so okay so maybe 1st what we should say is the only numbers that we compare is the death rate in the treatment group so the total treatment groups are the 1.3.
+
+[Prof. Uhler] 19:39:54
+Versus the total control group which is the 2. Okay, so these are really the only numbers, that we can compare in the study because these are the only numbers that are really randomized.
+
+[Prof. Uhler] 19:40:05
+So here we had, you know, at the beginning we had 62,000 women, 31,000 of them were put into the at random were put into the treatment group and 31,000 of them were at random put into the control group.
+
+[Prof. Uhler] 19:40:18
+So really the only 2 numbers that we can compare here are 1.3 versus 2.0. Okay, so now this is important, right?
+
+[Prof. Uhler] 19:40:27
+Because that means that the only, the only conclusions that we can drive from the study is whether offering mammography reduced the number of deaths enough to matter and not whether taking a mammogram reduced the number of deaths enough to man.
+
+[Prof. Uhler] 19:40:45
+Right? Because in here you have people who took a mammogram and people who didn't take a mammogram.
+
+[Prof. Uhler] 19:40:51
+So this is really critical, but again, this is exactly how the people who set up the study. This is the question that the people who set up the study wanted to answer.
+
+[Prof. Uhler] 19:41:01
+It's not whether taking a mammogram reduces the number of deaths enough to matter because that is not the policy that was at play here.
+
+[Prof. Uhler] 19:41:10
+The policy that was being discussed is not forcing women to take a mammogram every year. It was offering women to take a mammogram every year.
+
+[Prof. Uhler] 19:41:22
+Okay, so that's the question. That's the policy that people wanted to decide on. And so if that is the policy, then we need to set up a study so that we can answer that exact policy.
+
+[Prof. Uhler] 19:41:32
+And not something else, which is whether taking a mammogram would reduce the number of deaths enough to.
+
+[Prof. Uhler] 19:41:38
+If that was the question. So if the question was whether taking a mammogram would reduce the number of deaths enough to matter, then we would have had to set up a completely different clinical trial.
+
+[Prof. Uhler] 19:41:51
+Where people before they come in, they sign that they are happy with being either in the treatment group or the control group.
+
+[Prof. Uhler] 19:41:58
+Then we would do something like double blind where, you know, both women would be put onto, you know, would would have to go through the procedure.
+
+[Prof. Uhler] 19:42:06
+Of getting something like a mammogram done, but they just don't know whether now there is, ready, like, the, an image will be taken or an image will not be taken.
+
+[Prof. Uhler] 19:42:16
+Okay, so that's the setting when if you want to analyze whether actually taking a mammogram reduces the number of deaths enough to matter.
+
+[Prof. Uhler] 19:42:24
+But that simply wouldn't have been the right study to do in this case because we all know that the policy is not that we have that we wanted to force women to take a mammogram.
+
+[Prof. Uhler] 19:42:34
+The policy is that we're offering women whether they want to take in that with them. And so that's why it this is such an important study to look at because it tells you how important it is to 1st clarify the question that you want to ask and then collect the data that is the important data in order to answer the question that you're asking.
+
+[Prof. Uhler] 19:42:53
+Okay, and similarly, now this is just one medical setting because here it is about left and life and depth.
+
+[Prof. Uhler] 19:42:59
+But similarly, think about other settings when people are, say for example, online advertising. Where again it is very critical how you're asking the question.
+
+[Prof. Uhler] 19:43:10
+Is it that, you know, if you are just showing someone an advertisement? From your company and then this person is actually buying something at some point later on we never know whether it is associated really associated like causal or not.
+
+[Prof. Uhler] 19:43:26
+Or is it whether someone has to click on to? The advertising that you're showing and then you know sometime later on is actually buying something.
+
+[Prof. Uhler] 19:43:38
+So which one of the 2 do you care about? Right? Is the treatment just showing an advertising or is the treatment that they are actually clicking on the advertisement?
+
+[Prof. Uhler] 19:43:47
+And depending on what your question is and what you think is actually important, you should set up the study and analyze the data differently.
+
+[Prof. Uhler] 19:43:54
+So exactly these types of questions show up. Everywhere. In any kind of, industry, in any kind of application area.
+
+[Prof. Uhler] 19:44:05
+And you see how critical it is to actually ask the questions and then to collect the data that is that is really relevant for that particular question.
+
+[Prof. Uhler] 19:44:14
+Okay, so, so that's, that's in, that's where this data set.
+
+[Prof. Uhler] 19:44:21
+I do have one more question and I think it was brought up before and I just didn't answer it yet but it is a really interesting one.
+
+[Prof. Uhler] 19:44:27
+And it tells you something more about, you know, how hard these kinds of things are to analyze and that the refuse group is very, very, very different.
+
+[Prof. Uhler] 19:44:34
+And so someone asked in the chat, why is it that, you know, the refused group, so the people who actually didn't show up or screening.
+
+[Prof. Uhler] 19:44:43
+And of course in the control group, also, I mean, didn't get screening, right?
+
+[Prof. Uhler] 19:44:48
+They were randomly selected to knock at screening. Why is it that in the refuse group we have a lower breast, lower rate of deaths due to breast cancer than in the control group?
+
+[Prof. Uhler] 19:44:58
+What was the explanation for it? And, we kind of talked about it about, at some point during this, this whole conversation.
+
+[Prof. Uhler] 19:45:08
+So yeah, so it's sampling, that's correct, because it is.
+
+[Prof. Uhler] 19:45:12
+Because it is not random here, but there is a really underlying confounder, that actually leads to this.
+
+[Prof. Uhler] 19:45:21
+So, okay, so it could be as people are pointing out that maybe, you know, it has something to do with they maybe are already dying at for other causes as you see here, they have a higher death rate.
+
+[Prof. Uhler] 19:45:33
+But that's actually not, you know, since we have a lot of covariates here, we know that that is not, that cannot explain the huge, actually the pretty large difference here in terms of breast cancer death rate due to breast cancer that we actually see.
+
+[Prof. Uhler] 19:45:47
+And, I'm just going through to see whether that is. So it's also, this cannot be explained by just education.
+
+[Prof. Uhler] 19:45:55
+Because both of them have not taken a mammogram in this case. And you know worrying less etc. so those are great suggestions but i mentioned something before so what is lower social economic so we know in the refuse group we have a lower socioeconomical status.
+
+[Prof. Uhler] 19:46:13
+What may my what is it associated with that is actually protective of breast cancer
+
+[Prof. Uhler] 19:46:21
+So what is a lower socioeconomical status associated with exactly so people have already brought it up with child bearing.
+
+[Prof. Uhler] 19:46:30
+Okay. So people in this group actually have had. In average have have more children and this is protective of breast cancer.
+
+[Prof. Uhler] 19:46:42
+And that's in fact the big effect that you're seeing. Okay, so again, you see that there is this huge confounder, which is how many children a person has had, which has a big effect on whether that the particular person refused to get, you know, a mammogram done so didn't show up and whether this person and the risk of this person of developing breast cancer.
+
+[Prof. Uhler] 19:47:02
+So again, showing that these 2 groups are very, very different. Just, you know, this is not a random sample of a population.
+
+[Prof. Uhler] 19:47:09
+And in fact, you know, these people in general have a lower risk of breast cancer. And so suddenly, you know, these comparisons can really not be done, right?
+
+[Prof. Uhler] 19:47:19
+So really the only comparison is between 1.3 and 2.0 that we can do. And I see that my laptop is not charging.
+
+[Prof. Uhler] 19:47:28
+So let me just check. So it's plugged in. Cool. Let me try this.
+
+[Prof. Uhler] 19:47:37
+Okay. So. Still.
+
+[Prof. Uhler] 19:47:44
+Otherwise, I'll go on the other. Okay, so, so, let's move on from here.
+
+[Prof. Uhler] 19:47:50
+So I hope, we have, seen, and, seen how important it is to actually ask the right questions.
+
+[Prof. Uhler] 19:48:00
+So now, here all I have is just a little bit of a summary. Of you know everything that we talked about so far so that you also have it in writing afterwards although you can of course listen to listen to the our you know our recording as well so that you get to see everything.
+
+[Prof. Uhler] 19:48:23
+But again just to summarize that in this particular study, right, what what was done here is an intention to treat analysis and this is what they wanted to do because the policy was whether offering mammography could reduce the number of deaths due to breast cancer and not whether taking a mammogram would reduce the number of deaths due to breast cancer.
+
+[Prof. Uhler] 19:48:41
+That is the, that is in fact the study or the policy that was under that that people were interested in applying.
+
+[Prof. Uhler] 19:48:52
+And so that's how this particular study was actually performed, really to answer this question. Okay, so now we have this data, right?
+
+[Prof. Uhler] 19:48:59
+So does data suggest that we literally have here in the treatment group, we have only 1.3. Deafs out of a thousand.
+
+[Prof. Uhler] 19:49:07
+Whereas in the control group, we have 2.0 or, you know, 39 versus 63.
+
+[Prof. Uhler] 19:49:12
+Now we still need to answer whether this is significant, right? Whether it's just because, oh, you know, we performed one study, maybe in the next study the numbers will be switched around or is this like difference big enough to say we're really pretty sure that this difference actually comes from you know the offering of mammography and not just due to randomness in the data set itself.
+
+[Prof. Uhler] 19:49:36
+And so that's where, you know, we need to now go into actually performing a hypothesis test, right?
+
+[Prof. Uhler] 19:49:42
+We want to know whether these 63 deaths in the control group, whether this is really so much more than the 39 deaths in the treatment group that we conclude that you know we should really be offering mammography because it reduces the number of deaths due to breast cancer.
+
+[Prof. Uhler] 19:49:57
+Okay, so that's really the question now. Right now we have the data that we still need to do something.
+
+[Prof. Uhler] 19:50:03
+Like is this just by chance or is this actually the case that if we were to repeat the analysis, repeat another study like this and in fact this was done in different countries right with similar results is will we get the same outcome here.
+
+[Prof. Uhler] 19:50:16
+So that's where hypothesis testing comes in. And I know that many of you have already worked with hypothesis testing.
+
+[Prof. Uhler] 19:50:23
+So what I want to do here is, give you the right intuition for how these things work, right?
+
+[Prof. Uhler] 19:50:29
+And then of course you will be applying all kinds of different tests. But in hypothesis testing, what we need is we need to come up with a model. Okay.
+
+[Prof. Uhler] 19:50:38
+So what is a good model? So in this case, right, we can do something pretty simple because we only have 2 outcomes.
+
+[Prof. Uhler] 19:50:44
+So unfortunately, this outcome, it's either a woman has survived for these 5 years, right? In which the in which the study was performed.
+
+[Prof. Uhler] 19:50:53
+Or she she died due to in this case what we care about is breast cancer. So what is a good statistical model?
+
+[Prof. Uhler] 19:51:00
+To think about the settings where you just have 2 outcomes. Where it's just you know 2 outcomes either dying or not dying in this case and as people put in it's just a binomial distribution, right?
+
+[Prof. Uhler] 19:51:14
+So all we need, so it's a Bernoulli distribution at the person level and it's a binomial distribution.
+
+[Prof. Uhler] 19:51:19
+If you look at the whole population. So all these 31,000 or 62,000 women, there it's actually a Bernoulli a binomial distribution and so Right.
+
+[Prof. Uhler] 19:51:29
+And so a binomial distribution where in the control group we can set up, right? We need to know what is it that we would expect women to do?
+
+[Prof. Uhler] 19:51:40
+Well, we take the control group and so in the control group, right, we have 63 deaths.
+
+[Prof. Uhler] 19:51:44
+So this is, 63 deaths out of 31,000. So let's just write out the binomial distribution.
+
+[Prof. Uhler] 19:51:49
+So this is the null that people know about that. So it's just there our control group, right?
+
+[Prof. Uhler] 19:51:54
+We set out, we just write down the model for it. And so here we have a binomial distribution as people as many people put into the chat, right, which is centered here at around 63 depths.
+
+[Prof. Uhler] 19:52:08
+That's what we're observing. And so this is just the null distribution here.
+
+[Prof. Uhler] 19:52:14
+And now we have a treatment group. And so now that's, you know, we want to know whether that treatment group, whether the outcome from the treatment is so extreme that we would say like, wow, this is so unlikely to happen under the null model or the control model that we just say, you know, this is such a small probability.
+
+[Prof. Uhler] 19:52:35
+I just don't believe that it came from the control model, but it has to come from some change in the model.
+
+[Prof. Uhler] 19:52:39
+Okay, and so here, you know what you see here is so this is 63, right? This is we saw 39 depths in the treatment group.
+
+[Prof. Uhler] 19:52:49
+So you see 39 deaths is all the way out there right in the tail. It's such under this model here it's such a small probability of seeing 39 deaths and this probability of Cing 39 deaths or fewer is exactly what the p-value is.
+
+[Prof. Uhler] 19:53:04
+Okay, so if you care of p-value, that's just the probability under the normal under the control model of seeing what we see in the treatment group.
+
+[Prof. Uhler] 19:53:12
+Okay, of getting such an extreme value, which is 39. As we got here. And so any statistical software, Python or etc, etc, all of them can compute p values for you.
+
+[Prof. Uhler] 19:53:24
+If you give you the control model and you give it this statistic of what you found in the treatment group and in this case that the probability 0 point 0 0 1 2.
+
+[Prof. Uhler] 19:53:33
+Okay, so this is the probability of seeing 39 deaths if nothing had changed if we were just in the control model and you know we would probably all say this is such a small probability we just don't believe that it came from the control model.
+
+[Prof. Uhler] 19:53:45
+Okay so that's what it means to reject the null hypothesis to say that you know we just don't believe it it's such a small probability so we are rather we're rather happy to believe that actually something changed that really offering mammography actually reduced the probability of someone dying due to breast cancer.
+
+[Prof. Uhler] 19:54:02
+Okay, so that's how hypothesis testing works and that's what these p values are. So they are the probability.
+
+[Prof. Uhler] 19:54:07
+So you should, so what we should take away from here is that, you know, there is still a probability, right?
+
+[Prof. Uhler] 19:54:14
+Although it's small, that in fact we could have just seen just by chance these 39 deaths, even though you know the death rate hasn't changed at all.
+
+[Prof. Uhler] 19:54:22
+And that's why, you know, other types of studies are, made also in other places, right?
+
+[Prof. Uhler] 19:54:28
+And this was in fact done, and repeated, just to be more sure that in fact it was the offering mammography that really reduced the number of deaths enough to Matt.
+
+[Prof. Uhler] 19:54:36
+Okay, so that's how this whole framework works. Now, what I do want to do is, just, you know, that we've done it in the medical setting and as I said, I wanted to do it in the medical setting because like here this decision was about lives and deaths right this is something that we're all I mean women are now right this has something really changed of how we're
+
+[Prof. Uhler] 19:54:57
+actually going about thinking about breast cancer and testing for breast cancer. But of course, as I mentioned, the same exact same questions come up in all other areas.
+
+[Prof. Uhler] 19:55:08
+Application areas. And so I would love for you to just put in, you know, you all work and come from different areas that you are excited about the application areas.
+
+[Prof. Uhler] 19:55:17
+Where have you seen these exact same, you know, questions show up, these exact same hypothesis testing questions actually then be very relevant.
+
+[Prof. Uhler] 19:55:26
+Other than, you know, of course in the medical setting, which is one that we just went through.
+
+[Prof. Uhler] 19:55:31
+So what are other, types of settings where you have seen this and I know people have already put an A B testing before.
+
+[Prof. Uhler] 19:55:38
+So A B testing is of course just another name. Or where exactly, right, we're doing exactly the kinds of thoughts that we just went through.
+
+[Prof. Uhler] 19:55:47
+AB testing is like online advertising, for example, right, where you have 2 different strategies and you want to understand which one increases the sales enough to matter.
+
+[Prof. Uhler] 19:55:57
+And so now we have a lot of different examples that are being brought up. Manufacturing, if you have a new policy or a new technology that you want to introduce.
+
+[Prof. Uhler] 19:56:06
+As compared to the old one you need to be able to show that the new one really reduces the number of say defective items enough to matter.
+
+[Prof. Uhler] 19:56:15
+Right. Or if you have a new poly in that say public safety domain as it's brought up.
+
+[Prof. Uhler] 19:56:21
+Again, we need to be able to show that that new policy really reduces. I don't know, say for safety the number of deaths due to say weather damages enough to matter.
+
+[Prof. Uhler] 19:56:34
+Similar for agriculture treatments, right? Want to increase yield and we need to show if we have a new treatment that it increases yield enough to matter.
+
+[Prof. Uhler] 19:56:44
+So there are a credit card fraud you might have. You might need to understand different types of policies and how they have an effect on it.
+
+[Prof. Uhler] 19:56:54
+So there is remote work impact, the great one every like many companies have had to come up with their own new policies and have to understand how that impacts, you know, the people's motivation and outcome in terms of like productivity in terms of, a work productivity more generally.
+
+[Prof. Uhler] 19:57:16
+So in all these settings, it's actually a very, very, very, so what is needed is very careful question.
+
+[Prof. Uhler] 19:57:20
+That is exactly a question that you care about that is, you know, related to the policy that you're thinking of introducing as we went through with a mammography example and then collecting the data that allows you to actually answer exactly that type of question.
+
+[Prof. Uhler] 19:57:36
+Okay, so it's really important. So also vaccines are brought up exactly so all so in all these settings exactly the types of questions that we just went through.
+
+[Prof. Uhler] 19:57:45
+Are so critical, for you to, you know, really think through very, very carefully. Okay.
+
+[Prof. Uhler] 19:57:51
+And so here, of course, in the chat there are many, many more examples. I just put in, you just summarize here, some of them that, that were brought up all in the chat, just so that we have other examples in mind, right, that it's clear that exactly the same types of questions that I just went through in the medical setting are really, really critical in all other settings as well.
+
+[Prof. Uhler] 19:58:09
+Be it in business. To make informed decisions on new initiatives and whether they really help grow your your business or not being an advertising being in financing where you may have a new investment tool and you need to analyze whether this new investment tool really provides satisfactory returns or better returns than what you had.
+
+[Prof. Uhler] 19:58:29
+So in all these settings, we need to actually, you know, do something like a hypothesis test.
+
+[Prof. Uhler] 19:58:37
+And now there is an amazing question, which, is, you know, that, we should be talking about and we will be talking about in the coming slides is you know somehow in all these applications you need to decide when should we say like you know we said like okay this is very small probability 0 point 0 0 1 2 but what should be our cut off where we're saying like hmm you know say if it's like
+
+[Prof. Uhler] 19:59:01
+6%. So, you know, the probability of seeing say, 39 or whatever number of deaths that we would have seen in the study is like 6% under the control model.
+
+[Prof. Uhler] 19:59:11
+Do we still say that that was too smaller for probability and that maybe the model has changed like that really introducing mammography has reduced the number of deaths enough to mad or would we in that sense in that setting say maybe not maybe you know we're just not sure and it could have happened also.
+
+[Prof. Uhler] 19:59:29
+Model. That's exactly what the significance level is and where we have to decide on the significance level and what we should actually introduce it to be.
+
+[Prof. Uhler] 19:59:38
+Okay, so, and we will talk now a lot about that significance level, but, I, I was asked to add in, a 5 min break in between so that everyone can just get a glass of water and and then actually come back refreshed for the next hour.
+
+[Prof. Uhler] 20:00:00
+We already had 1 h go through. So maybe before we go into the significance level, I will be happy to take more questions and talk about more questions.
+
+[Prof. Uhler] 20:00:07
+But if you want to, get up and stretch your legs, get a glass of water. Restroom break, etc.
+
+[Prof. Uhler] 20:00:18
+So we will continue in 5 min with the material and I will be in the meantime just happy to take questions in addition.
+
+[Prof. Uhler] 20:00:24
+So. So let me go through if someone wants to stick around for 5 min to take questions. I'll be happy to do that.
+
+[Prof. Uhler] 20:00:35
+So maybe I can use this time to go through. To go back. Through the perfect through null hypotheses and what is the null hypothesis in the in in the example that we were talking about before and the breast cancer example And then how do we go through the binomial example?
+
+[Prof. Uhler] 20:00:57
+Maybe I can do that during those 5 min. So in the breast cancer example, what was the null hypothesis?
+
+[Prof. Uhler] 20:01:04
+So the null hypothesis is always the status quo. But the null hypothesis is always the same as what the control group is.
+
+[Prof. Uhler] 20:01:12
+Okay, so, null hypothesis is the model. It corresponds to the control group.
+
+[Prof. Uhler] 20:01:18
+So that's that and then the alternative is what is it that we added in new so that would be the treatment group.
+
+[Prof. Uhler] 20:01:26
+So that's. So that's that just to set up a little bit of language.
+
+[Prof. Uhler] 20:01:32
+And so here you see in the control group, this is the null hypothesis and then in the treatment group, this is the alternative.
+
+[Prof. Uhler] 20:01:41
+And then if we're looking here at how we set it up, so the control model or the null hypothesis, again, this is the control.
+
+[Prof. Uhler] 20:01:49
+So here we had 63 deaths, so this is the binomial model that we would get in the control group.
+
+[Prof. Uhler] 20:01:56
+And then we compare that against the treatment group where we saw 39 deaths.
+
+[Prof. Uhler] 20:02:02
+And so So that's, the control and the treatment and the definition of treatment as compared to control.
+
+[Prof. Uhler] 20:02:13
+So treatment is always so control is always status quo. So before so in the example of the mammography we had a standard health insurance plan.
+
+[Prof. Uhler] 20:02:21
+That's the control group and the treatment group was whatever we changed. So here we changed that we were also for free offering.
+
+[Prof. Uhler] 20:02:31
+Women to come in to get a mammogram. That's the change. So that's called the treatment.
+
+[Prof. Uhler] 20:02:36
+So in that case, it was whether offering mammography that was the treatment. And so now just going through all the questions and seeing how they.
+
+[Prof. Uhler] 20:02:51
+How date. So, okay, so now there are questions all about, about, so sample size, which is all related to, significant level cutoff.
+
+[Prof. Uhler] 20:03:07
+And effect size so these are all related questions and so yeah and as we mentioned earlier on when we were discussing these topics, we said that if the if the effect of offering mammography right here, it shifted it quite a lot.
+
+[Prof. Uhler] 20:03:25
+I mean, from 63 to 39 when we have 31,000 or 62,000, individuals that we're looking at, right?
+
+[Prof. Uhler] 20:03:32
+If this shift was smaller, we would need to have a much larger sample size in order to, in order to identify it.
+
+[Prof. Uhler] 20:03:41
+Also the sample size and whether we're able to identify any change will depend a lot on the significance level. Right?
+
+[Prof. Uhler] 20:03:47
+If you want to be very, very sure, so you're cut off is going to be very small.
+
+[Prof. Uhler] 20:03:51
+So say 1% often we choose a significance level or a cut of a 5% and we'll talk about that now.
+
+[Prof. Uhler] 20:04:00
+Then you know you may need a larger sample size in order to really be able to actually figure that one out and be able to see it.
+
+[Prof. Uhler] 20:04:09
+Okay, so, so that's, so that's the questions about the effect sizes.
+
+[Prof. Uhler] 20:04:16
+And again, how was this a graph drawn here? So this is literally just the binomial distribution.
+
+[Prof. Uhler] 20:04:21
+With mean at 63 and you know or if you want to write it out as you know the probability of dying in this case to be 63 divided by 31,000 and the sample size to be 31,000 and that's how one gets this curve here and then here literally all I have is adopt at 39.
+
+[Prof. Uhler] 20:04:44
+So this can, you can easily and this will be a great, point to do to try to actually just recreate exactly this curve that I have here.
+
+[Prof. Uhler] 20:04:55
+And, are great questions about, you know, we could do all kinds of things in the other data set.
+
+[Prof. Uhler] 20:05:00
+We could actually test whether the difference in, different rates of death, right, were significant or not.
+
+[Prof. Uhler] 20:05:09
+So for example here, is there really a significant change between 1.5 and 2 point and you'll see that these changes or here is there really a significant change between a death rate of 21 versus 38 and you'll in fact see that those are all significant change between a death rate of 21 versus 38 and you'll in fact see that those are all significant and that could be exactly done exactly
+
+[Prof. Uhler] 20:05:26
+in the same way as what we're setting up here to see whether there is a significant change between 1.3 and 2.0.
+
+[Prof. Uhler] 20:05:33
+So that's a great question and can really be done and can be checked on whether, you know, this difference so you can get the data and see how many, how many kids every woman, in these groups had worn and then do a test on whether that is in fact a significant indicator of whether, you know, of how much it reduces.
+
+[Prof. Uhler] 20:05:52
+The death rate. And these these exact studies were done and that's where you know I'm taking these statements from that actually these things come out to be significant.
+
+[Prof. Uhler] 20:06:05
+And also great questions about, you know, do you generally have pre-study analysis to determine the sample size?
+
+[Prof. Uhler] 20:06:12
+So here certainly we would have a, you know, from, from pre, studies, like very small scale studies that were performed, you would have an intuition for how large the effect is that you're expecting to see, through mammography.
+
+[Prof. Uhler] 20:06:29
+And based on that, you would have an estimate of what of what the sample size should be based on the significance level that you want to actually be able to tell.
+
+[Prof. Uhler] 20:06:41
+Okay, so there I see that there are still questions, so I think but, I think what we'll do here is, will now move on and some of them will actually now that they are all, to do with significance level.
+
+[Prof. Uhler] 20:06:55
+So we'll move now on. I think hopefully you were all able to scratch your legs briefly and come back.
+
+[Prof. Uhler] 20:07:01
+And so I will continue on with with our lecture here. And we're now going more into significance level as was just asked before the little break and of course just asked before the little break and of course after in an hour you will have some time with mentors from great learning where they can answer even more of the questions that we haven't had time to go through.
+
+[Prof. Uhler] 20:07:24
+So, significance level and how do we decide it? And you know this course the whole course is actually a lot about telling you all the things we have to be careful with right giving you the right intuition for when you're doing data analysis and telling you about the right the things that we all have to be careful about.
+
+[Prof. Uhler] 20:07:41
+We already did one, right? Where how important it is to really think through what is the question that we want to answer.
+
+[Prof. Uhler] 20:07:48
+And what is the policy that you want to introduce? And that was, you know, our mammography example or the policy that people were that, you know, you have to be interested in is not forcing a woman to do a mammogram, but actually offering a mammogram.
+
+[Prof. Uhler] 20:08:00
+And so the study should be able to answer that question. And so similarly now I want to actually go through something that we really have to be careful with and has to do with significance level.
+
+[Prof. Uhler] 20:08:10
+And when we're doing, . Okay And so it's the following. Okay. And again, I will do it using a case study.
+
+[Prof. Uhler] 20:08:18
+Now, another case study, which has to do with pizza. Okay. And eating.
+
+[Prof. Uhler] 20:08:23
+And again, the cancer prostate cancer example now, but but mainly it's to show some interesting patterns that you know one can find when one does a lot of hypothesis testing.
+
+[Prof. Uhler] 20:08:34
+So this is a an interesting study and again I should say before we go into that something is off with the with how we are interpreting the results but the study was performed very very carefully so nothing is wrong with the study itself.
+
+[Prof. Uhler] 20:08:47
+But the conclusions of the study are the following and again it's a very very large skill study many individuals very carefully done that intake of tomato sauce and here you have all these p-values.
+
+[Prof. Uhler] 20:08:59
+And tomatoes and pizza all reduce the risk of prostate cancer. Okay, so we can think that maybe it's tomatoes, right, since the tomatoes and are in the tomato sauce and on the pizza.
+
+[Prof. Uhler] 20:09:12
+However, we then look at other things like tomato juice. No, not significant at all. P value of 0 point 6 7.
+
+[Prof. Uhler] 20:09:19
+So 67% probability to see this. So in healthy individuals, right? So no tomato juice not significant.
+
+[Prof. Uhler] 20:09:28
+And you can say, well, maybe it's like something about vegetables and things like that. Cooked spinach not significant at all.
+
+[Prof. Uhler] 20:09:35
+And many, many other vegetables also not significant. So what is going on in this, right?
+
+[Prof. Uhler] 20:09:43
+This sounds kind of odd. So what is going on in, in this study here? How would you explain or do you, does anyone have an explanation for, what is going on here?
+
+[Prof. Uhler] 20:09:57
+The pizza producers want to study. Yeah, so this is a great question. So, no, but, of course, you have to be worried about, you know, things that actually did happen, right, when when people were trying to study whether smoking reduces the number of deaths due to breast cancer or we know a lot of studies of like studying sugar, right, where you have a lot of
+
+[Prof. Uhler] 20:10:17
+lobbying by industry and that is actually funding different studies and so we do have to be really careful about exactly that.
+
+[Prof. Uhler] 20:10:25
+But in this case, that was not, what happened here. And in fact, the results are very nice and really well done.
+
+[Prof. Uhler] 20:10:35
+And pleasure of eating, etc. A lot of. A lot of different points are, making made, are being made here.
+
+[Prof. Uhler] 20:10:44
+So what could go on? So, you know, it's great that we should I mean, this that this can be and of course has been, you know, portrayed as causal, right?
+
+[Prof. Uhler] 20:10:55
+That we should all eat pizza and that this would reduce our risk of prostate cancer. Of course, in the paper, there's nothing about it being causal.
+
+[Prof. Uhler] 20:11:03
+It's just, you know, describing the results here very nicely and cleanly. So but there is still something going on and it's actually it's not confounding in that sense.
+
+[Prof. Uhler] 20:11:14
+It's not about, figuring out also what, whether there are combinations that might be helpful.
+
+[Prof. Uhler] 20:11:19
+It's really nothing of that. It just has to do with hypothesis testing itself. And it might not be that, you know, pizza.
+
+[Prof. Uhler] 20:11:26
+So if we would do everything here or differently in terms of hypothesis testing and in fact the, so all we have to do different is the significance level.
+
+[Prof. Uhler] 20:11:36
+Then in fact none of these results would come out to be significant. And, putting in something about different alpas, so we need to figure out what that different alpha is.
+
+[Prof. Uhler] 20:11:50
+Someone is saying they can't hear me, but others can hear me. So, so hopefully, Patrick, you can, or Grace, you can just, restart maybe.
+
+[Prof. Uhler] 20:11:59
+So what could it be? So sample size is large enough, so it does have to do something with different alphas.
+
+[Prof. Uhler] 20:12:07
+What are these help us? So what is, why should we maybe, so here, only if you use a significance level of 5%, right?
+
+[Prof. Uhler] 20:12:17
+Do all of these here come out to be significant, whereas these come out to be not significant?
+
+[Prof. Uhler] 20:12:22
+What? So let's go through what happens. Let me actually show one example. So here we have it.
+
+[Prof. Uhler] 20:12:29
+So, and then hopefully we'll see what the issue is. So let's say I make a wonder pill.
+
+[Prof. Uhler] 20:12:38
+Like literally this pill has nothing in it other than a droplet of water. Okay, so we know this droplet of water will certainly not happen influence on weight and blood pressure, on etc, etc, etc, right?
+
+[Prof. Uhler] 20:12:46
+So, but however, let me now do a study and you know with a lot say I take a lot of people and very large, but I measure 100 different variables before and after taking the pill.
+
+[Prof. Uhler] 20:13:00
+Okay, so I'm doing it like really well, really good study where I'm doing it very thoroughly before and after.
+
+[Prof. Uhler] 20:13:06
+And I'm measuring all kinds of variables. Of like blood pressure, etc, etc.
+
+[Prof. Uhler] 20:13:11
+And now I'm performing a hypothesis test with significance level 5%. Whether any of these variables or, you know, whether this wonderkill has an effect on any of these variables, whether it has an effect on blood pressure and effect on weight and effect on etc, etc.
+
+[Prof. Uhler] 20:13:27
+What happens? Like what does it mean to have a significant level of 5%?
+
+[Prof. Uhler] 20:13:34
+How many of these 100 tests will actually come out to be significant?
+
+[Prof. Uhler] 20:13:43
+Okay, so, 5 out of these 100 tests will actually turn out to be significant. Just by chance.
+
+[Prof. Uhler] 20:13:52
+Okay? So that's really, really important to note. And that's why when we said before, right, so that we, so these p values are just probabilities that in fact this test could have come out to be significant just by chance.
+
+[Prof. Uhler] 20:14:06
+So if we set ourselves a cut of a 5%, that means that we're happy, we're totally fine making a mistake 5% of the time and deciding that something is significant when it actually shouldn't be significant.
+
+[Prof. Uhler] 20:14:19
+But before, right, we said like the p value was 0 point 0 0 1 2. Yeah, there is still some probability that you know even if we have a cut off of 0 point 0 0 5 right now it came out smaller there's still some probability that actually the data really came from the control model and we're making a mistake that we are now just saying that we're that we are rejecting the null
+
+[Prof. Uhler] 20:14:43
+hypothesis. Okay, so if we choose a significant level, we can now decide how we should choose the significance level.
+
+[Prof. Uhler] 20:14:50
+But if we choose a significant level of 5%, then we have to expect, and this is what the significance level means, and that's why it is, so once we have this understanding of what the significance level is, then we can decide how we should choose the significance level.
+
+[Prof. Uhler] 20:15:03
+And in fact, the significance level is chosen differently in different industries. Right? So for example, the FDA, which has to be really, really sure about their assaults, has to choose a smaller significance level.
+
+[Prof. Uhler] 20:15:15
+Then, for example, if you're just doing a pre, you know, just looking for like for example in genetic testing where you have so many tests that you need to perform but it's not a conformatory analysis I'm just coming up with hypotheses.
+
+[Prof. Uhler] 20:15:28
+Here I don't need to be so sure because, you know, I'm anyways going to do another.
+
+[Prof. Uhler] 20:15:31
+And other test down the lane. So it really, the significance, so once we understand what the significance level is, then we know that different industries will have to choose it differently and that we really should think about it carefully.
+
+[Prof. Uhler] 20:15:43
+Okay, so here what the significance level means if you choose it at 5% it means that we are totally fine 5% of the time making a mistake.
+
+[Prof. Uhler] 20:15:52
+So if we do a hundred tests, well that means that an average Just by chance, 5 out of these we have to expect that 5 out of these will come out to be significant.
+
+[Prof. Uhler] 20:16:01
+Okay, so if I go back here, in fact, in this particular study, they did hundreds of tests.
+
+[Prof. Uhler] 20:16:08
+So we have to expect that if you do hundreds of tests, well, you know. If you choose a cut of a 5%, then 5% of them will just by chance come out to be significant.
+
+[Prof. Uhler] 20:16:19
+Okay, and if you choose a cut of a 1%, then 1% of them will come out to be significant.
+
+[Prof. Uhler] 20:16:25
+So now the question is, even if you give me a significance level, well, how should I correct for it?
+
+[Prof. Uhler] 20:16:30
+Obviously, if you do a lot of tests and maybe we should actually choose the lower significance level, right?
+
+[Prof. Uhler] 20:16:36
+And instead, if you do a lot of, if you do only one test, well, maybe it's okay to keep a significance level of 5%.
+
+[Prof. Uhler] 20:16:42
+And so maybe you've seen this, this, Cartoon already, right?
+
+[Prof. Uhler] 20:16:47
+But this is exactly kind of summarizing this that, you know, scientists are investigating whether, you know, say, yeah, purple jelly means have an effect on acne or associated with acne.
+
+[Prof. Uhler] 20:17:01
+No, not significant. What about turquoise jellybeans, magenta jellybeans, yellow jelly beans, etc, all not significant, but green belly jelly beans are significant that 95% confidence, etc, etc, right?
+
+[Prof. Uhler] 20:17:13
+So whenever you read statements about, you know, that have things like in this study where you have so many where it's clear that many, many tests were performed.
+
+[Prof. Uhler] 20:17:23
+Have to be careful about the statements, right? But to be careful about it because and this is actually not a misuse of p values because everything was stated, right? We know exactly how many tests were performed.
+
+[Prof. Uhler] 20:17:36
+We know which test was performed, etc. It's not a misuse as long as you know you're not hiding that you have performed all these different types of tests.
+
+[Prof. Uhler] 20:17:44
+It is that we have to know that we need to analyze these or we need to read it in that light that we have to know that we need to analyze these or we need to read it in that light that we have to know that we need to analyze these or we need to read it in that light that we need to understand what a significance level, we need to read it in that light, that we need to understand what a significance level means, that, you know, if we choose
+
+[Prof. Uhler] 20:17:56
+a significance level of 5%, we're okay with making 5% of the time just concluding that something is significant when it actually shouldn't be.
+
+[Prof. Uhler] 20:18:04
+Okay, where we're rejecting the null hypothesis where we shouldn't reject the null hypothesis.
+
+[Prof. Uhler] 20:18:08
+So this is just something that we have to be aware of. All times. That that this is what how this should be interpreted.
+
+[Prof. Uhler] 20:18:18
+Okay. And so now what do we do with it if you have to do a lot of significant hypothesis test?
+
+[Prof. Uhler] 20:18:25
+Well, you should somehow have a more stringent cut off, right, than 5%. And so again, as I said, like the choosing the significance level or what should be the cut off depends, of course, on your in on the industry you're working.
+
+[Prof. Uhler] 20:18:37
+And so, and I'll give you actually maybe I go there first.st So, so I'll already go here to commonly accepted practices.
+
+[Prof. Uhler] 20:18:45
+So we'll talk about what are these 2 things. So family wise error rate is something that is much, much more stringent than just bull's discovery rate.
+
+[Prof. Uhler] 20:18:54
+So we'll talk about what it is. But here, for example, if you are in the FDA, the FDA sets what what is acceptable and what means a significant result.
+
+[Prof. Uhler] 20:19:04
+And so the FDA is very stringent has to be, right? Because this is a confirmatory analysis.
+
+[Prof. Uhler] 20:19:09
+Whatever comes out here is actually going to be a policy. So here they're very stringent and they go based on family-wise error rate and their cutoff is 5%.
+
+[Prof. Uhler] 20:19:17
+Whereas FDR is a false discovery rate. So for many other settings where, you know, you're just doing screening, this is not a confirmatory analysis, you want to come up with hypotheses.
+
+[Prof. Uhler] 20:19:28
+A generally accepted practices to choose this to be 10%. Much less so 1st of all FDR is much less stringent and family wise error rate and we choose different cutoffs depending on in which applications we're working.
+
+[Prof. Uhler] 20:19:41
+And so if I go back to what these things actually mean, so I said family wise error rate is the most stringent.
+
+[Prof. Uhler] 20:19:47
+So this is if you're not allowing yourself to make basically any mistakes and or any of the tests that you're performing.
+
+[Prof. Uhler] 20:19:54
+So if we're performing a hundred tests, then we want to protect ourselves to among all 100 tests not make with a probability of some number not make a mistake in any of that.
+
+[Prof. Uhler] 20:20:07
+Okay? So this is with the probability, you know, of say 5%. We, want to make at most one mistake among all of the different tests.
+
+[Prof. Uhler] 20:20:17
+That's for example with family wise error rate can guarantee you. So it's guarantees you across all the tests that you're performing.
+
+[Prof. Uhler] 20:20:24
+You're setting a threshold for, you know, what you're okay with making one mistake on.
+
+[Prof. Uhler] 20:20:29
+Where's the pose discovery rate? It's actually only looking at the tests that come out to be significant.
+
+[Prof. Uhler] 20:20:35
+Okay, so, you know, you're making many, many, many tests, right? Many of them don't come out to be significant.
+
+[Prof. Uhler] 20:20:40
+I'm only looking at the ones that came out to be significant. And among these significant ones, I want to say that, you know, at most this many can be Okay, you see how the denominator is different.
+
+[Prof. Uhler] 20:20:54
+Here it's among all tests that you're performing, whereas here it's only among the tests that you performed that came out to be significant.
+
+[Prof. Uhler] 20:20:57
+So this is much less stringent than family wise error rate. Okay, so these are 2 different guarantees that we can go after.
+
+[Prof. Uhler] 20:21:05
+And again, you will go after one or the other depending on the industry that you're in. And now, of course, the question that was brought up also by Diana, okay, so now we have a definition.
+
+[Prof. Uhler] 20:21:14
+So how do we do it? Like what is the test that gives me this guarantee? What is the test that gives me this guarantee?
+
+[Prof. Uhler] 20:21:19
+Okay. So, so, again, family wise error rate is just much more stringent, okay?
+
+[Prof. Uhler] 20:21:26
+So, so, so again, family wise error rate is just much more stringent than false discovery rate, family wise error rate is just much more stringent than false discovery rate.
+
+[Prof. Uhler] 20:21:28
+Family-wise error rate is a probability of making a mistake among old tests. Whereas false discovery rate is only a probability of making a mistake among the tests that came out to be significant.
+
+[Prof. Uhler] 20:21:37
+Okay, so this is a smaller number of denominator as compared to here bigger than nominator.
+
+[Prof. Uhler] 20:21:42
+So this is much more stringent. So, but how do we like what is a procedure for doing it?
+
+[Prof. Uhler] 20:21:48
+Now, in this course, right, we don't want to, I mean, we want you to understand like what are the things that you want to be careful about and what are some methods that we can introduce then in order to actually that that can do these things.
+
+[Prof. Uhler] 20:22:02
+Here I wrote already the map is option. I'm not going to go through all the map. I will have references in the end if you actually want to read up on it.
+
+[Prof. Uhler] 20:22:09
+And so but here are 3 different tests which you can just any any software or Python etc. etc. they all have this all implemented all ready so you can just call one foroni or phone one for only or venue, mini hookwork in order to do the when you're doing hypothesis testing when you're doing multiple testing and it's a particular correction.
+
+[Prof. Uhler] 20:22:31
+So, One for only correction is probably something that many of you have heard of because it's that you know it was a 1st one and it's the simplest one to do but really as you see here one for only in Holborn for only both of them protect you at the family wise error rate okay so they give you a family wise error rate.
+
+[Prof. Uhler] 20:22:50
+Okay, so they give you a family wise error rate. Okay, so they give you a family wise error rate protection, but Home Bon Feroni iss error rate protection, but Home Bon Feroni is strictly better than one for only.
+
+[Prof. Uhler] 20:22:53
+So really nobody should use Bonfire only. You should always use, for only just because mathematically it is easy to state.
+
+[Prof. Uhler] 20:23:03
+But since anyways, you're not going to do it by hand and paper, you're going to use a, you know, some software to do it.
+
+[Prof. Uhler] 20:23:12
+Always use home one for only. There is literally no reason to use. BONG for, OKAY.
+
+[Prof. Uhler] 20:23:15
+So but you know, people use B for only because it's so easy to state because it just says that well instead of if you were before using a p-value cut off so a significant level of 5% when you're doing a hundred tests what you should be using is a significant level of 5% divided by the number of tests you're doing.
+
+[Prof. Uhler] 20:23:34
+So 5% divided by 100. And if you go back and you'll check in the pizza example, none of the variables would have come out to be significant at that level.
+
+[Prof. Uhler] 20:23:43
+Okay, so, so that's how these corrections. So instead of the standard significance level, you will actually correct it to be something smaller.
+
+[Prof. Uhler] 20:23:53
+And that's what you're going to use as a cut. And similarly for hong one for only, it just corrects it differently for every one of the tests.
+
+[Prof. Uhler] 20:24:00
+So it is more powerful. So you should always use Holborn for Roni instead of Gompon Feroni, because this is strictly better than this one. Okay.
+
+[Prof. Uhler] 20:24:08
+So, but if you just all you care about is full discovery rate, so now the question is how can you protect yourself to both discovery, right?
+
+[Prof. Uhler] 20:24:16
+Well, this you can do what you can actually, right? So you want to do something weaker because it is a weaker, guarantee.
+
+[Prof. Uhler] 20:24:23
+And so in that setting, you can do Ben Yameni hope for correction. Again, I won't go through all the map.
+
+[Prof. Uhler] 20:24:29
+I have the reference in the end. I just put it here for every, for anyone who wants to go through it carefully.
+
+[Prof. Uhler] 20:24:34
+So you can go through this one here carefully again, understand what the eyes are here. This is the number, the test number that you are performing.
+
+[Prof. Uhler] 20:24:45
+So, so you can go through this and I have to reference, I even have a lecture, linked at the end by Ben Yamini himself was done like a large amount of work on how to correct for multiple.
+
+[Prof. Uhler] 20:24:58
+Hypothesis testing and correct for for in hypothesis tests more generally. How to choose these significance levels, etc.
+
+[Prof. Uhler] 20:25:05
+Okay. And you should already have access to the presentation, in fact. So for that question as well.
+
+[Prof. Uhler] 20:25:11
+Okay, so these are so this is you know the whole thing about how to choose the significance level and what you really have to be careful about right okay so significance levels are chosen differently in different industries and it is because now we have an understanding what significance level means.
+
+[Prof. Uhler] 20:25:28
+Okay, significance level is The probability that you are okay with making a mistake And the mistake that I'm talking about is rejecting the null when the null is in fact true of saying that, you know, oh, offering mammography actually reduces the number of deaths.
+
+[Prof. Uhler] 20:25:43
+Old, it's not true, although it just came out once just by chance. Okay, so that's so that's what what actually the significance level is and if I go back again just to I, what would have happened in the pizza example.
+
+[Prof. Uhler] 20:26:02
+So in the pizza example, they did hundreds of tests. So let's say even go with a hundred.
+
+[Prof. Uhler] 20:26:08
+You can look it up. I have the reference here how many tests they have done. So in this case, even if you were just to do one for roni correction, you would instead of take a significant level of 5% if you do a hundred tests you would take a significance level of 0 point 0 5%.
+
+[Prof. Uhler] 20:26:22
+Okay, and so then all of these tests would actually have come out to be not. So you wouldn't have found that for example eating pizza is significantly affected with reducing associated with reducing the risk of prostate cancer.
+
+[Prof. Uhler] 20:26:36
+And that setting none of these variables would have come out to be significant. And so you would have been all fine.
+
+[Prof. Uhler] 20:26:42
+Okay. So that's, so that was the issue with that stuffy and how important it is that you identify when someone is doing a lot of hypothesis testing.
+
+[Prof. Uhler] 20:26:51
+So if you see things in advertising written about red cars of this make built in this year. Or less likely to.
+
+[Prof. Uhler] 20:27:02
+Get into an accident. This should already have you have all your alarm bells ringing that they have probably done a huge number of hypothesis on many different colors.
+
+[Prof. Uhler] 20:27:13
+Many different makes many different years in order to find something that was significant. Right, so those are the types of statements that we always have to be very careful about because it's suggests that you have done a lot of hypothesis tests or someone has done a lot of hypothesis tests.
+
+[Prof. Uhler] 20:27:29
+And possibly since in any of these statements in advertising we won't get right what was their hypothesis test that was done, etc.
+
+[Prof. Uhler] 20:27:38
+Will only get the final conclusion, like for example here in this little in this little news article right when you see something like green jelly beans are linked to acne should already have some alarm bells ringing that probably they have made many other tests.
+
+[Prof. Uhler] 20:27:55
+Okay, so those are just things that we really have to be very careful about, right, when we're doing hypothesis testing.
+
+[Prof. Uhler] 20:28:02
+And always have in mind. Those types of things. Okay, so with that, now we've done a lot of hypothesis testing.
+
+[Prof. Uhler] 20:28:11
+And thinking about, you know, what happens when you're actually introducing, when you're thinking about, or when you're involved in collecting a data set.
+
+[Prof. Uhler] 20:28:19
+Now I do want to use, the last half an hour to actually talk about, well, now you're getting a large data set.
+
+[Prof. Uhler] 20:28:26
+What are the 1st thing that we should be doing? Okay, so we'll switch gears and go to what now not just collecting the data set and hypothesis testing, but now you have a large data set, what do we do?
+
+[Prof. Uhler] 20:28:37
+Okay, so that's what most of this course is going to be about is actually collecting that is after you collect the data.
+
+[Prof. Uhler] 20:28:44
+What are the 1st things that we'll actually do? So, so here is another example.
+
+[Prof. Uhler] 20:28:49
+So you can think of a customer base as we started off with, right? A nice big table of data.
+
+[Prof. Uhler] 20:28:55
+Excel sheet, you have all of your customers or you have stocks depending on what your what the application is that you're thinking about the most and you have a lot of different features or variables or covariates that you're measuring via days or stocks like the price.
+
+[Prof. Uhler] 20:29:11
+On different days, or be it for individuals, you have all kinds of demographic features. You might have features about, you know, their history in terms of the interactions with you, with the company, etc.
+
+[Prof. Uhler] 20:29:22
+Okay, so they have a big, big, samples and then features on the on the columns. And for me this could be you know a large as I said like large imaging data set of like different cells from a particular site.
+
+[Prof. Uhler] 20:29:37
+Cancer tissue or from another tissue. Where every one of these, little, little things here that is surrounded by some color as a cell and I'm extracting all kinds of features so I have many cells as rows and then many features as columns like the size of a cell or the texture of this particular cell or how round or how elongated it is, etc.
+
+[Prof. Uhler] 20:30:01
+Okay. So this is just to show that, you know, any data set, many data sets are in that form.
+
+[Prof. Uhler] 20:30:07
+Many, individuals or items or, or or cells in this case are my rows and then my features are the same as or covariates depending on which application or you know any of your different types of measurements that you want to do or all of your different calls.
+
+[Prof. Uhler] 20:30:27
+So I give you like a or you get access to say a data set of like a thousand rows times, I don't know, 1,000 columns.
+
+[Prof. Uhler] 20:30:35
+Okay, so a thousand samples and you're measuring a thousand different features. So now what do we do, right?
+
+[Prof. Uhler] 20:30:42
+A huge data set, so we need to do something as a 1st step to actually be able to look at it.
+
+[Prof. Uhler] 20:30:45
+And so we'll just talk about some visualization tools as the 1st one to just look at this large-scale data.
+
+[Prof. Uhler] 20:30:52
+And will be although there are many different visualization tools. I'm choosing 2 out of 2 different classes.
+
+[Prof. Uhler] 20:30:59
+They're very representative of what you can do with linear methods. So that's just principal component analysis or what you can do with nonlinear methods.
+
+[Prof. Uhler] 20:31:08
+And I chose one of and I chose to look at stochastic neighbor in bed. Okay, and you'll see that both of them have advantages and disadvantages.
+
+[Prof. Uhler] 20:31:16
+That's what we want to talk about here in this course, right? How do you choose methods often?
+
+[Prof. Uhler] 20:31:21
+You should actually do both, right? Generally here for sure you should do both. But what are advantages?
+
+[Prof. Uhler] 20:31:27
+What are things that you can do with a linear method that maybe is harder to do with a nonlinear method and what does a nonlinear method value as compared to a linear method?
+
+[Prof. Uhler] 20:31:35
+And in Ado science, you always have this trade off that you can make a better method that maybe can identify more things, but you're always going to pay a price.
+
+[Prof. Uhler] 20:31:44
+So what is the price that you generally pay in data science? For better methods. That possibly can identify more.
+
+[Prof. Uhler] 20:31:53
+It's always computation time, okay? So has was just answered by Andre. So, we'll never get anything for free in data science.
+
+[Prof. Uhler] 20:32:02
+Okay, so we'll always pay a price and here it will be a huge price that we're going to pay from going from linear methods that are super fast like PCA principal component analysis to something that is nonlinear might give you a lot more information sometimes right but we'll will be much much slower Okay, so let's look at, those, you know, 2 different methods and how
+
+[Prof. Uhler] 20:32:22
+they fit into the picture and what are the advantages and disadvantages of them. Okay, so, principal component and I'm sure many of you have already worked with it.
+
+[Prof. Uhler] 20:32:33
+Have an intuition for what it does. So the intuition for principal component analysis is to try to project the data.
+
+[Prof. Uhler] 20:32:40
+So again, we're looking at a data set and say a thousand different dimensions. So maybe the easiest is to think of stocks.
+
+[Prof. Uhler] 20:32:46
+So say you have a hundred stocks and you're measuring the price of these stocks on a thousand days.
+
+[Prof. Uhler] 20:32:51
+For example, so now we're in a every stock is at 1 point in a thousand dimensional space, right?
+
+[Prof. Uhler] 20:32:58
+Huge space. We would like to look at the data. So one intuition for how to do that and that's the intuition for principal component analysis is try to find a projection into 2 dimensions because we as humans are very good at looking at things in 2 dimensions, maximally 3 dimensions.
+
+[Prof. Uhler] 20:33:14
+We would like to present the data in 2 dimensions. And, you know, we don't really care about directions that don't vary, right?
+
+[Prof. Uhler] 20:33:22
+So say you have your customer base and all of your customers live in the same, in the same city and in the same code, right?
+
+[Prof. Uhler] 20:33:30
+So the, the zip code, say for example, well then that that is really not a relevant, relevant variable to look at, right?
+
+[Prof. Uhler] 20:33:39
+Because we care about what makes the customers different, not like variables that are just always the same. So those are variables that we would not want to look at, but we care about directions where the different customers are very different to each other, so that we can identify different customer groups based on these variables or for us patients, right?
+
+[Prof. Uhler] 20:33:56
+I don't care about variables that where everyone in the world looks the same, but we want to understand whether, say, for example, in genetics, what are the different variants that are associated with I don't know, height, for example, or the risk of a particular disease.
+
+[Prof. Uhler] 20:34:11
+Right, we care about things that make us different. And so the intuition here is to try to find directions that spread out the data as much as possible.
+
+[Prof. Uhler] 20:34:19
+Okay, so find projections where the data is really spread out. Not everyone is just the same, but actually where the data is nicely spread out.
+
+[Prof. Uhler] 20:34:27
+But the question is how do we do this? And in fact, it's very easy to do it.
+
+[Prof. Uhler] 20:34:31
+But before we go there, I do want to show an example. Of where the actually works really, really nicely.
+
+[Prof. Uhler] 20:34:37
+So this is a data set that lives in, a million dimensional space. And so this is every individual and it's it's DNA.
+
+[Prof. Uhler] 20:34:46
+So you know that we all have right from mom and dad we have ACGTs like a long long long string of ACGTs, that's the DNA, that's the whole genetic information that we have.
+
+[Prof. Uhler] 20:34:56
+Now for every individual you take that long long 1 million, you know, millions of just ACGs or T's.
+
+[Prof. Uhler] 20:35:03
+I knew all they did here is just principal component analysis. Okay, so project that 1 million dimensional space into just 2 dimensions just by twosing the 2 dimensions.
+
+[Prof. Uhler] 20:35:14
+So principal component one and principal component to where the individuals vary the most. Okay, and now every point here is an individual.
+
+[Prof. Uhler] 20:35:22
+And for this plot, nothing was used based on where this individual is actually from. That was overlaid afterwards.
+
+[Prof. Uhler] 20:35:30
+And you see here that just doing principal component analysis on the genetic data of individuals gave you back the map of your.
+
+[Prof. Uhler] 20:35:38
+Okay, so individuals were actually mapped to where they're from. Just based on their genetic information, which is pretty amazing, right?
+
+[Prof. Uhler] 20:35:47
+And that this was able to be done just using principal component analysis. So you see pretty nice map of Europe.
+
+[Prof. Uhler] 20:35:55
+I would say you have Spain, you have Portugal, right? If you're some Italian people that were mapped a little bit outside, but you know, you have Italy, you have France, Switzerland, etc, like Sweden, etc, right?
+
+[Prof. Uhler] 20:36:07
+Czech Republic, Hungary, etc, etc, Greece, Turkey, etc.
+
+[Prof. Uhler] 20:36:12
+So you see here how nicely it's actually represented right the map of know, of around in all of these countries with all of their name, just using principal component analysis.
+
+[Prof. Uhler] 20:36:27
+So that's, a pretty impressive, outcome for principal component analysis, which is a very, very simple tool.
+
+[Prof. Uhler] 20:36:35
+Which is often just used for dimensionality. Now how does principal component analysis work, right? How did it find principal component one or principal component 2?
+
+[Prof. Uhler] 20:36:46
+Okay, so what is principal component one and 2? So, that's 1st start. So there are 3 different ways of seeing it.
+
+[Prof. Uhler] 20:36:54
+So the 1st one is the most intuitive one that I have how I had mentioned it before, what principal component analysis one to what principal components are.
+
+[Prof. Uhler] 20:37:03
+So you have a large scale data set. I can only draw in 3 dimensions, right? But think of it in a thousand.
+
+[Prof. Uhler] 20:37:10
+Dimensions. every.is say an individual. And so now what I'm trying to find is the direction where the data varies the most.
+
+[Prof. Uhler] 20:37:17
+Okay, that's the 1st principal component. So here in this case, this is the direction where the data varies the most.
+
+[Prof. Uhler] 20:37:24
+This is the 1st principal component. Second principle component is the direction where the data varies the second most and the 3rd one is the data where the very etcetera, right?
+
+[Prof. Uhler] 20:37:34
+So depending on if you're in a thousand dimensional space, you'll have a thousand different principal components.
+
+[Prof. Uhler] 20:37:39
+So, that's where the principal component is. And now all I'm doing is just plotting the data just in 2 principal components.
+
+[Prof. Uhler] 20:37:47
+I'm just choosing the 1st one and the second one. And that's what gave rise to this plot.
+
+[Prof. Uhler] 20:37:52
+Okay? That's pretty amazing, right? I started off with the data sets in a million dimensional space.
+
+[Prof. Uhler] 20:37:57
+Just plot the 1st principal component to the second one and out came this map of Europe. So pretty amazing.
+
+[Prof. Uhler] 20:38:03
+So how you can also think of principal component analysis is actually to, try to find the directions where, you know, we're going to lose some information.
+
+[Prof. Uhler] 20:38:13
+Right? Because we're going from a say, 1,000 dimensional space to a two-dimensional space.
+
+[Prof. Uhler] 20:38:18
+So for sure, some information about the data has to be lost. But we're going to only lose the data that we're trying to get rid of the dimensions that lose the least amount of data.
+
+[Prof. Uhler] 20:38:28
+Okay, so that's actually exactly the same. To think about, so where you would have any samples and p dimensions if you want to go based on N and P.
+
+[Prof. Uhler] 20:38:38
+But let's just always think of it as like we have data in 1,000 dimensional space. We have say a hundred samples, so you can have a million samples, whatever it is.
+
+[Prof. Uhler] 20:38:49
+And now we would like to represent it in 2 dimensions so that the information that is lost is as little as possible.
+
+[Prof. Uhler] 20:38:55
+That's exactly also what principal component analysis does. Okay, so here again, I can only draw on 3 dimensions.
+
+[Prof. Uhler] 20:39:02
+So we have data and 3 dimensions. And we want to find the two-dimensional representation so that the data that is lost, you see here all of this is being lost, right?
+
+[Prof. Uhler] 20:39:12
+All of the how far away I am from the plane that's lost because I'm just going to project everything onto the plane.
+
+[Prof. Uhler] 20:39:16
+So I'm trying to find the representation so that the amount of data that is lost is as little as possible.
+
+[Prof. Uhler] 20:39:23
+Okay, so, so that's what principal component analysis does. And then after that, we can look at the data and try to identify clusters.
+
+[Prof. Uhler] 20:39:32
+As is just being asked. Okay. I don't do any cluster detection yet, but we will be looking at, you know, in a high dimensional space in a thousand dimensional space.
+
+[Prof. Uhler] 20:39:41
+I cannot look at the data. I cannot see whether there are any clusters. But in fact, in 2 dimensions, maybe then I can try to identify some clusters here and some cluster here or maybe some cluster there.
+
+[Prof. Uhler] 20:39:52
+Okay, so that's what we're going to do afterwards. One, we can actually look at the data, then we can try to analyze what is impact in it.
+
+[Prof. Uhler] 20:40:00
+But in a thousand dimensional space, we cannot yet do that. So we'll do, we'll look at clusters and things like this afterwards.
+
+[Prof. Uhler] 20:40:06
+Okay, we'll talk a lot about that. So, but for now, still just intuition for what principal component analysis does.
+
+[Prof. Uhler] 20:40:14
+So tries to find the directions that vary the most or equivalently, it tries to find the directions in which I'm going to project my data so that the amount of information lost is as small as possible.
+
+[Prof. Uhler] 20:40:25
+Those 2 things are equivalent mathematically. Now again, I'm not going through the math. But all I want to tell you, I'll have references at the end if you want to go through it.
+
+[Prof. Uhler] 20:40:34
+What I want to tell you though is how can this be computed? Right? So how do I find these 1st principal components?
+
+[Prof. Uhler] 20:40:41
+Well, these 1st principal components, again, so we won't go through the math, but I think what is important to note is that you, that any, any program can get them really, really fast.
+
+[Prof. Uhler] 20:40:51
+Because what these 1st principal components are is just the eigenvectors corresponding to the covariance matrix.
+
+[Prof. Uhler] 20:40:59
+So the eigenvectors corresponding to the largest eigenvalues of the covariance matrix. Now, so any program, what it has to be able to do, any computer program, any data science program that is used, all that it has to be able to do and many of the computations always lead to that in the background.
+
+[Prof. Uhler] 20:41:17
+Is to compute eigenvectors. Okay, so you have a matrix that needs to be able to very quickly compute eigenvectors and eigenvalues of this matrix.
+
+[Prof. Uhler] 20:41:25
+Now it turns out that the 1st principal component, how do you get it? It's exactly the eigenvector corresponding to the largest eigenvalue of the covariance matrix.
+
+[Prof. Uhler] 20:41:37
+Okay, that's just a mathematical fact. That you know if I go back here if you have like a large scale data set The the direction in which the data varies the most.
+
+[Prof. Uhler] 20:41:48
+So if I want to figure out what this direction is. The data, the direction which the data varies the most.
+
+[Prof. Uhler] 20:41:54
+That is in fact the eigenvector corresponding to the largest eigenvalue of the the events matrix of the.
+
+[Prof. Uhler] 20:42:00
+Similarly, if you take the second eigenvector, so the eigenvector corresponding to the second largest eigenvalue of the covariance matrix, you actually get this vector here pointing into the direction that varies the second modes.
+
+[Prof. Uhler] 20:42:13
+And similarly, the 3rd most and if you have a higher dimensional data set the 4th most 5th most 6th most etcetera and 6.th
+
+[Prof. Uhler] 20:42:22
+Okay. So that's, so that's what principal component analysis does. And and the amazing thing is that it can be computed so fast because the principal components just correspond to the largest eigenvector where the 1st principal component is corresponds to the eigenvector corresponding to the largest.
+
+[Prof. Uhler] 20:42:44
+So, you know, how we compute this maybe not so important, but what is really important to understand is that this can be super fast.
+
+[Prof. Uhler] 20:42:52
+This is the bread and butter of any computer program. It has to be able to actually understand to compute very fast what eigenvectors are.
+
+[Prof. Uhler] 20:43:02
+Okay, so that's the critical thing about understanding principal component analysis can be done really, really fast.
+
+[Prof. Uhler] 20:43:09
+And it's just something that you a standard program can do. It takes the covariance matrix and it just computes the eigenvectors.
+
+[Prof. Uhler] 20:43:17
+Okay, so that's how it is computed. Now again, I want you again to have the right.
+
+[Prof. Uhler] 20:43:25
+Intuition and to understand what so if now we say that, right, what is the 1st principal component?
+
+[Prof. Uhler] 20:43:32
+It is the direction where the data varies to most. Second principle component is the direction where the data varies the second most.
+
+[Prof. Uhler] 20:43:37
+Second principle component is the direction where the data varies to second moves. So this course is all about again telling you where do you have to be careful, right?
+
+[Prof. Uhler] 20:43:41
+What is it and based on the intuition that you now have of the methods? So let's talk about principal component analysis.
+
+[Prof. Uhler] 20:43:49
+And let's think about a setting where here I'll do it very simple so that we only have 2 variables that will generalize.
+
+[Prof. Uhler] 20:43:56
+Where we have age and height. Okay, so. Let me actually sorry.
+
+[Prof. Uhler] 20:44:03
+Yeah, okay. So here. So we have H and height. So 1st it is measured in years and centimeters and from Switzerland so I'll measure height and centimeters.
+
+[Prof. Uhler] 20:44:11
+So, Now, of course, if you're in the US, then you would measure height in feet, right?
+
+[Prof. Uhler] 20:44:19
+So what happens if we do principal component analysis? And you know, we do principal component analysis based on this data set and then we do principal component analysis based on the data set where I just transformed height into feet.
+
+[Prof. Uhler] 20:44:35
+Will that change the 1st principal component? Or will it not change the 1st principal component?
+
+[Prof. Uhler] 20:44:47
+Okay, so, the 1st people say it won't change, but let's actually in some say it changes.
+
+[Prof. Uhler] 20:44:53
+Okay, so, let's actually think about it, right? So we said that Yup, what's principal component analysis does?
+
+[Prof. Uhler] 20:45:00
+So 1st principle component is the direction where the data varies the most. Well, so if I take a data set and I multiply one of the one of the features by a thousand or a hundred 1,000.
+
+[Prof. Uhler] 20:45:14
+Well, then suddenly the differences in numbers become huge, right? And so suddenly that is the direction where the data varies the most.
+
+[Prof. Uhler] 20:45:22
+So principal component analysis does depend on how you're measuring a feature. Okay, so it does in fact change.
+
+[Prof. Uhler] 20:45:29
+So if I change this, so here you see the largest variation is in the direction of height, right?
+
+[Prof. Uhler] 20:45:35
+Because here it goes from 160 to 190. So this is a 30 difference.
+
+[Prof. Uhler] 20:45:39
+Whereas here it only goes it only varies between 35 and 40. However, right, if I change it to feet, then suddenly here now I only have a change of variation between 5.2 1 6.2.
+
+[Prof. Uhler] 20:45:52
+Whereas here I have a variation between 35 and 40, right? Which is now larger. So this is something you really have to be aware of that principal component analysis.
+
+[Prof. Uhler] 20:46:01
+Does change depending on how you're encoding your data, whether you're measuring something in feet or whether you're measuring something in, in centimeters.
+
+[Prof. Uhler] 20:46:12
+And it only matters in the setting where I don't know, like there is no right way of.
+
+[Prof. Uhler] 20:46:18
+Kind of comparing age versus height because they're measured and different in different ways, right? So one is ears and one is feet or centimeters.
+
+[Prof. Uhler] 20:46:29
+So that's really critical to have in mind. Now this is not an issue when you have like say everything is, stock, state and everything is measured in US dollars.
+
+[Prof. Uhler] 20:46:40
+I know how to compare US dollars, right, on time one versus US dollars on time 2. There is a common metric system.
+
+[Prof. Uhler] 20:46:47
+But here you really have to be careful with it. And so what we need to do when we actually have different.
+
+[Prof. Uhler] 20:46:53
+You know, different types of metrics that we're comparing with each other. Well, we know need to normalize the data beforehand.
+
+[Prof. Uhler] 20:47:01
+And so we need to just when we're before we do principal component analysis, we need to normalize that the variance as as people are bringing up in the chat that the variance here is the same as the variance here.
+
+[Prof. Uhler] 20:47:13
+And so that means instead of using the covariance matrix, we need to use the correlation matrix, okay, which makes which, you know, forces us to have the same variance in every one of our call, in every one of the features that we're measuring.
+
+[Prof. Uhler] 20:47:28
+Okay, now this is critical. Now most programs when you're just just directly asking it to do PCA, it actually uses the correlation matrix.
+
+[Prof. Uhler] 20:47:37
+Now, in that case, I still want you to be aware of this problem because we shouldn't use the court, we want to make sure we want to use the differences in variants if we are actually looking at everything in US dollars.
+
+[Prof. Uhler] 20:47:50
+Say if you're data set is literally data sets of stocks and and you know, and measured at different time points, we don't want to just use the correlation matrix, right?
+
+[Prof. Uhler] 20:48:02
+We actually want to make use of the fact that on certain days there was a larger variance than on other days and we don't want to just normalize that.
+
+[Prof. Uhler] 20:48:10
+So I think it's very, very important that we keep this in mind when we should be using the correlation matrix.
+
+[Prof. Uhler] 20:48:15
+And when we should be using the covariance matrix. So if you're looking at different types of metrics in one data set right like age like height like income etc there is no way for us to know what is the right way of compare them to compare them against each other.
+
+[Prof. Uhler] 20:48:30
+We need to use the correlation matrix to normalize everything. Instead, when you just have, you know, one metric system in the whole data set, like everything is US dollars or one unit system in the whole data set.
+
+[Prof. Uhler] 20:48:42
+Everything is US dollars. Then you know you can you can and I think should use the covariance matrix so that we're not just normalizing out information in the data that is actually very, very valuable information.
+
+[Prof. Uhler] 20:48:54
+Okay, so this is another thing, like those are the types of things to be careful about. Now that you understand, I always think about what does the method do and, how should I use the method and what do I have to be careful with?
+
+[Prof. Uhler] 20:49:05
+When I'm using these types of methods. Okay, so, so that's, that's, in terms of covariance matrix versus correlation matrix.
+
+[Prof. Uhler] 20:49:16
+Okay. So now we will end with the nonlinear, nonlinear method and we will talk a lot more about this also.
+
+[Prof. Uhler] 20:49:25
+Late on Wednesday and on Friday, but I just want you to have the intuition for when might this actually work better than the linear methods.
+
+[Prof. Uhler] 20:49:32
+And a nonlinear. So what is the issue with linear methods? So we are going from a say a thousand dimensional space where we have our samples to 2 dimensions.
+
+[Prof. Uhler] 20:49:43
+So clearly if you have to go from 1,000 dimensional space to 2 dimensions, you have much less space, right?
+
+[Prof. Uhler] 20:49:49
+So often in fact the plots don't look as nice as like what we saw on that, nice map of Europe.
+
+[Prof. Uhler] 20:49:56
+But actually you have like just one big bowl of Yeah, and like literally no structure in it. Because just because that's just a consequence of going from a 1,000 dimensional space or a hundred 1,000 dimensional space to 2 dimensions.
+
+[Prof. Uhler] 20:50:09
+Now what is nonlinear methods can do and what's for example stochastic neighbor embedding, what the full intuition was behind developing a method like this and maybe I'll just open up the full.
+
+[Prof. Uhler] 20:50:20
+Open up the full slide here. What it tries to do is it says that so I have to lose something, right?
+
+[Prof. Uhler] 20:50:27
+Some information has to be lost. But the intuition behind it was, well, really what I would like to keep and people have brought it up in the chat is, well, I would like to be able to keep track of cluster.
+
+[Prof. Uhler] 20:50:38
+So points that are close together, like say individuals or customers that are very similar to each other, I would like them to really identify.
+
+[Prof. Uhler] 20:50:47
+However, like 2 customers that are, you know, different from each other, I don't really care about how far away you put them.
+
+[Prof. Uhler] 20:50:54
+Right? So I have to give up something. I cannot like contain all of the distances if I'm going from 1,000 dimensional space to 2 dimensions.
+
+[Prof. Uhler] 20:51:02
+I have to break something. And so in order not to just smash everything together like very very close together, but in order to make space what this method here, for example, this particular method here does and many others of the non-linear methods, they make space by saying, you know, if I have like a lot of points or points that are actually not so similar to each other, like 2 customers or 2 patients.
+
+[Prof. Uhler] 20:51:24
+they're, you know, quite different from each other. I don't care about making their distance even bigger.
+
+[Prof. Uhler] 20:51:28
+That's how I'm going to create space. To keep things that are very similar to each other close so that I can identify clusters in the two-dimensional representation, but everything else I don't care about changing the distances.
+
+[Prof. Uhler] 20:51:41
+That's the intuition. Okay, and so, they pay a big price in terms of computation time as we'll see, but they will actually need to really, really nice results.
+
+[Prof. Uhler] 20:51:52
+And so I do want to end with just like one little example to show you and we'll have many more examples during the next 2 lectures.
+
+[Prof. Uhler] 20:51:59
+So this is a very standard data set that is used just for, you know, quick demonstrations of how these things work and you should just play around with it.
+
+[Prof. Uhler] 20:52:07
+It's just handwritten digits data set. So we have a thousand 100 digits of the number 0 1 2 etc and every digit like here the digit 3 is represented by a 60 in 64 dimensions okay just by making a grid and saying, you know, this digit here, there's white, white space, now it's darker, very dark, etc.
+
+[Prof. Uhler] 20:52:29
+OK, so that's just my digit number 3. I'm representing it as a 46 dimensional vector with gray scales in it.
+
+[Prof. Uhler] 20:52:36
+Okay, and so now I so that's so I have my data. I have these 1,800 handwritten digits.
+
+[Prof. Uhler] 20:52:44
+So 1,800 points. Every one of them lives in a 64 dimensional space and now I would like to represent this data in 2 dimensions.
+
+[Prof. Uhler] 20:52:51
+That's what I'm going to do. Okay. So, so I'm going to do that.
+
+[Prof. Uhler] 20:52:58
+And so, so let's look at how it looks like. Okay. So now here we're looking at what comes out with principal component analysis.
+
+[Prof. Uhler] 20:53:06
+So principal component analysis, what does it do? So I just take that data set and I try to represent it in 2 dimensions.
+
+[Prof. Uhler] 20:53:14
+And so this is principal component one and this is principal component 2. Okay, all I did is that so I'm just, you know, there's nothing that you, I am looking at the chat here.
+
+[Prof. Uhler] 20:53:25
+Nothing that you have to read beforehand. So here I'm trying to do a two-dimensional representation.
+
+[Prof. Uhler] 20:53:30
+And I'm going to show what is the difference between when you do something linear or something nonlinear.
+
+[Prof. Uhler] 20:53:36
+Okay. So, so what happens is something linear. So I'm only showing you just so that it's not too crowded.
+
+[Prof. Uhler] 20:53:43
+I'm just showing you the digits from 0 to 5. And you see that there is a little bit of structure, right?
+
+[Prof. Uhler] 20:53:49
+But still everything is like kind of close together. So just so that we're all on the same page, I do want to ask you and you can actually answer the question based on this.
+
+[Prof. Uhler] 20:53:58
+Which one is the digit that has the most variability in how people write it? And you can in fact answer it just based on looking at, looking at this plot here.
+
+[Prof. Uhler] 20:54:08
+So again, this is principal component one and this is principal component 2 and so people are already answering it so it is in fact the number one and why is it the number one because you see the number one appearing everywhere along the x-axis and so as we said right the 1st principal component it points into the direction where there is the largest variability.
+
+[Prof. Uhler] 20:54:29
+And so you see that the number ones here appear all along the x-axis. And that's just the case because some people write it like this.
+
+[Prof. Uhler] 20:54:37
+Some people write it like this. I write it with a little, you know, thing in front, etc.
+
+[Prof. Uhler] 20:54:42
+And so that's what shows up here directly from just this plot here. Okay, now principal component, and now this is super fast.
+
+[Prof. Uhler] 20:54:52
+It just computes, as we said, just computes eigenvectors, which is the bread and of all these tools.
+
+[Prof. Uhler] 20:54:55
+What the stochastic neighbor embedding do? And this is pretty amazing. So we didn't tell it which digit is the number 2 and which digit is the number 5 or the number 0.
+
+[Prof. Uhler] 20:55:07
+So this is what stochastic neighbor embedding gives you. And so, right, we, literally, we didn't give a class labels.
+
+[Prof. Uhler] 20:55:15
+All we gave it is the 64 dimensional vectors and you see that amazingly, right? It's so now if you get a 2 dimensional representation, even if you don't know that all of these are tools and all of these are threes, I think of doing this with customers where now you have a customer base that you put into a system.
+
+[Prof. Uhler] 20:55:34
+You don't know what the different clusters are, but what you would like to understand is like, are there different clusters?
+
+[Prof. Uhler] 20:55:39
+Are there maybe some population groups and within my customer that are more similar to each other where I don't have to go in and analyze, oh, you know, maybe here there could be a particular advertising strategy that works for these and not for these or for patients for example, right?
+
+[Prof. Uhler] 20:55:54
+Maybe there is here a patient group that are more similar to each other and will respond similarly to a particular therapy.
+
+[Prof. Uhler] 20:56:00
+So that's like kind of the 1st impression you want to gain from a dataset where you don't know yet what is in it.
+
+[Prof. Uhler] 20:56:08
+Like here we do, you know, we don't know without looking at it that all of these are digit 3 and all of these are digits too and all of these are digits fine.
+
+[Prof. Uhler] 20:56:15
+Right? But this is just so the purpose of this is to get a 1st impression of our data set.
+
+[Prof. Uhler] 20:56:21
+Of the 1st impression of then being able to go in and see, oh, you know, I see some groupings here.
+
+[Prof. Uhler] 20:56:26
+Maybe they have something in common. And so that's so that's what's a stochastic neighbor embedding actually allows you to do to see much more of these common groupings because that's how it was optimized, right?
+
+[Prof. Uhler] 20:56:39
+It's trying to keep individuals or whatever data points that are more similar to each other keeps them close.
+
+[Prof. Uhler] 20:56:44
+But the distances it could have completely distorted the distance. So, you know, here for example, seeing that this red cluster is kind of closer to the orange cluster than to the purple one, that really doesn't mean anything.
+
+[Prof. Uhler] 20:56:56
+So just always be sure that that we understand that, that we should not be fooled by these representations because, you know, medium or far away distances don't mean anything in Stochastic neighbor embedding, whereas they do mean something in a PCA plot like this.
+
+[Prof. Uhler] 20:57:12
+Okay, so as is put in, we would always do both methods if you can. So here, see what kind of huge price you're paying, right?
+
+[Prof. Uhler] 20:57:19
+From 0 point 0 1 seconds to 5.7 seconds. So of course we already see that this one here with a large data set in a large dimensional space you won't be even able to run it.
+
+[Prof. Uhler] 20:57:30
+Necessarily. So you'll have to 1st do some dimension reductions. Maybe remove some of the dimensions using principal component analysis and then you may be able to do stochastic neighbor embedding.
+
+[Prof. Uhler] 20:57:41
+And we'll talk a lot more about it. You know, can this method be used for clustering?
+
+[Prof. Uhler] 20:57:45
+Is it considered a clustering method? Why not? And you know, and what can we use it for, right, for downstream analysis.
+
+[Prof. Uhler] 20:57:54
+But these are just the 1st to just so that you see that there is a really wide number of methods that we can use for visualizing data as a 1st step to just so that you see that there is a really wide number of methods that we can use for visualizing data as a 1st step to just get a feeling for what is in my data set.
+
+[Prof. Uhler] 20:58:04
+Can I look at it in 2 dimensions and see what is in it? And so feel free to play around, try it yourself on data sets out.
+
+[Prof. Uhler] 20:58:12
+And You know, I will end with, I always do this, ending with references, so that you can all read up more if you're interested in certain points.
+
+[Prof. Uhler] 20:58:21
+So what we did today is really talked about 1st what is important when we're setting up a study, right?
+
+[Prof. Uhler] 20:58:27
+We have a particular question that we're asking, what is important when we're trying to collect the data.
+
+[Prof. Uhler] 20:58:33
+So if you want to go through that again, you can go through the controlled experiments and observational studies that's, in this, book here that you can read up on.
+
+[Prof. Uhler] 20:58:42
+We talked a lot about hypothesis testing. And again, we thought about the things that we have to be careful with, like multiple testing issues, right?
+
+[Prof. Uhler] 20:58:50
+And what the significance level actually needs. So if you want to, so here you see Benjamini was one of the one of the methods, right, that we talked about.
+
+[Prof. Uhler] 20:59:00
+Procedure. So if you want to listen to actually a lecture by him about multiple testing, here is one.
+
+[Prof. Uhler] 20:59:06
+And then we talked about visualization. So what is like some of the 1st things that you would do when you are, trying to think about what is actually in my data set.
+
+[Prof. Uhler] 20:59:17
+And we talked about linear methods for visualizing the data and then also nonlinear methods for visualizing the data.
+
+[Prof. Uhler] 20:59:23
+We talked about that. The advantages and disadvantages of them both. Right. And so if you want to learn more about actually the math behind it, and like how is principal component analysis related to these eigenvectors that I talked about, right?
+
+[Prof. Uhler] 20:59:38
+If you really want to understand the map of, why is it that if I just take the largest eigenvector, it actually gives me the direction of the most variation.
+
+[Prof. Uhler] 20:59:46
+And then I have here a reference for that as well. Also for other linear methods that you can read up on and then the nonlinear ones.
+
+[Prof. Uhler] 20:59:55
+They're like your really nice 2 papers where they actually develop stochastic neighbor embedding and tee stochastic neighbor embedding.
+
+[Prof. Uhler] 21:00:00
+I didn't see anyone asking about the Ti can talk about what the T is maybe at the beginning of next next, lecture when we're back here.
+
+[Prof. Uhler] 21:00:08
+Okay, so that was, a 1st lecture here. So I was, very happy to see so many questions and, you know, a lot of discussion and everyone participating.
+
+[Prof. Uhler] 21:00:19
+So I really, really enjoyed it. So I'm looking forward to more of these kinds of very interactive sessions here.
+
+[Prof. Uhler] 21:00:26
+So with this, I will turn it over to the great learning mentors. Who will now actually answer even more of the great learning mentors who will now actually answer even more of the questions that I didn't get to during the lecture here.
+
+[Prof. Uhler] 21:00:37
+And I look forward to seeing you all back on Wednesday when we're going to talk about networks. So a completely different modality that we haven't touched on today.
+
+[Prof. Uhler] 21:00:48
+Good. So with this back, yeah.
+
+[Moderator - Ankit Agrawal] 21:00:48
+Thank you so much. Thank you. Thank you so much, Professor, for that wonderful lecture. Usually the first, st is a little bit overwhelming to some people because of the amount of material we cover.
+
+[Moderator - Ankit Agrawal] 21:01:02
+In these lectures, but, thank you so much, for that detailed understanding of the, case study at the beginning.
+
+[Moderator - Ankit Agrawal] 21:01:11
+Which really clarifies a lot of statistical concepts and then going over the dimensionality reduction framework with respect to I see that we have Raymond, with us, as a mentor to answer some questions today.
+
+[Moderator - Ankit Agrawal] 21:01:28
+So, we will get right into the questions. there were some questions about, not fully understanding the material.
+
+[Moderator - Ankit Agrawal] 21:01:40
+In the lecture and how can students or how can learners catch up? So a quick comment on that.
+
+[Moderator - Ankit Agrawal] 21:01:47
+Professor has mentioned a bunch of resources, towards the end that you can refer to. There is a lot of pre read material that was also provided to you.
+
+[Moderator - Ankit Agrawal] 21:01:58
+And that was provided to you for a reason that you go ahead. If you go in, look at the, you will see that, icon values, icon vectors, all of these concepts were covered in the, material that was given to provided ahead of time so I recommend that you go ahead and read on the period material and then go back and look at the recording of this
+
+[Moderator - Ankit Agrawal] 21:02:25
+lecture to kind of like relate to what Professor has mentioned to what you have already learned in the previous section.
+
+[Moderator - Ankit Agrawal] 21:02:32
+For every lecture there will be some period that will be provided to you. So please, make sure that you go through it before you come to the lectures that will make these lectures a little bit easier.
+
+[Moderator - Ankit Agrawal] 21:02:50
+Also I see a lot of, tons of reference material to review. Yes. So there is a lot of, so, if you go on your dashboard, you will see.
+
+[Moderator - Ankit Agrawal] 21:03:00
+You need as a separate section on your dashboard. You should go through all of them. So I see a lot of questions about that.
+
+[Moderator - Ankit Agrawal] 21:03:11
+So yeah, and somebody had asked if the presentation and stuff will be available. So yes, the presentation that the professor has used.
+
+[Moderator - Ankit Agrawal] 21:03:19
+The recording of the session, the chat. And the transcript of this, session, they all will be made available to you on your dashboard.
+
+[Moderator - Ankit Agrawal] 21:03:29
+Okay, so that being said, let's kind of get started with some questions over here.
+
+[Moderator - Ankit Agrawal] 21:03:35
+We have Freeman. Freeman has a lot of industry experience in machine learning. so we will go ahead and ask some questions to Freeman that were in the chat.
+
+[Moderator - Ankit Agrawal] 21:03:46
+Again, if you have put questions in, Q&A section, we are not moderating that.
+
+[Moderator - Ankit Agrawal] 21:03:52
+So please, please ask your questions in the chat. Okay. So, would that be say, let's get started.
+
+[Moderator - Ankit Agrawal] 21:04:01
+So one of the questions we have is are the principal components of variables. So I'm assuming that this question relates to other principal components variables from the data set itself.
+
+[Mentor - Freeman Goja] 21:04:19
+Hi Anki. Hi everyone. So. Yeah, so.
+
+[Mentor - Freeman Goja] 21:04:25
+I mean, they are not very views from the original data set to answer your question directly. Firefight in the context of feature engineering, you could consider them as results in variables from the original data set.
+
+[Mentor - Freeman Goja] 21:04:45
+So those principle companies are basically linear combinations of the original variables. So they are not the original variables in the It's rather a linear combination of Much of those original variables that you have in your data set.
+
+[Moderator - Ankit Agrawal] 21:05:09
+Let's ask how do you find the clusters of data for to to mentions i mean how do you reduce the dimensions to be able to I'll start the data.
+
+[Mentor - Freeman Goja] 21:05:27
+Okay, I guess that question sounds more like it pertains to, Technique and So it's more like you're trying to reduce the dimensions to visualize the data to see how many cost stars that are possible in the data, something like that.
+
+[Mentor - Freeman Goja] 21:05:47
+So 1st of all, the intuition behind Dimation, it's a reduction is that You have this data with.
+
+[Mentor - Freeman Goja] 21:05:57
+Complex or huge dimensionality that is how that's a kind of process computationally or visualized.
+
+[Mentor - Freeman Goja] 21:06:05
+Kind of extract insights from the data. And so you're trying to project the data to a lower dimension.
+
+[Mentor - Freeman Goja] 21:06:12
+That is easier to manage. In this respect. And so if you use a technique like Disney on a highly complex data set.
+
+[Mentor - Freeman Goja] 21:06:27
+Data set with a high complex dimensionality. It will give you an idea of the clusters that are available in the data.
+
+[Mentor - Freeman Goja] 21:06:35
+And there are various reasons behind doing that. Sometimes You have, with such high dimensionality and you want to Let's say find anomalies.
+
+[Mentor - Freeman Goja] 21:06:46
+From the data set. It's not gonna be pretty easy. It's not gonna be straightforward like a DSI that has less complexity of time.
+
+[Mentor - Freeman Goja] 21:06:58
+But if you use a technique like Disney, it will be able to highlight the clusters that are in the data set and you can see anomies in that kind of situation a lot easier than not taking it dimensional reduction approach.
+
+[Mentor - Freeman Goja] 21:07:16
+I don't know if that's a good answer for that. Frankly, they can chip in as well.
+
+[Moderator - Ankit Agrawal] 21:07:18
+And
+
+[Moderator - Ankit Agrawal] 21:07:22
+No, I think that's a very detailed answer on, what the question was asking. The idea, the way the professor showed clustering, that's a separate method that we will talk about on Friday, right?
+
+[Mentor - Freeman Goja] 21:07:29
+Okay.
+
+[Mentor - Freeman Goja] 21:07:36
+Right.
+
+[Moderator - Ankit Agrawal] 21:07:37
+Dimensionality reduction does not automatically create clusters for you. That's the understanding that we build after doing the mentionality reduction.
+
+[Moderator - Ankit Agrawal] 21:07:44
+So the way PCA or TCU works is that they are only trying to reduce the dimensionality of the data from high dimensions to lower dimensions.
+
+[Moderator - Ankit Agrawal] 21:07:54
+Based on some sort of a calculation in PCA we do that through eigenvector through a algorithm called SVD.
+
+[Moderator - Ankit Agrawal] 21:08:02
+And in, at least we do it through computing care the versions between the distribution of the data, right?
+
+[Moderator - Ankit Agrawal] 21:08:09
+So, the clustering is done afterwards by a blind one of the clustering methods that we'll talk about.
+
+[Moderator - Ankit Agrawal] 21:08:17
+Just a quick couple of things over here. I see a lot of people asking, can you show a dashboard for the periods?
+
+[Moderator - Ankit Agrawal] 21:08:25
+Please scroll a bit further down. You will see a comment by Diego. On the exact rate of get to the period material.
+
+[Moderator - Ankit Agrawal] 21:08:35
+The dashboard looks very different for the faculty versus for the learner. So we cannot really share our dashboards over here.
+
+[Moderator - Ankit Agrawal] 21:08:43
+Unfortunately but Diego has mentioned the exact steps you need to get, to, in the previous.
+
+[Moderator - Ankit Agrawal] 21:08:52
+You can follow the same steps to find recordings of this session and stuff. After a few hours.
+
+[Moderator - Ankit Agrawal] 21:08:59
+Somebody is asking, can you show an example of the calculations of PCA and PC.
+
+[Moderator - Ankit Agrawal] 21:09:08
+So for that particular question, this is not a math force. A lot of these calculations are covered in your period material so I recommend you go through that.
+
+[Moderator - Ankit Agrawal] 21:09:18
+And try to do that on your own
+
+[Moderator - Ankit Agrawal] 21:09:22
+But, continuing on our questions, Jonathan asked. What if one of the components that we are scaling up has extreme outliers?
+
+[Moderator - Ankit Agrawal] 21:09:32
+Wouldn't normalizing or rescaling it turn your other components into something unfairly insignificant?
+
+[Mentor - Freeman Goja] 21:09:43
+Yeah, okay, that's a good question. So 1st of all, feeling of normalization. Does.
+
+[Mentor - Freeman Goja] 21:09:51
+How do. Kind of making the different skills of your variables to or forcing them to have exactly the same range.
+
+[Mentor - Freeman Goja] 21:10:07
+And so it will. Control the excessive magnitude of the variables that have higher values. Versus the ones that have lower values.
+
+[Mentor - Freeman Goja] 21:10:19
+Some scaling techniques also downplay the presence of outliers. But not all of them do that.
+
+[Mentor - Freeman Goja] 21:10:29
+Normalization, for example, doesn't control. The effect of outliers on the some standardization techniques.
+
+[Mentor - Freeman Goja] 21:10:39
+Do not necessarily control that like standardization KEI standardization would not mitigate the impact of outliers.
+
+[Mentor - Freeman Goja] 21:10:50
+But there are some scaling techniques like Robosquila that you use into quartile ranges that downplay the presence of our flyers in the DSF.
+
+[Mentor - Freeman Goja] 21:10:57
+Killing it with less effect or less impact of the outliers. So it's kind of like 2 different things here.
+
+[Mentor - Freeman Goja] 21:11:05
+1st of all, you're trying to You know, you show that the all the variables in the DSL have a common skill.
+
+[Mentor - Freeman Goja] 21:11:10
+That's what you are getting. 1st of all, with normalization or standardization, right? And then you can implement all the techniques to control the apply effect in your data set.
+
+[Moderator - Ankit Agrawal] 21:11:25
+Yes. Another question we have is. Is the purpose of PC and Stochastic neighbor embedding just for visualization of data and to understand clustering.
+
+[Mentor - Freeman Goja] 21:11:42
+No, there's a lot more to that. So there's a lot of used cases for this different techniques.
+
+[Mentor - Freeman Goja] 21:11:48
+So if you look at PC, for example. We could use PCA as part of data pre processing for machine learning.
+
+[Mentor - Freeman Goja] 21:11:56
+So in that case, will kind of apply PC. Before applying the machine learning algorithms which you're gonna learn later on.
+
+[Mentor - Freeman Goja] 21:12:06
+To reduce the high dimensional. Data set just to reduce the dimensionality in this case for computational reasons.
+
+[Mentor - Freeman Goja] 21:12:14
+Will do that for exploratory data analysis. Again, we can apply PCA because sometimes if you have a data set, we huge dimensionality.
+
+[Mentor - Freeman Goja] 21:12:24
+It's difficult for you to extract insights from it. Reducing dimensionality using PC.
+
+[Mentor - Freeman Goja] 21:12:30
+Would enable you to extract insight. And also even visualize the data and in top creates the insights easier.
+
+[Mentor - Freeman Goja] 21:12:39
+We can use PCA again for noise reduction. Because PCA would highlight the principle components which would account for the a certain proportion of variance in the data set.
+
+[Mentor - Freeman Goja] 21:12:54
+So it would Kind of. Neglect the noise and the data. So to say, so we can use PC for noise reduction.
+
+[Mentor - Freeman Goja] 21:13:04
+In data pre processing. We use it for feature engineering as well, right? We have resulting features which we're referring to as principal components in this case.
+
+[Mentor - Freeman Goja] 21:13:16
+For image compression. Hey, we can use PC to reduce the dimensionality of the data. But then this new book, we use it principally for visualization.
+
+[Mentor - Freeman Goja] 21:13:28
+So like, we use it to have an idea of the cluster. So. We will visualize data in 2 DO 3D. We're testing.
+
+[Mentor - Freeman Goja] 21:13:35
+That will be helpful. Again, there's some. Use cases. That you just need to kind of achieve some sort of clustering is not an ideal clustering technique.
+
+[Mentor - Freeman Goja] 21:13:48
+And you're going to learn. You know, more about clustering later on. Platform normally detection which I mentioned earlier on we could also use Disney for that.
+
+[Mentor - Freeman Goja] 21:14:00
+Other areas like, bioinformatics or genomics. Also use Tisney like in gene expression analysis any natural language processing.
+
+[Mentor - Freeman Goja] 21:14:13
+We can use Disney for visualizing word embeddings and things like that. So. There are different use cases but it starts with what you're trying to do right so your use case will be timing which one is gonna be most careful to you.
+
+[Moderator - Ankit Agrawal] 21:14:28
+Jeff asks, can you show examples in Python on how identifying clusters via PCA is done.
+
+[Moderator - Ankit Agrawal] 21:14:36
+So, Jeff. we will talk about implementation of this in Python during our mental learning session over the weekend.
+
+[Moderator - Ankit Agrawal] 21:14:44
+So the Saturday mentor learning session will be on dimensionality. Yeah, that's. And the Sunday mentor learning session will be on clustering.
+
+[Mentor - Freeman Goja] 21:14:45
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:14:52
+So you will see hands on, implementation of some of the methods that you're learning throughout the week on, the weekend.
+
+[Moderator - Ankit Agrawal] 21:15:00
+To clarify, again, clustering is not done via PCA. So I want to clarify that again that PC and TC are only.
+
+[Moderator - Ankit Agrawal] 21:15:09
+Reducing the dimension of the data and then we can apply clustering methods on top of it to identify clusters.
+
+[Moderator - Ankit Agrawal] 21:15:15
+But these methods. Their default goal is not to do clustering for you. Okay, so just clarifying that a little bit more.
+
+[Moderator - Ankit Agrawal] 21:15:27
+Another question we have is. So do we always try both methods to see which one works better?
+
+[Mentor - Freeman Goja] 21:15:36
+No, I think I've already answered that question, right? So depending on your use case, so if you're trying to do something, it starts with that.
+
+[Mentor - Freeman Goja] 21:15:45
+So what is going to be most careful to me in this case? Like, I think I gave a couple of used cases.
+
+[Mentor - Freeman Goja] 21:15:50
+For both PCA and Disney as well. So depending on your use case.
+
+[Moderator - Ankit Agrawal] 21:16:00
+Zach said there are some values that are clearly in the wrong cluster. This is in respect to some of the examples that the professor has shown.
+
+[Moderator - Ankit Agrawal] 21:16:08
+Is there some threshold for how likely it is that they are in the correct cluster like 95% likely that it is in the correct group.
+
+[Mentor - Freeman Goja] 21:16:19
+And okay, so I think that if you're comparing PC, you're comparing between PCA and Kissny in that regard.
+
+[Mentor - Freeman Goja] 21:16:27
+So. I think visually you can see. When clusters are.
+
+[Mentor - Freeman Goja] 21:16:36
+You know, homogeneous or not. And without thresholds, I think the example you are referring to if you're comparing PC and T's name is more like processes where you can see.
+
+[Mentor - Freeman Goja] 21:16:51
+Using its ability to perform nonlinear separations as well to kind of give you better clustering in that regard than what a PCA would give you.
+
+[Mentor - Freeman Goja] 21:17:05
+Why implementing linear suppression. So I don't think we have thresholds specifically for that kind of comparison, but it's more like for illustration of the performance of the 2 algorithms.
+
+[Mentor - Freeman Goja] 21:17:20
+Side by side.
+
+[Moderator - Ankit Agrawal] 21:17:27
+Another question we have is, will the results between both methods converge to the same output if our data set increases.
+
+[Mentor - Freeman Goja] 21:17:36
+There's no guarantee for that. It depends on, it depends on the inherent. Kara, sorry, 6 in your data.
+
+[Mentor - Freeman Goja] 21:17:45
+So already we know that PCA. Takes a linear approach, right? And TCNI takes a nonlinear approach.
+
+[Mentor - Freeman Goja] 21:17:58
+So if you have a data set with features and nonlinear curiosity 6 in the data. PCA with a linear attempt to approach is going to perform poorly.
+
+[Mentor - Freeman Goja] 21:18:06
+So you're not gonna get exactly the same output. Regardless of the size.
+
+[Moderator - Ankit Agrawal] 21:18:17
+Somebody is asking, are there any other factors that should be considered other than computational costs when selecting between the user, PC and TC.
+
+[Moderator - Ankit Agrawal] 21:18:28
+So I think we kind of addressed that already with different use cases. I'm going to use one method over the other.
+
+[Mentor - Freeman Goja] 21:18:31
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:18:38
+Another question that we have is from this is how the model decides the distance is that is at random.
+
+[Mentor - Freeman Goja] 21:18:49
+Now, so depending on the technique, so.
+
+[Mentor - Freeman Goja] 21:18:53
+I mean in PCA, you start by computing the covariance metrics, right?
+
+[Mentor - Freeman Goja] 21:18:59
+So which is basically looking at the pairwise correlation between features. And then you compute the, E vectors and values and then you saw.
+
+[Mentor - Freeman Goja] 21:19:10
+The components in the sending order and you pick the top principal components. In Disney, you're using the Kubla.
+
+[Mentor - Freeman Goja] 21:19:22
+Approach or theory. And so it's not at random. It's very systematic and it's based on proofs that have been tried and tested in the past.
+
+[Moderator - Ankit Agrawal] 21:19:37
+Yeah, the way I think about it is I don't even think of them as distances, right?
+
+[Moderator - Ankit Agrawal] 21:19:43
+Because PC and DC are not necessarily worried about the distances between the points. They are basically focusing on the PCA at least is computing the eigenvalues and the eigenvectors and then based on the top eigenvectors, it is transforming the data.
+
+[Moderator - Ankit Agrawal] 21:19:58
+Right, so basically you are multiplying the data with some linear combination of the eigenvectors that you are getting.
+
+[Moderator - Ankit Agrawal] 21:20:05
+So it's not really computing the distances between the points over here, indeed either of those.
+
+[Moderator - Ankit Agrawal] 21:20:11
+So it's just that when we have data and high dimension and we can compress and low dimension in visualization terms we can think about it in distances.
+
+[Moderator - Ankit Agrawal] 21:20:21
+But the methods are very accurate. These methods are mathematically very well defined. They are not random and they are not dependent on the distances between those.
+
+[Moderator - Ankit Agrawal] 21:20:32
+So yeah, I would say that don't think about them. In terms of the distances between the points, think about.
+
+[Moderator - Ankit Agrawal] 21:20:39
+Transforming the data from one viewpoint to another.
+
+[Moderator - Ankit Agrawal] 21:20:44
+That is, I think, a better way of understanding it. Another question we have is do you suggest to use PCA for us to reduce dimensions before doing Disney or can we just start DC without doing PCA?
+
+[Mentor - Freeman Goja] 21:21:04
+You don't you don't need you don't need a PCA before TCA because Disney has the ability to.
+
+[Mentor - Freeman Goja] 21:21:12
+Reduce the dimensionality that you would achieve with PC in the 1st place. So there's actually no reason for performing a PCA before.
+
+[Mentor - Freeman Goja] 21:21:22
+I don't think it's necessary. You would just create unnecessary redundancy there.
+
+[Moderator - Ankit Agrawal] 21:21:33
+I'm trying to think about it if you 1st perform a linear transformation. And then you want to perform a nonlinear transformation, what that even looks like.
+
+[Mentor - Freeman Goja] 21:21:45
+Exactly. So. Yeah, it cannot sound terrible the way you see the. Yeah.
+
+[Moderator - Ankit Agrawal] 21:21:47
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:21:53
+Yeah. Other questions somebody's asking is the lesson starting now or is it ending now? My dashboard was showing the start of the session for 3 min ago.
+
+[Moderator - Ankit Agrawal] 21:22:08
+So Bruno, the session is ending. We will be finishing in 9 min, the session starts at 9 30 a.
+
+[Moderator - Ankit Agrawal] 21:22:16
+M. Eastern time. So, I think you have 2 separate joining links available, one for the actual lecture with the professor and one for the mentor learning session or with the mentor.
+
+[Moderator - Ankit Agrawal] 21:22:27
+So maybe, I see that the time that you posted that comment, the QA session was beginning at that time, like 3 min before.
+
+[Moderator - Ankit Agrawal] 21:22:36
+So you missed the entire lecture in that process.
+
+[Moderator - Ankit Agrawal] 21:22:42
+Okay. I'm trying to find some other questions.
+
+[Moderator - Ankit Agrawal] 21:22:49
+I do not understand the lecture. How can I catch up?
+
+[Moderator - Ankit Agrawal] 21:22:56
+Any external resources, that you might have.
+
+[Mentor - Freeman Goja] 21:23:03
+I think going over the recording is a good place to start and going through the lecture content itself. I mean the entire lecture content would help.
+
+[Mentor - Freeman Goja] 21:23:17
+We still have a mental learning session. Coming out by weekend. That would still provide some extra information and the actual implementation of this techniques.
+
+[Mentor - Freeman Goja] 21:23:29
+That could also help us well. So I think the good place to start is start by going, you know, over the lecture again.
+
+[Mentor - Freeman Goja] 21:23:36
+The recording and go through the material. And all the exercises and Come prepare for the mental learning session if you still have someone answered questions you can ask your mentor and Go from there.
+
+[Moderator - Ankit Agrawal] 21:23:52
+Okay. I've asked the PC. Removes the greatest dimension. I can understand in converting a data set to look at it.
+
+[Moderator - Ankit Agrawal] 21:24:04
+Make however if there are currency or the example you give in centimeter to shared. Would interest meters would be mapped to feet slightly confusing.
+
+[Moderator - Ankit Agrawal] 21:24:14
+So I think I can briefly answer this question pretty. PCA does not remove the greatest dimension.
+
+[Mentor - Freeman Goja] 21:24:17
+Okay.
+
+[Moderator - Ankit Agrawal] 21:24:23
+It actually retains the greatest, the dimension with the greatest variation. Thanks for the goal of PCA is not to drop the dimension.
+
+[Moderator - Ankit Agrawal] 21:24:32
+I don't know if what greatest dimension in this context But the PC, retains the dimension or tries to calculate the dimension in which there is the highest.
+
+[Moderator - Ankit Agrawal] 21:24:42
+Hey, tries to retain those types of dimensions, right? So I don't know what you mean by converting the data set to look at it.
+
+[Moderator - Ankit Agrawal] 21:24:51
+I don't know why that is. We' the data to look at the yeah.
+
+[Mentor - Freeman Goja] 21:24:59
+I'm wondering if this is referring to transformation like scaling. Is that scale feature scaling?
+
+[Moderator - Ankit Agrawal] 21:25:08
+But why would you do located to make scaling does not? Oh, like after you do logarithmic scaling you will still end up having features that can look different right like I'll look at it mixed scale of of 10,000 would be different than a look at it with transformation of like let's say 10.
+
+[Mentor - Freeman Goja] 21:25:19
+The same exactly.
+
+[Moderator - Ankit Agrawal] 21:25:27
+So I don't think a logarithmic transformation is. Ideal for TCA.
+
+[Moderator - Ankit Agrawal] 21:25:36
+I think you would do some sort of a normalization or a standardization process over there. Yeah, I fully do not understand that question.
+
+[Mentor - Freeman Goja] 21:25:41
+Alright.
+
+[Moderator - Ankit Agrawal] 21:25:48
+Kerry asked, what is the thought process behind data loss or dimensionality? How do you decide loss without introducing bias?
+
+[Mentor - Freeman Goja] 21:25:59
+So I guess that's. Referring to the amount of variance that accepted in a given situation. So I mean, when you do principal components analysis or TCN, any of the dimensional, it's reduction techniques.
+
+[Mentor - Freeman Goja] 21:26:16
+You lose a sudden. Portion of information about the regional data sets. That's for sure, right?
+
+[Mentor - Freeman Goja] 21:26:23
+So they are usually like thresholds of what is acceptable. There are certain used cases where you know 70% 75 80 or 95% would be acceptable and so Even if you accept, 95%, you're still losing 5%, but.
+
+[Mentor - Freeman Goja] 21:26:40
+The reasoning behind that is With this level of variants retained about the original data set were good enough to move forward.
+
+[Mentor - Freeman Goja] 21:26:53
+And I can give you a practical example. We have some times you might even accept a lower threshold like maybe even 60%.
+
+[Mentor - Freeman Goja] 21:27:01
+Sometimes you have motors that are. Overfitting pretty bad. And so you are trying to reduce overfitting.
+
+[Mentor - Freeman Goja] 21:27:11
+You would accept. Let's see. If you have 4 principal components that are able to. Explain 60% variance in the original data set.
+
+[Mentor - Freeman Goja] 21:27:22
+And you try using them to build your to train your model. Any controls overfitting without compromising on the generalization or not seeing data, you would accept that 60% in that kind of situation.
+
+[Mentor - Freeman Goja] 21:27:37
+And so it depends on the use case for the threshold, but the loss is accepted based on the use case, right?
+
+[Mentor - Freeman Goja] 21:27:47
+What can we afford to lose? What can we afford not to lose? In a given scenario. So you have higher thresholds.
+
+[Mentor - Freeman Goja] 21:27:53
+Well.
+
+[Moderator - Ankit Agrawal] 21:28:00
+Benoit is asking when we try analyzing data set with PC and DC, do we get different insights from each of these methods apart from dimensionality reduction from both.
+
+[Mentor - Freeman Goja] 21:28:13
+Of course you do. So if you are trying something like feature selection.
+
+[Mentor - Freeman Goja] 21:28:20
+I mean that's something that you can achieve with PC. And so. It would help you.
+
+[Mentor - Freeman Goja] 21:28:29
+Select the most important features in the data set to train your algorithm on and some of these things might sound a little vague since you haven't done like the machine learning techniques yet but by the time you you know, learn about these different techniques you understand in importance of feature selection and things like that.
+
+[Mentor - Freeman Goja] 21:28:47
+And you can tie it back to this conversation we're having now. And I'm sure you might make more sense at that point, but.
+
+[Mentor - Freeman Goja] 21:28:53
+You don't need both PC and TC in all situations. Right, so it's not the argument is not about.
+
+[Mentor - Freeman Goja] 21:29:02
+Having the same insights or the same result from both of them. It starts with the objective. What are you trying to do?
+
+[Mentor - Freeman Goja] 21:29:11
+And which technique is best suited for that.
+
+[Mentor - Freeman Goja] 21:29:16
+And so we're not trying to compare the 2 dimensionality reduction techniques to see the performances of their output and decide which one to choose over the other one.
+
+[Mentor - Freeman Goja] 21:29:28
+It starts with the objective 1st and then determining which technique is best suited for that particular use case.
+
+[Moderator - Ankit Agrawal] 21:29:38
+Just to kind of briefly add toward, and I said, and PCR just one method each in linear and nonlinear frameworks.
+
+[Moderator - Ankit Agrawal] 21:29:49
+We have a lot more. How Right. So I would say that about 6 or 7 different algorithms in needing a process and about 5 different algorithms in nonlinear dimensionality reduction processes.
+
+[Moderator - Ankit Agrawal] 21:30:04
+So this is just like to give you the context of the algorithms and key differences between them. So you are not going to build all 11 different algorithms, right?
+
+[Moderator - Ankit Agrawal] 21:30:14
+Like for a given problem. So, understanding which side you belong to, like what your data looks like, is it a linear transformation or a nonlinear transformation is key.
+
+[Moderator - Ankit Agrawal] 21:30:26
+And Once you understand that, then you can identify which of the methods within these processes. Can you go ahead and use PCA and DC or some of the more common methods?
+
+[Moderator - Ankit Agrawal] 21:30:35
+That's why we talk about them in this course. But there are a lot of different other methods available and I see somebody just asked the question about it.
+
+[Moderator - Ankit Agrawal] 21:30:46
+If PCA is great for feature selection. Pca is not good for feature selection because PCA is the portrait called noninterpretable method, meaning that you cannot remove certain features.
+
+[Moderator - Ankit Agrawal] 21:30:59
+From your original set of data, right? It's a linear combination of all the features in your original data set.
+
+[Moderator - Ankit Agrawal] 21:31:05
+So PCA or TCA, neither of these methods are put processes for feature selection. We'll talk about feature selection methods once we get to the machine learning framework like linear regression and logistic regression and decision trees.
+
+[Moderator - Ankit Agrawal] 21:31:19
+And so on and so forth, in the future sessions. So, okay. Yeah, okay.
+
+[Mentor - Freeman Goja] 21:31:23
+And sorry. Sorry, just to quickly answer that. I think, yeah, I think the, the person is asking the question from the, response I had given earlier.
+
+[Mentor - Freeman Goja] 21:31:33
+So using that of a feeling, example that I was giving. So in that kind of in that kind of situation, yes, PC would be helpful because you are trying to basically just retain.
+
+[Mentor - Freeman Goja] 21:31:46
+Enough information to control the overfilling of the model. And so that would serve a useful purpose. However, if you consider that, then this new obviously for visualization, right?
+
+[Mentor - Freeman Goja] 21:31:59
+Imagine if you have a data set with hundreds of columns. In the data. And you are trying to extract some insights from that data.
+
+[Mentor - Freeman Goja] 21:32:10
+Maybe some segmentation or some sort of education or something like that. It's hard for you to kind of start wrapping your head around those.
+
+[Mentor - Freeman Goja] 21:32:20
+Address of columns of data and what the represent what they pertain to to see patterns in them essentially. If you deploy a technique in that kind of situation.
+
+[Mentor - Freeman Goja] 21:32:35
+You can, you know, look at those clusters. And you can, you know. Actually extract care services from those clusters.
+
+[Mentor - Freeman Goja] 21:32:43
+And be able to explain the patterns. In those hundreds of columns of data a lot easier. That trying to approach them one by one.
+
+[Mentor - Freeman Goja] 21:32:53
+So Disney is great for visualization and I did mention a whole lot of other situations where we can apply Disney as well.
+
+[Mentor - Freeman Goja] 21:33:01
+What we use for example like in natural language processing word embeddings visualizations and things like that and there's a whole lot of areas where the visualization with Disney is great.
+
+[Mentor - Freeman Goja] 21:33:14
+So Yeah.
+
+[Moderator - Ankit Agrawal] 21:33:16
+Thank you so much, Freeman. We are kind of out of time now, so we'll stop here with QA.
+
+[Moderator - Ankit Agrawal] 21:33:26
+We are kind of out of time now, so we'll stop here with QA. If you have more questions, you can always ask those questions in the upcoming lectures as well towards the end.
+
+[Moderator - Ankit Agrawal] 21:33:32
+And also you can ask questions during your mental learning sessions as well. We have, incredible mentors both Freeman and me are both Also doing different cohorts and doing mentors.
+
+[Moderator - Ankit Agrawal] 21:33:44
+So your mentors are industry experts. Please ask them questions and they should be able to answer a lot of questions that did not get answered today.
+
+[Moderator - Ankit Agrawal] 21:33:52
+So with that being said, we will end the session over here. Thank you everybody for joining.
+
+[Moderator - Ankit Agrawal] 21:33:58
+This is how our template for every LVC is going to look. So on Wednesday, we'll start with a new topic and then we'll have questions.
+
+[Moderator - Ankit Agrawal] 21:34:08
+Qa session at the end again and all of these recordings will be made available to you in the next few hours.
+
+[Moderator - Ankit Agrawal] 21:34:15
+Keep an eye on your dashboard for that as well. Thank you everybody. Thank you Freeman for answering all those questions in great detail and I'll see everybody.
+
+[Moderator - Ankit Agrawal] 21:34:26
+At the same time. Take care.
+
+[Mentor - Freeman Goja] 21:34:28
+Thank you and Keith. Thanks everyone. Bye
+

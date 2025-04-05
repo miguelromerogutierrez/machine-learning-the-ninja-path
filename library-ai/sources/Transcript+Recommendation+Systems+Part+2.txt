@@ -1,0 +1,7038 @@
+[Moderator - Ankit Agrawal] 18:00:12
+Hello, everyone. Good morning. Good afternoon. Depending on where you're located. Welcome to the second lecture on recommendation systems. Reminder that this is the final week of the live virtual classes.
+
+[Moderator - Ankit Agrawal] 18:00:30
+A couple of reminders before we get started. With our second session here with Professor. Please make sure that you're not raising your hand during the during the lecture.
+
+[Moderator - Ankit Agrawal] 18:00:43
+Please do not use the QA. Box for posting your questions.
+
+[Moderator - Ankit Agrawal] 18:00:48
+When you're making comments in the chat and asking questions in the chat. Please make sure you're addressing them to everyone. Not just hosts and panelists.
+
+[Moderator - Ankit Agrawal] 18:00:57
+And when you're asking questions, please make sure that you start your questions with the alphabet queue in front of it.
+
+[Moderator - Ankit Agrawal] 18:01:04
+It helps the professor to those questions and answer those questions during the lecture.
+
+[Moderator - Ankit Agrawal] 18:01:11
+Apart from that, we will be moderating all the other questions in the chat as well, so that we can answer them. Towards the end of the session.
+
+[Moderator - Ankit Agrawal] 18:01:20
+Of it a great learning mentor. So and from yesterday, if there were any, follow up questions from yesterday's lecture that were unanswered.
+
+[Moderator - Ankit Agrawal] 18:01:29
+Please ask them again towards the end of the today's session, as well.
+
+[Moderator - Ankit Agrawal] 18:01:33
+So with that being said, I will hand over today's session to Professor. Good morning, Professor.
+
+[Faculty (Olympus)] 18:01:39
+Hey? Good morning! How are you?
+
+[Moderator - Ankit Agrawal] 18:01:41
+Good. How are you doing, Professor?
+
+[Faculty (Olympus)] 18:01:42
+Excellent, excellent! Let me let me see if I can get my my! This.
+
+[Faculty (Olympus)] 18:01:47
+Apple, pen.
+
+[Faculty (Olympus)] 18:01:49
+Connected.
+
+[Faculty (Olympus)] 18:01:51
+I hope everybody had
+
+[Faculty (Olympus)] 18:01:54
+Good late evening, catching up with all the exercise.
+
+[Faculty (Olympus)] 18:02:00
+I had given you.
+
+[Faculty (Olympus)] 18:02:02
+If not, we can discuss some of those things. Okay. Alright, this is working.
+
+[Faculty (Olympus)] 18:02:08
+So let's get going.
+
+[Faculty (Olympus)] 18:02:12
+Excellent! So
+
+[Faculty (Olympus)] 18:02:15
+As I was mentioning. I hope you all had some time to just review the material
+
+[Faculty (Olympus)] 18:02:22
+I had given few bedtime reading and homeworks. Hope you had some chance to review some of those things. You might have some of the questions.
+
+[Faculty (Olympus)] 18:02:32
+So feel free to.
+
+[Faculty (Olympus)] 18:02:35
+Ask questions if you have from yesterday, before I get started.
+
+[Prof. Devavrat Shah] 18:02:43
+And looks like there are lots of good mornings. Good mornings, everyone. Yes,
+
+[Prof. Devavrat Shah] 18:02:51
+Again!
+
+[Prof. Devavrat Shah] 18:02:52
+Please don't raise your hand, because that this is the type of zoom setting. Where that is, that facility is not available, feel free to ask question as you ask question, put a queue in front of it, so that.
+
+[Prof. Devavrat Shah] 18:03:05
+I know it's not a conversation or comment that you're exchanging in the Forum rather than you are actually.
+
+[Prof. Devavrat Shah] 18:03:14
+Asking a question, and I can sort of keep track of it.
+
+[Prof. Devavrat Shah] 18:03:18
+Yeah, I also see that there are.
+
+[Prof. Devavrat Shah] 18:03:21
+Few more participants still joining. Just want to be.
+
+[Prof. Devavrat Shah] 18:03:25
+Give them few more seconds as well before we get going.
+
+[Prof. Devavrat Shah] 18:03:30
+Right and got somebody from Doha.
+
+[Prof. Devavrat Shah] 18:03:34
+That reminds me and others as you do the.
+
+[Prof. Devavrat Shah] 18:03:39
+Is it one of those zoom settings by default? It defaults to host and panelists. If you could just make sure that it's set to.
+
+[Prof. Devavrat Shah] 18:03:47
+Everyone can sort of look at your comments and questions.
+
+[Prof. Devavrat Shah] 18:03:55
+Okay.
+
+[Prof. Devavrat Shah] 18:03:59
+Alright, I think.
+
+[Prof. Devavrat Shah] 18:04:01
+And no questions and more people have joined. So I think this is about time we get started.
+
+[Prof. Devavrat Shah] 18:04:08
+Alright. So today is.
+
+[Prof. Devavrat Shah] 18:04:09
+Part, 2
+
+[Prof. Devavrat Shah] 18:04:12
+Of the recommendation system.
+
+[Prof. Devavrat Shah] 18:04:15
+We have 3 lectures.
+
+[Prof. Devavrat Shah] 18:04:18
+In the 1st lecture we primarily introduce the topic of recommendation system.
+
+[Prof. Devavrat Shah] 18:04:22
+And looked at simple solutions.
+
+[Prof. Devavrat Shah] 18:04:27
+Recommendation system as a collection of lectures. As a part of this overall program.
+
+[Prof. Devavrat Shah] 18:04:33
+Is the last.
+
+[Prof. Devavrat Shah] 18:04:34
+Where it tries to bring various things together.
+
+[Prof. Devavrat Shah] 18:04:38
+For example, the.
+
+[Prof. Devavrat Shah] 18:04:41
+Content based recommendation system that we discussed.
+
+[Prof. Devavrat Shah] 18:04:43
+And the last lecture.
+
+[Prof. Devavrat Shah] 18:04:45
+Is very much a supervised learning.
+
+[Prof. Devavrat Shah] 18:04:48
+Supervised learning that we learned.
+
+[Prof. Devavrat Shah] 18:04:51
+In earlier parts of this program.
+
+[Prof. Devavrat Shah] 18:04:53
+But then applied to a specific context.
+
+[Prof. Devavrat Shah] 18:04:57
+As we'll go through these lectures, you will see that the.
+
+[Prof. Devavrat Shah] 18:05:01
+Simple problem that we have introduced prediction problem that we are focusing on this sequence of.
+
+[Prof. Devavrat Shah] 18:05:07
+Is actually very powerful.
+
+[Prof. Devavrat Shah] 18:05:10
+As and my hope is that.
+
+[Prof. Devavrat Shah] 18:05:14
+Alice, I'll give you by the end of these lectures, that.
+
+[Prof. Devavrat Shah] 18:05:17
+It is.
+
+[Prof. Devavrat Shah] 18:05:18
+It can be viewed as effective. Mother of all prediction problems. Okay.
+
+[Prof. Devavrat Shah] 18:05:25
+In today's lecture. What I want to do is I want to build on top of what we did in the last lecture.
+
+[Prof. Devavrat Shah] 18:05:32
+Talk about new class of methods.
+
+[Prof. Devavrat Shah] 18:05:35
+We'll get a little bit more intense today.
+
+[Prof. Devavrat Shah] 18:05:39
+But before I do that, I also want to talk to you about few examples.
+
+[Prof. Devavrat Shah] 18:05:43
+Good.
+
+[Prof. Devavrat Shah] 18:05:43
+So with that as the setting.
+
+[Prof. Devavrat Shah] 18:05:47
+Let's get into the details of today's lecture.
+
+[Prof. Devavrat Shah] 18:05:50
+Again!
+
+[Prof. Devavrat Shah] 18:05:51
+Feel free to keep asking questions. I will be monitoring.
+
+[Prof. Devavrat Shah] 18:05:55
+And I will keep taking breaks throughout as I look at it.
+
+[Prof. Devavrat Shah] 18:06:00
+Like last lecture and other lectures. I will take a structured break for 5 min. At the end of the hour.
+
+[Prof. Devavrat Shah] 18:06:07
+That is 9 30 Eastern.
+
+[Prof. Devavrat Shah] 18:06:12
+Okay, so this is.
+
+[Prof. Devavrat Shah] 18:06:14
+What we did in the last lecture.
+
+[Prof. Devavrat Shah] 18:06:18
+It's been about.
+
+[Prof. Devavrat Shah] 18:06:20
+Introduction and Simple Methods.
+
+[Prof. Devavrat Shah] 18:06:24
+The.
+
+[Prof. Devavrat Shah] 18:06:26
+Introduced, what recommendation systems are.
+
+[Prof. Devavrat Shah] 18:06:28
+Through simple example.
+
+[Prof. Devavrat Shah] 18:06:32
+Simple example of.
+
+[Prof. Devavrat Shah] 18:06:38
+Trying to look for a place to eat pizza. And then how sort of we walk through that to sort of understand.
+
+[Prof. Devavrat Shah] 18:06:46
+Why we need recommendation system.
+
+[Prof. Devavrat Shah] 18:06:51
+Through that we ended up with the simple prediction problem.
+
+[Prof. Devavrat Shah] 18:06:58
+A simple prediction problem of.
+
+[Prof. Devavrat Shah] 18:07:00
+What I would call up matrix, that is, we have a matrix.
+
+[Prof. Devavrat Shah] 18:07:03
+We observe.
+
+[Prof. Devavrat Shah] 18:07:05
+Some noisy observations.
+
+[Prof. Devavrat Shah] 18:07:07
+Are lots of missing values.
+
+[Prof. Devavrat Shah] 18:07:09
+And we want to fill up or identify.
+
+[Prof. Devavrat Shah] 18:07:13
+The.
+
+[Prof. Devavrat Shah] 18:07:15
+True missing values. Either it's completely missing or you're gonna deny.
+
+[Prof. Devavrat Shah] 18:07:22
+And formally we stated it as follows, that is, we got.
+
+[Prof. Devavrat Shah] 18:07:27
+Matrix. Why that we observe.
+
+[Prof. Devavrat Shah] 18:07:31
+If we observe entry like this or that.
+
+[Prof. Devavrat Shah] 18:07:36
+A priori.
+
+[Prof. Devavrat Shah] 18:07:37
+It's sampled in such a way that it's expected value is the true underlying value.
+
+[Prof. Devavrat Shah] 18:07:43
+Did we want to estimate.
+
+[Prof. Devavrat Shah] 18:07:44
+If it's not absurd, of course we call it star or question. Mark.
+
+[Prof. Devavrat Shah] 18:07:50
+And given such y.
+
+[Prof. Devavrat Shah] 18:07:51
+We want to estimate the entire matrix.
+
+[Prof. Devavrat Shah] 18:07:56
+Okay, doing right and estimate entire matrix so that it's actually capturing the true.
+
+[Prof. Devavrat Shah] 18:08:00
+Value.
+
+[Prof. Devavrat Shah] 18:08:01
+That generated the data.
+
+[Prof. Devavrat Shah] 18:08:03
+Okay.
+
+[Prof. Devavrat Shah] 18:08:05
+Putting it other way.
+
+[Prof. Devavrat Shah] 18:08:09
+The effectively, the generative model.
+
+[Prof. Devavrat Shah] 18:08:11
+If I were to call it.
+
+[Prof. Devavrat Shah] 18:08:13
+How is this generated.
+
+[Prof. Devavrat Shah] 18:08:15
+So generative, model.
+
+[Prof. Devavrat Shah] 18:08:18
+For this setting is as follows.
+
+[Prof. Devavrat Shah] 18:08:22
+We choose.
+
+[Prof. Devavrat Shah] 18:08:23
+So.
+
+[Prof. Devavrat Shah] 18:08:24
+Okay, so we have.
+
+[Prof. Devavrat Shah] 18:08:26
+But we have a matrix of.
+
+[Prof. Devavrat Shah] 18:08:30
+And rows and M. Columns.
+
+[Prof. Devavrat Shah] 18:08:32
+Okay.
+
+[Prof. Devavrat Shah] 18:08:33
+And users.
+
+[Prof. Devavrat Shah] 18:08:35
+And M items.
+
+[Prof. Devavrat Shah] 18:08:39
+And for every IJ.
+
+[Prof. Devavrat Shah] 18:08:44
+We denote it by YIJ.
+
+[Prof. Devavrat Shah] 18:08:46
+So? How is via generated.
+
+[Prof. Devavrat Shah] 18:08:49
+Well, it's step one.
+
+[Prof. Devavrat Shah] 18:08:52
+We make a decision whether to.
+
+[Prof. Devavrat Shah] 18:08:55
+Observe.
+
+[Prof. Devavrat Shah] 18:08:57
+I.
+
+[Prof. Devavrat Shah] 18:08:58
+Or not.
+
+[Prof. Devavrat Shah] 18:09:02
+If we.
+
+[Prof. Devavrat Shah] 18:09:03
+If not.
+
+[Prof. Devavrat Shah] 18:09:06
+Then we set YJ. Equals 2.
+
+[Prof. Devavrat Shah] 18:09:08
+Star or question, mark.
+
+[Prof. Devavrat Shah] 18:09:10
+I would prefer to denote it by missing values.
+
+[Prof. Devavrat Shah] 18:09:14
+If yes.
+
+[Prof. Devavrat Shah] 18:09:16
+Then what we do is we.
+
+[Prof. Devavrat Shah] 18:09:19
+Sample.
+
+[Prof. Devavrat Shah] 18:09:23
+A number from 0, or one.
+
+[Prof. Devavrat Shah] 18:09:28
+Okay, and how do we sample it?
+
+[Prof. Devavrat Shah] 18:09:30
+With probability. IJ.
+
+[Prof. Devavrat Shah] 18:09:32
+It is one.
+
+[Prof. Devavrat Shah] 18:09:34
+With probability.
+
+[Prof. Devavrat Shah] 18:09:35
+One minus LIJ.
+
+[Prof. Devavrat Shah] 18:09:37
+It is 0.
+
+[Prof. Devavrat Shah] 18:09:41
+And that's how this matrix Y is generated.
+
+[Prof. Devavrat Shah] 18:09:43
+And given this matrix, y.
+
+[Prof. Devavrat Shah] 18:09:47
+We want to estimate how.
+
+[Prof. Devavrat Shah] 18:09:52
+Okay. Now, one thing that I'm not.
+
+[Prof. Devavrat Shah] 18:09:55
+Told you yet.
+
+[Prof. Devavrat Shah] 18:09:56
+Is.
+
+[Prof. Devavrat Shah] 18:09:57
+How do we determine?
+
+[Prof. Devavrat Shah] 18:10:00
+This desk, that is, for a given.
+
+[Prof. Devavrat Shah] 18:10:02
+Should we observe it or not?
+
+[Prof. Devavrat Shah] 18:10:05
+And this is where
+
+[Prof. Devavrat Shah] 18:10:08
+We had a brief discussion yesterday in terms of.
+
+[Prof. Devavrat Shah] 18:10:15
+Whether we observe it or not is fundamentally biased.
+
+[Prof. Devavrat Shah] 18:10:19
+Okay, at least in practice, it's biased.
+
+[Prof. Devavrat Shah] 18:10:22
+I'm a user. I.
+
+[Prof. Devavrat Shah] 18:10:25
+I rated a restaurant. J. Well, if I'm a vegetarian, which I am unlikely to rate a steak house because I don't go there, and I'm not interested.
+
+[Prof. Devavrat Shah] 18:10:34
+Okay. So in a sense.
+
+[Prof. Devavrat Shah] 18:10:35
+It's by definition. It's biased.
+
+[Prof. Devavrat Shah] 18:10:40
+Now in traditional, academic literature.
+
+[Prof. Devavrat Shah] 18:10:43
+Then the.
+
+[Prof. Devavrat Shah] 18:10:44
+Initial
+
+[Prof. Devavrat Shah] 18:10:47
+The.
+
+[Prof. Devavrat Shah] 18:10:49
+Initial Development.
+
+[Prof. Devavrat Shah] 18:10:52
+The model of.
+
+[Prof. Devavrat Shah] 18:10:53
+Observe.
+
+[Prof. Devavrat Shah] 18:10:56
+It or not.
+
+[Prof. Devavrat Shah] 18:10:59
+Was thought of. Is.
+
+[Prof. Devavrat Shah] 18:11:01
+Done as random.
+
+[Prof. Devavrat Shah] 18:11:03
+Okay.
+
+[Prof. Devavrat Shah] 18:11:08
+More precisely for each. IJ.
+
+[Prof. Devavrat Shah] 18:11:12
+You observe it, or you decide to choose to observe it.
+
+[Prof. Devavrat Shah] 18:11:17
+With probability. P.
+
+[Prof. Devavrat Shah] 18:11:18
+And with probability.
+
+[Prof. Devavrat Shah] 18:11:20
+One minus b.
+
+[Prof. Devavrat Shah] 18:11:23
+You decide not to observe it.
+
+[Prof. Devavrat Shah] 18:11:26
+And so effectively. Every Ij is sampled.
+
+[Prof. Devavrat Shah] 18:11:29
+And then that's how we observe. But again.
+
+[Prof. Devavrat Shah] 18:11:31
+This is, as we know, this is not.
+
+[Prof. Devavrat Shah] 18:11:36
+Good notion of reality. However, many of the methods that have been developed.
+
+[Prof. Devavrat Shah] 18:11:40
+Started with this as a modeling assumption.
+
+[Prof. Devavrat Shah] 18:11:44
+However, they have an actual way to evolve from there.
+
+[Prof. Devavrat Shah] 18:11:47
+And that's what I mentioned to you as what I would call matrix.
+
+[Prof. Devavrat Shah] 18:11:54
+Completion, style.
+
+[Prof. Devavrat Shah] 18:11:56
+Manuscript.
+
+[Prof. Devavrat Shah] 18:11:59
+Okay, so.
+
+[Prof. Devavrat Shah] 18:12:00
+This is something that I want you to.
+
+[Prof. Devavrat Shah] 18:12:03
+Keep at the back of your mind in terms of how the data is generated, so that we can understand how to.
+
+[Prof. Devavrat Shah] 18:12:09
+Learn the model underneath.
+
+[Prof. Devavrat Shah] 18:12:13
+Alright!
+
+[Prof. Devavrat Shah] 18:12:14
+Now.
+
+[Prof. Devavrat Shah] 18:12:16
+That is a bit of a recall of what is the problem statement that we.
+
+[Prof. Devavrat Shah] 18:12:22
+Converts to at least the initial version of the problem statement. We converge to.
+
+[Prof. Devavrat Shah] 18:12:27
+Before I remind you few more things and get into the thick of things for today's lecture.
+
+[Prof. Devavrat Shah] 18:12:33
+Or 2.
+
+[Prof. Devavrat Shah] 18:12:36
+Take that simple problem statement.
+
+[Prof. Devavrat Shah] 18:12:39
+And explain.
+
+[Prof. Devavrat Shah] 18:12:40
+That itself has lots of valuable implications.
+
+[Prof. Devavrat Shah] 18:12:45
+So let's start with.
+
+[Prof. Devavrat Shah] 18:12:46
+Classical setting of
+
+[Prof. Devavrat Shah] 18:12:49
+A social network. Think of Linkedin.
+
+[Prof. Devavrat Shah] 18:12:51
+Okay, and.
+
+[Prof. Devavrat Shah] 18:12:53
+The way
+
+[Prof. Devavrat Shah] 18:12:54
+What this matrix represents. This matrix.
+
+[Prof. Devavrat Shah] 18:12:58
+What's called adjacency matrix or connectivity matrix.
+
+[Prof. Devavrat Shah] 18:13:02
+For example, consider.
+
+[Prof. Devavrat Shah] 18:13:04
+This entry.
+
+[Prof. Devavrat Shah] 18:13:06
+What it says is that this person is connected to this person.
+
+[Prof. Devavrat Shah] 18:13:10
+Okay.
+
+[Prof. Devavrat Shah] 18:13:11
+And.
+
+[Prof. Devavrat Shah] 18:13:12
+By symmetry it should be symmetric, and in this case.
+
+[Prof. Devavrat Shah] 18:13:15
+I guess I've forgotten.
+
+[Prof. Devavrat Shah] 18:13:18
+But this should be symmetric.
+
+[Prof. Devavrat Shah] 18:13:19
+Because if this person.
+
+[Prof. Devavrat Shah] 18:13:23
+This person is connected to this by definition. This person is connected to this.
+
+[Prof. Devavrat Shah] 18:13:28
+So given this kind of an adjacency matrix.
+
+[Prof. Devavrat Shah] 18:13:31
+The question is that for.
+
+[Prof. Devavrat Shah] 18:13:34
+Pair of individuals. For example, these 2 individuals.
+
+[Prof. Devavrat Shah] 18:13:37
+They're not connected, and I want to know whether what is the chance of their likely being connected. If I.
+
+[Prof. Devavrat Shah] 18:13:45
+Made aware of each other.
+
+[Prof. Devavrat Shah] 18:13:47
+And that could be a basis for recommending people to connect to each other.
+
+[Prof. Devavrat Shah] 18:13:53
+Okay? And again, in that sense, this is a matrix completion that is.
+
+[Prof. Devavrat Shah] 18:13:58
+People who are connected people are not connected, and then trying to.
+
+[Prof. Devavrat Shah] 18:14:01
+Fill up missing entries.
+
+[Prof. Devavrat Shah] 18:14:06
+Let's build a little bit more on that.
+
+[Prof. Devavrat Shah] 18:14:11
+In a social network or more generic
+
+[Prof. Devavrat Shah] 18:14:14
+Network Setting.
+
+[Prof. Devavrat Shah] 18:14:16
+There's always this notion of communities.
+
+[Prof. Devavrat Shah] 18:14:19
+Where? Roughly speaking.
+
+[Prof. Devavrat Shah] 18:14:22
+People within the same community have.
+
+[Prof. Devavrat Shah] 18:14:24
+Different types of connection patterns compared to.
+
+[Prof. Devavrat Shah] 18:14:27
+People outside communities.
+
+[Prof. Devavrat Shah] 18:14:32
+Imagine that.
+
+[Prof. Devavrat Shah] 18:14:34
+This is one community.
+
+[Prof. Devavrat Shah] 18:14:38
+And.
+
+[Prof. Devavrat Shah] 18:14:40
+This is another community. Okay, so.
+
+[Prof. Devavrat Shah] 18:14:45
+Which is.
+
+[Prof. Devavrat Shah] 18:14:47
+Okay.
+
+[Prof. Devavrat Shah] 18:14:48
+So this is community one on both sides. This is community 2.
+
+[Prof. Devavrat Shah] 18:14:52
+Okay.
+
+[Prof. Devavrat Shah] 18:14:55
+What this says is that.
+
+[Prof. Devavrat Shah] 18:14:58
+The likelihood underlying likelihood of.
+
+[Prof. Devavrat Shah] 18:15:01
+Any 2 people connecting from the same community is.
+
+[Prof. Devavrat Shah] 18:15:05
+For these 2 people is these.
+
+[Prof. Devavrat Shah] 18:15:08
+Entries.
+
+[Prof. Devavrat Shah] 18:15:10
+Versus people from community, one connecting to community 2.
+
+[Prof. Devavrat Shah] 18:15:15
+Which corresponds to this blog.
+
+[Prof. Devavrat Shah] 18:15:16
+Is, q.
+
+[Prof. Devavrat Shah] 18:15:18
+And p is greater than Q.
+
+[Prof. Devavrat Shah] 18:15:21
+Okay.
+
+[Prof. Devavrat Shah] 18:15:22
+Now this is the ground truth that we don't know what we observe, though the only thing we observe is.
+
+[Prof. Devavrat Shah] 18:15:28
+People, and who is connected, to whom.
+
+[Prof. Devavrat Shah] 18:15:32
+And based on that. We want to identify.
+
+[Prof. Devavrat Shah] 18:15:35
+Communities.
+
+[Prof. Devavrat Shah] 18:15:37
+This type of model is also known in literature as.
+
+[Prof. Devavrat Shah] 18:15:43
+Stochastic block, one.
+
+[Prof. Devavrat Shah] 18:15:46
+Okay, and.
+
+[Prof. Devavrat Shah] 18:15:47
+Interestingly enough, it has a history in.
+
+[Prof. Devavrat Shah] 18:15:50
+Biological sciences.
+
+[Prof. Devavrat Shah] 18:15:54
+Okay.
+
+[Prof. Devavrat Shah] 18:15:55
+Now 2.
+
+[Prof. Devavrat Shah] 18:15:57
+Detect this community. One way to do that is.
+
+[Prof. Devavrat Shah] 18:16:00
+You observe zeros and ones.
+
+[Prof. Devavrat Shah] 18:16:03
+On missing values.
+
+[Prof. Devavrat Shah] 18:16:04
+Based on that. You estimate the likelihood of any 2 set of people to be connected.
+
+[Prof. Devavrat Shah] 18:16:09
+And then the people you find closer to.
+
+[Prof. Devavrat Shah] 18:16:14
+Are.
+
+[Prof. Devavrat Shah] 18:16:15
+Part of.
+
+[Prof. Devavrat Shah] 18:16:16
+One community.
+
+[Prof. Devavrat Shah] 18:16:18
+And then across our cross communities.
+
+[Prof. Devavrat Shah] 18:16:22
+So in a sense, matrix.
+
+[Prof. Devavrat Shah] 18:16:24
+Estimation.
+
+[Prof. Devavrat Shah] 18:16:27
+Is. This is a subroutine is a step towards identifying this community communities.
+
+[Prof. Devavrat Shah] 18:16:32
+And helps all of us community detection.
+
+[Prof. Devavrat Shah] 18:16:37
+Okay.
+
+[Prof. Devavrat Shah] 18:16:40
+Let's.
+
+[Prof. Devavrat Shah] 18:16:41
+Switch it up a little.
+
+[Prof. Devavrat Shah] 18:16:43
+So isn't a setting of.
+
+[Prof. Devavrat Shah] 18:16:47
+Gameplay.
+
+[Prof. Devavrat Shah] 18:16:49
+Now, before I go, there are a few questions. Let me sort of answer those questions first, st and then go to this example.
+
+[Prof. Devavrat Shah] 18:17:03
+So.
+
+[Prof. Devavrat Shah] 18:17:06
+And Toyn's question is that.
+
+[Prof. Devavrat Shah] 18:17:08
+Are we considering that.
+
+[Prof. Devavrat Shah] 18:17:09
+Non-field values.
+
+[Prof. Devavrat Shah] 18:17:11
+Those because of which is spars, are equal to star as well. In other words, unobserved.
+
+[Prof. Devavrat Shah] 18:17:18
+So Tony.
+
+[Prof. Devavrat Shah] 18:17:21
+That are.
+
+[Prof. Devavrat Shah] 18:17:22
+2 views there one is.
+
+[Prof. Devavrat Shah] 18:17:25
+The ones who are connected are one.
+
+[Prof. Devavrat Shah] 18:17:27
+And the ones who are not connected are.
+
+[Prof. Devavrat Shah] 18:17:30
+Just an observer. Zeros.
+
+[Prof. Devavrat Shah] 18:17:32
+Okay.
+
+[Prof. Devavrat Shah] 18:17:34
+Or star.
+
+[Prof. Devavrat Shah] 18:17:35
+Another is that once you are connected, are one.
+
+[Prof. Devavrat Shah] 18:17:38
+The ones who were recommended to each other, but decided not to connect.
+
+[Prof. Devavrat Shah] 18:17:42
+Are zeros.
+
+[Prof. Devavrat Shah] 18:17:43
+And then the ones that were not recommended at all are stars.
+
+[Prof. Devavrat Shah] 18:17:48
+Both of these are reasonable, observational models, and.
+
+[Prof. Devavrat Shah] 18:17:52
+Each of them.
+
+[Prof. Devavrat Shah] 18:17:55
+Has a way in which you can actually apply these.
+
+[Prof. Devavrat Shah] 18:17:58
+To answer the problems.
+
+[Prof. Devavrat Shah] 18:18:01
+Raj's question is, what is observed value. I think we discussed that.
+
+[Prof. Devavrat Shah] 18:18:09
+Far as this question is, I didn't understand what was the meaning of Pnq.
+
+[Prof. Devavrat Shah] 18:18:14
+B was, the.
+
+[Prof. Devavrat Shah] 18:18:16
+The.
+
+[Prof. Devavrat Shah] 18:18:18
+Here. P. Is the likelihood with which.
+
+[Prof. Devavrat Shah] 18:18:21
+Any 2 individuals from the same communities are connected.
+
+[Prof. Devavrat Shah] 18:18:25
+And Q is the likelihood of.
+
+[Prof. Devavrat Shah] 18:18:29
+Likelihood with which.
+
+[Prof. Devavrat Shah] 18:18:30
+People, from to.
+
+[Prof. Devavrat Shah] 18:18:32
+Different communities are connected like.
+
+[Prof. Devavrat Shah] 18:18:34
+These 2.
+
+[Prof. Devavrat Shah] 18:18:37
+Okay. And so all of these entries at you.
+
+[Prof. Devavrat Shah] 18:18:40
+All of these entries at B.
+
+[Prof. Devavrat Shah] 18:18:45
+Alright
+
+[Prof. Devavrat Shah] 18:18:47
+Let's move to.
+
+[Prof. Devavrat Shah] 18:18:50
+Next example.
+
+[Prof. Devavrat Shah] 18:18:52
+This is about.
+
+[Prof. Devavrat Shah] 18:18:55
+Trying to come up with a ranking of.
+
+[Prof. Devavrat Shah] 18:18:58
+Players.
+
+[Prof. Devavrat Shah] 18:19:00
+Okay, so
+
+[Prof. Devavrat Shah] 18:19:01
+Imagine a setting where.
+
+[Prof. Devavrat Shah] 18:19:03
+People are playing.
+
+[Prof. Devavrat Shah] 18:19:04
+Games with each other, pairwise games, for example.
+
+[Prof. Devavrat Shah] 18:19:10
+Let's say that.
+
+[Prof. Devavrat Shah] 18:19:12
+Again, these 2 individuals.
+
+[Prof. Devavrat Shah] 18:19:15
+These 2 individuals and.
+
+[Prof. Devavrat Shah] 18:19:18
+Okay. 4.
+
+[Prof. Devavrat Shah] 18:19:20
+Correct.
+
+[Prof. Devavrat Shah] 18:19:20
+So.
+
+[Prof. Devavrat Shah] 18:19:22
+This lady has.
+
+[Prof. Devavrat Shah] 18:19:24
+Played against this person, and have won twice.
+
+[Prof. Devavrat Shah] 18:19:29
+Versus this person has won against this 1 4 times.
+
+[Prof. Devavrat Shah] 18:19:33
+Okay.
+
+[Prof. Devavrat Shah] 18:19:34
+So in a sense.
+
+[Prof. Devavrat Shah] 18:19:36
+Entry. I.
+
+[Prof. Devavrat Shah] 18:19:38
+Comma. J. Says that what is the chance.
+
+[Prof. Devavrat Shah] 18:19:42
+That when person I plays against person. JI. Wins.
+
+[Prof. Devavrat Shah] 18:19:48
+So Ji entries one minus that, because if my chance of winning against you is 20, your chance of winning against me is 80.
+
+[Prof. Devavrat Shah] 18:19:58
+Okay, so.
+
+[Prof. Devavrat Shah] 18:20:00
+The data is here that is observed is.
+
+[Prof. Devavrat Shah] 18:20:05
+Out of the totally 6 games that these 2 individuals have played.
+
+[Prof. Devavrat Shah] 18:20:09
+Twice. This person is one.
+
+[Prof. Devavrat Shah] 18:20:11
+And 4 times. This person is one.
+
+[Prof. Devavrat Shah] 18:20:14
+Okay.
+
+[Prof. Devavrat Shah] 18:20:16
+And from this we want to understand.
+
+[Prof. Devavrat Shah] 18:20:21
+For any. IJ.
+
+[Prof. Devavrat Shah] 18:20:23
+What is the chance when person I.
+
+[Prof. Devavrat Shah] 18:20:26
+Plays against person. J. There would be.
+
+[Prof. Devavrat Shah] 18:20:30
+Okay.
+
+[Prof. Devavrat Shah] 18:20:32
+Again from given this data. And if we just do we are just looking at these 2 individuals.
+
+[Prof. Devavrat Shah] 18:20:40
+Then maybe we will conclude that, based on 6 examples.
+
+[Prof. Devavrat Shah] 18:20:43
+Maybe this person's chance of winning against this person is.
+
+[Prof. Devavrat Shah] 18:20:48
+One-thirds.
+
+[Prof. Devavrat Shah] 18:20:50
+And for the other one. Here is two-thirds.
+
+[Prof. Devavrat Shah] 18:20:52
+And that's reasonable. Empirical setting.
+
+[Prof. Devavrat Shah] 18:20:55
+But there will be lots of pairs of people who might not have played.
+
+[Prof. Devavrat Shah] 18:20:59
+Also the number.
+
+[Prof. Devavrat Shah] 18:21:01
+Observation. Here are 6, but maybe sometimes it might be one or 2 games.
+
+[Prof. Devavrat Shah] 18:21:05
+It'll be very sparse.
+
+[Prof. Devavrat Shah] 18:21:07
+The question is that.
+
+[Prof. Devavrat Shah] 18:21:09
+How do we identify this likelihood of winning for every pair of individuals from this past noisy data.
+
+[Prof. Devavrat Shah] 18:21:15
+Kid.
+
+[Prof. Devavrat Shah] 18:21:16
+It can be normal. As an instance of.
+
+[Prof. Devavrat Shah] 18:21:19
+Matrix completion.
+
+[Prof. Devavrat Shah] 18:21:21
+Recommendation, system.
+
+[Prof. Devavrat Shah] 18:21:24
+Once we have these likelihoods, then we can apply.
+
+[Prof. Devavrat Shah] 18:21:27
+Algorithms on top of it to come up with some form of ranking.
+
+[Prof. Devavrat Shah] 18:21:33
+The key word that you might want to search for is notion of prankality.
+
+[Prof. Devavrat Shah] 18:21:39
+Okay, very nice. Simple algorithm that.
+
+[Prof. Devavrat Shah] 18:21:43
+Utilizes this matrix estimation. View.
+
+[Prof. Devavrat Shah] 18:21:47
+To.
+
+[Prof. Devavrat Shah] 18:21:49
+Come up with ranking.
+
+[Prof. Devavrat Shah] 18:21:53
+This manuscript that we had.
+
+[Prof. Devavrat Shah] 18:21:55
+Written around 2,000. 12,040.
+
+[Prof. Devavrat Shah] 18:21:58
+Good.
+
+[Prof. Devavrat Shah] 18:22:04
+So that's another example.
+
+[Prof. Devavrat Shah] 18:22:13
+One more example. Of crowdsourcing.
+
+[Prof. Devavrat Shah] 18:22:18
+It's like a learning from crowd.
+
+[Prof. Devavrat Shah] 18:22:22
+In many of the modern large language models, training.
+
+[Prof. Devavrat Shah] 18:22:29
+Experts have played.
+
+[Prof. Devavrat Shah] 18:22:31
+Extremely important role. And then that expert.
+
+[Prof. Devavrat Shah] 18:22:35
+To be utilized in a meaningful manner.
+
+[Prof. Devavrat Shah] 18:22:39
+Requires a solving problem like this.
+
+[Prof. Devavrat Shah] 18:22:42
+Good.
+
+[Prof. Devavrat Shah] 18:22:43
+So what is this simple problem?
+
+[Prof. Devavrat Shah] 18:22:47
+So imagine that I.
+
+[Prof. Devavrat Shah] 18:22:48
+Bunch of websites.
+
+[Prof. Devavrat Shah] 18:22:51
+Okay.
+
+[Prof. Devavrat Shah] 18:22:56
+And
+
+[Prof. Devavrat Shah] 18:22:58
+Each of the website is.
+
+[Prof. Devavrat Shah] 18:23:01
+Likely to be suitable for children or not.
+
+[Prof. Devavrat Shah] 18:23:03
+And again, that depends on our beliefs. To subject you.
+
+[Prof. Devavrat Shah] 18:23:08
+Matter.
+
+[Prof. Devavrat Shah] 18:23:10
+To subject you matter for a group, for a community.
+
+[Prof. Devavrat Shah] 18:23:13
+Okay.
+
+[Prof. Devavrat Shah] 18:23:14
+And one way, for example, you and I can determine that whether.
+
+[Prof. Devavrat Shah] 18:23:19
+Set of website suitable for children or not is.
+
+[Prof. Devavrat Shah] 18:23:23
+We can just ourselves go through each one of them and say Yes, suitable, not suitable, and so on.
+
+[Prof. Devavrat Shah] 18:23:29
+But then the question, Can we take help off everyone?
+
+[Prof. Devavrat Shah] 18:23:32
+Can we take help of people who are like minded.
+
+[Prof. Devavrat Shah] 18:23:37
+And who might be willing to help.
+
+[Prof. Devavrat Shah] 18:23:42
+There are platforms like this that are available out there. For example, Amazon's.
+
+[Prof. Devavrat Shah] 18:23:48
+What's called mechanical Turk.
+
+[Prof. Devavrat Shah] 18:23:53
+What happens? There is effectively.
+
+[Prof. Devavrat Shah] 18:23:57
+A task, let's call it in this case.
+
+[Prof. Devavrat Shah] 18:24:00
+A website.
+
+[Prof. Devavrat Shah] 18:24:01
+Is assigned to few people. Let's say this person and this person.
+
+[Prof. Devavrat Shah] 18:24:06
+And then this person says, No, not suitable. This person says, Yes, suitable.
+
+[Prof. Devavrat Shah] 18:24:12
+And now we are in.
+
+[Prof. Devavrat Shah] 18:24:14
+Trouble again, because we don't know whom to trust.
+
+[Prof. Devavrat Shah] 18:24:17
+Again. One option is to go back ourselves and inspect it. But the question is that can we just.
+
+[Prof. Devavrat Shah] 18:24:22
+Look at a data like this and come up with.
+
+[Prof. Devavrat Shah] 18:24:26
+Our best estimation.
+
+[Prof. Devavrat Shah] 18:24:28
+It's good.
+
+[Prof. Devavrat Shah] 18:24:30
+Now, if one views that well, this person is likely to be correct with some chance, and incorrect with some other chance, if your model like that.
+
+[Prof. Devavrat Shah] 18:24:39
+Then these observations are just like observations of zeros and ones as before.
+
+[Prof. Devavrat Shah] 18:24:45
+From there we can come up with understanding. What's the chance of this being true?
+
+[Prof. Devavrat Shah] 18:24:50
+What's the chance of this being true?
+
+[Prof. Devavrat Shah] 18:24:52
+We can use this.
+
+[Prof. Devavrat Shah] 18:24:53
+And then combine it into traditional methods, like.
+
+[Prof. Devavrat Shah] 18:24:57
+Likelihood, estimation.
+
+[Prof. Devavrat Shah] 18:24:58
+And then come up with the best estimation. Answer.
+
+[Prof. Devavrat Shah] 18:25:02
+Okay.
+
+[Prof. Devavrat Shah] 18:25:03
+So again.
+
+[Prof. Devavrat Shah] 18:25:04
+For solving problems like this. There's aggregating people's
+
+[Prof. Devavrat Shah] 18:25:09
+Input information.
+
+[Prof. Devavrat Shah] 18:25:12
+In this type of.
+
+[Prof. Devavrat Shah] 18:25:13
+Crowd, learning, crowd, sourcing.
+
+[Prof. Devavrat Shah] 18:25:15
+Again, matrix completion. Matrix estimation is an.
+
+[Prof. Devavrat Shah] 18:25:21
+Excellent.
+
+[Prof. Devavrat Shah] 18:25:22
+Way to solve that problem.
+
+[Prof. Devavrat Shah] 18:25:25
+And.
+
+[Prof. Devavrat Shah] 18:25:27
+If you read more on this.
+
+[Prof. Devavrat Shah] 18:25:34
+Keywords are.
+
+[Prof. Devavrat Shah] 18:25:36
+Budget.
+
+[Prof. Devavrat Shah] 18:25:38
+Optimal.
+
+[Prof. Devavrat Shah] 18:25:41
+Crowd.
+
+[Prof. Devavrat Shah] 18:25:43
+Sourcing.
+
+[Prof. Devavrat Shah] 18:25:47
+Again. This was collection of manuscripts. We wrote around.
+
+[Prof. Devavrat Shah] 18:25:50
+Time, period.
+
+[Prof. Devavrat Shah] 18:25:54
+Okay.
+
+[Prof. Devavrat Shah] 18:25:56
+Excellent.
+
+[Prof. Devavrat Shah] 18:25:59
+Alright. So those were the examples. Now, before I go further, let's see if there are questions that you have.
+
+[Prof. Devavrat Shah] 18:26:06
+Diego has a questionality, as in.
+
+[Prof. Devavrat Shah] 18:26:10
+Graphs which person is connected to most.
+
+[Prof. Devavrat Shah] 18:26:16
+So.
+
+[Prof. Devavrat Shah] 18:26:18
+Diego, you're.
+
+[Prof. Devavrat Shah] 18:26:20
+You're.
+
+[Prof. Devavrat Shah] 18:26:23
+You're thinking right in the sensor. When the term centrality comes, it brings to mind.
+
+[Prof. Devavrat Shah] 18:26:28
+The traditional notion of centrality, saying that.
+
+[Prof. Devavrat Shah] 18:26:32
+In the network, centrality context is that.
+
+[Prof. Devavrat Shah] 18:26:35
+If somebody's central.
+
+[Prof. Devavrat Shah] 18:26:36
+It has something to do with the send being central in the network sense.
+
+[Prof. Devavrat Shah] 18:26:41
+Here. This is a different notion of network centrality.
+
+[Prof. Devavrat Shah] 18:26:45
+It's a.
+
+[Prof. Devavrat Shah] 18:26:47
+With respect to this.
+
+[Prof. Devavrat Shah] 18:26:48
+Pairwise comparison, or pairwise.
+
+[Prof. Devavrat Shah] 18:26:52
+Gaming, graph.
+
+[Prof. Devavrat Shah] 18:26:54
+And in that sense it's computing rank centrality that is ranking of individual with that's captured through this.
+
+[Prof. Devavrat Shah] 18:27:02
+Airways, comparison graphs.
+
+[Prof. Devavrat Shah] 18:27:05
+Linds question is that, do you ever add bait to certain users? For example.
+
+[Prof. Devavrat Shah] 18:27:11
+So, Lynn, I think. You got a very good question. That is.
+
+[Prof. Devavrat Shah] 18:27:16
+Should be, trust some people more than others, and absolutely and in a sense.
+
+[Prof. Devavrat Shah] 18:27:20
+Something like that explicitly happens in this kind of models, and more generally can happen.
+
+[Prof. Devavrat Shah] 18:27:28
+Kristos's question in the crowd, sourcing, how many people we need to collect.
+
+[Prof. Devavrat Shah] 18:27:33
+Into trust. Hybrid. So
+
+[Prof. Devavrat Shah] 18:27:37
+Is a fantastic question.
+
+[Prof. Devavrat Shah] 18:27:40
+If you will look at.
+
+[Prof. Devavrat Shah] 18:27:41
+This manuscript actually, explicitly.
+
+[Prof. Devavrat Shah] 18:27:46
+States that.
+
+[Prof. Devavrat Shah] 18:27:48
+How much.
+
+[Prof. Devavrat Shah] 18:27:49
+What is a trade off between.
+
+[Prof. Devavrat Shah] 18:27:51
+Accuracy.
+
+[Prof. Devavrat Shah] 18:27:53
+And available.
+
+[Prof. Devavrat Shah] 18:27:55
+Tasks.
+
+[Prof. Devavrat Shah] 18:27:57
+In particular.
+
+[Prof. Devavrat Shah] 18:27:59
+What is surprising. There is that for each question.
+
+[Prof. Devavrat Shah] 18:28:02
+You might have very few people who would have answered to you.
+
+[Prof. Devavrat Shah] 18:28:06
+However, if you asked enough questions with enough people simultaneously.
+
+[Prof. Devavrat Shah] 18:28:13
+Then somehow, you are able to use everybody's strengthly across all questions, and that helps you a lot.
+
+[Prof. Devavrat Shah] 18:28:21
+Because it's somewhat counterintuitive.
+
+[Prof. Devavrat Shah] 18:28:23
+But it's true.
+
+[Prof. Devavrat Shah] 18:28:28
+K.
+
+[Prof. Devavrat Shah] 18:28:33
+Alright! If there's no other question.
+
+[Prof. Devavrat Shah] 18:28:36
+Tib.
+
+[Prof. Devavrat Shah] 18:28:37
+Good place to get going with the today's content.
+
+[Prof. Devavrat Shah] 18:28:41
+Again. I'm not gonna remind you of what we covered yesterday.
+
+[Prof. Devavrat Shah] 18:28:46
+We looked at the out data.
+
+[Prof. Devavrat Shah] 18:28:48
+Movie lens, data.
+
+[Prof. Devavrat Shah] 18:28:49
+Both of these data were very sparse.
+
+[Prof. Devavrat Shah] 18:28:54
+We understood that.
+
+[Prof. Devavrat Shah] 18:28:56
+If you wanted to do recommendation, which is a decision task.
+
+[Prof. Devavrat Shah] 18:29:00
+The key prediction problem needed.
+
+[Prof. Devavrat Shah] 18:29:04
+Is our ability to.
+
+[Prof. Devavrat Shah] 18:29:06
+Estimate, predict.
+
+[Prof. Devavrat Shah] 18:29:08
+There's missing values, unknown reviews.
+
+[Prof. Devavrat Shah] 18:29:11
+Are denoising the known observations.
+
+[Prof. Devavrat Shah] 18:29:14
+In this bar, setting.
+
+[Prof. Devavrat Shah] 18:29:16
+Okay.
+
+[Prof. Devavrat Shah] 18:29:17
+If he can do that, then we can sort of use our.
+
+[Prof. Devavrat Shah] 18:29:22
+Contact. Specific specific objectives constraint to solve the decision problem.
+
+[Prof. Devavrat Shah] 18:29:27
+Okay.
+
+[Prof. Devavrat Shah] 18:29:28
+And.
+
+[Prof. Devavrat Shah] 18:29:30
+Based on that. We formulated the problem.
+
+[Prof. Devavrat Shah] 18:29:33
+We took the simpler version, but we.
+
+[Prof. Devavrat Shah] 18:29:37
+Discuss that there are more complex version of the problem, such as.
+
+[Prof. Devavrat Shah] 18:29:40
+Using different types of information.
+
+[Prof. Devavrat Shah] 18:29:43
+That changes over time.
+
+[Prof. Devavrat Shah] 18:29:46
+And again in today's lecture. We are not going to do this.
+
+[Prof. Devavrat Shah] 18:29:50
+All this.
+
+[Prof. Devavrat Shah] 18:29:51
+We'll try to do.
+
+[Prof. Devavrat Shah] 18:29:53
+All of these things in next lecture.
+
+[Prof. Devavrat Shah] 18:29:56
+Which is on Thursday.
+
+[Prof. Devavrat Shah] 18:29:59
+Not tomorrow.
+
+[Prof. Devavrat Shah] 18:30:02
+But today we're going to continue with.
+
+[Prof. Devavrat Shah] 18:30:05
+This version of the model.
+
+[Prof. Devavrat Shah] 18:30:07
+And we'll spend quite a bit of time sort of looking at a specific.
+
+[Prof. Devavrat Shah] 18:30:11
+Type of solution which I would call rating based solution. Not content, based.
+
+[Prof. Devavrat Shah] 18:30:17
+And what do I mean by that.
+
+[Prof. Devavrat Shah] 18:30:19
+This is a rating based solution.
+
+[Prof. Devavrat Shah] 18:30:22
+That is.
+
+[Prof. Devavrat Shah] 18:30:22
+It did not utilize.
+
+[Prof. Devavrat Shah] 18:30:25
+Any.
+
+[Prof. Devavrat Shah] 18:30:27
+Information about user or item, that is, some attributes.
+
+[Prof. Devavrat Shah] 18:30:31
+Take.
+
+[Prof. Devavrat Shah] 18:30:32
+We did not utilize that.
+
+[Prof. Devavrat Shah] 18:30:34
+I is a user with.
+
+[Prof. Devavrat Shah] 18:30:36
+Who lives in Zip code. O, 2, 1, 3, 9, or J is a movie.
+
+[Prof. Devavrat Shah] 18:30:41
+Which is action. We just thought of. This. I, Nj. Is.
+
+[Prof. Devavrat Shah] 18:30:46
+2 entities.
+
+[Prof. Devavrat Shah] 18:30:49
+What we utilized is.
+
+[Prof. Devavrat Shah] 18:30:51
+Entries that have been observed in the data.
+
+[Prof. Devavrat Shah] 18:30:55
+And that's why we would call these kind of things.
+
+[Prof. Devavrat Shah] 18:30:58
+Rating, based.
+
+[Prof. Devavrat Shah] 18:31:02
+What preference based, if you like.
+
+[Prof. Devavrat Shah] 18:31:07
+Okay.
+
+[Prof. Devavrat Shah] 18:31:09
+Versus.
+
+[Prof. Devavrat Shah] 18:31:11
+A setting like this, where we explicitly content.
+
+[Prof. Devavrat Shah] 18:31:15
+Call it a content based.
+
+[Prof. Devavrat Shah] 18:31:17
+Today's lecture is building on.
+
+[Prof. Devavrat Shah] 18:31:20
+More evolved algorithms.
+
+[Prof. Devavrat Shah] 18:31:22
+Going beyond averaging.
+
+[Prof. Devavrat Shah] 18:31:24
+For.
+
+[Prof. Devavrat Shah] 18:31:25
+Preference based or rating, based approach.
+
+[Prof. Devavrat Shah] 18:31:28
+In the next lecture.
+
+[Prof. Devavrat Shah] 18:31:30
+We will bring together all the things we learned today.
+
+[Prof. Devavrat Shah] 18:31:34
+For complex models.
+
+[Prof. Devavrat Shah] 18:31:36
+Like this.
+
+[Prof. Devavrat Shah] 18:31:38
+Along with.
+
+[Prof. Devavrat Shah] 18:31:39
+The contact.
+
+[Prof. Devavrat Shah] 18:31:41
+Okay.
+
+[Prof. Devavrat Shah] 18:31:42
+So today we'll do lots of details.
+
+[Prof. Devavrat Shah] 18:31:45
+And next lecture will.
+
+[Prof. Devavrat Shah] 18:31:47
+Bunch of pieces that we put together.
+
+[Prof. Devavrat Shah] 18:31:49
+To sort of solve very hard.
+
+[Prof. Devavrat Shah] 18:31:54
+Now one question that I left as a.
+
+[Prof. Devavrat Shah] 18:31:57
+Exercise.
+
+[Prof. Devavrat Shah] 18:31:58
+As a homework for you be all to think about is.
+
+[Prof. Devavrat Shah] 18:32:02
+The role of these things.
+
+[Prof. Devavrat Shah] 18:32:04
+Okay.
+
+[Prof. Devavrat Shah] 18:32:07
+Near the end of previous lecture, I mentioned to you that one over square root.
+
+[Prof. Devavrat Shah] 18:32:11
+Of number of observations is a natural way of thinking about.
+
+[Prof. Devavrat Shah] 18:32:16
+The confidence, interval.
+
+[Prof. Devavrat Shah] 18:32:18
+Especially when we do averaging.
+
+[Prof. Devavrat Shah] 18:32:20
+So.
+
+[Prof. Devavrat Shah] 18:32:23
+YI dot minus one over square root of Ni.
+
+[Prof. Devavrat Shah] 18:32:26
+And y dot plus one over square of N.
+
+[Prof. Devavrat Shah] 18:32:31
+Is, the.
+
+[Prof. Devavrat Shah] 18:32:32
+Confidence intervals, the range.
+
+[Prof. Devavrat Shah] 18:32:35
+But then.
+
+[Prof. Devavrat Shah] 18:32:37
+Here. I'm choosing the upper end of the range.
+
+[Prof. Devavrat Shah] 18:32:41
+For both of these to average.
+
+[Prof. Devavrat Shah] 18:32:46
+And the reason I did that is to explain that this actually.
+
+[Prof. Devavrat Shah] 18:32:51
+When I. Instead of this, when I make this explicit choice, I'm actually making a specific decision.
+
+[Prof. Devavrat Shah] 18:32:57
+So I took my outcome of my prediction, which is this confidence interval.
+
+[Prof. Devavrat Shah] 18:33:01
+Made a decision and produced this as my rating.
+
+[Prof. Devavrat Shah] 18:33:06
+So what sorts of decision is this? What sort of decision would drive me to.
+
+[Prof. Devavrat Shah] 18:33:12
+Choose this upper confidence versus lower confidence, for that matter.
+
+[Prof. Devavrat Shah] 18:33:19
+Don't know.
+
+[Prof. Devavrat Shah] 18:33:21
+Great. So Mike's point is optimistic decision. Very good. So that means that.
+
+[Prof. Devavrat Shah] 18:33:32
+I am saying that. Well.
+
+[Prof. Devavrat Shah] 18:33:34
+You know.
+
+[Prof. Devavrat Shah] 18:33:35
+This is, if number of observations are very few.
+
+[Prof. Devavrat Shah] 18:33:40
+Let's say.
+
+[Prof. Devavrat Shah] 18:33:41
+One.
+
+[Prof. Devavrat Shah] 18:33:43
+Then this whole thing itself is like one.
+
+[Prof. Devavrat Shah] 18:33:45
+And since we are looking at 0 1, this is saying that, let's take the largest. If I only one observation or 0 observation, I'm always going to say.
+
+[Prof. Devavrat Shah] 18:33:54
+Very large value.
+
+[Prof. Devavrat Shah] 18:33:56
+Which means that.
+
+[Prof. Devavrat Shah] 18:33:57
+When there are fewer observation, you want to recommend more, as Eric is pointing out.
+
+[Prof. Devavrat Shah] 18:34:03
+It's like.
+
+[Prof. Devavrat Shah] 18:34:04
+And your restaurant opens up, and you want it to be.
+
+[Prof. Devavrat Shah] 18:34:07
+Promote more, so that people go there so that you get better understanding.
+
+[Prof. Devavrat Shah] 18:34:11
+That's when you would use method like this.
+
+[Prof. Devavrat Shah] 18:34:14
+And of course.
+
+[Prof. Devavrat Shah] 18:34:15
+Once you have lots of observations, one works better, so it doesn't matter.
+
+[Prof. Devavrat Shah] 18:34:21
+Okay.
+
+[Prof. Devavrat Shah] 18:34:22
+Similarly you would do minus if you were to discourage things.
+
+[Prof. Devavrat Shah] 18:34:25
+For example, if you believe that.
+
+[Prof. Devavrat Shah] 18:34:28
+Initially, even restaurant opens and.
+
+[Prof. Devavrat Shah] 18:34:32
+Lots of people.
+
+[Prof. Devavrat Shah] 18:34:34
+Who are friends and family of the restaurant. Go ahead and.
+
+[Prof. Devavrat Shah] 18:34:37
+Put the fake reviews up to promote themselves, and if you want to penalize that, then you would use minus rather than plus.
+
+[Prof. Devavrat Shah] 18:34:45
+Okay.
+
+[Prof. Devavrat Shah] 18:34:46
+And.
+
+[Prof. Devavrat Shah] 18:34:47
+Everything in between gives you different flavors.
+
+[Prof. Devavrat Shah] 18:34:54
+Okay. I hope you had some time and a chance to briefly look at the appendix that I had left of converting from.
+
+[Prof. Devavrat Shah] 18:35:02
+Unstructured to structure.
+
+[Prof. Devavrat Shah] 18:35:05
+And.
+
+[Prof. Devavrat Shah] 18:35:06
+Now we're going to start with today's content.
+
+[Prof. Devavrat Shah] 18:35:10
+Okay before I get into it. Let's see if there are any questions.
+
+[Prof. Devavrat Shah] 18:35:28
+Okay. Christo says, question, is it.
+
+[Prof. Devavrat Shah] 18:35:30
+Could it not work as a security measure to avoid.
+
+[Prof. Devavrat Shah] 18:35:33
+Extreme Rates Damaging.
+
+[Prof. Devavrat Shah] 18:35:35
+Prediction.
+
+[Prof. Devavrat Shah] 18:35:39
+Interesting thought. I'm not sure exactly what you mean, but I understand. What you're saying is that.
+
+[Prof. Devavrat Shah] 18:35:44
+This is a way to.
+
+[Prof. Devavrat Shah] 18:35:52
+For example, the negative one is you could have a negative one where you don't want to.
+
+[Prof. Devavrat Shah] 18:35:55
+Put extreme things extremely high, and keep sort of the.
+
+[Prof. Devavrat Shah] 18:35:59
+Unless you're very confident you don't want to put it out there.
+
+[Prof. Devavrat Shah] 18:36:02
+Great Point.
+
+[Prof. Devavrat Shah] 18:36:09
+Okay.
+
+[Prof. Devavrat Shah] 18:36:13
+Alright. So let's review what we're going to do today.
+
+[Prof. Devavrat Shah] 18:36:16
+In the remainder of the lecture.
+
+[Prof. Devavrat Shah] 18:36:21
+As I mentioned, we are going to look at rating or.
+
+[Prof. Devavrat Shah] 18:36:27
+Preference.
+
+[Prof. Devavrat Shah] 18:36:29
+Based methods.
+
+[Prof. Devavrat Shah] 18:36:32
+We'll start with.
+
+[Prof. Devavrat Shah] 18:36:34
+Clustering.
+
+[Prof. Devavrat Shah] 18:36:36
+The view in the clustering is that.
+
+[Prof. Devavrat Shah] 18:36:39
+It allows us to look for.
+
+[Prof. Devavrat Shah] 18:36:43
+Heterogeneity, present.
+
+[Prof. Devavrat Shah] 18:36:45
+In, the.
+
+[Prof. Devavrat Shah] 18:36:47
+Users and items.
+
+[Prof. Devavrat Shah] 18:36:50
+But once we find the homogeneous.
+
+[Prof. Devavrat Shah] 18:36:52
+Groups.
+
+[Prof. Devavrat Shah] 18:36:52
+Of users and items within this heterogeneous world.
+
+[Prof. Devavrat Shah] 18:36:56
+We can just use traditional averaging.
+
+[Prof. Devavrat Shah] 18:37:01
+So then it will be about looking for such clusters.
+
+[Prof. Devavrat Shah] 18:37:05
+They get.
+
+[Prof. Devavrat Shah] 18:37:06
+You have seen a form of clustering algorithms already, we will utilize some of that. But.
+
+[Prof. Devavrat Shah] 18:37:12
+To utilize that we will have to.
+
+[Prof. Devavrat Shah] 18:37:14
+Adopt our data to that setting, and there'll be some work.
+
+[Prof. Devavrat Shah] 18:37:17
+We'll spend quite a bit of time for that.
+
+[Prof. Devavrat Shah] 18:37:21
+Once we do that, then the next would be well. If you have enough data, then maybe instead of doing global clustering, we could also do.
+
+[Prof. Devavrat Shah] 18:37:28
+Personalized, clustering.
+
+[Prof. Devavrat Shah] 18:37:30
+And this is where.
+
+[Prof. Devavrat Shah] 18:37:32
+Method, like collaborative filtering merges.
+
+[Prof. Devavrat Shah] 18:37:35
+Good.
+
+[Prof. Devavrat Shah] 18:37:38
+Cooperative filtering in my mind is one of the quintessential recommendation system.
+
+[Prof. Devavrat Shah] 18:37:43
+The dawn of Internet.
+
+[Prof. Devavrat Shah] 18:37:46
+People did realize a recommendation. Systems were needed and collaborative naturally came out as a solution.
+
+[Prof. Devavrat Shah] 18:37:54
+In a sense, it's a true contribution of Internet and machine learning.
+
+[Prof. Devavrat Shah] 18:37:59
+Unlike, traditional.
+
+[Prof. Devavrat Shah] 18:38:01
+Things will like. Regression is very statistics, has a long history and statistics.
+
+[Prof. Devavrat Shah] 18:38:05
+Okay.
+
+[Prof. Devavrat Shah] 18:38:08
+It's got a very simple interpretation.
+
+[Prof. Devavrat Shah] 18:38:12
+Very much like the way we are discussing example. Right?
+
+[Prof. Devavrat Shah] 18:38:17
+You want to decide.
+
+[Prof. Devavrat Shah] 18:38:18
+Which restaurant, to use.
+
+[Prof. Devavrat Shah] 18:38:20
+Eat in Cambridge.
+
+[Prof. Devavrat Shah] 18:38:22
+You call me, because you know that you and I have similar taste.
+
+[Prof. Devavrat Shah] 18:38:25
+And you trust my judgment.
+
+[Prof. Devavrat Shah] 18:38:28
+Based on that. I give you the my recommendation, and you use it.
+
+[Prof. Devavrat Shah] 18:38:32
+In a similar manner, how do we.
+
+[Prof. Devavrat Shah] 18:38:34
+The algorithm around this intuition that would collaborate different does.
+
+[Prof. Devavrat Shah] 18:38:38
+It's amazing about this algorithm.
+
+[Prof. Devavrat Shah] 18:38:41
+I've spent quite a bit of time looking at it, studying. It is got all sorts of beautiful properties.
+
+[Prof. Devavrat Shah] 18:38:48
+Whether it's explanabilities, interpretability.
+
+[Prof. Devavrat Shah] 18:38:52
+It is.
+
+[Prof. Devavrat Shah] 18:38:54
+Fantastic statistical properties to itself.
+
+[Prof. Devavrat Shah] 18:38:58
+It's a naturally skills.
+
+[Prof. Devavrat Shah] 18:39:01
+And so on, and I'll talk about that.
+
+[Prof. Devavrat Shah] 18:39:05
+As you can tell, is one of my favoritems.
+
+[Prof. Devavrat Shah] 18:39:09
+And then finally.
+
+[Prof. Devavrat Shah] 18:39:12
+We'll take a look at the same question, but from the perspective of.
+
+[Prof. Devavrat Shah] 18:39:16
+Linear algebra or meat rises.
+
+[Prof. Devavrat Shah] 18:39:20
+That we will look at the algorithm called singular.
+
+[Prof. Devavrat Shah] 18:39:25
+What we will not be able to do today is optimization.
+
+[Prof. Devavrat Shah] 18:39:29
+Okay.
+
+[Prof. Devavrat Shah] 18:39:31
+And I will.
+
+[Prof. Devavrat Shah] 18:39:33
+Pick it up.
+
+[Prof. Devavrat Shah] 18:39:34
+And the next lecture, beginning of next lecture.
+
+[Prof. Devavrat Shah] 18:39:38
+The reason I'm stating here is, it naturally goes as a topic.
+
+[Prof. Devavrat Shah] 18:39:42
+This algorithm that is optimization view is just another view of.
+
+[Prof. Devavrat Shah] 18:39:47
+Singular value. Threshold.
+
+[Prof. Devavrat Shah] 18:39:48
+From an hub.
+
+[Prof. Devavrat Shah] 18:39:48
+Optimization perspective.
+
+[Prof. Devavrat Shah] 18:39:51
+And that's where the method of.
+
+[Prof. Devavrat Shah] 18:39:53
+Least squares. Come on.
+
+[Prof. Devavrat Shah] 18:39:55
+So again, as you can tell, we're gonna cover quite a bit of content today. In the remaining time.
+
+[Prof. Devavrat Shah] 18:40:01
+So it's going to be little bit packed.
+
+[Prof. Devavrat Shah] 18:40:06
+We have moved into the next year.
+
+[Prof. Devavrat Shah] 18:40:11
+Okay, so with that, let's talk about. Now.
+
+[Prof. Devavrat Shah] 18:40:15
+Any questions before I get going.
+
+[Prof. Devavrat Shah] 18:40:24
+It.
+
+[Prof. Devavrat Shah] 18:40:29
+Very good,
+
+[Prof. Devavrat Shah] 18:40:32
+Let's see.
+
+[Prof. Devavrat Shah] 18:40:34
+Here's an example.
+
+[Prof. Devavrat Shah] 18:40:37
+Example of lots of dots, right?
+
+[Prof. Devavrat Shah] 18:40:40
+This is a 2 dimensional plane.
+
+[Prof. Devavrat Shah] 18:40:43
+I've got points.
+
+[Prof. Devavrat Shah] 18:40:44
+And now I'm.
+
+[Prof. Devavrat Shah] 18:40:47
+I would naturally colored them.
+
+[Prof. Devavrat Shah] 18:40:48
+So to suggest that this is one group.
+
+[Prof. Devavrat Shah] 18:40:51
+This is another group, and this is another group, and.
+
+[Prof. Devavrat Shah] 18:40:55
+These kind of look like on the boundary in our.
+
+[Prof. Devavrat Shah] 18:40:58
+Connect them to this.
+
+[Prof. Devavrat Shah] 18:40:59
+Okay.
+
+[Prof. Devavrat Shah] 18:41:00
+Citizens. Here there are 3 clusters, right.
+
+[Prof. Devavrat Shah] 18:41:03
+So cluster as Ub. Know, and, as we have seen, is nothing but a collection of observations where.
+
+[Prof. Devavrat Shah] 18:41:08
+Things within cluster are more similar to each other than things.
+
+[Prof. Devavrat Shah] 18:41:12
+I will take.
+
+[Prof. Devavrat Shah] 18:41:14
+Okay.
+
+[Prof. Devavrat Shah] 18:41:16
+Now.
+
+[Prof. Devavrat Shah] 18:41:17
+In the context of our setting. What is clustering.
+
+[Prof. Devavrat Shah] 18:41:22
+Maybe how
+
+[Prof. Devavrat Shah] 18:41:25
+It's an example, and I'll walk you through in a second. But we have.
+
+[Prof. Devavrat Shah] 18:41:31
+Think of movie lens setting, which is what I'm showing here.
+
+[Prof. Devavrat Shah] 18:41:35
+We go to users.
+
+[Prof. Devavrat Shah] 18:41:38
+Suppose there are few of the users who have identical.
+
+[Prof. Devavrat Shah] 18:41:43
+Preferences across all the movies.
+
+[Prof. Devavrat Shah] 18:41:45
+Then they would form a cluster.
+
+[Prof. Devavrat Shah] 18:41:49
+Suppose there are movies.
+
+[Prof. Devavrat Shah] 18:41:53
+For which?
+
+[Prof. Devavrat Shah] 18:41:55
+All the users have.
+
+[Prof. Devavrat Shah] 18:41:59
+Similar behavior, that is.
+
+[Prof. Devavrat Shah] 18:42:01
+If for movie one. And they're movie 2.
+
+[Prof. Devavrat Shah] 18:42:04
+Maybe user. One likes both of them, and user 2 dislikes, both of them.
+
+[Prof. Devavrat Shah] 18:42:09
+In that case, movie one and 2.
+
+[Prof. Devavrat Shah] 18:42:12
+Have identical.
+
+[Prof. Devavrat Shah] 18:42:13
+Preference patterns as well.
+
+[Prof. Devavrat Shah] 18:42:15
+And in that case those 2 movies should form a cluster.
+
+[Prof. Devavrat Shah] 18:42:21
+Now the question is that, do such exist?
+
+[Prof. Devavrat Shah] 18:42:24
+In the data itself.
+
+[Prof. Devavrat Shah] 18:42:25
+And here is a.
+
+[Prof. Devavrat Shah] 18:42:28
+Visual representation of.
+
+[Prof. Devavrat Shah] 18:42:31
+Showing that actually, it does exist. For example, in the movie lens data.
+
+[Prof. Devavrat Shah] 18:42:34
+Okay.
+
+[Prof. Devavrat Shah] 18:42:36
+Now, what we have done here is, and this is done by.
+
+[Prof. Devavrat Shah] 18:42:40
+What's the name?
+
+[Prof. Devavrat Shah] 18:42:43
+George.
+
+[Prof. Devavrat Shah] 18:42:45
+Professor at Cmu.
+
+[Prof. Devavrat Shah] 18:42:48
+He's my former student. He did a very nice thesis.
+
+[Prof. Devavrat Shah] 18:42:51
+2,015. And this is out of that. Thesis.
+
+[Prof. Devavrat Shah] 18:42:56
+What did?
+
+[Prof. Devavrat Shah] 18:42:57
+George do here. So he took the movie lens data.
+
+[Prof. Devavrat Shah] 18:43:01
+That we've been discussing.
+
+[Prof. Devavrat Shah] 18:43:04
+In that movie lens data. He looked at the.
+
+[Prof. Devavrat Shah] 18:43:09
+Top 200 users.
+
+[Prof. Devavrat Shah] 18:43:11
+That is, the users who have rated most number of movies.
+
+[Prof. Devavrat Shah] 18:43:18
+And then top 500 movies. That is the movies that have been rated. The most.
+
+[Prof. Devavrat Shah] 18:43:23
+And we're looking at the metrics of.
+
+[Prof. Devavrat Shah] 18:43:27
+Those.
+
+[Prof. Devavrat Shah] 18:43:29
+200 users.
+
+[Prof. Devavrat Shah] 18:43:30
+And.
+
+[Prof. Devavrat Shah] 18:43:32
+500 movies.
+
+[Prof. Devavrat Shah] 18:43:38
+Okay.
+
+[Prof. Devavrat Shah] 18:43:38
+Now the reason of choosing this is so that the observed data is dense enough.
+
+[Prof. Devavrat Shah] 18:43:41
+Now these movies are reordered.
+
+[Prof. Devavrat Shah] 18:43:45
+And users have reordered.
+
+[Prof. Devavrat Shah] 18:43:47
+Okay. It's not that.
+
+[Prof. Devavrat Shah] 18:43:48
+This is the user one and user, which is, we have reordered them.
+
+[Prof. Devavrat Shah] 18:43:53
+Already numbered them.
+
+[Prof. Devavrat Shah] 18:43:55
+So then we can see patterns like this.
+
+[Prof. Devavrat Shah] 18:43:58
+Okay.
+
+[Prof. Devavrat Shah] 18:44:02
+Each entry. Here is.
+
+[Prof. Devavrat Shah] 18:44:04
+Viewed visually.
+
+[Prof. Devavrat Shah] 18:44:07
+Each entry here is viewed visually.
+
+[Prof. Devavrat Shah] 18:44:10
+On this gray scale.
+
+[Prof. Devavrat Shah] 18:44:11
+So.
+
+[Prof. Devavrat Shah] 18:44:13
+White is 0.
+
+[Prof. Devavrat Shah] 18:44:16
+Black or dark is one, and.
+
+[Prof. Devavrat Shah] 18:44:18
+Numbers in between effectively, and these are normalized, because, remember.
+
+[Prof. Devavrat Shah] 18:44:23
+In the movie lens case, we have numbers between up to 5. It's a rating. So you normalize them to this gray scale or 0 1.
+
+[Prof. Devavrat Shah] 18:44:31
+Now, what we see is that here's a.
+
+[Prof. Devavrat Shah] 18:44:35
+Set, of.
+
+[Prof. Devavrat Shah] 18:44:36
+Movies.
+
+[Prof. Devavrat Shah] 18:44:38
+Okay.
+
+[Prof. Devavrat Shah] 18:44:40
+They're forming a cluster.
+
+[Prof. Devavrat Shah] 18:44:41
+Because, as we can see.
+
+[Prof. Devavrat Shah] 18:44:44
+These users read them same.
+
+[Prof. Devavrat Shah] 18:44:46
+The other users who read them same. These are other users, rate them same, and so on.
+
+[Prof. Devavrat Shah] 18:44:52
+Take the same pattern, continues.
+
+[Prof. Devavrat Shah] 18:44:55
+But then, no matter which column we take.
+
+[Prof. Devavrat Shah] 18:44:59
+If you look at the users.
+
+[Prof. Devavrat Shah] 18:45:04
+Here, there's a user group, one.
+
+[Prof. Devavrat Shah] 18:45:06
+And then there's a group 2.
+
+[Prof. Devavrat Shah] 18:45:10
+Then there's a group 3.
+
+[Prof. Devavrat Shah] 18:45:12
+There's a group.
+
+[Prof. Devavrat Shah] 18:45:13
+And so.
+
+[Prof. Devavrat Shah] 18:45:13
+4.
+
+[Prof. Devavrat Shah] 18:45:15
+Good.
+
+[Prof. Devavrat Shah] 18:45:17
+Particularly if we focus on. Let's go.
+
+[Prof. Devavrat Shah] 18:45:21
+Let's look at.
+
+[Prof. Devavrat Shah] 18:45:25
+This part.
+
+[Prof. Devavrat Shah] 18:45:28
+Okay.
+
+[Prof. Devavrat Shah] 18:45:29
+Then what that shows is that this is.
+
+[Prof. Devavrat Shah] 18:45:33
+Set of users who come from one cluster.
+
+[Prof. Devavrat Shah] 18:45:36
+And set of movies who come from.
+
+[Prof. Devavrat Shah] 18:45:38
+One cluster that is.
+
+[Prof. Devavrat Shah] 18:45:40
+Each user is a clone of others.
+
+[Prof. Devavrat Shah] 18:45:43
+Each movie is a clone of other.
+
+[Prof. Devavrat Shah] 18:45:44
+That means that all of these entries must be equal.
+
+[Prof. Devavrat Shah] 18:45:49
+In India visually that looks similar.
+
+[Prof. Devavrat Shah] 18:45:53
+Similarly, if we go to this another part.
+
+[Prof. Devavrat Shah] 18:45:58
+This corresponds to.
+
+[Prof. Devavrat Shah] 18:46:01
+Users from cluster one, and you movies from cluster 2.
+
+[Prof. Devavrat Shah] 18:46:05
+So again, all entries here should be similar.
+
+[Prof. Devavrat Shah] 18:46:08
+And that is indeed the case. But this and this might be different.
+
+[Prof. Devavrat Shah] 18:46:12
+And that is the case too.
+
+[Prof. Devavrat Shah] 18:46:15
+So that means that if we can identify.
+
+[Prof. Devavrat Shah] 18:46:18
+What are the users in the same cluster in movies, in the same cluster.
+
+[Prof. Devavrat Shah] 18:46:24
+Then.
+
+[Prof. Devavrat Shah] 18:46:25
+We can.
+
+[Prof. Devavrat Shah] 18:46:26
+Even if we observe few entries into them, we can just average them and assign that value to them.
+
+[Prof. Devavrat Shah] 18:46:33
+All the.
+
+[Prof. Devavrat Shah] 18:46:34
+The.
+
+[Prof. Devavrat Shah] 18:46:35
+In that entire cluster, by cluster, sub matrix.
+
+[Prof. Devavrat Shah] 18:46:40
+So, really.
+
+[Prof. Devavrat Shah] 18:46:42
+Then the algorithm becomes following.
+
+[Prof. Devavrat Shah] 18:46:44
+Okay, so algorithm is.
+
+[Prof. Devavrat Shah] 18:46:48
+So.
+
+[Prof. Devavrat Shah] 18:46:50
+What I would call cluster, averaging.
+
+[Prof. Devavrat Shah] 18:46:54
+Algorithm is.
+
+[Prof. Devavrat Shah] 18:46:55
+Step, one.
+
+[Prof. Devavrat Shah] 18:46:59
+Identify.
+
+[Prof. Devavrat Shah] 18:47:01
+User.
+
+[Prof. Devavrat Shah] 18:47:05
+Clusters.
+
+[Prof. Devavrat Shah] 18:47:07
+And step, 2.
+
+[Prof. Devavrat Shah] 18:47:09
+For.
+
+[Prof. Devavrat Shah] 18:47:10
+Each.
+
+[Prof. Devavrat Shah] 18:47:13
+Of.
+
+[Prof. Devavrat Shah] 18:47:14
+User.
+
+[Prof. Devavrat Shah] 18:47:16
+Movie.
+
+[Prof. Devavrat Shah] 18:47:19
+Cluster.
+
+[Prof. Devavrat Shah] 18:47:21
+Submatrix.
+
+[Prof. Devavrat Shah] 18:47:23
+Okay.
+
+[Prof. Devavrat Shah] 18:47:24
+Estimate.
+
+[Prof. Devavrat Shah] 18:47:28
+Value.
+
+[Prof. Devavrat Shah] 18:47:30
+As average.
+
+[Prof. Devavrat Shah] 18:47:31
+Of.
+
+[Prof. Devavrat Shah] 18:47:32
+Observed.
+
+[Prof. Devavrat Shah] 18:47:34
+Values.
+
+[Prof. Devavrat Shah] 18:47:36
+In that.
+
+[Prof. Devavrat Shah] 18:47:38
+Sub matrix.
+
+[Prof. Devavrat Shah] 18:47:40
+And we are done.
+
+[Prof. Devavrat Shah] 18:47:43
+Bring another way!
+
+[Prof. Devavrat Shah] 18:47:45
+Let's suppose that.
+
+[Prof. Devavrat Shah] 18:47:46
+Here's an example.
+
+[Prof. Devavrat Shah] 18:47:48
+Okay? And let's suppose we have identified that there are.
+
+[Prof. Devavrat Shah] 18:47:52
+2 user clusters. So he is a user cluster, one user cluster, 2 and.
+
+[Prof. Devavrat Shah] 18:47:57
+3 item clusters.
+
+[Prof. Devavrat Shah] 18:48:00
+Suppose we observe 1 0.
+
+[Prof. Devavrat Shah] 18:48:02
+0 1.
+
+[Prof. Devavrat Shah] 18:48:03
+One and everything else is question. Mark.
+
+[Prof. Devavrat Shah] 18:48:08
+Then here.
+
+[Prof. Devavrat Shah] 18:48:11
+See, then, here, what we're going to do is that we're going to replace every.
+
+[Prof. Devavrat Shah] 18:48:15
+Bye.
+
+[Prof. Devavrat Shah] 18:48:23
+Any guesses.
+
+[Prof. Devavrat Shah] 18:48:23
+What should we replace every entry in this.
+
+[Prof. Devavrat Shah] 18:48:24
+Subcluster by or sub matrix by.
+
+[Prof. Devavrat Shah] 18:48:29
+Okay, and that averages you've got one.
+
+[Prof. Devavrat Shah] 18:48:34
+2, 3, 4, 5 entries, out of which 3 are ones.
+
+[Prof. Devavrat Shah] 18:48:37
+Which means that.
+
+[Prof. Devavrat Shah] 18:48:39
+It should be 3.
+
+[Prof. Devavrat Shah] 18:48:42
+Or.
+
+[Prof. Devavrat Shah] 18:48:43
+Point 6.
+
+[Prof. Devavrat Shah] 18:48:46
+Okay.
+
+[Prof. Devavrat Shah] 18:48:47
+That's what we should replace every entry by.
+
+[Prof. Devavrat Shah] 18:48:49
+Let's take another example.
+
+[Prof. Devavrat Shah] 18:48:51
+Suppose.
+
+[Prof. Devavrat Shah] 18:48:53
+Here the entries are 0. 1 question mark.
+
+[Prof. Devavrat Shah] 18:48:57
+One question mark 0 0.
+
+[Prof. Devavrat Shah] 18:49:00
+Question, okay?
+
+[Prof. Devavrat Shah] 18:49:02
+No.
+
+[Prof. Devavrat Shah] 18:49:03
+What should we replace all entries in this.
+
+[Prof. Devavrat Shah] 18:49:07
+Cluster, by.
+
+[Prof. Devavrat Shah] 18:49:09
+Okay.
+
+[Prof. Devavrat Shah] 18:49:14
+Alright. So let's see.
+
+[Prof. Devavrat Shah] 18:49:17
+You've got. How many observations.
+
+[Prof. Devavrat Shah] 18:49:20
+1, 2, 3, 4, 5, 6.
+
+[Prof. Devavrat Shah] 18:49:23
+6. Observation. 2 out of those 6 are one, and rest are 0 is 2 over 6, 1 over 3, or.
+
+[Prof. Devavrat Shah] 18:49:30
+Point 3 3 dot.
+
+[Prof. Devavrat Shah] 18:49:34
+Excellent.
+
+[Prof. Devavrat Shah] 18:49:35
+So that's.
+
+[Prof. Devavrat Shah] 18:49:37
+Averaging. But to do averaging, we need to find this user clusters and item clusters and question, how do we do that?
+
+[Prof. Devavrat Shah] 18:49:45
+And that's what we're gonna do next.
+
+[Prof. Devavrat Shah] 18:49:48
+Okay.
+
+[Prof. Devavrat Shah] 18:49:51
+Alright. Let's see if there are any questions before I explain you how to find the clusters.
+
+[Prof. Devavrat Shah] 18:49:58
+Kevin.
+
+[Prof. Devavrat Shah] 18:50:10
+So.
+
+[Prof. Devavrat Shah] 18:50:12
+As we do the discussion we want to find user. And we want to find item clusters.
+
+[Prof. Devavrat Shah] 18:50:16
+But I will simply focus on.
+
+[Prof. Devavrat Shah] 18:50:19
+Identifying user clusters.
+
+[Prof. Devavrat Shah] 18:50:21
+Because identifying user clusters is like.
+
+[Prof. Devavrat Shah] 18:50:25
+Clustering.
+
+[Prof. Devavrat Shah] 18:50:28
+Of the matrix.
+
+[Prof. Devavrat Shah] 18:50:30
+Same algorithm can be applied to columns of the matrix, and then there'll be.
+
+[Prof. Devavrat Shah] 18:50:34
+That item, cluster.
+
+[Prof. Devavrat Shah] 18:50:35
+So.
+
+[Prof. Devavrat Shah] 18:50:38
+For simplicity will simply.
+
+[Prof. Devavrat Shah] 18:50:40
+Discuss user clustering Algorithm.
+
+[Prof. Devavrat Shah] 18:50:44
+K.
+
+[Prof. Devavrat Shah] 18:50:46
+Now, if.
+
+[Prof. Devavrat Shah] 18:50:47
+All users, where, for example.
+
+[Prof. Devavrat Shah] 18:50:50
+Somehow mapped to some.
+
+[Prof. Devavrat Shah] 18:50:53
+2 dimensional or d dimensional.
+
+[Prof. Devavrat Shah] 18:50:56
+Space.
+
+[Prof. Devavrat Shah] 18:50:57
+As numbers like this.
+
+[Prof. Devavrat Shah] 18:51:00
+Right.
+
+[Prof. Devavrat Shah] 18:51:00
+Then we could have done our favorite clustering algorithms that you learned. For example, key means.
+
+[Prof. Devavrat Shah] 18:51:10
+Again, you could choose other clustering algorithm, too. But.
+
+[Prof. Devavrat Shah] 18:51:12
+If I were to use.
+
+[Prof. Devavrat Shah] 18:51:15
+An algorithm like K.
+
+[Prof. Devavrat Shah] 18:51:17
+If users are represented.
+
+[Prof. Devavrat Shah] 18:51:19
+In some d dimensional place. Then I can apply it.
+
+[Prof. Devavrat Shah] 18:51:22
+Because if you, as you remember, for example, suppose I start with equals to 3.
+
+[Prof. Devavrat Shah] 18:51:28
+Then came in, says that while first.st
+
+[Prof. Devavrat Shah] 18:51:30
+Choose.
+
+[Prof. Devavrat Shah] 18:51:32
+3.
+
+[Prof. Devavrat Shah] 18:51:33
+Initial.
+
+[Prof. Devavrat Shah] 18:51:35
+The guesses for clusters at random.
+
+[Prof. Devavrat Shah] 18:51:38
+Ticket, this one.
+
+[Prof. Devavrat Shah] 18:51:39
+This one and this one, for example.
+
+[Prof. Devavrat Shah] 18:51:43
+Then what happens is that well.
+
+[Prof. Devavrat Shah] 18:51:45
+We look at.
+
+[Prof. Devavrat Shah] 18:51:47
+All the points, and assign them.
+
+[Prof. Devavrat Shah] 18:51:49
+The closest of the cluster centers. For example, all of these will assign here. This might assign here, this might assign here, this might assign here.
+
+[Prof. Devavrat Shah] 18:51:58
+He's gonna sign here, and maybe these will assign here.
+
+[Prof. Devavrat Shah] 18:52:02
+Once we got this cluster.
+
+[Prof. Devavrat Shah] 18:52:05
+Okay.
+
+[Prof. Devavrat Shah] 18:52:06
+The computer. It's cluster centers now.
+
+[Prof. Devavrat Shah] 18:52:08
+Which means there'll be a cluster one.
+
+[Prof. Devavrat Shah] 18:52:12
+Take Master 2, and cluster 3.
+
+[Prof. Devavrat Shah] 18:52:15
+That cluster will be somewhere here, here, and here.
+
+[Prof. Devavrat Shah] 18:52:19
+And we do again the reassignments, and iterate till.
+
+[Prof. Devavrat Shah] 18:52:23
+That stops changing, or we have done enough iterations.
+
+[Prof. Devavrat Shah] 18:52:27
+That schemes.
+
+[Prof. Devavrat Shah] 18:52:29
+Came into any such algorithm require that.
+
+[Prof. Devavrat Shah] 18:52:32
+Users are in some dimensional play space.
+
+[Prof. Devavrat Shah] 18:52:37
+But hey! Users have.
+
+[Prof. Devavrat Shah] 18:52:40
+Preferences, like each user has a large.
+
+[Prof. Devavrat Shah] 18:52:44
+Reference vector across all movies.
+
+[Prof. Devavrat Shah] 18:52:47
+And not for a given user. Not all preference values are known.
+
+[Prof. Devavrat Shah] 18:52:51
+The question, is it? How do we do.
+
+[Prof. Devavrat Shah] 18:52:53
+Clustering.
+
+[Prof. Devavrat Shah] 18:52:54
+Okay.
+
+[Prof. Devavrat Shah] 18:52:56
+And this is where.
+
+[Prof. Devavrat Shah] 18:52:58
+These 2 steps become essential.
+
+[Prof. Devavrat Shah] 18:53:02
+So
+
+[Prof. Devavrat Shah] 18:53:03
+What we will do.
+
+[Prof. Devavrat Shah] 18:53:05
+Is.
+
+[Prof. Devavrat Shah] 18:53:06
+That.
+
+[Prof. Devavrat Shah] 18:53:07
+To identify.
+
+[Prof. Devavrat Shah] 18:53:09
+Okay, so.
+
+[Prof. Devavrat Shah] 18:53:12
+Kings is done. If we identify space.
+
+[Prof. Devavrat Shah] 18:53:15
+To get them to the dimensional plane.
+
+[Prof. Devavrat Shah] 18:53:18
+We will.
+
+[Prof. Devavrat Shah] 18:53:20
+Do something interesting, which is.
+
+[Prof. Devavrat Shah] 18:53:22
+Computing, similarity, matrix.
+
+[Prof. Devavrat Shah] 18:53:24
+So what we will do is we will compute notion of similarity. Matrix.
+
+[Prof. Devavrat Shah] 18:53:29
+Complete, Matrix.
+
+[Prof. Devavrat Shah] 18:53:31
+Matrix, which is an N by N. Matrix, where entry I.
+
+[Prof. Devavrat Shah] 18:53:37
+The same as Entry I, which represents similarity between I. And J.
+
+[Prof. Devavrat Shah] 18:53:42
+Okay.
+
+[Prof. Devavrat Shah] 18:53:43
+And we'll talk about that.
+
+[Prof. Devavrat Shah] 18:53:46
+In a bit.
+
+[Prof. Devavrat Shah] 18:53:48
+But once we compute that similarity matrix on top of it, we will do.
+
+[Prof. Devavrat Shah] 18:53:53
+The Pca.
+
+[Prof. Devavrat Shah] 18:53:55
+Effectively computingular truncated singular value, decomposition.
+
+[Prof. Devavrat Shah] 18:54:01
+That will give us its dimensional representation.
+
+[Prof. Devavrat Shah] 18:54:04
+So.
+
+[Prof. Devavrat Shah] 18:54:06
+A high dimensional vector here.
+
+[Prof. Devavrat Shah] 18:54:08
+Could reduce to lower dimensional representation. Here.
+
+[Prof. Devavrat Shah] 18:54:10
+And then on top of it, we do ins to find clustering.
+
+[Prof. Devavrat Shah] 18:54:15
+Quite a bit of work. Okay.
+
+[Prof. Devavrat Shah] 18:54:18
+But the key step is this one.
+
+[Prof. Devavrat Shah] 18:54:20
+That is, computing similarities.
+
+[Prof. Devavrat Shah] 18:54:25
+Once we compute similarities, then this is a natural step of Pca.
+
+[Prof. Devavrat Shah] 18:54:32
+Invent.
+
+[Prof. Devavrat Shah] 18:54:33
+K means follows because Pca provides.
+
+[Prof. Devavrat Shah] 18:54:36
+The dimensional presentation.
+
+[Prof. Devavrat Shah] 18:54:40
+Now
+
+[Prof. Devavrat Shah] 18:54:41
+Are we getting closer to the break time? And before I actually, I don't want to start a new topic before we do break.
+
+[Prof. Devavrat Shah] 18:54:48
+But let's see, there are a bunch of questions that I can answer.
+
+[Prof. Devavrat Shah] 18:54:52
+And then we might just get to the break time itself.
+
+[Prof. Devavrat Shah] 18:54:57
+Alright, so let me see
+
+[Prof. Devavrat Shah] 18:55:03
+Okay. So Crystal says, question.
+
+[Prof. Devavrat Shah] 18:55:07
+Of hmm!
+
+[Prof. Devavrat Shah] 18:55:09
+Okay, so like it. Question, what was the criteria for reordering like? Great question. I think.
+
+[Prof. Devavrat Shah] 18:55:15
+It was reordering.
+
+[Prof. Devavrat Shah] 18:55:19
+Of users and items is to bring users from the same cluster together, and items from the same cluster together.
+
+[Prof. Devavrat Shah] 18:55:32
+Why do we observe a sort of orthogonality in the pattern of form, cluster.
+
+[Prof. Devavrat Shah] 18:55:36
+You mean like a check box, right? In a sense, you expect that because.
+
+[Prof. Devavrat Shah] 18:55:42
+When you go from one cluster to another cluster, there has to be some difference.
+
+[Prof. Devavrat Shah] 18:55:46
+So it's a natural.
+
+[Prof. Devavrat Shah] 18:55:49
+That you would.
+
+[Prof. Devavrat Shah] 18:55:51
+Observationally, you will see that orthogonality.
+
+[Prof. Devavrat Shah] 18:55:57
+Which is what you're putting.
+
+[Prof. Devavrat Shah] 18:55:58
+Otherwise they will be all part of the same cluster.
+
+[Prof. Devavrat Shah] 18:56:01
+Dasha's question is, if we order users in movies, we get.
+
+[Prof. Devavrat Shah] 18:56:06
+The same matrix.
+
+[Prof. Devavrat Shah] 18:56:08
+Yeah, we just relabeled people. Nothing else. Right? It's just matrix is now, too.
+
+[Prof. Devavrat Shah] 18:56:15
+But the content is remained the same.
+
+[Prof. Devavrat Shah] 18:56:18
+See, that's a beautiful thing about weights is that they are.
+
+[Prof. Devavrat Shah] 18:56:22
+What people I would call order, invariant, or permutation invariant.
+
+[Prof. Devavrat Shah] 18:56:28
+It's their their property.
+
+[Prof. Devavrat Shah] 18:56:31
+It is crucial when I'll come to.
+
+[Prof. Devavrat Shah] 18:56:34
+Tomorrow's lecture. Talk about the key.
+
+[Prof. Devavrat Shah] 18:56:40
+Model behind it.
+
+[Prof. Devavrat Shah] 18:56:48
+Okay.
+
+[Prof. Devavrat Shah] 18:56:51
+Alright. So Robbie's question is, do we need to define similarity? For example, in this.
+
+[Prof. Devavrat Shah] 18:56:55
+Different shapes, also.
+
+[Prof. Devavrat Shah] 18:56:57
+So.
+
+[Prof. Devavrat Shah] 18:56:59
+Some yellow squares, triangles.
+
+[Prof. Devavrat Shah] 18:57:02
+Clustering may look different.
+
+[Prof. Devavrat Shah] 18:57:05
+Well, in this case we, we implicitly assume that the distance is captured by.
+
+[Prof. Devavrat Shah] 18:57:13
+The underlying 2 dimensional space.
+
+[Prof. Devavrat Shah] 18:57:16
+And that's where the similarity was already.
+
+[Prof. Devavrat Shah] 18:57:18
+There!
+
+[Prof. Devavrat Shah] 18:57:22
+Hendrik's question is, I assume, finding symmetric cluster is probably very rare.
+
+[Prof. Devavrat Shah] 18:57:27
+Be framed, plus that are not symmetric.
+
+[Prof. Devavrat Shah] 18:57:30
+Do you reflect this in the calculation of the average.
+
+[Prof. Devavrat Shah] 18:57:32
+So I'm not sure I fully understand your question. By what does symmetric? Because.
+
+[Prof. Devavrat Shah] 18:57:40
+Cluster is a group.
+
+[Prof. Devavrat Shah] 18:57:42
+So what does symmetry or asymmetry mean for it?
+
+[Prof. Devavrat Shah] 18:57:46
+Maybe you can clarify a question, and I can try to respond.
+
+[Prof. Devavrat Shah] 18:57:51
+Jeff's question is that, how do we determine number of clusters as a starting point.
+
+[Prof. Devavrat Shah] 18:57:56
+So as you have done
+
+[Prof. Devavrat Shah] 18:58:00
+In, your.
+
+[Prof. Devavrat Shah] 18:58:02
+The prior lectures about clustering.
+
+[Prof. Devavrat Shah] 18:58:05
+There were different approaches that were suggested to you in terms of determining how to do clustering. For example, you could use album.
+
+[Prof. Devavrat Shah] 18:58:10
+And album method takes effectively some metric like Colbert.
+
+[Prof. Devavrat Shah] 18:58:17
+And you trace it, and then, based on that, determine the where the elbow is to make a decision to do
+
+[Prof. Devavrat Shah] 18:58:24
+Number of clusters.
+
+[Prof. Devavrat Shah] 18:58:27
+Steven's question is, did you say you can do K-means? If data is in 2 dimension.
+
+[Prof. Devavrat Shah] 18:58:32
+You can do date. Stephen, you can do K. Means in any dimension. Okay, as long as you have a notion of distance or similarity well defined.
+
+[Prof. Devavrat Shah] 18:58:42
+Pete's question is that what was the symmetry, orthogonality we saw in the movie lens data, common result.
+
+[Prof. Devavrat Shah] 18:58:50
+Up.
+
+[Prof. Devavrat Shah] 18:58:52
+Peter, it should be because there is certain
+
+[Prof. Devavrat Shah] 18:58:56
+If data is completely heterogeneous, and you see no clustering.
+
+[Prof. Devavrat Shah] 18:59:00
+It's kind of.
+
+[Prof. Devavrat Shah] 18:59:02
+Infeasible to learn.
+
+[Prof. Devavrat Shah] 18:59:04
+So, in a sense, if you don't see any such thing.
+
+[Prof. Devavrat Shah] 18:59:08
+Underneath, then I think it will be almost impossible to extrapolate.
+
+[Prof. Devavrat Shah] 18:59:11
+So in any reasonable setting, you must be able to see some such.
+
+[Prof. Devavrat Shah] 18:59:16
+Pattern.
+
+[Prof. Devavrat Shah] 18:59:17
+Okay.
+
+[Prof. Devavrat Shah] 18:59:20
+And
+
+[Prof. Devavrat Shah] 18:59:22
+Question. Tasha's question is a do. Clusters change as people add more reviews.
+
+[Prof. Devavrat Shah] 18:59:28
+Absolutely. Clusters can change and would change, and this may be evolved, as may well over time. So it's a fantastic question.
+
+[Prof. Devavrat Shah] 18:59:37
+Alright. So we're almost the time of break. So we'll take a break come back at 9 35. Okay.
+
+[Prof. Devavrat Shah] 18:59:45
+I'm gonna mute myself and remove my video.
+
+[Prof. Devavrat Shah] 18:59:48
+Please go grab a coffee water, and I'll see you at 9 35, and then we'll start at that time with.
+
+[Prof. Devavrat Shah] 18:59:54
+Computing similarity between users.
+
+[Prof. Devavrat Shah] 19:05:45
+A bit of a break.
+
+[Prof. Devavrat Shah] 19:05:47
+But he's back.
+
+[Prof. Devavrat Shah] 19:05:48
+We're going to get restarted.
+
+[Prof. Devavrat Shah] 19:05:54
+So as discussed before the break.
+
+[Prof. Devavrat Shah] 19:05:56
+This stage. My goal is to help us think through. How do we compute.
+
+[Prof. Devavrat Shah] 19:06:04
+A similarity. Matrix.
+
+[Prof. Devavrat Shah] 19:06:06
+Between users.
+
+[Prof. Devavrat Shah] 19:06:07
+Based on the data that we have based on the.
+
+[Prof. Devavrat Shah] 19:06:11
+Preference data that we have the.
+
+[Prof. Devavrat Shah] 19:06:16
+That is not complete, but somehow still create a complete similarity. Matrix.
+
+[Prof. Devavrat Shah] 19:06:21
+Because if we can do that, then we can do on top of it. Pca.
+
+[Prof. Devavrat Shah] 19:06:26
+To identify.
+
+[Prof. Devavrat Shah] 19:06:27
+The d dimensional representation for each user.
+
+[Prof. Devavrat Shah] 19:06:30
+So let's work towards that next.
+
+[Prof. Devavrat Shah] 19:06:33
+Right to do that. What I'm going to do is I'm going to take an example.
+
+[Prof. Devavrat Shah] 19:06:36
+And we're gonna compute what I would call a cosine matrix.
+
+[Prof. Devavrat Shah] 19:06:42
+Okay, so we could do.
+
+[Prof. Devavrat Shah] 19:06:44
+Go, sign similarity.
+
+[Prof. Devavrat Shah] 19:06:48
+Matrix.
+
+[Prof. Devavrat Shah] 19:06:49
+There are other forms of similarity that are.
+
+[Prof. Devavrat Shah] 19:06:52
+Popular
+
+[Prof. Devavrat Shah] 19:06:53
+Cosine similarity has,
+
+[Prof. Devavrat Shah] 19:06:57
+A very good statistical reason why that is a reasonable.
+
+[Prof. Devavrat Shah] 19:07:02
+Or in some sense the right thing to do.
+
+[Prof. Devavrat Shah] 19:07:04
+That's why I'm gonna focus on that.
+
+[Prof. Devavrat Shah] 19:07:07
+It is also relationship to the.
+
+[Prof. Devavrat Shah] 19:07:10
+Distance matrix as a 2 known distances, as well.
+
+[Prof. Devavrat Shah] 19:07:14
+So there's a lot more than what it.
+
+[Prof. Devavrat Shah] 19:07:18
+Lets you.
+
+[Prof. Devavrat Shah] 19:07:20
+Intuitively sign similarity are also a way to think about normalizing.
+
+[Prof. Devavrat Shah] 19:07:25
+Preferences, that is.
+
+[Prof. Devavrat Shah] 19:07:26
+You know.
+
+[Prof. Devavrat Shah] 19:07:28
+If I'm a user who always gives.
+
+[Prof. Devavrat Shah] 19:07:31
+Similar ratings.
+
+[Prof. Devavrat Shah] 19:07:33
+To everything but 5 stars versus you are a user who is also gives same rating to everything but 2 stars.
+
+[Prof. Devavrat Shah] 19:07:41
+Then, in some sense you and I are identical.
+
+[Prof. Devavrat Shah] 19:07:45
+And so cosine sort of allows you to.
+
+[Prof. Devavrat Shah] 19:07:49
+Deal with this kind of
+
+[Prof. Devavrat Shah] 19:07:52
+Hmm.
+
+[Prof. Devavrat Shah] 19:07:53
+Normalization issues as well.
+
+[Prof. Devavrat Shah] 19:07:57
+Alright. So with that in mind, let's consider a simple example.
+
+[Prof. Devavrat Shah] 19:08:02
+And for the purpose of this example, for the illustration purposes, what I'm going to do is I'm going to assume.
+
+[Prof. Devavrat Shah] 19:08:09
+Things to be.
+
+[Prof. Devavrat Shah] 19:08:12
+Minus 1 1 rather than 0 and one.
+
+[Prof. Devavrat Shah] 19:08:14
+So what was 0 will be minus one. What is one is one.
+
+[Prof. Devavrat Shah] 19:08:20
+So.
+
+[Prof. Devavrat Shah] 19:08:22
+What do I mean by that? So let's suppose that we've got 1, 2, 3, 4, 5, 6.
+
+[Prof. Devavrat Shah] 19:08:29
+So suppose we got.
+
+[Prof. Devavrat Shah] 19:08:30
+3 users and 7 items.
+
+[Prof. Devavrat Shah] 19:08:34
+Good.
+
+[Prof. Devavrat Shah] 19:08:36
+And here is this person at least I use a different color, too.
+
+[Prof. Devavrat Shah] 19:08:41
+T.
+
+[Prof. Devavrat Shah] 19:08:43
+Hmm.
+
+[Prof. Devavrat Shah] 19:08:44
+Let's do it this way.
+
+[Prof. Devavrat Shah] 19:08:45
+So this one says, plus one.
+
+[Prof. Devavrat Shah] 19:08:50
+Question, mark.
+
+[Prof. Devavrat Shah] 19:08:51
+Minus one.
+
+[Prof. Devavrat Shah] 19:08:52
+Minus one question mark.
+
+[Prof. Devavrat Shah] 19:08:55
+Plus one.
+
+[Prof. Devavrat Shah] 19:08:56
+Question.
+
+[Prof. Devavrat Shah] 19:08:58
+Okay. This one is.
+
+[Prof. Devavrat Shah] 19:09:00
+Plus one.
+
+[Prof. Devavrat Shah] 19:09:01
+Plus one.
+
+[Prof. Devavrat Shah] 19:09:03
+Minus one question mark.
+
+[Prof. Devavrat Shah] 19:09:06
+Minus one.
+
+[Prof. Devavrat Shah] 19:09:08
+Question, mark.
+
+[Prof. Devavrat Shah] 19:09:09
+Minus.
+
+[Prof. Devavrat Shah] 19:09:11
+Okay? And then this one is a question mark.
+
+[Prof. Devavrat Shah] 19:09:14
+Minus one.
+
+[Prof. Devavrat Shah] 19:09:16
+Plus one.
+
+[Prof. Devavrat Shah] 19:09:18
+Minus one.
+
+[Prof. Devavrat Shah] 19:09:21
+Question, mark.
+
+[Prof. Devavrat Shah] 19:09:23
+Plus one and plus one. Okay.
+
+[Prof. Devavrat Shah] 19:09:27
+So.
+
+[Prof. Devavrat Shah] 19:09:29
+Here. What I'm showing is that there are.
+
+[Prof. Devavrat Shah] 19:09:30
+3 users.
+
+[Prof. Devavrat Shah] 19:09:32
+7 items.
+
+[Prof. Devavrat Shah] 19:09:33
+And.
+
+[Prof. Devavrat Shah] 19:09:35
+Observations that we have.
+
+[Prof. Devavrat Shah] 19:09:38
+Again. One means I like.
+
+[Prof. Devavrat Shah] 19:09:41
+Minus one means that not like.
+
+[Prof. Devavrat Shah] 19:09:44
+And replacing 0 by minus one, as you can see.
+
+[Prof. Devavrat Shah] 19:09:48
+And this is, I'm doing this for illustrative purposes, because a nicer way to look at it. But again, these are just.
+
+[Prof. Devavrat Shah] 19:09:55
+Same thing.
+
+[Prof. Devavrat Shah] 19:09:58
+So hope you're okay with my tab change.
+
+[Prof. Devavrat Shah] 19:10:02
+Alright!
+
+[Prof. Devavrat Shah] 19:10:04
+Now I want to compute similarity. Matrix, what is my similarity? Matrix, my similarity matrix is.
+
+[Prof. Devavrat Shah] 19:10:12
+Effectively.
+
+[Prof. Devavrat Shah] 19:10:15
+3 by 3 matrix, because I got 3 users.
+
+[Prof. Devavrat Shah] 19:10:21
+User one user.
+
+[Prof. Devavrat Shah] 19:10:24
+User one is the similar to user one.
+
+[Prof. Devavrat Shah] 19:10:27
+2 is similar to user 2, 3, similar to user 3.
+
+[Prof. Devavrat Shah] 19:10:29
+And what we are trying to compute is.
+
+[Prof. Devavrat Shah] 19:10:34
+These values.
+
+[Prof. Devavrat Shah] 19:10:36
+Okay.
+
+[Prof. Devavrat Shah] 19:10:38
+In particular similarity between user one and 2 SMS. Similarity between User 2 and one.
+
+[Prof. Devavrat Shah] 19:10:42
+Okay.
+
+[Prof. Devavrat Shah] 19:10:44
+And so now, towards that, I want to start by computing.
+
+[Prof. Devavrat Shah] 19:10:49
+Got.
+
+[Prof. Devavrat Shah] 19:10:50
+Similarity.
+
+[Prof. Devavrat Shah] 19:10:51
+Between user one and user 2.
+
+[Prof. Devavrat Shah] 19:10:54
+Okay.
+
+[Prof. Devavrat Shah] 19:10:57
+To compute this similarity.
+
+[Prof. Devavrat Shah] 19:10:59
+What how to do is look at.
+
+[Prof. Devavrat Shah] 19:11:02
+So I want to figure out how similar are to users in their preferences.
+
+[Prof. Devavrat Shah] 19:11:06
+Well.
+
+[Prof. Devavrat Shah] 19:11:08
+To look at that I'm going to look at all the items that they have provided, their preferences, especially the items that.
+
+[Prof. Devavrat Shah] 19:11:18
+Both have provided.
+
+[Prof. Devavrat Shah] 19:11:25
+If we look at.
+
+[Prof. Devavrat Shah] 19:11:27
+Item, one.
+
+[Prof. Devavrat Shah] 19:11:29
+User one says.
+
+[Prof. Devavrat Shah] 19:11:30
+They like it.
+
+[Prof. Devavrat Shah] 19:11:32
+User to say that they like it, too.
+
+[Prof. Devavrat Shah] 19:11:34
+And now I can say, Well, okay.
+
+[Prof. Devavrat Shah] 19:11:37
+With respect to one, these 2 are safe.
+
+[Prof. Devavrat Shah] 19:11:40
+What about 2?
+
+[Prof. Devavrat Shah] 19:11:43
+Bedford.
+
+[Prof. Devavrat Shah] 19:11:44
+Item 2, user 2 says that they like it.
+
+[Prof. Devavrat Shah] 19:11:47
+But we have no information about.
+
+[Prof. Devavrat Shah] 19:11:50
+User, one.
+
+[Prof. Devavrat Shah] 19:11:51
+So we can't compare.
+
+[Prof. Devavrat Shah] 19:11:53
+So we have to effectively ignore this.
+
+[Prof. Devavrat Shah] 19:11:56
+For item, 3, user, one and 2 again.
+
+[Prof. Devavrat Shah] 19:12:00
+Match.
+
+[Prof. Devavrat Shah] 19:12:01
+Item, for one of them is missing, so we have to ignore.
+
+[Prof. Devavrat Shah] 19:12:04
+One of them is missing. One of them is missing. One of them is missing. So really.
+
+[Prof. Devavrat Shah] 19:12:08
+The only 2.
+
+[Prof. Devavrat Shah] 19:12:10
+Items that are there for us to compare and contrast user one and 2.
+
+[Prof. Devavrat Shah] 19:12:16
+Item, one.
+
+[Prof. Devavrat Shah] 19:12:18
+And item 3.
+
+[Prof. Devavrat Shah] 19:12:21
+Okay.
+
+[Prof. Devavrat Shah] 19:12:23
+And given that we will simply restrict ourselves to.
+
+[Prof. Devavrat Shah] 19:12:27
+Those preferences, and for computing this similarity.
+
+[Prof. Devavrat Shah] 19:12:31
+Let's say, a vector corresponding to user. One is.
+
+[Prof. Devavrat Shah] 19:12:35
+One and minus one.
+
+[Prof. Devavrat Shah] 19:12:38
+So one corresponds to this minus one corresponds to this.
+
+[Prof. Devavrat Shah] 19:12:43
+That is, we are restricting ourselves only to those items where both user, one and 2 have.
+
+[Prof. Devavrat Shah] 19:12:49
+Express their preferences.
+
+[Prof. Devavrat Shah] 19:12:51
+Continuing along that for user.
+
+[Prof. Devavrat Shah] 19:12:54
+A similar manner. It's also one and minus one.
+
+[Prof. Devavrat Shah] 19:12:58
+Because it's this and this.
+
+[Prof. Devavrat Shah] 19:13:02
+Now given these vectors.
+
+[Prof. Devavrat Shah] 19:13:05
+The cosigned similarity.
+
+[Prof. Devavrat Shah] 19:13:07
+Between.
+
+[Prof. Devavrat Shah] 19:13:09
+Vector, v, 1, and v, 2.
+
+[Prof. Devavrat Shah] 19:13:11
+Is.
+
+[Prof. Devavrat Shah] 19:13:14
+p. 1.
+
+[Prof. Devavrat Shah] 19:13:16
+Inner product, v. 2 or v. 1, transpose v. 2, divided by norm of v. 1 and.
+
+[Prof. Devavrat Shah] 19:13:21
+Normal feature.
+
+[Prof. Devavrat Shah] 19:13:22
+So what is this?
+
+[Prof. Devavrat Shah] 19:13:25
+But it is.
+
+[Prof. Devavrat Shah] 19:13:27
+This multiplied by this plus, this multiplied by this, and so on.
+
+[Prof. Devavrat Shah] 19:13:32
+That is.
+
+[Prof. Devavrat Shah] 19:13:35
+This is equal to one times one.
+
+[Prof. Devavrat Shah] 19:13:38
+Plus.
+
+[Prof. Devavrat Shah] 19:13:39
+Minus one times, minus one.
+
+[Prof. Devavrat Shah] 19:13:41
+Which is equal to 2.
+
+[Prof. Devavrat Shah] 19:13:44
+What about Norm of v, 1.
+
+[Prof. Devavrat Shah] 19:13:49
+Well.
+
+[Prof. Devavrat Shah] 19:13:50
+It's.
+
+[Prof. Devavrat Shah] 19:13:52
+This squared plus this square.
+
+[Prof. Devavrat Shah] 19:13:55
+And then square root.
+
+[Prof. Devavrat Shah] 19:13:57
+Which is one square plus minus one squared.
+
+[Prof. Devavrat Shah] 19:14:01
+Square root.
+
+[Prof. Devavrat Shah] 19:14:04
+Similarly, B, 2 is the same, one square plus minus one square.
+
+[Prof. Devavrat Shah] 19:14:08
+Square root.
+
+[Prof. Devavrat Shah] 19:14:10
+Which is square root of 2.
+
+[Prof. Devavrat Shah] 19:14:11
+Square root of 2.
+
+[Prof. Devavrat Shah] 19:14:12
+Both of them multiply, give 2, which means that if you look at denominator and numerator, both have 2, which is one.
+
+[Prof. Devavrat Shah] 19:14:19
+That means v. 1 is completely similar to v. 2 makes sense, because.
+
+[Prof. Devavrat Shah] 19:14:25
+Vector, wise.
+
+[Prof. Devavrat Shah] 19:14:27
+The.
+
+[Prof. Devavrat Shah] 19:14:29
+From a vector perspective. Here is.
+
+[Prof. Devavrat Shah] 19:14:34
+Two-dimensional plane. And then this is Xxx. And this is what.
+
+[Prof. Devavrat Shah] 19:14:39
+This.
+
+[Prof. Devavrat Shah] 19:14:43
+Okay, so.
+
+[Prof. Devavrat Shah] 19:14:45
+We got.
+
+[Prof. Devavrat Shah] 19:14:47
+Xx's and Y. X's. This is plus one.
+
+[Prof. Devavrat Shah] 19:14:50
+Minus one.
+
+[Prof. Devavrat Shah] 19:14:52
+Plus one and minus one.
+
+[Prof. Devavrat Shah] 19:14:54
+This is.
+
+[Prof. Devavrat Shah] 19:14:56
+One and minus one.
+
+[Prof. Devavrat Shah] 19:14:58
+Which means this is v. 1.
+
+[Prof. Devavrat Shah] 19:15:03
+And similarly, v. 2 is the same.
+
+[Prof. Devavrat Shah] 19:15:05
+V, 2.
+
+[Prof. Devavrat Shah] 19:15:06
+And their angle between them is 0. They're fully aligned, and hence that cosine is.
+
+[Prof. Devavrat Shah] 19:15:13
+And so now I'm going to replace.
+
+[Prof. Devavrat Shah] 19:15:15
+The similarity by one year.
+
+[Prof. Devavrat Shah] 19:15:19
+Okay.
+
+[Prof. Devavrat Shah] 19:15:21
+That's.
+
+[Prof. Devavrat Shah] 19:15:22
+Similarity calculation. Now let's before I do another example from this to actually.
+
+[Prof. Devavrat Shah] 19:15:28
+Conclude this calculation.
+
+[Prof. Devavrat Shah] 19:15:30
+Let's see if there are questions.
+
+[Prof. Devavrat Shah] 19:15:40
+Okay.
+
+[Prof. Devavrat Shah] 19:15:42
+So, I think.
+
+[Prof. Devavrat Shah] 19:15:45
+Ep question is, why cosigned? What is the significance of cosine.
+
+[Prof. Devavrat Shah] 19:15:49
+I think, as EPA mentioned. Few things. One is.
+
+[Prof. Devavrat Shah] 19:15:53
+Cosign captures.
+
+[Prof. Devavrat Shah] 19:15:56
+Somewhat.
+
+[Prof. Devavrat Shah] 19:15:57
+Scale invariant similarity. Second, it has a very nice statistical reason. Why this is good, and I will talk about that.
+
+[Prof. Devavrat Shah] 19:16:06
+Talk about collaborative filtering.
+
+[Prof. Devavrat Shah] 19:16:10
+That's why.
+
+[Prof. Devavrat Shah] 19:16:16
+And the Yes, Jack is a correct interpretation. It's about.
+
+[Prof. Devavrat Shah] 19:16:20
+Capturing the angles between the vectors.
+
+[Prof. Devavrat Shah] 19:16:23
+The.
+
+[Prof. Devavrat Shah] 19:16:25
+Check Maliki's. I think we just put 0 for.
+
+[Prof. Devavrat Shah] 19:16:29
+No, we did not put 0 for question mark. We replaced.
+
+[Prof. Devavrat Shah] 19:16:34
+Management for 0 and one for one.
+
+[Prof. Devavrat Shah] 19:16:39
+Okay.
+
+[Prof. Devavrat Shah] 19:16:42
+Pete's. Question is that for constructing? How are we able to drop everything else except.
+
+[Prof. Devavrat Shah] 19:16:49
+Where users match well.
+
+[Prof. Devavrat Shah] 19:16:50
+Beat places where we don't have both.
+
+[Prof. Devavrat Shah] 19:16:53
+Preferences. We don't know what to do for missing values. That's why.
+
+[Prof. Devavrat Shah] 19:16:58
+So we are only focusing on things that we are sure of.
+
+[Prof. Devavrat Shah] 19:17:01
+Carlos. This question is, and how exactly are the similarities used.
+
+[Prof. Devavrat Shah] 19:17:06
+We'll see.
+
+[Prof. Devavrat Shah] 19:17:07
+Right now we are just computing similarities, and then later, we'll see how we are using them.
+
+[Prof. Devavrat Shah] 19:17:11
+Particular similarity scores, or similarity, matrix.
+
+[Prof. Devavrat Shah] 19:17:15
+Is what will give us a low dimensional representation or d dimensional representation of users.
+
+[Prof. Devavrat Shah] 19:17:21
+On which we can then.
+
+[Prof. Devavrat Shah] 19:17:22
+Algorithms like K-means.
+
+[Prof. Devavrat Shah] 19:17:28
+Jeffrey's question is.
+
+[Prof. Devavrat Shah] 19:17:30
+2 2 users who match on 2 scores with 5 nulls.
+
+[Prof. Devavrat Shah] 19:17:35
+Get the same similarity as 2 users with 7 matches and no nulls.
+
+[Prof. Devavrat Shah] 19:17:40
+So to Jeffrey. Good question. That is, here we are.
+
+[Prof. Devavrat Shah] 19:17:45
+Not accounting for the fact that similarity could be computed with few things or a lot more things, and we should have some notion of.
+
+[Prof. Devavrat Shah] 19:17:54
+Best.
+
+[Prof. Devavrat Shah] 19:17:55
+Statistical uncertainty.
+
+[Prof. Devavrat Shah] 19:17:59
+Capturing.
+
+[Prof. Devavrat Shah] 19:18:00
+More or less observations.
+
+[Prof. Devavrat Shah] 19:18:04
+And when one does.
+
+[Prof. Devavrat Shah] 19:18:07
+A proper statistical nearest neighbor estimation. That's where these things do come in.
+
+[Prof. Devavrat Shah] 19:18:12
+To account for the errors and.
+
+[Prof. Devavrat Shah] 19:18:14
+Distances.
+
+[Prof. Devavrat Shah] 19:18:19
+Okay, let's see what other questions.
+
+[Prof. Devavrat Shah] 19:18:22
+Get beat.
+
+[Prof. Devavrat Shah] 19:18:24
+Is a clarification.
+
+[Prof. Devavrat Shah] 19:18:26
+Valen.
+
+[Prof. Devavrat Shah] 19:18:27
+Don't you need to adjust for tough raters.
+
+[Prof. Devavrat Shah] 19:18:30
+So I think.
+
+[Prof. Devavrat Shah] 19:18:32
+Welland, that will naturally happen again. Going back to my simple example.
+
+[Prof. Devavrat Shah] 19:18:38
+Imagine that I'm a tough freighter.
+
+[Prof. Devavrat Shah] 19:18:39
+And I'm giving everybody.
+
+[Prof. Devavrat Shah] 19:18:42
+Choose.
+
+[Prof. Devavrat Shah] 19:18:43
+And you are a nicer. Now you're giving everybody fives.
+
+[Prof. Devavrat Shah] 19:18:49
+Then our.
+
+[Prof. Devavrat Shah] 19:18:52
+Call sign would show that we are actually aligned.
+
+[Prof. Devavrat Shah] 19:18:55
+Okay.
+
+[Prof. Devavrat Shah] 19:19:01
+Yep.
+
+[Prof. Devavrat Shah] 19:19:02
+Could similarities in small data set to generalize well, to new data? Well, if the underlying model fundamentally changes absolutely well.
+
+[Prof. Devavrat Shah] 19:19:11
+Like any other weather.
+
+[Prof. Devavrat Shah] 19:19:13
+Pistols.
+
+[Prof. Devavrat Shah] 19:19:16
+Okay, let's take one more example.
+
+[Prof. Devavrat Shah] 19:19:21
+Okay, so no.
+
+[Prof. Devavrat Shah] 19:19:24
+Let me copy this.
+
+[Prof. Devavrat Shah] 19:19:30
+And then.
+
+[Prof. Devavrat Shah] 19:19:32
+The next one.
+
+[Prof. Devavrat Shah] 19:19:37
+Okay.
+
+[Prof. Devavrat Shah] 19:19:39
+Let's compute. Maybe. Now, similarity.
+
+[Prof. Devavrat Shah] 19:19:43
+Between.
+
+[Prof. Devavrat Shah] 19:19:45
+User, 2 and 3.
+
+[Prof. Devavrat Shah] 19:19:47
+Okay.
+
+[Prof. Devavrat Shah] 19:19:50
+So for this
+
+[Prof. Devavrat Shah] 19:19:52
+V. 2 and B. 3. Let's calculate them.
+
+[Prof. Devavrat Shah] 19:19:55
+Okay, so.
+
+[Prof. Devavrat Shah] 19:19:57
+We've ignored this.
+
+[Prof. Devavrat Shah] 19:19:59
+Ignore this, ignore this, and ignore this.
+
+[Prof. Devavrat Shah] 19:20:01
+We have these 2.
+
+[Prof. Devavrat Shah] 19:20:03
+And this one.
+
+[Prof. Devavrat Shah] 19:20:06
+Okay. So that means that v, 2, let me make sure that I'm getting it right.
+
+[Prof. Devavrat Shah] 19:20:11
+Is.
+
+[Prof. Devavrat Shah] 19:20:12
+Plus one.
+
+[Prof. Devavrat Shah] 19:20:13
+Minus one.
+
+[Prof. Devavrat Shah] 19:20:15
+Minus one.
+
+[Prof. Devavrat Shah] 19:20:17
+That's coming from.
+
+[Prof. Devavrat Shah] 19:20:20
+Plus one minus one and minus one.
+
+[Prof. Devavrat Shah] 19:20:22
+And v. 3 is minus one plus one.
+
+[Prof. Devavrat Shah] 19:20:24
+Plus one.
+
+[Prof. Devavrat Shah] 19:20:26
+So minus one plus one.
+
+[Prof. Devavrat Shah] 19:20:29
+Plus one.
+
+[Prof. Devavrat Shah] 19:20:30
+So that means that cosine between v. 2 and v. 3.
+
+[Prof. Devavrat Shah] 19:20:36
+Is v, 2 times v. 3, norm of v, 2.
+
+[Prof. Devavrat Shah] 19:20:41
+Norm of v. 3.
+
+[Prof. Devavrat Shah] 19:20:43
+So v, 2, time, v. 3 is again one minus one.
+
+[Prof. Devavrat Shah] 19:20:48
+One times minus one plus.
+
+[Prof. Devavrat Shah] 19:20:50
+Management, Times.
+
+[Prof. Devavrat Shah] 19:20:52
+One plus minus one times, one.
+
+[Prof. Devavrat Shah] 19:20:55
+Divided by.
+
+[Prof. Devavrat Shah] 19:20:57
+Square root of 3 and square root of 3.
+
+[Prof. Devavrat Shah] 19:21:02
+Which is equal to.
+
+[Prof. Devavrat Shah] 19:21:04
+Minus 3, divided by 3, which is equal to minus one.
+
+[Prof. Devavrat Shah] 19:21:08
+That, like exactly in opposite directions, in 3 dimension.
+
+[Prof. Devavrat Shah] 19:21:12
+V. 2 looks like this. So v, 2 might look like this, and v, 3 might look like this exactly opposite of each other.
+
+[Prof. Devavrat Shah] 19:21:19
+Okay.
+
+[Prof. Devavrat Shah] 19:21:20
+And that's how.
+
+[Prof. Devavrat Shah] 19:21:23
+The cool sign is calculated.
+
+[Prof. Devavrat Shah] 19:21:25
+Okay.
+
+[Prof. Devavrat Shah] 19:21:32
+Alright
+
+[Prof. Devavrat Shah] 19:21:37
+Hopefully, these notes and this lecture would give you enough things. I'm doing lots of detailed calculations. Sometimes it's hard to.
+
+[Prof. Devavrat Shah] 19:21:45
+Follow in real time, so.
+
+[Prof. Devavrat Shah] 19:21:48
+If you find it difficult, and then sort of some of our facilitators can walk you through the details.
+
+[Prof. Devavrat Shah] 19:21:54
+Okay.
+
+[Prof. Devavrat Shah] 19:21:56
+So this would give me at the end of the day a similarity matrix. For example, here I would fill in.
+
+[Prof. Devavrat Shah] 19:22:04
+2 and 3 is minus one minus one. And similarly, I'll finish.
+
+[Prof. Devavrat Shah] 19:22:08
+Pulling one and 3.
+
+[Prof. Devavrat Shah] 19:22:10
+So, for example, if we were to look at one and 3, ignore this, ignore this.
+
+[Prof. Devavrat Shah] 19:22:15
+This is fine. This is fine.
+
+[Prof. Devavrat Shah] 19:22:18
+Ignore this.
+
+[Prof. Devavrat Shah] 19:22:20
+And this is fine.
+
+[Prof. Devavrat Shah] 19:22:21
+So what we have is minus 1, 1.
+
+[Prof. Devavrat Shah] 19:22:25
+One, minus 1, 1.
+
+[Prof. Devavrat Shah] 19:22:27
+Okay.
+
+[Prof. Devavrat Shah] 19:22:29
+And that means that we will get minus one.
+
+[Prof. Devavrat Shah] 19:22:33
+Plus one.
+
+[Prof. Devavrat Shah] 19:22:34
+Plus ones. It's 2 minus one. It's 1 enumerator.
+
+[Prof. Devavrat Shah] 19:22:37
+So it'll be one enumerator and divided by.
+
+[Prof. Devavrat Shah] 19:22:41
+3, because each one of them is so. This will be 1 3, rd and.
+
+[Prof. Devavrat Shah] 19:22:47
+1 3.rd
+
+[Prof. Devavrat Shah] 19:22:48
+Okay, hopefully, I've done my calculation right?
+
+[Prof. Devavrat Shah] 19:22:51
+Okay. And that will be my similarity. Matrix.
+
+[Prof. Devavrat Shah] 19:22:55
+And so now I've got.
+
+[Prof. Devavrat Shah] 19:22:57
+The whole similarity, matrix.
+
+[Prof. Devavrat Shah] 19:23:00
+Between all end users.
+
+[Prof. Devavrat Shah] 19:23:03
+So I've got.
+
+[Prof. Devavrat Shah] 19:23:05
+Similarity, matrix, S.
+
+[Prof. Devavrat Shah] 19:23:08
+Which is between end users and end users.
+
+[Prof. Devavrat Shah] 19:23:11
+SIJS. J. For every ij, because.
+
+[Prof. Devavrat Shah] 19:23:16
+I similar to Jane J. Similar to I.
+
+[Prof. Devavrat Shah] 19:23:20
+Now given this similarity, matrix.
+
+[Prof. Devavrat Shah] 19:23:24
+How do we compute?
+
+[Prof. Devavrat Shah] 19:23:26
+How do we compute?
+
+[Prof. Devavrat Shah] 19:23:29
+D-dimensional representation of each user, so that we can apply our.
+
+[Prof. Devavrat Shah] 19:23:32
+Along with filter.
+
+[Prof. Devavrat Shah] 19:23:35
+Okay. Now there are a few questions, so let me take them. Audrey's question is.
+
+[Prof. Devavrat Shah] 19:23:42
+Is similarly transitive. Fantastic end risk question, my bad and risk question, is similarity transitive? And in a sense, yes. Question is that, how do you utilize it?
+
+[Prof. Devavrat Shah] 19:23:53
+And.
+
+[Prof. Devavrat Shah] 19:23:54
+That's what is really important.
+
+[Prof. Devavrat Shah] 19:24:00
+Francis question is, could we use similarity matrix for Gn, because it's related to actors? Absolutely. So it's an interesting way to think about. How you utilize graph neural network style. Approach for
+
+[Prof. Devavrat Shah] 19:24:14
+Computing.
+
+[Prof. Devavrat Shah] 19:24:15
+User vector as an item vector for example.
+
+[Prof. Devavrat Shah] 19:24:19
+Now given this matrix.
+
+[Prof. Devavrat Shah] 19:24:21
+Of symmetric metrics.
+
+[Prof. Devavrat Shah] 19:24:28
+We can compute it. Singular decomposition.
+
+[Prof. Devavrat Shah] 19:24:32
+I'm just gonna remind you of.
+
+[Prof. Devavrat Shah] 19:24:34
+Pca step that we've done.
+
+[Prof. Devavrat Shah] 19:24:36
+And you'll see whether I've got.
+
+[Prof. Devavrat Shah] 19:24:38
+And.
+
+[Prof. Devavrat Shah] 19:24:39
+Singular, or Eigenvalues, or Eigenctors.
+
+[Prof. Devavrat Shah] 19:24:43
+And here it'll be S.
+
+[Prof. Devavrat Shah] 19:24:46
+Vk, vk, transpose because symmetric matrix.
+
+[Prof. Devavrat Shah] 19:24:50
+If you look at these singular values.
+
+[Prof. Devavrat Shah] 19:24:53
+The way they are is that Sigma? One to Sigma is equal to.
+
+[Prof. Devavrat Shah] 19:24:58
+Some of the squares of all entries of matrix.
+
+[Prof. Devavrat Shah] 19:25:03
+Frankly, that's the energy.
+
+[Prof. Devavrat Shah] 19:25:05
+This is the energy of the matrix, which is the sum of the squares of the.
+
+[Prof. Devavrat Shah] 19:25:09
+Singular values. It's a well known fact.
+
+[Prof. Devavrat Shah] 19:25:12
+Now.
+
+[Prof. Devavrat Shah] 19:25:13
+If I were to plot these things.
+
+[Prof. Devavrat Shah] 19:25:16
+Okay, they're likely going to plot and look like this.
+
+[Prof. Devavrat Shah] 19:25:19
+That is.
+
+[Prof. Devavrat Shah] 19:25:20
+This is, for example, signal one square. This is Sigma, 2 squared, and so on.
+
+[Prof. Devavrat Shah] 19:25:26
+And what this suggest is that most of the energy.
+
+[Prof. Devavrat Shah] 19:25:31
+Might be captured by.
+
+[Prof. Devavrat Shah] 19:25:32
+Top few components, let's say, top d components, that is.
+
+[Prof. Devavrat Shah] 19:25:36
+Sigma, one square to Sigma D. Square.
+
+[Prof. Devavrat Shah] 19:25:40
+Over all of them.
+
+[Prof. Devavrat Shah] 19:25:45
+Is greater than, for example, large enough threshold, let's say, point.
+
+[Prof. Devavrat Shah] 19:25:49
+Night.
+
+[Prof. Devavrat Shah] 19:25:51
+What that means is that 1st components.
+
+[Prof. Devavrat Shah] 19:25:55
+Capture 90% of the energy of metrics.
+
+[Prof. Devavrat Shah] 19:25:59
+So what I might want to do, and what is that use.
+
+[Prof. Devavrat Shah] 19:26:04
+Top.
+
+[Prof. Devavrat Shah] 19:26:06
+The entries.
+
+[Prof. Devavrat Shah] 19:26:09
+Are.
+
+[Prof. Devavrat Shah] 19:26:10
+Of.
+
+[Prof. Devavrat Shah] 19:26:13
+Singular value. Decomposition of.
+
+[Prof. Devavrat Shah] 19:26:15
+S.
+
+[Prof. Devavrat Shah] 19:26:16
+Precisely.
+
+[Prof. Devavrat Shah] 19:26:18
+We'll go back, and we'll look at.
+
+[Prof. Devavrat Shah] 19:26:20
+The vectors. Singular vectors. v. 1.
+
+[Prof. Devavrat Shah] 19:26:23
+V, 2.
+
+[Prof. Devavrat Shah] 19:26:25
+To v.
+
+[Prof. Devavrat Shah] 19:26:27
+B.
+
+[Prof. Devavrat Shah] 19:26:29
+That were the.
+
+[Prof. Devavrat Shah] 19:26:31
+The top d components here.
+
+[Prof. Devavrat Shah] 19:26:34
+And.
+
+[Prof. Devavrat Shah] 19:26:35
+This. v. 1. 1.
+
+[Prof. Devavrat Shah] 19:26:38
+v, 2, 1, 2, v, 1.
+
+[Prof. Devavrat Shah] 19:26:41
+These.
+
+[Prof. Devavrat Shah] 19:26:42
+From.
+
+[Prof. Devavrat Shah] 19:26:43
+D-dimensional representation.
+
+[Prof. Devavrat Shah] 19:26:45
+4.
+
+[Prof. Devavrat Shah] 19:26:47
+User, one.
+
+[Prof. Devavrat Shah] 19:26:49
+That.
+
+[Prof. Devavrat Shah] 19:26:51
+It entry for each of these.
+
+[Prof. Devavrat Shah] 19:26:53
+Vector v, 1, i.
+
+[Prof. Devavrat Shah] 19:26:55
+V. 2 i to BDI.
+
+[Prof. Devavrat Shah] 19:26:58
+This form for user.
+
+[Prof. Devavrat Shah] 19:27:00
+Hi.
+
+[Prof. Devavrat Shah] 19:27:00
+And so on.
+
+[Prof. Devavrat Shah] 19:27:03
+Okay.
+
+[Prof. Devavrat Shah] 19:27:05
+And this is how we will get.
+
+[Prof. Devavrat Shah] 19:27:09
+Dimensional representation for all end users.
+
+[Prof. Devavrat Shah] 19:27:16
+And once we have the dimensional representation for all end users.
+
+[Prof. Devavrat Shah] 19:27:19
+You can compute.
+
+[Prof. Devavrat Shah] 19:27:21
+That we can on the top of it. We can do clustering.
+
+[Prof. Devavrat Shah] 19:27:26
+So again, this is a very quick reminder of.
+
+[Prof. Devavrat Shah] 19:27:32
+If I click. Pca.
+
+[Prof. Devavrat Shah] 19:27:36
+Reminding you how one way of.
+
+[Prof. Devavrat Shah] 19:27:38
+Choosing how many components to keep.
+
+[Prof. Devavrat Shah] 19:27:41
+In the Pca.
+
+[Prof. Devavrat Shah] 19:27:44
+And how that leads to.
+
+[Prof. Devavrat Shah] 19:27:46
+The d dimensional representation of users.
+
+[Prof. Devavrat Shah] 19:27:52
+Right. Let's see if there are a few questions, and then sort of the next thing.
+
+[Prof. Devavrat Shah] 19:27:59
+Okay? Checks. Response question is, can we.
+
+[Prof. Devavrat Shah] 19:28:03
+How overfitting occur in similarity.
+
+[Prof. Devavrat Shah] 19:28:12
+I'm not sure. What do you mean by Christmas? Because.
+
+[Prof. Devavrat Shah] 19:28:20
+Overfitting with respect to what
+
+[Prof. Devavrat Shah] 19:28:23
+What we have is, we have a data which is very high, dimensional. And we're observing much lower dimensional data.
+
+[Prof. Devavrat Shah] 19:28:31
+Compared to that that is.
+
+[Prof. Devavrat Shah] 19:28:32
+When we competed. Similarity between 2 users, for example.
+
+[Prof. Devavrat Shah] 19:28:38
+You wanted to compute similarity between them.
+
+[Prof. Devavrat Shah] 19:28:40
+Across, all.
+
+[Prof. Devavrat Shah] 19:28:44
+Movies.
+
+[Prof. Devavrat Shah] 19:28:45
+But all items.
+
+[Prof. Devavrat Shah] 19:28:46
+But we had preference only for much smaller subsets. In a sense.
+
+[Prof. Devavrat Shah] 19:28:51
+Fundamentally, we are in a.
+
+[Prof. Devavrat Shah] 19:28:53
+Low data, retire.
+
+[Prof. Devavrat Shah] 19:28:55
+It's difficult to do overfitting, but maybe you have something in mind.
+
+[Prof. Devavrat Shah] 19:28:58
+Okay.
+
+[Prof. Devavrat Shah] 19:29:00
+NASA's question, is it? How is the chosen so.
+
+[Prof. Devavrat Shah] 19:29:03
+And so, as I mentioned very briefly here.
+
+[Prof. Devavrat Shah] 19:29:06
+Is.
+
+[Prof. Devavrat Shah] 19:29:07
+When we do singularity, composition.
+
+[Prof. Devavrat Shah] 19:29:11
+The singular values we get.
+
+[Prof. Devavrat Shah] 19:29:14
+The sum of the squares of them is actually some of the squares of the actual matrix.
+
+[Prof. Devavrat Shah] 19:29:21
+Let's call this energy. This is energy.
+
+[Prof. Devavrat Shah] 19:29:23
+Now, if we find that top few of these.
+
+[Prof. Devavrat Shah] 19:29:28
+Are some of the squares of top few things.
+
+[Prof. Devavrat Shah] 19:29:32
+Most of the energy.
+
+[Prof. Devavrat Shah] 19:29:34
+And maybe we can keep that d.
+
+[Prof. Devavrat Shah] 19:29:37
+Now what is most.
+
+[Prof. Devavrat Shah] 19:29:39
+Here as an example, I'm defining 90. You could say 60. Somebody gave, say, 50.
+
+[Prof. Devavrat Shah] 19:29:45
+And.
+
+[Prof. Devavrat Shah] 19:29:46
+It depends on what does most mean for you, and that threshold would lead to choice of d like this.
+
+[Prof. Devavrat Shah] 19:29:52
+And that's how we can choose.
+
+[Prof. Devavrat Shah] 19:29:56
+Like's question is, that will number of clusters? Be? No, of course not.
+
+[Prof. Devavrat Shah] 19:30:03
+These used to find a representation.
+
+[Prof. Devavrat Shah] 19:30:06
+Of users in a dimensional space.
+
+[Prof. Devavrat Shah] 19:30:09
+On top of it. You will do applying algorithm, and you can use your.
+
+[Prof. Devavrat Shah] 19:30:13
+Favorite.
+
+[Prof. Devavrat Shah] 19:30:15
+Elbow, method.
+
+[Prof. Devavrat Shah] 19:30:16
+For deciding clusters.
+
+[Prof. Devavrat Shah] 19:30:21
+Kate.
+
+[Prof. Devavrat Shah] 19:30:23
+Jeff's quick Jeff's question is regarding, is there a measure to sanity of Pca? To new data?
+
+[Prof. Devavrat Shah] 19:30:33
+I presume that sort of.
+
+[Prof. Devavrat Shah] 19:30:35
+The way to think about.
+
+[Prof. Devavrat Shah] 19:30:36
+When the new data comes around. If new data does not change your.
+
+[Prof. Devavrat Shah] 19:30:41
+Perturb your.
+
+[Prof. Devavrat Shah] 19:30:42
+Subspaces by much.
+
+[Prof. Devavrat Shah] 19:30:44
+Then that's a way to think about whether you can actually generalize well or not.
+
+[Prof. Devavrat Shah] 19:30:48
+If your subspaces are part of the lot.
+
+[Prof. Devavrat Shah] 19:30:51
+Definitely. It's very sensitive.
+
+[Prof. Devavrat Shah] 19:30:55
+Okay.
+
+[Prof. Devavrat Shah] 19:30:56
+And so with that in mind, I'll leave you with an important exercise.
+
+[Prof. Devavrat Shah] 19:30:59
+That is.
+
+[Prof. Devavrat Shah] 19:31:01
+Take your favorite data, set yelp or movie lens and apply your clustering algorithm on top of it to see.
+
+[Prof. Devavrat Shah] 19:31:07
+How well or poorly does your.
+
+[Prof. Devavrat Shah] 19:31:10
+Method does compare to averaging, for that matter.
+
+[Prof. Devavrat Shah] 19:31:13
+Okay. So always good to understand how different algorithms are working on a given data set. Because that helps us understand data set and algorithms simultaneously.
+
+[Prof. Devavrat Shah] 19:31:25
+Okay. So that marks the end of clustering.
+
+[Prof. Devavrat Shah] 19:31:30
+Now remaining
+
+[Prof. Devavrat Shah] 19:31:33
+Less than 30 min. What I want to do is I want to cover.
+
+[Prof. Devavrat Shah] 19:31:38
+2 other methods.
+
+[Prof. Devavrat Shah] 19:31:40
+One is collaborative, and second is.
+
+[Prof. Devavrat Shah] 19:31:43
+Single value, decomposition, based approach.
+
+[Prof. Devavrat Shah] 19:31:52
+The good thing is that.
+
+[Prof. Devavrat Shah] 19:31:54
+Most of the work needed for both of these we have already done.
+
+[Prof. Devavrat Shah] 19:31:59
+So, in a sense it will be lot of.
+
+[Prof. Devavrat Shah] 19:32:01
+A repetition.
+
+[Prof. Devavrat Shah] 19:32:03
+For collaborative filtering.
+
+[Prof. Devavrat Shah] 19:32:06
+Instead of doing clustering globally, we are just going to use the similarities that we have calculated.
+
+[Prof. Devavrat Shah] 19:32:10
+To do things locally.
+
+[Prof. Devavrat Shah] 19:32:13
+For.
+
+[Prof. Devavrat Shah] 19:32:14
+Singular value, thresholding effectively what I walk you through in terms of.
+
+[Prof. Devavrat Shah] 19:32:19
+Bca.
+
+[Prof. Devavrat Shah] 19:32:21
+Like setting. That's exactly what we're going to do for.
+
+[Prof. Devavrat Shah] 19:32:26
+Singular value, decomposition, based. Approach.
+
+[Prof. Devavrat Shah] 19:32:29
+So in a sense, we're gonna see very similar things again.
+
+[Prof. Devavrat Shah] 19:32:33
+That's why I will be able.
+
+[Prof. Devavrat Shah] 19:32:35
+Walk you through both of those approaches.
+
+[Prof. Devavrat Shah] 19:32:37
+In
+
+[Prof. Devavrat Shah] 19:32:38
+Short amount of time.
+
+[Prof. Devavrat Shah] 19:32:40
+Okay, of course, keep your questions ready.
+
+[Prof. Devavrat Shah] 19:32:46
+Very good. So there's a bunch of bunch of slides and explaining you
+
+[Prof. Devavrat Shah] 19:32:54
+Explaining you. How does one do it in detail?
+
+[Prof. Devavrat Shah] 19:32:58
+What I'll do is I'll do it with.
+
+[Prof. Devavrat Shah] 19:33:02
+With.
+
+[Prof. Devavrat Shah] 19:33:06
+Example.
+
+[Prof. Devavrat Shah] 19:33:06
+Okay.
+
+[Prof. Devavrat Shah] 19:33:08
+So
+
+[Prof. Devavrat Shah] 19:33:11
+Let's take.
+
+[Prof. Devavrat Shah] 19:33:16
+A setting like this.
+
+[Prof. Devavrat Shah] 19:33:17
+Okay, and imagine that there is.
+
+[Prof. Devavrat Shah] 19:33:20
+Some user, I and some item J.
+
+[Prof. Devavrat Shah] 19:33:23
+And we want to figure out what this entry is. Okay.
+
+[Prof. Devavrat Shah] 19:33:32
+And.
+
+[Prof. Devavrat Shah] 19:33:34
+In the context of clustering. The way we would have done is.
+
+[Prof. Devavrat Shah] 19:33:38
+We would have identified cluster.
+
+[Prof. Devavrat Shah] 19:33:41
+In which user I belongs.
+
+[Prof. Devavrat Shah] 19:33:44
+Cluster in which users J. Belongs.
+
+[Prof. Devavrat Shah] 19:33:47
+Then we would have had some kind of a submatrix in which they belong, and then we would have averaged that.
+
+[Prof. Devavrat Shah] 19:33:52
+And that average value would have been our answer. Right?
+
+[Prof. Devavrat Shah] 19:33:58
+Now.
+
+[Prof. Devavrat Shah] 19:33:59
+The cluster to which we assigned user I and item J was a global cluster.
+
+[Prof. Devavrat Shah] 19:34:04
+Clustering was done a priority.
+
+[Prof. Devavrat Shah] 19:34:08
+But why do we need to do that? Maybe we just do clustering on demand.
+
+[Prof. Devavrat Shah] 19:34:12
+In particular.
+
+[Prof. Devavrat Shah] 19:34:14
+When I want to do, I comma j.
+
+[Prof. Devavrat Shah] 19:34:17
+Or to identify.
+
+[Prof. Devavrat Shah] 19:34:19
+LIJ.
+
+[Prof. Devavrat Shah] 19:34:22
+What I will do is that I will look for.
+
+[Prof. Devavrat Shah] 19:34:25
+Cluster of. I'll create a cluster of I and create a cluster of change like personalized.
+
+[Prof. Devavrat Shah] 19:34:30
+And how would I do that.
+
+[Prof. Devavrat Shah] 19:34:33
+Well, I'll identify.
+
+[Prof. Devavrat Shah] 19:34:36
+Key case of parameters. So let's say, I've identified.
+
+[Prof. Devavrat Shah] 19:34:40
+Key, most.
+
+[Prof. Devavrat Shah] 19:34:43
+Similar.
+
+[Prof. Devavrat Shah] 19:34:45
+Users to I.
+
+[Prof. Devavrat Shah] 19:34:48
+And I will also identify.
+
+[Prof. Devavrat Shah] 19:34:50
+Key, most.
+
+[Prof. Devavrat Shah] 19:34:56
+Items to J.
+
+[Prof. Devavrat Shah] 19:34:59
+Okay.
+
+[Prof. Devavrat Shah] 19:35:01
+How would I identify this.
+
+[Prof. Devavrat Shah] 19:35:06
+Any any thoughts.
+
+[Prof. Devavrat Shah] 19:35:10
+How would I identify.
+
+[Prof. Devavrat Shah] 19:35:11
+Came more similar users to I.
+
+[Prof. Devavrat Shah] 19:35:15
+But we have done all the calculations.
+
+[Prof. Devavrat Shah] 19:35:18
+Exactly.
+
+[Prof. Devavrat Shah] 19:35:19
+Like is correct.
+
+[Prof. Devavrat Shah] 19:35:21
+We have similarity, matrix.
+
+[Prof. Devavrat Shah] 19:35:24
+Remember, we computed similarity matrix.
+
+[Prof. Devavrat Shah] 19:35:28
+Between all users.
+
+[Prof. Devavrat Shah] 19:35:29
+And of course, in a similar manner we can compute similarity, matrix between all items.
+
+[Prof. Devavrat Shah] 19:35:34
+So that means that.
+
+[Prof. Devavrat Shah] 19:35:36
+I can go and look for most similar users to me as an I.
+
+[Prof. Devavrat Shah] 19:35:41
+I can look for more similar items to J.
+
+[Prof. Devavrat Shah] 19:35:45
+And then let's suppose that those similar.
+
+[Prof. Devavrat Shah] 19:35:48
+I will just number them as Key.
+
+[Prof. Devavrat Shah] 19:35:54
+But again, this numbering is arbitrary, and for simplicity of visual, I'm saying that one user number one up to key are the most similar to I and User Num number one to up to K.
+
+[Prof. Devavrat Shah] 19:36:05
+Are most similar to J.
+
+[Prof. Devavrat Shah] 19:36:07
+Okay.
+
+[Prof. Devavrat Shah] 19:36:08
+Which means that now I've got this.
+
+[Prof. Devavrat Shah] 19:36:13
+I got this
+
+[Prof. Devavrat Shah] 19:36:17
+Box.
+
+[Prof. Devavrat Shah] 19:36:19
+Okay.
+
+[Prof. Devavrat Shah] 19:36:21
+Where.
+
+[Prof. Devavrat Shah] 19:36:24
+1, 2 up to K. Rows are most similar to I and one up to K. Columns are most similar to J.
+
+[Prof. Devavrat Shah] 19:36:30
+And within this.
+
+[Prof. Devavrat Shah] 19:36:32
+Maybe my entire observation says it's 1.
+
+[Prof. Devavrat Shah] 19:36:35
+0 question, mark.
+
+[Prof. Devavrat Shah] 19:36:37
+Question, mark.
+
+[Prof. Devavrat Shah] 19:36:39
+One.
+
+[Prof. Devavrat Shah] 19:36:40
+Question, mark, one.
+
+[Prof. Devavrat Shah] 19:36:41
+0 question, mark, question, mark, question.
+
+[Prof. Devavrat Shah] 19:36:45
+So. What I found is that I've observed.
+
+[Prof. Devavrat Shah] 19:36:48
+1, 2, 3, 4, 5 entries into that.
+
+[Prof. Devavrat Shah] 19:36:52
+Key, by key, sub, matrix.
+
+[Prof. Devavrat Shah] 19:36:56
+These are all.
+
+[Prof. Devavrat Shah] 19:36:58
+Items similar to me. These are all users similar to me.
+
+[Prof. Devavrat Shah] 19:37:03
+So I can just average them.
+
+[Prof. Devavrat Shah] 19:37:06
+It means I'll take 1 0 1 0. Take average of that.
+
+[Prof. Devavrat Shah] 19:37:11
+3 ones, 2 zeros out of 5, which means that.
+
+[Prof. Devavrat Shah] 19:37:14
+Average would say, it's 3 over 5.
+
+[Prof. Devavrat Shah] 19:37:19
+Okay.
+
+[Prof. Devavrat Shah] 19:37:20
+And that's my response. So that's my answer.
+
+[Prof. Devavrat Shah] 19:37:24
+That is.
+
+[Prof. Devavrat Shah] 19:37:26
+Found keys, closes similar key item, and then.
+
+[Prof. Devavrat Shah] 19:37:29
+Average.
+
+[Prof. Devavrat Shah] 19:37:31
+Entries.
+
+[Prof. Devavrat Shah] 19:37:33
+Observed.
+
+[Prof. Devavrat Shah] 19:37:38
+These.
+
+[Prof. Devavrat Shah] 19:37:40
+Key users.
+
+[Prof. Devavrat Shah] 19:37:42
+Times, key items.
+
+[Prof. Devavrat Shah] 19:37:45
+And that's our estimate of Al Hat ij.
+
+[Prof. Devavrat Shah] 19:37:53
+Good.
+
+[Prof. Devavrat Shah] 19:37:56
+And that's basically a user what I would call a user item.
+
+[Prof. Devavrat Shah] 19:38:02
+Collaborative filter.
+
+[Prof. Devavrat Shah] 19:38:07
+Now Ritchie is asking.
+
+[Prof. Devavrat Shah] 19:38:10
+Is it important for them to be? 1, 2, 3, 4, k. 1, 2, 3, 4 k. Of course not.
+
+[Prof. Devavrat Shah] 19:38:16
+I would just.
+
+[Prof. Devavrat Shah] 19:38:17
+Listed them in that numbering to keep things.
+
+[Prof. Devavrat Shah] 19:38:21
+For the simplicity of explanation.
+
+[Prof. Devavrat Shah] 19:38:26
+Okay, and.
+
+[Prof. Devavrat Shah] 19:38:28
+Steven's point is that lig would be located within that top box.
+
+[Prof. Devavrat Shah] 19:38:33
+One to up to K. Does not include I, and one to up to K. Does not include. So not necessarily on the top of that box.
+
+[Prof. Devavrat Shah] 19:38:43
+If you want to visualize it like.
+
+[Prof. Devavrat Shah] 19:38:45
+Factually.
+
+[Prof. Devavrat Shah] 19:38:46
+I is sitting here because I'm calling is one, and jk, plus one.
+
+[Prof. Devavrat Shah] 19:38:52
+Because you renumber sure.
+
+[Prof. Devavrat Shah] 19:38:54
+But.
+
+[Prof. Devavrat Shah] 19:38:56
+Not necessarily.
+
+[Prof. Devavrat Shah] 19:38:59
+Felix's questions, why is key? Well, no, that's my parameter. You can have this k. 1 and K. 2, if you like.
+
+[Prof. Devavrat Shah] 19:39:05
+And again. Now those are all variations of the theme.
+
+[Prof. Devavrat Shah] 19:39:09
+You can also say, Well, you know.
+
+[Prof. Devavrat Shah] 19:39:12
+Among key closest users I found.
+
+[Prof. Devavrat Shah] 19:39:16
+These 3 were very close versus others were par.
+
+[Prof. Devavrat Shah] 19:39:19
+So should I value these 2, these 3 same as this? Maybe not.
+
+[Prof. Devavrat Shah] 19:39:23
+So maybe what I might want to do is.
+
+[Prof. Devavrat Shah] 19:39:27
+Take weighted average of these observed entries, depending on how similar those users and items are.
+
+[Prof. Devavrat Shah] 19:39:33
+So not just do raw average.
+
+[Prof. Devavrat Shah] 19:39:35
+That's.
+
+[Prof. Devavrat Shah] 19:39:37
+Another variation of the theme, so to speak.
+
+[Prof. Devavrat Shah] 19:39:39
+Good.
+
+[Prof. Devavrat Shah] 19:39:40
+Again, I'm teaching you a key concept rather than precise how.
+
+[Prof. Devavrat Shah] 19:39:46
+Okay.
+
+[Prof. Devavrat Shah] 19:39:50
+Welling key, how do you decide again? Very good questions related to how traditional nearest neighbor.
+
+[Prof. Devavrat Shah] 19:39:57
+Challenges.
+
+[Prof. Devavrat Shah] 19:39:58
+Deciding.
+
+[Prof. Devavrat Shah] 19:39:59
+On one hand, if you choose. K. Too small.
+
+[Prof. Devavrat Shah] 19:40:03
+You might help.
+
+[Prof. Devavrat Shah] 19:40:07
+High variants.
+
+[Prof. Devavrat Shah] 19:40:08
+But maybe.
+
+[Prof. Devavrat Shah] 19:40:12
+Low bias.
+
+[Prof. Devavrat Shah] 19:40:14
+On the other. If you choose key too large, then you might have.
+
+[Prof. Devavrat Shah] 19:40:17
+Low variance, but high bias. So it's always a question of creating those 2 things off.
+
+[Prof. Devavrat Shah] 19:40:24
+And.
+
+[Prof. Devavrat Shah] 19:40:25
+First, st we don't understand. 3 by 5. Well, one.
+
+[Prof. Devavrat Shah] 19:40:30
+2, 3, 4, 5 entries, out of which 3 are ones, and.
+
+[Prof. Devavrat Shah] 19:40:34
+Press star 0. So if you average, it will be 3 by 5.
+
+[Prof. Devavrat Shah] 19:40:40
+How can you estimate user? I based on similar users within block 1, 2 k.
+
+[Prof. Devavrat Shah] 19:40:45
+Stephen again. I think
+
+[Prof. Devavrat Shah] 19:40:48
+As I mentioned.
+
+[Prof. Devavrat Shah] 19:40:50
+This. I'm choosing these guys as.
+
+[Prof. Devavrat Shah] 19:40:55
+The users that are closest to me.
+
+[Prof. Devavrat Shah] 19:40:57
+And it could have been here, here, here, I've just reordered them and put it here for visual purposes.
+
+[Prof. Devavrat Shah] 19:41:07
+If this doesn't make sense. It's okay.
+
+[Prof. Devavrat Shah] 19:41:10
+Just stick around and are.
+
+[Prof. Devavrat Shah] 19:41:13
+Facilitators can help you clarify some of these doubts. Okay.
+
+[Prof. Devavrat Shah] 19:41:18
+Very good.
+
+[Prof. Devavrat Shah] 19:41:21
+So at this stage
+
+[Prof. Devavrat Shah] 19:41:29
+At this stage.
+
+[Prof. Devavrat Shah] 19:41:31
+Pew.
+
+[Prof. Devavrat Shah] 19:41:32
+Things that I want to point out about
+
+[Prof. Devavrat Shah] 19:41:37
+Collaborative, filtering.
+
+[Prof. Devavrat Shah] 19:41:38
+Okay.
+
+[Prof. Devavrat Shah] 19:41:40
+One is that.
+
+[Prof. Devavrat Shah] 19:41:44
+You may not find similarity between every other uses. Right? Because.
+
+[Prof. Devavrat Shah] 19:41:47
+For example, I have had.
+
+[Prof. Devavrat Shah] 19:41:50
+Of.
+
+[Prof. Devavrat Shah] 19:41:51
+Preferences for restaurants in Boston and.
+
+[Prof. Devavrat Shah] 19:41:55
+New York, and you have had preferences for.
+
+[Prof. Devavrat Shah] 19:41:59
+Restaurants, in San Francisco, in Chicago.
+
+[Prof. Devavrat Shah] 19:42:02
+But if you have never, you have never been to New York. I've never been to Chicago or San Francisco.
+
+[Prof. Devavrat Shah] 19:42:07
+Okay.
+
+[Prof. Devavrat Shah] 19:42:08
+So, then there is no way for us to compute similarity, because there's no overlap.
+
+[Prof. Devavrat Shah] 19:42:13
+But then what can happen is that maybe somebody else.
+
+[Prof. Devavrat Shah] 19:42:16
+Has been to both Chicago and New York.
+
+[Prof. Devavrat Shah] 19:42:18
+And that somebody else is similar to me on my preferences and similar to you on Chicago preferences. So maybe you and I are similar to each other through that.
+
+[Prof. Devavrat Shah] 19:42:28
+Transitivity, but that needs to be done cleverly.
+
+[Prof. Devavrat Shah] 19:42:30
+And that's where.
+
+[Prof. Devavrat Shah] 19:42:32
+Is a notion of iterative filtering that.
+
+[Prof. Devavrat Shah] 19:42:38
+We
+
+[Prof. Devavrat Shah] 19:42:39
+That.
+
+[Prof. Devavrat Shah] 19:42:42
+Christina.
+
+[Prof. Devavrat Shah] 19:42:45
+You with a professor at.
+
+[Prof. Devavrat Shah] 19:42:47
+Cornell.
+
+[Prof. Devavrat Shah] 19:42:49
+Our thesis.
+
+[Prof. Devavrat Shah] 19:42:53
+Mit.
+
+[Prof. Devavrat Shah] 19:42:54
+Around 2018 was the one that sort of introduced. This notion.
+
+[Prof. Devavrat Shah] 19:42:59
+And what you could do is you could compute things in.
+
+[Prof. Devavrat Shah] 19:43:01
+Iterative manner, and that leads to.
+
+[Prof. Devavrat Shah] 19:43:04
+Calculations of similarity.
+
+[Prof. Devavrat Shah] 19:43:07
+In a sense, it's a.
+
+[Prof. Devavrat Shah] 19:43:08
+Works with the sparsest possible data as long as things are connected. If things are not connected, then you'll find.
+
+[Prof. Devavrat Shah] 19:43:14
+Isolated islands, and within that you can do.
+
+[Prof. Devavrat Shah] 19:43:17
+Form of.
+
+[Prof. Devavrat Shah] 19:43:18
+Collaborative filter.
+
+[Prof. Devavrat Shah] 19:43:23
+The thing that I would like you to leave you with is that.
+
+[Prof. Devavrat Shah] 19:43:28
+These are the algorithms in different forms. I used extensively.
+
+[Prof. Devavrat Shah] 19:43:34
+They have a very nice scalable implementation.
+
+[Prof. Devavrat Shah] 19:43:38
+Through what's called approximate neighbors. It is very much related to.
+
+[Prof. Devavrat Shah] 19:43:43
+Non parametric methods of nearest neighbors.
+
+[Prof. Devavrat Shah] 19:43:47
+It's incremental. It's robust.
+
+[Prof. Devavrat Shah] 19:43:49
+Every time new data points. You don't have a recompute. You can naturally update model iteratively.
+
+[Prof. Devavrat Shah] 19:43:55
+And most importantly in my mind, as we move into the world where AI is going to provide recommendations.
+
+[Prof. Devavrat Shah] 19:44:04
+Suggestions to.
+
+[Prof. Devavrat Shah] 19:44:06
+Experts alongside.
+
+[Prof. Devavrat Shah] 19:44:08
+It's important to provide.
+
+[Prof. Devavrat Shah] 19:44:10
+Interpretations, explanations.
+
+[Prof. Devavrat Shah] 19:44:12
+And these algorithms are naturally explainable.
+
+[Prof. Devavrat Shah] 19:44:17
+Factory.
+
+[Prof. Devavrat Shah] 19:44:19
+The algorithm itself tells you that I'm recommending you Goodfellas because you like godfather and people who like godfather like good fellas.
+
+[Prof. Devavrat Shah] 19:44:27
+Okay.
+
+[Prof. Devavrat Shah] 19:44:28
+Through these nearest neighbors.
+
+[Prof. Devavrat Shah] 19:44:30
+And that's why
+
+[Prof. Devavrat Shah] 19:44:33
+It's really, really.
+
+[Prof. Devavrat Shah] 19:44:35
+Useful Method.
+
+[Prof. Devavrat Shah] 19:44:39
+Is there.
+
+[Prof. Devavrat Shah] 19:44:42
+Book that are written in 2,01819.
+
+[Prof. Devavrat Shah] 19:44:45
+With George in.
+
+[Prof. Devavrat Shah] 19:44:48
+Which has title explaining success of nearest neighbors.
+
+[Prof. Devavrat Shah] 19:44:56
+George Chen.
+
+[Prof. Devavrat Shah] 19:44:58
+That actually walks us through all sorts of such things in detail.
+
+[Prof. Devavrat Shah] 19:45:04
+You're looking for a lot of bedtime reading. This is a reasonable place to start.
+
+[Prof. Devavrat Shah] 19:45:10
+Alright! Now there are a few questions. Let me.
+
+[Prof. Devavrat Shah] 19:45:14
+Answer them before we move to the next algorithm.
+
+[Prof. Devavrat Shah] 19:45:17
+The last of the day.
+
+[Prof. Devavrat Shah] 19:45:19
+So Bruno's question is that does.
+
+[Prof. Devavrat Shah] 19:45:22
+This 3 by 3 matrix passed through the whole data set, computing the weights.
+
+[Prof. Devavrat Shah] 19:45:28
+Absolutely. You actually computed the similarities by looking at the entire data set right?
+
+[Prof. Devavrat Shah] 19:45:35
+So in a sense.
+
+[Prof. Devavrat Shah] 19:45:36
+It does have some.
+
+[Prof. Devavrat Shah] 19:45:39
+Impact of entire data set.
+
+[Prof. Devavrat Shah] 19:45:44
+Lynn, I believe you're asking a question, I'm gonna say, but if you in future, if you could just type queue, that'll be easy for me to parse.
+
+[Prof. Devavrat Shah] 19:45:51
+I guess the implicit assumption prior to this step is that similarity matrix would have been done prior to the steps. Yes.
+
+[Prof. Devavrat Shah] 19:45:58
+Do we have project for? Recommend that our projects facilitators can help you? Alham.
+
+[Prof. Devavrat Shah] 19:46:05
+Deb.
+
+[Prof. Devavrat Shah] 19:46:06
+What are the key performance? Metrics used to evaluate filtering effectively. So I think, like any other prediction method.
+
+[Prof. Devavrat Shah] 19:46:14
+You would use
+
+[Prof. Devavrat Shah] 19:46:16
+A form of cross validation.
+
+[Prof. Devavrat Shah] 19:46:19
+And as you evaluate, use the cross validation to measure the performance.
+
+[Prof. Devavrat Shah] 19:46:24
+Depending on whether you're trying to get the categories right or.
+
+[Prof. Devavrat Shah] 19:46:28
+Numbers right? You would use something like R. Square.
+
+[Prof. Devavrat Shah] 19:46:31
+Mist, prediction, error, things like that.
+
+[Prof. Devavrat Shah] 19:46:34
+Christos.
+
+[Prof. Devavrat Shah] 19:46:36
+Similarity, matrix computationally heavy? If yes.
+
+[Prof. Devavrat Shah] 19:46:39
+Very good. Crystals.
+
+[Prof. Devavrat Shah] 19:46:41
+That's where this thing comes in.
+
+[Prof. Devavrat Shah] 19:46:44
+There's approximate numbers are ways to build.
+
+[Prof. Devavrat Shah] 19:46:48
+Similarity. Metrics in a scalable manner.
+
+[Prof. Devavrat Shah] 19:46:51
+It is not straightforward questions, too, actually.
+
+[Prof. Devavrat Shah] 19:46:55
+As you might.
+
+[Prof. Devavrat Shah] 19:46:56
+With the modern.
+
+[Prof. Devavrat Shah] 19:46:58
+Popularized
+
+[Prof. Devavrat Shah] 19:47:00
+What's called people call rag.
+
+[Prof. Devavrat Shah] 19:47:03
+Infrastructure that are these things called vector.
+
+[Prof. Devavrat Shah] 19:47:07
+Database.
+
+[Prof. Devavrat Shah] 19:47:08
+These vector database are nothing but approximate. And this rag is nothing but a variation of this collaborative filtering like approach.
+
+[Prof. Devavrat Shah] 19:47:17
+Okay.
+
+[Prof. Devavrat Shah] 19:47:21
+Very good.
+
+[Prof. Devavrat Shah] 19:47:22
+Dasha, I think you have a question that I'm not 100% sure. I fully understand. So.
+
+[Prof. Devavrat Shah] 19:47:29
+I'll
+
+[Prof. Devavrat Shah] 19:47:30
+Where is what I recommend? Hang around and facilitators can help your.
+
+[Prof. Devavrat Shah] 19:47:35
+Answer, your question.
+
+[Prof. Devavrat Shah] 19:47:36
+Okay.
+
+[Prof. Devavrat Shah] 19:47:37
+So in the remaining time I'll 1st give you the exercise.
+
+[Prof. Devavrat Shah] 19:47:43
+Assuming you have time with all the readings and all the content we have covered.
+
+[Prof. Devavrat Shah] 19:47:48
+Then you might want to apply collaborative filtering to movie data set to see how it works, compares to.
+
+[Prof. Devavrat Shah] 19:47:54
+Clustering! And so on.
+
+[Prof. Devavrat Shah] 19:47:56
+Okay? And then there are also variations of it.
+
+[Prof. Devavrat Shah] 19:48:02
+Okay, finally.
+
+[Prof. Devavrat Shah] 19:48:03
+Singular value. Threshold.
+
+[Prof. Devavrat Shah] 19:48:05
+Okay. So again, there are details. There, I'm going to.
+
+[Prof. Devavrat Shah] 19:48:10
+Simply.
+
+[Prof. Devavrat Shah] 19:48:12
+Walk you through
+
+[Prof. Devavrat Shah] 19:48:16
+The method through this slide. Note here.
+
+[Prof. Devavrat Shah] 19:48:37
+So what we'd like to do is, we observe.
+
+[Prof. Devavrat Shah] 19:48:38
+We observe.
+
+[Prof. Devavrat Shah] 19:48:40
+Do? Why.
+
+[Prof. Devavrat Shah] 19:48:41
+And from there we want to estimate matrix hat.
+
+[Prof. Devavrat Shah] 19:48:44
+Which we hope is a good approximation of.
+
+[Prof. Devavrat Shah] 19:48:48
+Now, why is a matrix.
+
+[Prof. Devavrat Shah] 19:48:50
+So in principle we can do singular value. Decomposition of it.
+
+[Prof. Devavrat Shah] 19:48:55
+The.
+
+[Prof. Devavrat Shah] 19:48:56
+Problem is that.
+
+[Prof. Devavrat Shah] 19:48:58
+As a matrix y, it also has missing values.
+
+[Prof. Devavrat Shah] 19:49:06
+And since there are missing values.
+
+[Prof. Devavrat Shah] 19:49:10
+We cannot apply singularity. Composition, as is.
+
+[Prof. Devavrat Shah] 19:49:12
+So what we would like to do.
+
+[Prof. Devavrat Shah] 19:49:15
+Like to.
+
+[Prof. Devavrat Shah] 19:49:17
+Replace or fill the missing values by something, so that we can actually apply.
+
+[Prof. Devavrat Shah] 19:49:24
+Singularity, composition.
+
+[Prof. Devavrat Shah] 19:49:25
+So 1st thing we will do is we will construct.
+
+[Prof. Devavrat Shah] 19:49:30
+Where y hat is such that so y hat IJ equals to.
+
+[Prof. Devavrat Shah] 19:49:35
+YIJ.
+
+[Prof. Devavrat Shah] 19:49:36
+If.
+
+[Prof. Devavrat Shah] 19:49:37
+Y ij was not missing.
+
+[Prof. Devavrat Shah] 19:49:41
+Okay.
+
+[Prof. Devavrat Shah] 19:49:42
+But if Yj. Was missing, and by star, I'm representing.
+
+[Prof. Devavrat Shah] 19:49:48
+Missing. You could have it presented by question, mark, or whatever.
+
+[Prof. Devavrat Shah] 19:49:53
+Then I will replace it by 0.
+
+[Prof. Devavrat Shah] 19:49:56
+Now this.
+
+[Prof. Devavrat Shah] 19:49:57
+Choice of 0 at some level is arbitrary right now.
+
+[Prof. Devavrat Shah] 19:50:01
+There are more interesting.
+
+[Prof. Devavrat Shah] 19:50:03
+Choices we can make, but for the purpose of explanation. Let's go with 0.
+
+[Prof. Devavrat Shah] 19:50:08
+That means that what I have done.
+
+[Prof. Devavrat Shah] 19:50:10
+Is why I obtain y twiddle.
+
+[Prof. Devavrat Shah] 19:50:12
+Taking the wire matrix.
+
+[Prof. Devavrat Shah] 19:50:15
+Replace all the missing values by zeros.
+
+[Prof. Devavrat Shah] 19:50:17
+Kind of a terrible thing to do.
+
+[Prof. Devavrat Shah] 19:50:21
+It is, where it.
+
+[Prof. Devavrat Shah] 19:50:22
+And actually does.
+
+[Prof. Devavrat Shah] 19:50:24
+Provide a reasonable starting point as wishes.
+
+[Prof. Devavrat Shah] 19:50:27
+So that's white.
+
+[Prof. Devavrat Shah] 19:50:30
+Once I got white. 1st thing I will do. So. Let's say, this is my data. Prep.
+
+[Prof. Devavrat Shah] 19:50:34
+Is, I will compute.
+
+[Prof. Devavrat Shah] 19:50:37
+Singular value. Decomposition of y.
+
+[Prof. Devavrat Shah] 19:50:40
+Be able to say, key close to one minimum of.
+
+[Prof. Devavrat Shah] 19:50:43
+M comma n.
+
+[Prof. Devavrat Shah] 19:50:45
+Sigma k.
+
+[Prof. Devavrat Shah] 19:50:47
+UK vk, transpose.
+
+[Prof. Devavrat Shah] 19:50:50
+So use the left. Singular vector. Right? Singular vector.
+
+[Prof. Devavrat Shah] 19:50:54
+Now, what I will do is I will.
+
+[Prof. Devavrat Shah] 19:50:57
+Truncate.
+
+[Prof. Devavrat Shah] 19:50:59
+I will truncate.
+
+[Prof. Devavrat Shah] 19:51:02
+To some.
+
+[Prof. Devavrat Shah] 19:51:04
+But amateur r, which is less than or equal to minimum of.
+
+[Prof. Devavrat Shah] 19:51:08
+And comma n.
+
+[Prof. Devavrat Shah] 19:51:09
+What do I mean by that? That is.
+
+[Prof. Devavrat Shah] 19:51:12
+I will decide to have Al had.
+
+[Prof. Devavrat Shah] 19:51:15
+Equals, to key to 1, 2 up to.
+
+[Prof. Devavrat Shah] 19:51:19
+And I'm just.
+
+[Prof. Devavrat Shah] 19:51:20
+Change, the color.
+
+[Prof. Devavrat Shah] 19:51:22
+Harsh.
+
+[Prof. Devavrat Shah] 19:51:24
+Not.
+
+[Prof. Devavrat Shah] 19:51:25
+All the way to, and this.
+
+[Prof. Devavrat Shah] 19:51:28
+And I will only choose those.
+
+[Prof. Devavrat Shah] 19:51:31
+Think there's Sigma Key.
+
+[Prof. Devavrat Shah] 19:51:34
+Uk, PK transpose.
+
+[Prof. Devavrat Shah] 19:51:37
+By keeping only 1st r components.
+
+[Prof. Devavrat Shah] 19:51:40
+Of these many components.
+
+[Prof. Devavrat Shah] 19:51:42
+So I'm not taking all of them. I'm only keeping small part of it.
+
+[Prof. Devavrat Shah] 19:51:47
+And then.
+
+[Prof. Devavrat Shah] 19:51:48
+I will do one more change.
+
+[Prof. Devavrat Shah] 19:51:52
+Please wonder what he had.
+
+[Prof. Devavrat Shah] 19:51:55
+That P. Hat.
+
+[Prof. Devavrat Shah] 19:51:57
+Is.
+
+[Prof. Devavrat Shah] 19:51:59
+Number of.
+
+[Prof. Devavrat Shah] 19:52:02
+Entries.
+
+[Prof. Devavrat Shah] 19:52:03
+Observed.
+
+[Prof. Devavrat Shah] 19:52:06
+In matrix.
+
+[Prof. Devavrat Shah] 19:52:08
+Divided by M. Times, n.
+
+[Prof. Devavrat Shah] 19:52:12
+Okay. And I will have.
+
+[Prof. Devavrat Shah] 19:52:14
+Okay.
+
+[Prof. Devavrat Shah] 19:52:15
+So this means that what is a fraction of entries that were observed in Y.
+
+[Prof. Devavrat Shah] 19:52:20
+That is the P. Hat that I'm.
+
+[Prof. Devavrat Shah] 19:52:25
+Doing a 1 over P. Hat. Multiplication.
+
+[Prof. Devavrat Shah] 19:52:29
+And that's it. This is my.
+
+[Prof. Devavrat Shah] 19:52:32
+Final Estimate.
+
+[Prof. Devavrat Shah] 19:52:35
+So again.
+
+[Prof. Devavrat Shah] 19:52:37
+We had a matrix.
+
+[Prof. Devavrat Shah] 19:52:40
+We replaced.
+
+[Prof. Devavrat Shah] 19:52:41
+Missing values by 0.
+
+[Prof. Devavrat Shah] 19:52:44
+We compute singularity, composition.
+
+[Prof. Devavrat Shah] 19:52:48
+Where?
+
+[Prof. Devavrat Shah] 19:52:50
+Then notation is such that.
+
+[Prof. Devavrat Shah] 19:52:52
+Sigma. One is greater than 2 rather than Sigma.
+
+[Prof. Devavrat Shah] 19:52:56
+Minimum of M. Comma, n.
+
+[Prof. Devavrat Shah] 19:52:58
+Greater than equal to 0.
+
+[Prof. Devavrat Shah] 19:53:00
+The singular values are.
+
+[Prof. Devavrat Shah] 19:53:02
+In a decreasing order.
+
+[Prof. Devavrat Shah] 19:53:05
+Then I'm choosing some parameter. R.
+
+[Prof. Devavrat Shah] 19:53:10
+Out of these things. Only keeping top are components.
+
+[Prof. Devavrat Shah] 19:53:13
+And then normalizing them by P. Hat.
+
+[Prof. Devavrat Shah] 19:53:17
+A B hat is a fraction of entries that were observed in a regional biometrics.
+
+[Prof. Devavrat Shah] 19:53:23
+And this is my estimation of.
+
+[Prof. Devavrat Shah] 19:53:28
+The.
+
+[Prof. Devavrat Shah] 19:53:30
+Thing that I want to estimate.
+
+[Prof. Devavrat Shah] 19:53:33
+The one question that you might ask is, How do I choose? R.
+
+[Prof. Devavrat Shah] 19:53:37
+It's an algorithm parameter.
+
+[Prof. Devavrat Shah] 19:53:40
+We can choose it.
+
+[Prof. Devavrat Shah] 19:53:42
+In a similar manner, as we did before.
+
+[Prof. Devavrat Shah] 19:53:46
+Or you can.
+
+[Prof. Devavrat Shah] 19:53:47
+Choose for different hours, and you can do cross validation for it and based on that, make a decision.
+
+[Prof. Devavrat Shah] 19:53:52
+If you wanted to use the energy of these, then what you can do is you can plot this Sigma one sigma, 2.
+
+[Prof. Devavrat Shah] 19:54:00
+Whatever and then see what is the minimum fraction minimum number of top our components that captures a 90% of the energy.
+
+[Prof. Devavrat Shah] 19:54:08
+A few other ways to think about it, but that's roughly how we would choose.
+
+[Prof. Devavrat Shah] 19:54:11
+It's an algorithm parameter.
+
+[Prof. Devavrat Shah] 19:54:15
+And that's basically it.
+
+[Prof. Devavrat Shah] 19:54:19
+So let's see if there are questions before we end the lecture today.
+
+[Prof. Devavrat Shah] 19:54:24
+Alright, so.
+
+[Prof. Devavrat Shah] 19:54:29
+Alright, I think, I answered. Tasha. I recommended you to stick around to see if you can get help.
+
+[Prof. Devavrat Shah] 19:54:35
+Robi's question is.
+
+[Prof. Devavrat Shah] 19:54:36
+Is there such a thing as diversity in recommendation? System?
+
+[Prof. Devavrat Shah] 19:54:42
+Is very frustrating for me that after I watch couple of movies of one kind, my is filled with similar movie.
+
+[Prof. Devavrat Shah] 19:54:48
+Yes.
+
+[Prof. Devavrat Shah] 19:54:50
+There is a notion of diversity.
+
+[Prof. Devavrat Shah] 19:54:53
+And
+
+[Prof. Devavrat Shah] 19:54:54
+There has been
+
+[Prof. Devavrat Shah] 19:54:57
+Concerted effort to develop methods towards.
+
+[Prof. Devavrat Shah] 19:55:02
+Recommendation, system.
+
+[Prof. Devavrat Shah] 19:55:05
+We are not covering those things into this collection of lectures.
+
+[Prof. Devavrat Shah] 19:55:18
+One way to think about that is.
+
+[Prof. Devavrat Shah] 19:55:22
+Kind of.
+
+[Prof. Devavrat Shah] 19:55:24
+If you are a user.
+
+[Prof. Devavrat Shah] 19:55:26
+And trying to recommend you different items.
+
+[Prof. Devavrat Shah] 19:55:30
+Might want to recommend them from different clusters, so to speak.
+
+[Prof. Devavrat Shah] 19:55:33
+And that style of approach has been
+
+[Prof. Devavrat Shah] 19:55:36
+Done through what's called.
+
+[Prof. Devavrat Shah] 19:55:39
+Determinant.
+
+[Prof. Devavrat Shah] 19:55:40
+Point processes. So let me just right there.
+
+[Prof. Devavrat Shah] 19:55:43
+That reference here.
+
+[Prof. Devavrat Shah] 19:55:45
+So it's.
+
+[Prof. Devavrat Shah] 19:55:49
+Determinant.
+
+[Prof. Devavrat Shah] 19:55:53
+Point processes, and they have.
+
+[Prof. Devavrat Shah] 19:55:57
+Dpp!
+
+[Prof. Devavrat Shah] 19:55:58
+And then through the Ppp one can encode the diversity matrix which can feed to.
+
+[Prof. Devavrat Shah] 19:56:04
+These kind of recommendation system.
+
+[Prof. Devavrat Shah] 19:56:06
+Won't be able to go through those things, but hopefully provides you some keywords. If you are curious.
+
+[Prof. Devavrat Shah] 19:56:13
+Deb would normalizing the values in user item before calculating cosine.
+
+[Prof. Devavrat Shah] 19:56:19
+Improve performance. So I think debit would depend on what normalization would mean.
+
+[Prof. Devavrat Shah] 19:56:24
+If the normalization is, we discussed in terms of just role things like that.
+
+[Prof. Devavrat Shah] 19:56:29
+It won't change anything which a row columnization also, it won't change anything, because these methods are supposed to be robust to those things.
+
+[Prof. Devavrat Shah] 19:56:37
+In a sense, cosine. Similarities are designed to.
+
+[Prof. Devavrat Shah] 19:56:41
+Not required to do those kind of normalization.
+
+[Prof. Devavrat Shah] 19:56:46
+Likes. Question is how the observed 0 can be distinguished from arbitrary updated, and it is kind of as interesting and miracle that.
+
+[Prof. Devavrat Shah] 19:56:56
+This type of method does work for certain observation.
+
+[Prof. Devavrat Shah] 19:57:01
+Does not work, especially when observation is very, very skewer, biased.
+
+[Prof. Devavrat Shah] 19:57:06
+There's the reason you're observing something.
+
+[Prof. Devavrat Shah] 19:57:09
+Is just the way at explaining earlier, right?
+
+[Prof. Devavrat Shah] 19:57:12
+I'm a vegetarian.
+
+[Prof. Devavrat Shah] 19:57:13
+Don't go to steakhouses, don't rates is when there's an extreme version of those biases. At present, this updating by 0 is going to do terrible things.
+
+[Prof. Devavrat Shah] 19:57:21
+And you can actually check that.
+
+[Prof. Devavrat Shah] 19:57:25
+In manuscript. As I mentioned, matrix completion.
+
+[Prof. Devavrat Shah] 19:57:29
+Properly, describe.
+
+[Prof. Devavrat Shah] 19:57:32
+Okay.
+
+[Prof. Devavrat Shah] 19:57:36
+Okay.
+
+[Prof. Devavrat Shah] 19:57:38
+I think Elam is asking questions. Ep, what algorithms are currently most value depends on the organization, not everything is public, as you know.
+
+[Prof. Devavrat Shah] 19:57:48
+But these are hopefully the concepts that broadly everybody utilizes.
+
+[Prof. Devavrat Shah] 19:57:53
+Okay, I think I answered your question, Tasha. What singular value produces.
+
+[Prof. Devavrat Shah] 19:58:00
+Well, good singular value. It would produce less accurate result. But it's a great one start, and, as you may realize in many of these
+
+[Prof. Devavrat Shah] 19:58:10
+Final answers, you don't do is use one algorithms. You use various.
+
+[Prof. Devavrat Shah] 19:58:14
+Algorithms stitch together in a meaningful way to get the final answer.
+
+[Prof. Devavrat Shah] 19:58:18
+To always.
+
+[Prof. Devavrat Shah] 19:58:19
+I'll go to them garden garden. It's not only only one answer. Okay.
+
+[Prof. Devavrat Shah] 19:58:24
+Anyways.
+
+[Prof. Devavrat Shah] 19:58:26
+Coming to the end of our time. If there are no more questions.
+
+[Prof. Devavrat Shah] 19:58:33
+Please do review the content for today.
+
+[Prof. Devavrat Shah] 19:58:36
+Do stick around. If you have questions, I'm gonna hand it over to Ankitan team here.
+
+[Prof. Devavrat Shah] 19:58:41
+Who can?
+
+[Prof. Devavrat Shah] 19:58:42
+Help answer some of your questions, and we'll see on Thursday, not tomorrow.
+
+[Prof. Devavrat Shah] 19:58:48
+Thursday. Similar time.
+
+[Prof. Devavrat Shah] 19:58:49
+And in that last lecture all we're gonna do is we're gonna put all of these learnings that we have together, and.
+
+[Prof. Devavrat Shah] 19:58:56
+Conclude again, is going to be.
+
+[Prof. Devavrat Shah] 19:58:59
+Lots of materials in the last lecture, a little bit more than today's lecture. But my hope is that.
+
+[Prof. Devavrat Shah] 19:59:04
+We'll go through it, and we'll bring it home.
+
+[Prof. Devavrat Shah] 19:59:06
+Right. So with that.
+
+[Prof. Devavrat Shah] 19:59:08
+Trust. You all have a lovely day, and I'll see you in a few days.
+
+[Prof. Devavrat Shah] 19:59:11
+And thanks again.
+
+[Moderator - Ankit Agrawal] 19:59:12
+Think.
+
+[Moderator - Ankit Agrawal] 19:59:13
+Thank you so much, Professor, for that wonderful lecture. We covered a whole host of methods today, and I'm I'm sure that learners will appreciate the lecture on Thursday as well, where we'll cover more advanced methods.
+
+[Moderator - Ankit Agrawal] 19:59:27
+Thank you so much.
+
+[Moderator - Ankit Agrawal] 19:59:28
+Bye, bye.
+
+[Moderator - Ankit Agrawal] 19:59:32
+So we have paste it with us today to answer some questions over here.
+
+[Moderator - Ankit Agrawal] 19:59:40
+Hello! Jeet.
+
+[Moderator - Ankit Agrawal] 19:59:45
+Okay, so we'll get started with the mentors. QA. Session over here this will be for 30 min so if you have any questions please ask now.
+
+[Moderator - Ankit Agrawal] 19:59:57
+And we'll try to cover as many questions as we can.
+
+[Moderator - Ankit Agrawal] 20:00:00
+So I see Lynn asking a question. Can you go over Svd again? When is it used.
+
+[Bhaskarjit Sarmah] 20:00:12
+Yeah, sure.
+
+[Bhaskarjit Sarmah] 20:00:13
+So singular value. Decomposition is actually, 1st of all, that's a great question.
+
+[Bhaskarjit Sarmah] 20:00:19
+I mean, in this entire machine learning completion is what my most favorite algorithm.
+
+[Bhaskarjit Sarmah] 20:00:28
+Because singular value decomposition is used everywhere. This entire.
+
+[Bhaskarjit Sarmah] 20:00:34
+So just hold on for a minute. I'm trying to find out one very good resource which actually talks about this. There was a blog post by deepmind.
+
+[Bhaskarjit Sarmah] 20:00:43
+Almost few years back. Let me see if I can.
+
+[Bhaskarjit Sarmah] 20:00:49
+Find this, link.
+
+[Bhaskarjit Sarmah] 20:00:54
+Okay.
+
+[Bhaskarjit Sarmah] 20:00:55
+Yeah, here it is. I I got this.
+
+[Moderator - Ankit Agrawal] 20:00:55
+Yeah.
+
+[Bhaskarjit Sarmah] 20:00:57
+Yeah. So let me share my screen very quickly.
+
+[Bhaskarjit Sarmah] 20:01:04
+Okay, so I hope you're able to see my screen. This is an article by Google and game theory as an engine for large scale data. This is.
+
+[Bhaskarjit Sarmah] 20:01:12
+And share, if you if you scroll down, I mean, they tried to solve the problem. Pca as a Nash equilibrium. But that's not what I'm trying to show you.
+
+[Bhaskarjit Sarmah] 20:01:19
+What I'm trying to show you is this diagram what they call it as Ml. 3. Machine learning.
+
+[Bhaskarjit Sarmah] 20:01:24
+And if you see in this machine.
+
+[Bhaskarjit Sarmah] 20:01:27
+At the root.
+
+[Bhaskarjit Sarmah] 20:01:29
+Here you see the singular.
+
+[Bhaskarjit Sarmah] 20:01:31
+Most of this machine learning algorithm, whether it is Pca principal analysis.
+
+[Bhaskarjit Sarmah] 20:01:36
+Is driven by a single place, squares regression driven by Sb.
+
+[Bhaskarjit Sarmah] 20:01:41
+Clustering, driven by.
+
+[Bhaskarjit Sarmah] 20:01:43
+LSI is sorting Pvf. Driven by.
+
+[Bhaskarjit Sarmah] 20:01:46
+Recommendation system. What professor today is driven as.
+
+[Bhaskarjit Sarmah] 20:01:50
+Time series forecasting is driven by even large model. I'm sure you must have heard about something called Laura, which is a kind of fine tuning.
+
+[Bhaskarjit Sarmah] 20:01:59
+Process.
+
+[Bhaskarjit Sarmah] 20:02:00
+So find. Laura is also driven by the question, so singular validation is everywhere.
+
+[Bhaskarjit Sarmah] 20:02:06
+Well, in this, you know, half an hour will not be sufficient to extend again how singular vision work.
+
+[Bhaskarjit Sarmah] 20:02:11
+But think of it like.
+
+[Bhaskarjit Sarmah] 20:02:15
+When singular validation is a, you know, is a algorithm where basically you try to find out what is a low rank decomposition of a matrix. So let's say, this is matrix a.
+
+[Bhaskarjit Sarmah] 20:02:26
+So let's imagine this matrix is I don't know. Maybe.
+
+[Bhaskarjit Sarmah] 20:02:29
+1,000 by, let's say, 10,000.
+
+[Bhaskarjit Sarmah] 20:02:33
+Dimensional, metric.
+
+[Bhaskarjit Sarmah] 20:02:34
+So let's say the rank of this matrix is 1,000.
+
+[Bhaskarjit Sarmah] 20:02:37
+Then you get 1,000. I get the one webinar, 2 webinar, 3.
+
+[Bhaskarjit Sarmah] 20:02:41
+And and so on, until the 1,000.
+
+[Bhaskarjit Sarmah] 20:02:44
+And then what you do is if you find out.
+
+[Bhaskarjit Sarmah] 20:02:47
+All the members of the X's and all the information content. The Y axis.
+
+[Bhaskarjit Sarmah] 20:02:51
+Then you'll always find the. You'll always find the relationship like this.
+
+[Bhaskarjit Sarmah] 20:02:57
+Only 1st few vendors are explaining most of this information.
+
+[Bhaskarjit Sarmah] 20:03:00
+For example, let's say this is the 10.
+
+[Bhaskarjit Sarmah] 20:03:04
+So most majority of the informations are explained by the lab.
+
+[Bhaskarjit Sarmah] 20:03:07
+The 1st 10.
+
+[Bhaskarjit Sarmah] 20:03:09
+And remaining members are completely useless, or they are not, you know.
+
+[Bhaskarjit Sarmah] 20:03:13
+Explaining much information.
+
+[Bhaskarjit Sarmah] 20:03:14
+So basically, what you can do is you can reconstruct this matrix only by taking this. You know 10.
+
+[Bhaskarjit Sarmah] 20:03:23
+In terms of recommendation system. What happens is so let me just quickly.
+
+[Bhaskarjit Sarmah] 20:03:23
+And when you do this.
+
+[Bhaskarjit Sarmah] 20:03:29
+For example, here the shape of the Zoom matrix will be 1,000 by 1,000.
+
+[Bhaskarjit Sarmah] 20:03:34
+Shape of the Sigma metrics will be 1,000 by 1,000.
+
+[Bhaskarjit Sarmah] 20:03:37
+And shape of this V. Transpose metrics will be 1,000 by 10,000.
+
+[Bhaskarjit Sarmah] 20:03:41
+And this is Sigma matrix, which contains all of this Eigenveld.
+
+[Bhaskarjit Sarmah] 20:03:46
+Now, if you find out that.
+
+[Bhaskarjit Sarmah] 20:03:47
+Only 10 members are the most important members.
+
+[Bhaskarjit Sarmah] 20:03:50
+Then what you do is you filter this Sigma.
+
+[Bhaskarjit Sarmah] 20:03:54
+Only by 10, by 10.
+
+[Bhaskarjit Sarmah] 20:03:55
+You filter, you metrics 1,000 by 10.
+
+[Bhaskarjit Sarmah] 20:03:58
+You filter this one only 10 by 10,000.
+
+[Bhaskarjit Sarmah] 20:04:01
+And then you reconstruct this matrix only by taking this.
+
+[Bhaskarjit Sarmah] 20:04:05
+10. I can barely.
+
+[Bhaskarjit Sarmah] 20:04:06
+And when you reconstruct this matrix, then what you'll find out.
+
+[Bhaskarjit Sarmah] 20:04:09
+Is in the original matrix, which is, from the recommendation system, point of view.
+
+[Bhaskarjit Sarmah] 20:04:14
+This is nothing but the user item matrix, and there will also be the same value.
+
+[Bhaskarjit Sarmah] 20:04:19
+So when you reconstruct.
+
+[Bhaskarjit Sarmah] 20:04:22
+Sorry when you reconstruct this missing values will get populated.
+
+[Bhaskarjit Sarmah] 20:04:26
+And based on this missing value. You make your recommendation, for example, if this missing value comes out to be, let's say it is a rating.
+
+[Bhaskarjit Sarmah] 20:04:33
+Movie rating on a scale of one to 5. Let's say, this is movie 2.
+
+[Bhaskarjit Sarmah] 20:04:36
+User 2, and this missing value turned out to be 1.5. That means you should not record.
+
+[Bhaskarjit Sarmah] 20:04:42
+The movie to to use in but 2.
+
+[Bhaskarjit Sarmah] 20:04:44
+But let's say this is another missing value before.
+
+[Bhaskarjit Sarmah] 20:04:47
+And this missing, where it turns out to be 4.5 on a scale of 5.
+
+[Bhaskarjit Sarmah] 20:04:51
+That means you recommend.
+
+[Bhaskarjit Sarmah] 20:04:52
+Moving forward to user id.
+
+[Bhaskarjit Sarmah] 20:04:53
+So that's how that's a that's a very brief explanation. But I guess.
+
+[Bhaskarjit Sarmah] 20:04:59
+In the Mentally Sessions. Your mentor will explain this.
+
+[Moderator - Ankit Agrawal] 20:05:06
+Thank you. Bye for that Eileen. Also, during your very 1st mentor learning session related to Lvc's. At the very beginning, when when we went over the concepts with Professor Caroline we talked about Pca. And Svd.
+
+[Moderator - Ankit Agrawal] 20:05:23
+Back. Then as well, yeah. So I I can understand. Svd is like one of the bread and butter concepts in machine learning. As, as you just pointed out, it's used everywhere. So it's not.
+
+[Moderator - Ankit Agrawal] 20:05:37
+Feasible for us to explain that right here in like a very short amount of time. If you just go on Youtube and search for Svd. You'll find a lot of very good resources.
+
+[Moderator - Ankit Agrawal] 20:05:49
+The key thing to understand Svd is that it takes your original matrix and decomposes that matrix based on its eigenvalues it finds important eigenvalues and finds an approximation of your original matrix. So so I mean, that's that's kind of essentially what we can mention about Svd here.
+
+[Moderator - Ankit Agrawal] 20:06:09
+And the Svd in recommendation systems is primarily used during the matrix factorization. Okay, so that in recommendations is system, that that is the algorithm where we use a sweetie.
+
+[Moderator - Ankit Agrawal] 20:06:23
+Apart from that, it is used in dimensionality reduction, clustering Llms. And all over the place.
+
+[Moderator - Ankit Agrawal] 20:06:31
+Okay. So moving from that question,
+
+[Moderator - Ankit Agrawal] 20:06:35
+What are the key performance? Metrics used to evaluate filtering effectively.
+
+[Bhaskarjit Sarmah] 20:06:45
+Yeah. So the evaluation it is kind of, you know, similar to classification task. But again, not exactly similar.
+
+[Bhaskarjit Sarmah] 20:06:53
+For example, you know, when you let's take example of Google search. Google search is also a kind of recommendation system. Right? You ask a question.
+
+[Bhaskarjit Sarmah] 20:07:01
+And then Google gives you some responses.
+
+[Bhaskarjit Sarmah] 20:07:03
+Now, let's say Google gives you response. 10 responses to you.
+
+[Bhaskarjit Sarmah] 20:07:08
+But out of those 10 response.
+
+[Bhaskarjit Sarmah] 20:07:09
+How many of them are relevant.
+
+[Bhaskarjit Sarmah] 20:07:12
+Right. So, based on this, you can compute precision, you can compute, recall.
+
+[Bhaskarjit Sarmah] 20:07:17
+Which are kind of, you know. Similar evolution related to classification.
+
+[Bhaskarjit Sarmah] 20:07:22
+But we add some modification on top of it.
+
+[Bhaskarjit Sarmah] 20:07:24
+That is, recall at how many responses or how many output that Google has given to you. That is.
+
+[Bhaskarjit Sarmah] 20:07:31
+Recall at K.
+
+[Bhaskarjit Sarmah] 20:07:32
+Here. K. You have to define how many, for example, when you go to Netflix.
+
+[Bhaskarjit Sarmah] 20:07:36
+Netflix does not recommend all the movies that it has in its repository.
+
+[Bhaskarjit Sarmah] 20:07:41
+Netflix will say top 10. There was a top 20.
+
+[Bhaskarjit Sarmah] 20:07:44
+So, if case could do 10, then what is a recall? At 10? What is the precision? At 10.
+
+[Bhaskarjit Sarmah] 20:07:50
+So this is one type of evolution.
+
+[Bhaskarjit Sarmah] 20:07:52
+And another type of evolution will be.
+
+[Bhaskarjit Sarmah] 20:07:55
+When you're, you know, imputing the missing value in the matrix. That is a user interactions.
+
+[Bhaskarjit Sarmah] 20:08:01
+You can also compute the mean squared error, or Rmc.
+
+[Bhaskarjit Sarmah] 20:08:07
+Of the of those values which are already populated.
+
+[Bhaskarjit Sarmah] 20:08:09
+And because you're creating it, you reconstructing the matrix one more time.
+
+[Bhaskarjit Sarmah] 20:08:15
+So yours, you can compute the element wise in error. And using this element as error, you can also use Rmse.
+
+[Bhaskarjit Sarmah] 20:08:21
+And apart from this matrix there are few other metric like Ntc.
+
+[Bhaskarjit Sarmah] 20:08:27
+And he said, Okay, so these are mostly the metrics that are used in.
+
+[Moderator - Ankit Agrawal] 20:08:36
+I also posted a link by Professor Gilbert Strang.
+
+[Moderator - Ankit Agrawal] 20:08:51
+Teaching Svd. In the chat. I for anyone who is interested I recommend.
+
+[Moderator - Ankit Agrawal] 20:08:51
+Looking at that, Professor Gilbert from Mit is very, very popular for his linear algebra course, which is also available for free on mit opencourseware if you're interested. So yeah,
+
+[Moderator - Ankit Agrawal] 20:09:04
+Do look at that.
+
+[Moderator - Ankit Agrawal] 20:09:06
+Christos is asking, do you have any sources that we can use to learn more in deep about recommendation systems, like videos, blogs, etc.
+
+[Bhaskarjit Sarmah] 20:09:19
+Yeah, I mean, I don't have many resources like that, but I.
+
+[Bhaskarjit Sarmah] 20:09:24
+Shared one yesterday which is
+
+[Bhaskarjit Sarmah] 20:09:27
+One way to visually understand system.
+
+[Bhaskarjit Sarmah] 20:09:32
+But I don't have the top any book, or do you.
+
+[Bhaskarjit Sarmah] 20:09:36
+Have any recommendation.
+
+[Moderator - Ankit Agrawal] 20:09:39
+There was this manuscript that was written. It was called a Recommendation System Handbook. I forgot who was the author behind it. Let me see if I can find it on my end.
+
+[Moderator - Ankit Agrawal] 20:09:53
+But but that would be like a very good starting place to go over. It talks about lot of like basic algorithms and recommendation systems. It won't cover like graph methods and stuff.
+
+[Moderator - Ankit Agrawal] 20:10:04
+But if you just search on Google documentation system handbook.
+
+[Moderator - Ankit Agrawal] 20:10:10
+And find, like a Pdf version of that handbook, you should be able to have a good start from there.
+
+[Moderator - Ankit Agrawal] 20:10:15
+Other than that I do recommend. Looking at Professor David's content. He has given a lot of talks on recommendation systems that are available on Youtube. You can follow some of those.
+
+[Moderator - Ankit Agrawal] 20:10:29
+It it as like. Very good resources as well.
+
+[Moderator - Ankit Agrawal] 20:10:37
+Steven is asking the performance. Metrics isn't the only way to recall really get recall or precision metrics. If the end user actually acts upon the recommendation.
+
+[Bhaskarjit Sarmah] 20:10:52
+Yes, exactly. So that's why, if you see, you know, in that conf in that matrix user items matrix.
+
+[Bhaskarjit Sarmah] 20:11:01
+Let's talk. Let's think about you are the end user. You're the consumer. You're the customer.
+
+[Bhaskarjit Sarmah] 20:11:05
+And you went to.
+
+[Bhaskarjit Sarmah] 20:11:07
+Amazon.com, for example.
+
+[Bhaskarjit Sarmah] 20:11:08
+So you must.
+
+[Bhaskarjit Sarmah] 20:11:10
+Need to have some kind of history right, some purchasing history.
+
+[Bhaskarjit Sarmah] 20:11:13
+So that purchase in history is sufficient.
+
+[Bhaskarjit Sarmah] 20:11:16
+I mean historically, you will. For example, you have bought some product. ABC.
+
+[Bhaskarjit Sarmah] 20:11:20
+Last month.
+
+[Bhaskarjit Sarmah] 20:11:22
+So you have that information.
+
+[Bhaskarjit Sarmah] 20:11:23
+So based on that information, historical data, we will try to reconstruct this matrix. Or let's say, you go to Imd movies on a scale of one to 10.
+
+[Bhaskarjit Sarmah] 20:11:32
+So using that historical data, you already have that information. Right?
+
+[Bhaskarjit Sarmah] 20:11:37
+Whether you have rating on Imd or not, or whether you have bought some product on Amazon or not. So based on that, we tried to reconstruct this matrix.
+
+[Bhaskarjit Sarmah] 20:11:45
+And then we'll try to find out whether let's say you have bought product 8.
+
+[Bhaskarjit Sarmah] 20:11:49
+Let's say you have rated movie ABC on Imdv. 7 out of 10.
+
+[Bhaskarjit Sarmah] 20:11:53
+That we'll see.
+
+[Bhaskarjit Sarmah] 20:11:54
+What is the model predicted?
+
+[Bhaskarjit Sarmah] 20:11:56
+So let's say the model rating is 5.
+
+[Bhaskarjit Sarmah] 20:11:59
+So here the error is equal to 2.
+
+[Bhaskarjit Sarmah] 20:12:00
+So we will have the product historically. So if you're a new customer, if your question is, you know, from, for example, if there is a new customer. The new customer will not have any purchasing history. So that's where collaborative will not work.
+
+[Bhaskarjit Sarmah] 20:12:12
+That's where you have the call start problem.
+
+[Bhaskarjit Sarmah] 20:12:16
+Where you recommend, based on the popularity based recommendation system. What we discussed yesterday, or the rank based system.
+
+[Bhaskarjit Sarmah] 20:12:22
+Based on number of purchases or based on number of, you know, views, number of likes, and so on.
+
+[Bhaskarjit Sarmah] 20:12:27
+So if you, if there is a completely new customer who, purchasing history, collaborative, will not work.
+
+[Moderator - Ankit Agrawal] 20:12:35
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:12:37
+Another question that I think I can quickly answer. This one is nearest neighbor. How do you decide the value of K. Is there any num normal number that people use in practice. So when for this, I recommend you to go ahead and watch the lecture by Professor John statistically.
+
+[Moderator - Ankit Agrawal] 20:12:55
+And week, 4 or week 2 of Lvc. Where we talked about Kenya as neighbor in detail and in in that lecture shows a lot of visualizations on how you can do hyper parameter tuning for the value of K. And how do you decide an optimal value of K, so we have covered K nearest neighbor in great detail in the past. So I recommend going back.
+
+[Moderator - Ankit Agrawal] 20:13:18
+To that recording and looking at it again.
+
+[Moderator - Ankit Agrawal] 20:13:23
+Tasha is asking, can you touch on recommendation systems over time? It's a lot of work for something that can change. When you added another data entry based.
+
+[Moderator - Ankit Agrawal] 20:13:34
+Recommendation systems in the next lecture on Thursday. But maybe Pascar has, like a quick comment on it that he could probably make.
+
+[Bhaskarjit Sarmah] 20:13:43
+Yeah, I mean, yes. As you currently mentioned, we covered.
+
+[Bhaskarjit Sarmah] 20:13:48
+Adding, the time component is, not very trivial thing to do.
+
+[Bhaskarjit Sarmah] 20:13:53
+For example, if I talk about some real world in a point of view, I'm working on every building system based on graph.
+
+[Bhaskarjit Sarmah] 20:14:07
+On a on something like financial. So you to include some time component onto it.
+
+[Bhaskarjit Sarmah] 20:14:07
+And where we are trying to change, update the graph on a day to day basis.
+
+[Bhaskarjit Sarmah] 20:14:12
+And so now, for example, here, I mean, if you talk about non draft or tabular data, like, for example, what you have today, you discuss this user and items, matrix, which is a 2 dimensional matrix.
+
+[Bhaskarjit Sarmah] 20:14:25
+So if you include time, you can also time on the 3rd axis. So it would be 3 dimensional metrics. So you apply the same concept.
+
+[Bhaskarjit Sarmah] 20:14:33
+On, on the 3 dimensional, on the on, the rather than 2 dimension.
+
+[Bhaskarjit Sarmah] 20:14:37
+So that's where we have some, you know, more advanced concepts, like spectral analysis. For example.
+
+[Bhaskarjit Sarmah] 20:14:43
+Which we'll talk about. Tuesday.
+
+[Moderator - Ankit Agrawal] 20:14:46
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:14:47
+Another way of thinking about time component could be in your cost metrics. Right? Like, you can update your weights or you can update your rating predictions by like doing a weighted time component in there. So instead of creating a 3rd dimension and adding it to your model, you can actually include that as part of your evaluation as well.
+
+[Moderator - Ankit Agrawal] 20:15:09
+Like, let's say, if the rating was given a long time ago, it has low, lesser preference.
+
+[Moderator - Ankit Agrawal] 20:15:14
+Then, if the rating was given right. So just like how we did a addition with one divided by square root of N.
+
+[Moderator - Ankit Agrawal] 20:15:23
+To adjust our ratings to remove biases. You could also do something like that with respect to time.
+
+[Moderator - Ankit Agrawal] 20:15:30
+So the lot. The earlier it was written, it has less impact on the rating and the recent reviews or recent feedback.
+
+[Moderator - Ankit Agrawal] 20:15:38
+Has a higher impact on the overall rating like the average rating that you compute.
+
+[Moderator - Ankit Agrawal] 20:15:43
+So, yeah, there are different ways to think about it. It highly depends on the application that you're trying to solve.
+
+[Moderator - Ankit Agrawal] 20:15:53
+But let's continue to more questions over here.
+
+[Moderator - Ankit Agrawal] 20:15:59
+Eric asked how the observed 0 can be distinguished to arbitrarily updated to 0.
+
+[Moderator - Ankit Agrawal] 20:16:07
+I don't exactly know what this question relates to. Are you aware of it? On like which part of the question this was related to.
+
+[Bhaskarjit Sarmah] 20:16:18
+Yeah. Then, I'm also to follow.
+
+[Bhaskarjit Sarmah] 20:16:21
+The question exactly.
+
+[Moderator - Ankit Agrawal] 20:16:23
+Maybe you can ask that question again by providing a little bit more context.
+
+[Moderator - Ankit Agrawal] 20:16:28
+We have Kewell, who is asking, can you quickly tell us more about Uk and V subscript K, matrix, so I think this is related to the Svd. That we talked about.
+
+[Moderator - Ankit Agrawal] 20:16:40
+Where you have the U. Sigma and V matrix compositions over there. I recommend the lecture video that I shared up by Professor Gilbert's trying to go over it.
+
+[Moderator - Ankit Agrawal] 20:16:53
+To have a better understanding. It's again talking about Svd. Here is like, we don't have enough time to do that right now.
+
+[Moderator - Ankit Agrawal] 20:17:03
+Unfortunately
+
+[Moderator - Ankit Agrawal] 20:17:08
+Okay. Let's see.
+
+[Moderator - Ankit Agrawal] 20:17:11
+So Jeffrey is asking, is there a measure of sensitivity of Pca to new data?
+
+[Bhaskarjit Sarmah] 20:17:21
+Measure of sensitivity of Pca to new data.
+
+[Bhaskarjit Sarmah] 20:17:26
+Oh!
+
+[Bhaskarjit Sarmah] 20:17:26
+I think you cannot.
+
+[Bhaskarjit Sarmah] 20:17:29
+Apply. PC of new data.
+
+[Bhaskarjit Sarmah] 20:17:31
+I don't think so. You can.
+
+[Bhaskarjit Sarmah] 20:17:32
+I mean, if I'm if I'm understanding your question correctly.
+
+[Bhaskarjit Sarmah] 20:17:37
+What do you mean by? I don't think you can apply. You can do any kind of prediction.
+
+[Bhaskarjit Sarmah] 20:17:42
+Kind of thing. I mean. For example, if your question is, let's say you're doing linear regression, etc. Where you have the predict function, using which you can predict.
+
+[Bhaskarjit Sarmah] 20:17:51
+I don't think you can do that. Using Pca is just you can transform the data that you have currently.
+
+[Bhaskarjit Sarmah] 20:17:59
+But I don't. I don't think if there is a new data you can make any other.
+
+[Bhaskarjit Sarmah] 20:18:02
+But using Tsa, you can do that.
+
+[Bhaskarjit Sarmah] 20:18:05
+So you Tsd, if Tsa, which is a normally their counterpart of Pca.
+
+[Bhaskarjit Sarmah] 20:18:11
+You can do that using Tsne, but not using.
+
+[Bhaskarjit Sarmah] 20:18:14
+PC.
+
+[Moderator - Ankit Agrawal] 20:18:17
+Yeah, I would agree that sensitivity measure would be done when you have predictions right? Like, when a model is making predictions. And you're comparing it to the true predictions. And Pca is an unsupervised learning method where we are not making any predictions, just transforming the data.
+
+[Moderator - Ankit Agrawal] 20:18:36
+So I don't. I agree with Security sensor over there.
+
+[Moderator - Ankit Agrawal] 20:18:42
+Far as ask, can we use similarity metrics for graph neural networks because it's related to vectors.
+
+[Bhaskarjit Sarmah] 20:18:50
+Oh, absolutely. I mean you can. I mean not only similar metrics. You can use any kind of metrics to create graph.
+
+[Bhaskarjit Sarmah] 20:18:58
+Because I mean, you see, the most difficult part using recommendation system.
+
+[Bhaskarjit Sarmah] 20:19:04
+Using graph neural network is not the algorithm from real world application point of view.
+
+[Bhaskarjit Sarmah] 20:19:10
+Is most difficult. Piece is the data creation.
+
+[Bhaskarjit Sarmah] 20:19:14
+I mean, how do you? Because most of the data are in the tabular format.
+
+[Bhaskarjit Sarmah] 20:19:18
+So how do you convert that data into a matrix format?
+
+[Bhaskarjit Sarmah] 20:19:23
+Where you have, you know lot of where you have those.
+
+[Bhaskarjit Sarmah] 20:19:27
+And the matrix values works as a
+
+[Bhaskarjit Sarmah] 20:19:31
+Connection between those 2 edges.
+
+[Bhaskarjit Sarmah] 20:19:32
+So if you can create that, you know matrix.
+
+[Bhaskarjit Sarmah] 20:19:36
+Then the rest rest of the things are, you know, very easy for you.
+
+[Bhaskarjit Sarmah] 20:19:39
+Because if you imagine, like 10 by 10 metrics, that would be 10 rows at 10 columns.
+
+[Bhaskarjit Sarmah] 20:19:44
+And then all the values you will have that can act as a connection between those 10 notes or the row and the column.
+
+[Bhaskarjit Sarmah] 20:19:52
+And you can create a graph out of it.
+
+[Bhaskarjit Sarmah] 20:19:54
+So yes, using similarity matrix, you can also create a graph. And then you can consume the graph on whatever way you.
+
+[Moderator - Ankit Agrawal] 20:20:02
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:20:03
+Jeffrey, saying, will Pca result a lot or a little as you add more data. So again, Pca is a dimensionality reduction method. Right? So I don't.
+
+[Moderator - Ankit Agrawal] 20:20:14
+Maybe a basket has better comment on this, but I don't know what you mean by results. Shift a lot like with comparison to what.
+
+[Bhaskarjit Sarmah] 20:20:23
+Yeah. So I think here, 1st of all, you cannot. As we already mentioned, you cannot make prediction.
+
+[Bhaskarjit Sarmah] 20:20:30
+So if you add, let's say you have done a Pca on a data set version one.
+
+[Bhaskarjit Sarmah] 20:20:34
+And let's say, on top of that data set, you add few more data points. Let's call this a version 2.
+
+[Bhaskarjit Sarmah] 20:20:39
+So you cannot.
+
+[Bhaskarjit Sarmah] 20:20:41
+You know. Do any sensitivity analysis of Pca based on this incremental.
+
+[Bhaskarjit Sarmah] 20:20:46
+If you want to do PC again, you have to combine it and the new data set together, and then you do PC. On traffic.
+
+[Bhaskarjit Sarmah] 20:20:54
+After you do the PC. On the of it.
+
+[Bhaskarjit Sarmah] 20:20:58
+I mean again, this is an experimentation you have to do. But, my, you know, gut feeling or my hypothesis, if the data point that you have used.
+
+[Bhaskarjit Sarmah] 20:21:05
+Are coming from the same distribution.
+
+[Bhaskarjit Sarmah] 20:21:08
+Then it will not make much of impact.
+
+[Bhaskarjit Sarmah] 20:21:10
+But if it is coming from a different distribution altogether, then it will have some impact. But again, you have to.
+
+[Bhaskarjit Sarmah] 20:21:17
+Do this analysis, not using the new data point, but combining the previous.
+
+[Bhaskarjit Sarmah] 20:21:21
+As.
+
+[Bhaskarjit Sarmah] 20:21:22
+Pca is not a predictive.
+
+[Moderator - Ankit Agrawal] 20:21:26
+Yeah. So I I guess that in in this context, what we we are trying to say is that the shift can happen in terms of like the mean and the standard deviation of your.
+
+[Moderator - Ankit Agrawal] 20:21:37
+Overall data set. If your data is coming from a different if your new data is coming from a different distribution. But other than that. Yeah, I I don't know what.
+
+[Bhaskarjit Sarmah] 20:21:41
+Yes.
+
+[Bhaskarjit Sarmah] 20:21:44
+Yes.
+
+[Moderator - Ankit Agrawal] 20:21:47
+Shift. A lot results will shift a lot actually over here.
+
+[Moderator - Ankit Agrawal] 20:21:54
+So okay, let's let's continue. How many features do we need to have an effective filtering model.
+
+[Bhaskarjit Sarmah] 20:22:04
+Yeah, that's a great question. So remember, just few minutes back I shared my screen and I created a plot.
+
+[Bhaskarjit Sarmah] 20:22:10
+So.
+
+[Bhaskarjit Sarmah] 20:22:11
+There is, you know, if you create a plot between on the access to imagine all the excesses, if you have the number of Eigenvalues.
+
+[Bhaskarjit Sarmah] 20:22:19
+Let's say, the rank of the matrix that you're decomposing is 100.
+
+[Bhaskarjit Sarmah] 20:22:22
+That means you'll get 100 Eigenvalues.
+
+[Bhaskarjit Sarmah] 20:22:24
+And on the Y axis you have the information.
+
+[Bhaskarjit Sarmah] 20:22:28
+And then what you'll see. You'll see a plot like a elbow plot. What you see in the kins of the stream similar to that in a plot.
+
+[Bhaskarjit Sarmah] 20:22:36
+So wherever you see the elbow, that is the optimal value of them.
+
+[Bhaskarjit Sarmah] 20:22:40
+So you can quantify this on your own.
+
+[Bhaskarjit Sarmah] 20:22:43
+So wherever and that means.
+
+[Bhaskarjit Sarmah] 20:22:45
+Though, let's say you get the elbow at Lambda equal to 10 out of 100. That means the 1st 10 values of capturing almost all the information of the metrics.
+
+[Bhaskarjit Sarmah] 20:22:54
+And remaining 90, I can put those not useful at all, and then I use lambda equal to 10 to reconstruct the.
+
+[Bhaskarjit Sarmah] 20:23:02
+So this is one way of doing this and other way of doing this. You can also do it by minimizing stochastic gradient descent.
+
+[Moderator - Ankit Agrawal] 20:23:04
+Yep.
+
+[Bhaskarjit Sarmah] 20:23:09
+So there are many ways of solving the same.
+
+[Moderator - Ankit Agrawal] 20:23:13
+Yeah. Wayman, for one of the processes that task mentioned, I recommend going back to Professor Caroline's lecture again, where we talked about Svd. And Pca. And.
+
+[Moderator - Ankit Agrawal] 20:23:26
+In that same week we did a mentor learning session, where we have a case study of how to apply Pca and how to select ideal number of latent features.
+
+[Moderator - Ankit Agrawal] 20:23:35
+By looking at how much variance is being captured by each of these Eigenvalues and Eigenvectors right.
+
+[Moderator - Ankit Agrawal] 20:23:42
+So it would be a good refresher on that topic. I recommend going back to that same case study and looking at it.
+
+[Moderator - Ankit Agrawal] 20:24:04
+Again, Pca. And selecting latent features. You can do it for dimensionality. You can do it for collaborative filtering, but the idea remains the same right? The idea is to.
+
+[Moderator - Ankit Agrawal] 20:24:05
+Reduce the dimensions of the data while capturing the maximum amount of variance that you can within the data set.
+
+[Moderator - Ankit Agrawal] 20:24:08
+So again, go back to that case. Study you'll have like a better understanding of what passcode you just mentioned.
+
+[Moderator - Ankit Agrawal] 20:24:16
+Tasha is asking that crowd sourcing. Use a algorithm.
+
+[Bhaskarjit Sarmah] 20:24:24
+So you.
+
+[Bhaskarjit Sarmah] 20:24:25
+Was the question. Crowds?
+
+[Moderator - Ankit Agrawal] 20:24:28
+Use a algorithm.
+
+[Moderator - Ankit Agrawal] 20:24:31
+That's.
+
+[Moderator - Ankit Agrawal] 20:24:32
+Idle.
+
+[Bhaskarjit Sarmah] 20:24:32
+Just.
+
+[Moderator - Ankit Agrawal] 20:24:34
+Sorry go ahead.
+
+[Bhaskarjit Sarmah] 20:24:35
+Yeah, I mean, I didn't. I didn't follow the questions.
+
+[Bhaskarjit Sarmah] 20:24:39
+Just.
+
+[Moderator - Ankit Agrawal] 20:24:39
+Yeah, me, neither. What do you mean by use a algorithm.
+
+[Moderator - Ankit Agrawal] 20:24:46
+Okay, can you explain further? The ranking players team mentioned in today's lecture at the beginning.
+
+[Moderator - Ankit Agrawal] 20:24:55
+So Crystal's. I don't think we have that example open on our end right now. If you can describe it a little bit more, maybe. Pasc.
+
+[Bhaskarjit Sarmah] 20:25:06
+Yeah. Sorry when I joined very late just back. I didn't even.
+
+[Bhaskarjit Sarmah] 20:25:11
+Support the big.
+
+[Moderator - Ankit Agrawal] 20:25:12
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:25:13
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:25:16
+Jeff in the QA. Box is asking after session. Can a panelist help me with loading zip files through Collab? Jeff? I recommend going through the case study for the audio files in last week's mental learning session. So in the last week on Saturday we did a audio mist data set.
+
+[Moderator - Ankit Agrawal] 20:25:38
+Case study right on Saturday.
+
+[Moderator - Ankit Agrawal] 20:25:41
+In that case, study we are loading zip files through Google. So you could probably look at a template of the code over there.
+
+[Moderator - Ankit Agrawal] 20:25:49
+And and try to use it.
+
+[Moderator - Ankit Agrawal] 20:25:53
+Here. I don't know if we'll be able to do it right now. The the QA. Session is more for questions related to the lectures than to do like quoting exercises here right now, or you can ask it to your mentor during your mental learning session.
+
+[Moderator - Ankit Agrawal] 20:26:11
+Okay.
+
+[Moderator - Ankit Agrawal] 20:26:15
+So I think those are all the questions that I see on my end, that we're unanswered about crowdsourcing.
+
+[Bhaskarjit Sarmah] 20:26:30
+Yeah, I mean, crowdsourcing can mean many things. But if you talk about crowdsourcing from machine learning.
+
+[Bhaskarjit Sarmah] 20:26:37
+For example, if you go to Kaggle.
+
+[Bhaskarjit Sarmah] 20:26:41
+Show you.
+
+[Bhaskarjit Sarmah] 20:27:00
+So sometimes what happens is many companies.
+
+[Bhaskarjit Sarmah] 20:27:00
+You know, they try to build solutions.
+
+[Bhaskarjit Sarmah] 20:27:00
+Solutions. But let's say they're not able to.
+
+[Bhaskarjit Sarmah] 20:27:00
+Build on their own, or they don't have the talent. So then they try to crowdsource some of this.
+
+[Bhaskarjit Sarmah] 20:27:01
+Solutions, to at scale.
+
+[Bhaskarjit Sarmah] 20:27:03
+And then, you know, participants from all across the globe, they take part in this compet.
+
+[Bhaskarjit Sarmah] 20:27:08
+And they. Then they try to build.
+
+[Bhaskarjit Sarmah] 20:27:12
+The solution to solve the business problem.
+
+[Bhaskarjit Sarmah] 20:27:14
+Depending on what, whether business problem is and whatever the evolution, the company is.
+
+[Bhaskarjit Sarmah] 20:27:22
+Company, ask the participant to open some examples, some examples, for example.
+
+[Bhaskarjit Sarmah] 20:27:29
+Netflix is the 1st company. To my knowledge, this AI and problem to Kagan.
+
+[Bhaskarjit Sarmah] 20:27:35
+When they tried to improve the accuracy of their recommendation system.
+
+[Bhaskarjit Sarmah] 20:27:39
+Then 2 years back. October is a market maker in the financial industry, and Octa tried to build some volatility, prediction model.
+
+[Bhaskarjit Sarmah] 20:27:48
+And then they crowdsource. You know some of this, the problem where you know many participant across the globe to solve the problem.
+
+[Bhaskarjit Sarmah] 20:27:55
+So I think that's what your question is. So some companies that do this, and you'll see a lot of those examples.
+
+[Bhaskarjit Sarmah] 20:28:02
+If you go to Kaggle, go to Kyle, look into the competition step and all of those you know competition which are currently going on most of them are.
+
+[Bhaskarjit Sarmah] 20:28:10
+Which are.
+
+[Bhaskarjit Sarmah] 20:28:11
+From some, you know, companies like Netflix.
+
+[Bhaskarjit Sarmah] 20:28:14
+October, etc. They are basically crowdsourcing their solutions.
+
+[Moderator - Ankit Agrawal] 20:28:20
+You.
+
+[Moderator - Ankit Agrawal] 20:28:22
+Another question we have is in the movie example, how do you decide what prediction results mean?
+
+[Moderator - Ankit Agrawal] 20:28:28
+You will recommend, like 3.5 4.5.
+
+[Moderator - Ankit Agrawal] 20:28:33
+I mean, if a predicted reading of a movie is 3.8, do we recommend it or not? Or we just recommend it based on rateing from top to bottom.
+
+[Bhaskarjit Sarmah] 20:28:44
+Yeah.
+
+[Bhaskarjit Sarmah] 20:28:44
+So that's a good question. So there are 2 ways to think about this.
+
+[Bhaskarjit Sarmah] 20:28:47
+So if your rating scale is one to 5.
+
+[Bhaskarjit Sarmah] 20:28:51
+Then.
+
+[Bhaskarjit Sarmah] 20:28:52
+You compute it, you add a threshold.
+
+[Bhaskarjit Sarmah] 20:28:55
+So let's say the threshold may be 3, or, let's say, threshold, maybe 3.5. Now from where the threshold comes from.
+
+[Bhaskarjit Sarmah] 20:29:00
+The threshold comes from the domain.
+
+[Bhaskarjit Sarmah] 20:29:03
+If you, if the business people they already do. Okay, this is the threshold on top of. If it is about that.
+
+[Bhaskarjit Sarmah] 20:29:10
+Then we will recommend, otherwise we will not recommend.
+
+[Bhaskarjit Sarmah] 20:29:12
+But let's say the business comes up with no threshold for you.
+
+[Bhaskarjit Sarmah] 20:29:15
+Then you can do this in a statistically. So what you can do is think of if if there is no business defined, threshold.
+
+[Bhaskarjit Sarmah] 20:29:22
+Then you can think of that threshold as a hyper parameter.
+
+[Bhaskarjit Sarmah] 20:29:25
+So you try to compute those evaluation like recall at K precision at K are multiple, different thresholds and see which threshold, you know, gives you the optimal visit.
+
+[Bhaskarjit Sarmah] 20:29:37
+So using these 2 techniques, you can find out the threshold and deploy.
+
+[Moderator - Ankit Agrawal] 20:29:42
+Yeah, and just to add, on top of that, we will see that in our weekend mentor learning as well that there will be a threshold that we will consider it with respect to, and then we will pick all the values that are greater than that threshold, and so on, so forth.
+
+[Moderator - Ankit Agrawal] 20:29:59
+Right. Also, you have to be very aware of how your ratings are being displayed right like, if you're only looking at integers like 1, 2, 3, 4, 5, like stars, right like, whether you give 5 stars, 4 stars, and so on.
+
+[Moderator - Ankit Agrawal] 20:30:13
+And you make a prediction of 3, you still need to round it off to value of 4 or 3 right? So that is something during logistic regression we learned how to learn a threshold by looking at precision and recall curves.
+
+[Moderator - Ankit Agrawal] 20:30:28
+So you can do that for different ranges of values, like between one and 2 you can learn a threshold on.
+
+[Moderator - Ankit Agrawal] 20:30:33
+How to round off the Val, the the float values between them, and between 2 and 3 you can learn a different threshold, and 3 and 4, you can learn a different threshold.
+
+[Moderator - Ankit Agrawal] 20:30:43
+So there are different approaches as you'd mentioned over here. Sometimes businesses will have their own.
+
+[Moderator - Ankit Agrawal] 20:30:52
+Sometimes. Yeah. Businesses will have their own thresholds predetermined, or sometimes you can statistically, orthogically determine what those thresholds are going to look like.
+
+[Moderator - Ankit Agrawal] 20:31:02
+Okay? So with that being said, we are kind of out of time now, so we will end the QA. Session over here. I see that you've had to go. He had another meeting.
+
+[Moderator - Ankit Agrawal] 20:31:16
+So thank you. Everybody for joining us today.
+
+[Moderator - Ankit Agrawal] 20:31:22
+Reminder that we have another lecture, the last lecture that we'll have for this program on Thursday, at 8 30 Am. Eastern time.
+
+[Moderator - Ankit Agrawal] 20:31:31
+If you have any questions during that time, please ask us during the QA. Session for that as well. And if there are any questions that are pending you can also ask them, during your mental learning session over the weekend as well.
+
+[Moderator - Ankit Agrawal] 20:31:44
+So with that, said, Thank you. Everybody for joining today. Enjoy learning next time we'll talk a little bit about more advanced systems.
+
+[Moderator - Ankit Agrawal] 20:31:55
+Bj. Is saying, no class tomorrow, so no, no class. Tomorrow next class is on Thursday, at 8 30 Am. Eastern time.
+
+[Moderator - Ankit Agrawal] 20:32:03
+Okay.
+
+[Moderator - Ankit Agrawal] 20:32:04
+So yeah, take care, everybody. Bye.
+

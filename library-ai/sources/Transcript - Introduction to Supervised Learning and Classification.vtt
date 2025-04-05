@@ -1,0 +1,2570 @@
+WEBVTT
+
+00:04:26.000 --> 00:04:33.000
+Okay. And sound okay.
+
+00:04:33.000 --> 00:05:03.000
+Thank you.
+
+00:05:22.000 --> 00:05:52.000
+Yeah. Okay.
+
+00:09:42.000 --> 00:09:50.000
+Hello everyone. Good morning, good afternoon, good evening, depending on where you are.
+
+00:09:50.000 --> 00:09:53.000
+I see that the chat is working. I just said a reminder again that make sure that you're sending your comments and questions to everyone instead of hosts and panelists.
+
+00:09:53.000 --> 00:10:09.000
+I see some hosts and panelists still in the chat. That being said, please do not, put your questions in the QA box.
+
+00:10:09.000 --> 00:10:17.000
+We are not moderating the Q&A box. Welcome to your 3rd and final, live class of this week.
+
+00:10:17.000 --> 00:10:27.000
+Today we will be talking about classification based problems and some algorithms. I don't know how to solve classification algorithms.
+
+00:10:27.000 --> 00:10:35.000
+So with that, I hand over the session to Professor, I look forward to the lecture professor today.
+
+00:10:35.000 --> 00:10:48.000
+Alright, hello everyone. So today our last session of this week to complete the cycle of our discussion of basic machine learning.
+
+00:10:48.000 --> 00:11:00.000
+For relations, methods and ideas. So today's agenda is to talk about classification. We're going to introduce the problem formulated, talk about different types of error.
+
+00:11:00.000 --> 00:11:06.000
+And then we're going to move on to specific methods. Now, a high level comment I want to make.
+
+00:11:06.000 --> 00:11:17.000
+Many of the things that we discussed in the context of regression. Apply exactly the same way to classification as well, in particular.
+
+00:11:17.000 --> 00:11:32.000
+Testing and validation is done in exactly the same way after you try various methods, then you need to do performance evaluation by evaluating on data that you have not seen before.
+
+00:11:32.000 --> 00:11:39.000
+Also, the idea that latent variables, hidden variables can cause trouble with your models still applies. And finally the comment that causality is a different business from association and correlation.
+
+00:11:39.000 --> 00:11:48.000
+That is, you may have a very good predictive model, a very good classifier, but that doesn't tell you anything.
+
+00:11:48.000 --> 00:12:01.000
+About the causality direction between the X's and the Y's in your model. So these general comments apply.
+
+00:12:01.000 --> 00:12:05.000
+Now today we're in the context of classification. We will also illustrate a few different ways of thinking.
+
+00:12:05.000 --> 00:12:26.000
+That show up in machine learning. What do we mean by that? Most methods in machine learning and statistics, they use Mathematical models explicitly or implicitly of the phenomenon itself.
+
+00:12:26.000 --> 00:12:29.000
+So, models of the phenomenon that's not exactly the same as a predictive model, a predictive model just makes predictions.
+
+00:12:29.000 --> 00:12:45.000
+But a model of what is going on. And these models can be of a few different ways. The 1st class of models we're going to consider.
+
+00:12:45.000 --> 00:13:00.000
+Will run in the direction from y's to x's. That is we're going to think about the world creating wise and then based on the wise nature somehow creates x's.
+
+00:13:00.000 --> 00:13:11.000
+And then when we want to build a predictor, we will have to invert this model. So that for from X's we can go to predictions of the Y's.
+
+00:13:11.000 --> 00:13:20.000
+So we build a model that looks like a physical model. Not necessarily physical, but can pretend that this is what.
+
+00:13:20.000 --> 00:13:30.000
+We have and once you have such a model in which the wise generate somehow the X's then we somehow need to figure out how to go back.
+
+00:13:30.000 --> 00:13:43.000
+We're going to illustrate this way of thinking. Bye and and this is going to lead us to methods that go under the name of discriminate analysis.
+
+00:13:43.000 --> 00:13:46.000
+The second category of models is more like the regression that we have been doing all along in the context of classification.
+
+00:13:46.000 --> 00:14:03.000
+It's a somewhat different idea. It goes under the name of logistic regression. And here we built directly a predictive model that goes from the X to the Y's.
+
+00:14:03.000 --> 00:14:13.000
+That's what we did for regression. We created, we basically created a classify, regress or a predictor.
+
+00:14:13.000 --> 00:14:21.000
+That was of this form. So once we have such a predictor, given the axis, we can produce estimates of the wise.
+
+00:14:21.000 --> 00:14:31.000
+And finally, we're going to have a 3rd class of methods, nearest neighbor methods, in which there's no modeling at all involved.
+
+00:14:31.000 --> 00:14:38.000
+We do not to try to create any model of any kind. Alright, so this is the high level.
+
+00:14:38.000 --> 00:14:54.000
+Overview of what is going to happen today. So let's introduce the general classification problem. The idea is that an individual shows up or a data record shows up.
+
+00:14:54.000 --> 00:15:04.000
+And you're asked to classify that record in one out of 2 or more. A specific categories.
+
+00:15:04.000 --> 00:15:13.000
+So the classifier. Is the box that makes the decision, the classification decision. But to obtain a classifier, we need to train it.
+
+00:15:13.000 --> 00:15:24.000
+And we train it based on examples. So here for instance, suppose that every individual is described by 2 features, x 1 and x 2.
+
+00:15:24.000 --> 00:15:35.000
+So an individual, the record of an individual corresponds to a point in this diagram and the label of an individual is the color.
+
+00:15:35.000 --> 00:15:45.000
+So here we have 2 colors, blue or brown. So, and when a new individual or a new data record comes in, you're asked to classify it.
+
+00:15:45.000 --> 00:15:52.000
+Meaning, do you think that these new dots that just appeared? Do you think that it's brown?
+
+00:15:52.000 --> 00:16:01.000
+Or it is or it is blue. How should you classify it? So it's the same general framework as in regression.
+
+00:16:01.000 --> 00:16:09.000
+We are given lots of examples, each.in this diagram corresponds to one example. We have a total of end examples.
+
+00:16:09.000 --> 00:16:21.000
+On the basis of those examples, we do the training and then a new individual shows up and when they show up we need to guess what their label is going to be.
+
+00:16:21.000 --> 00:16:33.000
+Same idea, same framework as in ordinary regression. The only difference is that the labels, the wise, in this case are not continuous variables, but rather they are discrete.
+
+00:16:33.000 --> 00:16:40.000
+In the simplest case, y is going to be binary. That is, we only have 2 choices to make.
+
+00:16:40.000 --> 00:16:56.000
+But more generally, why could take one out of a certain number of values, So M is the number of candidate classes and in that case we say that we're doing a Mary classification.
+
+00:16:56.000 --> 00:17:09.000
+Here are some examples. A patient shows up they have a record medical record with them the the classifier needs to decide whether they have a certain disease, cancer for example.
+
+00:17:09.000 --> 00:17:19.000
+So that could be a yes no question. So it's binary classification. Another example, email shows up.
+
+00:17:19.000 --> 00:17:30.000
+And there's some software that's running in pretty much everyone's laptop these days that decides whether that email is palm and should go to the junk folder or not.
+
+00:17:30.000 --> 00:17:44.000
+Application that was one of the very early applications of machine learning several decades ago. I was useful for the post office that was trying to read automatically the zip codes.
+
+00:17:44.000 --> 00:17:55.000
+The the postal codes on envelopes. So the postal code is just a few numbers and you want the computer to recognize those numbers.
+
+00:17:55.000 --> 00:18:05.000
+So here, the input or the data record would be some kind of handwritten number. Which is really an image.
+
+00:18:05.000 --> 00:18:15.000
+It's an image of the digits. And then the the machine learning methods has to figure out which digit is it to recognize the digit.
+
+00:18:15.000 --> 00:18:18.000
+In this case, there's 10 possible digits. So this is a case of classification with 10 possible classes.
+
+00:18:18.000 --> 00:18:41.000
+M is equal to 10. Finally, going to applications that are a little more modern. You showed with computer a picture and a bunch of an animal and the computer knows that there are a few categories of animals, cats, dogs, cows and all that.
+
+00:18:41.000 --> 00:18:59.000
+So M is the number of possible animals. The resolution of your computer it's going to be a moderate number and an image processing algorithm is supposed to figure out which particular animal you're looking at right now.
+
+00:18:59.000 --> 00:19:10.000
+Okay, and as you probably know, machine learning has been quite successful. In such a complicated task. Note that When X is an image.
+
+00:19:10.000 --> 00:19:22.000
+What does that mean? The image is really you have pixels and for each pixel you might have the value, from 0 to one, which is the gray scale.
+
+00:19:22.000 --> 00:19:34.000
+Now, an image has lots of pixels. And x is a long vector that for each pixel just gives you the value at that pixel.
+
+00:19:34.000 --> 00:19:46.000
+So X is very high dimensional and that makes the problem in this case to be very hard. But nevertheless, machine learning has managed to address problems of that type.
+
+00:19:46.000 --> 00:19:53.000
+Not quite with the simple methods that we're going to discuss today, but going a little further, into into the other into the future weeks of this class with neural networks and all that.
+
+00:19:53.000 --> 00:20:02.000
+It does happen.
+
+00:20:02.000 --> 00:20:03.000
+Some quick questions from the chat. Logistic in the sense of formal logic. No, nothing about former logic.
+
+00:20:03.000 --> 00:20:19.000
+It has something to do with logistic functions. I'm going to introduce them in about an hour or no.
+
+00:20:19.000 --> 00:20:28.000
+Do we how do we encode the classes? Do we just assign a random numbers like from one to 10?
+
+00:20:28.000 --> 00:20:34.000
+Yeah, how you encode the classes? It doesn't matter. The labels can be just any symbols.
+
+00:20:34.000 --> 00:20:42.000
+They don't even need to be numerical ones. As for regularization, we use that word regularization last time, but it meant something very specific.
+
+00:20:42.000 --> 00:20:54.000
+And we're going to reuse it today. But again, in that very specific sense. Alright, so let's continue.
+
+00:20:54.000 --> 00:21:02.000
+Similar to last time, we're going to have a toy example and frame our discussions around this toy example.
+
+00:21:02.000 --> 00:21:11.000
+So it is a data set that has been circulating and is being using as an example. And, here's the data set.
+
+00:21:11.000 --> 00:21:19.000
+We have a total of 10,000 samples. What is each one of the samples? Each one of the records.
+
+00:21:19.000 --> 00:21:35.000
+The records are What? Somebody shows up at the bank and asks for a loan. And that somebody We write the bank wrote down whether that person was a student or not.
+
+00:21:35.000 --> 00:21:44.000
+What was the balance in their bank account? And what was their income. Okay, presumably this is something like yearly income.
+
+00:21:44.000 --> 00:21:49.000
+Look at looking at those numbers. For the balance, I guess it's some kind of average balance.
+
+00:21:49.000 --> 00:21:58.000
+It's really funny to see. That people write down numbers with so much. Accuracy like 4 decimal points.
+
+00:21:58.000 --> 00:22:06.000
+I mean, a fraction of a cent, how much difference would it make into whether you're a good customer or not?
+
+00:22:06.000 --> 00:22:14.000
+It's a little silly. You should never use so many decimal digits when there's no reason for that.
+
+00:22:14.000 --> 00:22:22.000
+Okay, and we also write down whether somebody is a student or not. These are the features. Of a typical customer.
+
+00:22:22.000 --> 00:22:36.000
+These are customers who did get loans. And then after some time period, maybe a year or 5 years, the bank wrote down whether that person default Vaulted?
+
+00:22:36.000 --> 00:22:47.000
+Or whether that person was paying off the loan regularly. So the dataset has 10,000 samples but not many people default.
+
+00:22:47.000 --> 00:23:02.000
+Only 3% default. So we have 333 records here. That do default, but this is just a small percentage and that explains why the 1st rows that I showed here, they all happen to be nodes.
+
+00:23:02.000 --> 00:23:08.000
+So this is the dataset with which we are working.
+
+00:23:08.000 --> 00:23:16.000
+And we encode if you want a numerical encoding, the nose and the yeses can be encoded as zeros at once.
+
+00:23:16.000 --> 00:23:25.000
+Remember from last time the features in a machine learning problem can be discrete or continuous, it doesn't matter.
+
+00:23:25.000 --> 00:23:37.000
+They can be categorical features. But the features the X's we always treat them numerically that's why we would have to encode them as zeros and ones.
+
+00:23:37.000 --> 00:23:47.000
+And now what do we want to do with this data set? Well, the idea is that the bank wants to be able to predict when a new customer comes in.
+
+00:23:47.000 --> 00:23:55.000
+And they show up with a certain record. But we don't know. What they will do in the future.
+
+00:23:55.000 --> 00:24:07.000
+We want to be able to predict or make a guess whether that customer is going to default or not. Of course, there's no way to accurately predict if somebody is going to default.
+
+00:24:07.000 --> 00:24:14.000
+But you want to have some sense whether they're more likely to default or less likely to default and so on.
+
+00:24:14.000 --> 00:24:27.000
+So when a new person comes in, you ask the question, what do you think about their why? And the way you do that is by making a prediction of their actual why.
+
+00:24:27.000 --> 00:24:28.000
+Now I said that this example is a toy example and the reason is that it's a little bit simplistic.
+
+00:24:28.000 --> 00:24:45.000
+It's not how you would do things in the real world. Why is it simplistic? I didn't tell you anything about the time involved.
+
+00:24:45.000 --> 00:24:58.000
+Default after how many years, how soon you should take that into account in trying to make the decisions. Are we talking about income just for the current year?
+
+00:24:58.000 --> 00:25:06.000
+Should you take into account also the income in the reviews here? Do you want to take into account some kind of trend in their income?
+
+00:25:06.000 --> 00:25:16.000
+Should you also look at their credit rating? Should you look at their history? Did the take, did they take a loan from another bank and already defaulted?
+
+00:25:16.000 --> 00:25:25.000
+And all that. So there's a lot more that would go into an actual business case, something that could be deployed to the bank.
+
+00:25:25.000 --> 00:25:35.000
+But in any case, it's a data set on which we can around which we can discuss the more important issues in this business.
+
+00:25:35.000 --> 00:25:41.000
+Alright, so now we want to get going and try to build a good classifier.
+
+00:25:41.000 --> 00:25:57.000
+How is that different from ordinary regression? Remember, in regression we're trying to build a predictor, and that predictor, like this purple function here, that purple function is our predictor.
+
+00:25:57.000 --> 00:26:10.000
+It's a function from access to predicted values to wise. So if I tell you that this is the x, the predictor gives you a value, an estimated predicted value for y.
+
+00:26:10.000 --> 00:26:24.000
+And the metric with which we judge the quality of the predictions is the mean squared error. That is, on the average, how far away are the predictions from the true value?
+
+00:26:24.000 --> 00:26:38.000
+In regression in classification, it's about the same story. We want again to build a box that takes us inputs the X's and produces as outputs predicted values.
+
+00:26:38.000 --> 00:26:50.000
+That is a classification decision. So far, it's almost the same, one small difference is that the output of the classifier takes values in a discrete set.
+
+00:26:50.000 --> 00:26:59.000
+But that's not a major difference. The big difference between the 2 problems is the metric, the performance measure that we use.
+
+00:26:59.000 --> 00:27:10.000
+And in classification, what you care about is not something like accuracy, but rather it's the probability of the frequency with which you are making mistakes.
+
+00:27:10.000 --> 00:27:18.000
+And the mistake is if you see a cut, but you decide that it was a dog. That would be a typical mistake.
+
+00:27:18.000 --> 00:27:32.000
+So that's how the 2 fields, compared to each other. Just as, Toy picture suppose that X is one dimensional, a 1 dimensional feature and these are the examples.
+
+00:27:32.000 --> 00:27:39.000
+Some, of individuals, some had the Y of one and some had the Y. Of 0.
+
+00:27:39.000 --> 00:27:47.000
+And the classifier could be something like a threshold. So that whenever we are whenever X is in that direction.
+
+00:27:47.000 --> 00:28:02.000
+We make a prediction that y hat equals to one whenever x is on the left, we make a prediction a classification decision that y is equal to 0.
+
+00:28:02.000 --> 00:28:16.000
+This particular classifier you notice that it's making some mistakes, namely this individual which is in the training set gets misclassified and the same way those 2 individuals get misclassified.
+
+00:28:16.000 --> 00:28:27.000
+And in this case, we have 3 mistakes out of 14. Points overall. So this is the rate with which mistakes are being made.
+
+00:28:27.000 --> 00:28:32.000
+On the training set.
+
+00:28:32.000 --> 00:28:41.000
+Okay, so now let's talk. This was a simple classifier in which we used a threshold.
+
+00:28:41.000 --> 00:28:53.000
+Just a simple threshold in order to make the decisions. More general classifiers would also typically involve some kind of threshold.
+
+00:28:53.000 --> 00:29:01.000
+Here's 1 kind of classifier, which is the simplest possible and it's the analog of linear regression.
+
+00:29:01.000 --> 00:29:06.000
+This classifier works as follows.
+
+00:29:06.000 --> 00:29:17.000
+Whenever we are to the right of the red line We declare the object to be brown whenever we are to the left we declare the object to be blue.
+
+00:29:17.000 --> 00:29:29.000
+Of course, this classifier is going to be to make occasional mistakes. So here we have a brown object, but this one would be declared blue and the same way from the other side.
+
+00:29:29.000 --> 00:29:42.000
+So this is one particular family of classifiers. Linear classifiers, which is sort of the analog of the linear predictors that we were using.
+
+00:29:42.000 --> 00:29:49.000
+In the past in the context of regression. So how what's happening here in math?
+
+00:29:49.000 --> 00:29:59.000
+How does one describe a line? Line that divides space into regions. Is described by an equation.
+
+00:29:59.000 --> 00:30:12.000
+By a linear equation and the linear equation generally of the line would be of this form theta hat transpose X is equal to T, and you can think of T as a threshold.
+
+00:30:12.000 --> 00:30:26.000
+On one side of the line we have Theta, we, without theta transpose X bigger than T on the other side of the line theta.
+
+00:30:26.000 --> 00:30:40.000
+Transpose X is less than T. So T is the threshold. The way the classifier works is when an individual X shows up, you calculate Theta transpose X.
+
+00:30:40.000 --> 00:30:43.000
+And you compare it to the threshold T.
+
+00:30:43.000 --> 00:30:53.000
+A particular value of theta and T gives you a particular classifier. Our problem is to choose the best line.
+
+00:30:53.000 --> 00:31:11.000
+Choosing the best line amounts to choosing The best possible vector theta and the best possible threshold T. So the training will involve searching over the space of Thetas and T's and finding the best one.
+
+00:31:11.000 --> 00:31:23.000
+This is sort of the similar idea as in ordinary least squares where we had the linear predictor and the problem was to find the best theta and that was the tuning problem.
+
+00:31:23.000 --> 00:31:46.000
+So this is just one class of classifiers. It's linear classifiers. Of course, you can go more generally and consider some class of nonlinear functions, generally call them h of x, and you would have a green lines that would be described by of x is equal to t.
+
+00:31:46.000 --> 00:31:55.000
+That's, sort of the boundary. And if you fall on one side, you declare one class, if you follow the other side, you follow the other class.
+
+00:31:55.000 --> 00:32:07.000
+And again, in that context. The problem would be to find a good the training problem would be to find a good function h and the good threshold.
+
+00:32:07.000 --> 00:32:22.000
+The best possible one. Usually this is done. Within a particular family of nonlinear functions. If you allow arbitrary nonlinear functions, then you will end up doing thing over fitting, which we know is not a good idea.
+
+00:32:22.000 --> 00:32:39.000
+We restrict to a particular class of functions and search within that class. And the discussion last time about using additional features also applies.
+
+00:32:39.000 --> 00:32:57.000
+To the context of classification. Maybe for some reason you think that interaction effects are important. So you throw an extra term and you end up with a classifier that calculates this and it with the threshold and the accordingly makes the decisions.
+
+00:32:57.000 --> 00:33:05.000
+If you are to plot A classifier like this in two-dimensional space, the dividing curve is not going to be a straight line.
+
+00:33:05.000 --> 00:33:16.000
+It's going to be an actual curve. And the reason is that x 1 times 6 2 is a nonlinear function.
+
+00:33:16.000 --> 00:33:25.000
+On the other hand, Same trick as last time. If we define an augmented feature vector, so that we think of this x 1 times x 2.
+
+00:33:25.000 --> 00:33:48.000
+And think of it as a new feature, x 3. If you plot things in 3 dimensional space in terms of x 1, x 2 and X 3 then the dividing thing would be a linear thing.
+
+00:33:48.000 --> 00:34:01.000
+What is a linear thing? Well, it's like a plane that's cutting the threed dimensional space into 2 regions above the plane you make one decision under the plane you make another decision.
+
+00:34:01.000 --> 00:34:15.000
+So, here we're basically repeating constants and ideas from last time. The idea is that we need to think about a particular class of predictors.
+
+00:34:15.000 --> 00:34:28.000
+One often starts with Classifiers that rely on linear functions and you get so-called linear classifiers, you can go non-linear by including additional features.
+
+00:34:28.000 --> 00:34:43.000
+And these additional features are very often chosen on the basis of understanding of a particular domain. So you take an, for example, you extract lots of features of that image.
+
+00:34:43.000 --> 00:34:54.000
+And what are good features for image recognition? Well, there's a long history in that field and people have figured out what some good features would be.
+
+00:34:54.000 --> 00:35:02.000
+And then you try to combine those features. In a linear way and compare that with threshold. Or you could go all the way non-linear and start using neural networks.
+
+00:35:02.000 --> 00:35:15.000
+But again, this goes beyond this week. How would you choose which features to include? Same story as in regression.
+
+00:35:15.000 --> 00:35:24.000
+You will train various methods and then do cross validation and see which ones do best.
+
+00:35:24.000 --> 00:35:37.000
+Okay, so just to finish the introduction. Let's talk just a little bit about the types of errors and how do we judge the performance of a method.
+
+00:35:37.000 --> 00:35:47.000
+So we have this data set and here's 1 possible classifier. And it's going to make some mistakes.
+
+00:35:47.000 --> 00:35:53.000
+If we take that classifier and change the threshold a little bit, It's going to give us different decisions.
+
+00:35:53.000 --> 00:36:03.000
+I'm going to talk about that, but notice 1st that There's 2 types of errors that are happening.
+
+00:36:03.000 --> 00:36:08.000
+It could be that an object is blue, but the classifier decides it's brown and it could be the opposite way that the object is brown and we decide that it is blue.
+
+00:36:08.000 --> 00:36:27.000
+So we can make a table. Of the different types of errors. In the diagonal here we have objects that are blue.
+
+00:36:27.000 --> 00:36:34.000
+And the prediction is also blue. So we're correct, we're happy. And same thing about this box.
+
+00:36:34.000 --> 00:36:42.000
+So these diagonal entries. Are the cases where we're doing well? But there is 2 types of errors.
+
+00:36:42.000 --> 00:36:50.000
+It could be that something is blue, but our classifier thinks that it is brown. That's 1 type of error.
+
+00:36:50.000 --> 00:36:58.000
+And this box here corresponds to the opposite type of error. In general, you're not interested just in the overall error rate.
+
+00:36:58.000 --> 00:37:13.000
+You may be interested in the details. Of yes, okay, I get 5% errors, but what kind of errors are they of one or the other type?
+
+00:37:13.000 --> 00:37:29.000
+Now, when we train in general, we are interested in making the final objective of a classifier is to make few errors on new individuals, on new data records that show up.
+
+00:37:29.000 --> 00:37:40.000
+This is the same thing as we discussed for regression. There will be some training but ultimately the performance test is how well do you do on new individuals.
+
+00:37:40.000 --> 00:37:51.000
+However, for the training, those new individuals are not available. You do not see it. So the training actually happens on the data set that you have.
+
+00:37:51.000 --> 00:37:59.000
+And how do you train? Well, one idea is to train so that you have too few errors. You have few errors.
+
+00:37:59.000 --> 00:38:08.000
+Training sets. Now if you use the classifiers like the one that I'm drawing here that are somewhat smooth.
+
+00:38:08.000 --> 00:38:20.000
+It's unavoidable that you will be making mistakes on your training set. I don't know how much resolution do you have on your screen, but there's a few browns.
+
+00:38:20.000 --> 00:38:30.000
+Down here. So these will be mistakes on the training set and there's quite a few blues out there and these are also mistakes on the training set.
+
+00:38:30.000 --> 00:38:42.000
+And we want to move around that green curve so that it makes few mistakes on the training set. Now notice that there's a trade-off between the 2 error types.
+
+00:38:42.000 --> 00:38:55.000
+That is, if I take my classifier and move it, This way that I moved it There's more stuff that's been declared blue.
+
+00:38:55.000 --> 00:39:06.000
+And since there's more stuff that is being declared blue. We have more cases where the prediction is blue.
+
+00:39:06.000 --> 00:39:15.000
+Whereas the truth was brown. So all the browns in here. Now they are going to be mistakes.
+
+00:39:15.000 --> 00:39:19.000
+So this error rate here is going to go up. On the other hand, this error rate will be down.
+
+00:39:19.000 --> 00:39:31.000
+That is, there's going to be fewer blues that are misclassified as brows. So in general, there's a trade-off.
+
+00:39:31.000 --> 00:39:41.000
+That trade-off is really the same as the sensitivity settings of the alarm system that you might have in a building.
+
+00:39:41.000 --> 00:39:49.000
+If you make it too sensitive, it makes mistakes of the type that it keeps ringing all the time.
+
+00:39:49.000 --> 00:39:59.000
+If you make it insensitive. There's going to be many burglars that are going to go in and they will not be detected.
+
+00:39:59.000 --> 00:40:05.000
+So there's the false alarm and there's the missed detection. These are 2 types of errors.
+
+00:40:05.000 --> 00:40:14.000
+And when you increase one, you decrease the other and vice versa. Within this trade-off, then you will probably have to make some choices in real life.
+
+00:40:14.000 --> 00:40:23.000
+Where exactly do you want your trade off to be? And you can do that by playing with the threshold of your classifier.
+
+00:40:23.000 --> 00:40:33.000
+Using one of the methods that we're going to be talking about on the specific data set that we have and after training, this is what we get.
+
+00:40:33.000 --> 00:40:43.000
+And we notice that the error rate, which is about 2.7% here, most of the errors are of this type.
+
+00:40:43.000 --> 00:40:57.000
+Their customers for that are bad they default But the predicted labels were that they were good. And this is a kind of a painful kind, mistake.
+
+00:40:57.000 --> 00:41:11.000
+The bank gave those loans. That later defaulted. So the bank is losing a lot of money. Course this type of error is going to discuss later is a less expensive error and this is a consideration that needs to come in at some point and we're going to return to this a little later.
+
+00:41:11.000 --> 00:41:23.000
+Now all I did all this discussion by talking about the case of 2 classes, but we can generalize if we have multiple classes.
+
+00:41:23.000 --> 00:41:43.000
+Let's say if we have 3 classes. You would have a 3 by 3 table and the truth could be a BC and your predictions could be, I predicted, A, I predicted BI predicted C.
+
+00:41:43.000 --> 00:41:54.000
+In the cases where the prediction is the same as the truth, we are happy and all the other cases correspond to errors and in those cases we are unhappy.
+
+00:41:54.000 --> 00:41:56.000
+And typically when you poured the performance of a classifier, you want to provide this full table.
+
+00:41:56.000 --> 00:42:13.000
+Because it's informative. It's important to know When I make mistakes, what kind of mistakes are they?
+
+00:42:13.000 --> 00:42:31.000
+Alright, so let me take a 2 min break to look at some questions. So the red line Makes the second line error go up So with the red line.
+
+00:42:31.000 --> 00:42:43.000
+There's More things that are being declared blue? So this goes up with the red line.
+
+00:42:43.000 --> 00:42:52.000
+There's more stuff that's been declared blue, whereas in reality it was brown. All the browns in here.
+
+00:42:52.000 --> 00:43:02.000
+Will now become mistakes. And these are true browns. Okay, so this one is the one that goes up.
+
+00:43:02.000 --> 00:43:09.000
+What's the purpose of the I function? What's the I function?
+
+00:43:09.000 --> 00:43:31.000
+The data are unbalanced. Indeed, we're going to come back to that when we talk about the interpretations of the results.
+
+00:43:31.000 --> 00:43:40.000
+What's the purpose? There's no identity function here. All I'm saying is that there's a 3 by 3 table.
+
+00:43:40.000 --> 00:43:49.000
+If you manage to have all those entries to be zeros, then you're doing perfectly you're not doing any mistake.
+
+00:43:49.000 --> 00:43:56.000
+This is not a function, it's just a table for reporting the results of your classifier.
+
+00:43:56.000 --> 00:44:09.000
+So here I'm reporting that the particular classifier that I built makes these types of these types of mistakes.
+
+00:44:09.000 --> 00:44:17.000
+Is there a way to optimize the class if yes, or you've the last question in the chat.
+
+00:44:17.000 --> 00:44:23.000
+The answer is yes, but we're going to get that. Going to get to that later.
+
+00:44:23.000 --> 00:44:31.000
+So to obtain less errors. Okay, to obtain less errors, it's exactly the same story as in regression.
+
+00:44:31.000 --> 00:44:43.000
+The 1st thing is to you tune the parameters of your classifier. So within a particular method or algorithm, You find the best possible.
+
+00:44:43.000 --> 00:44:53.000
+So for example, you try all possible lines, but then you want to also try various different methods. Different methods would be trying different algorithms or trying different features.
+
+00:44:53.000 --> 00:45:08.000
+For example. So you try the different methods and then as usual you have to do cross validation and figure out which is actually the best method.
+
+00:45:08.000 --> 00:45:16.000
+Is it okay to report confusion, with percentages? Oh yes, definitely. Whatever is more.
+
+00:45:16.000 --> 00:45:24.000
+Appealing to your eye. Okay, so let's continue now. And what we're going to do as I said in the beginning is that we're going to develop and talk about 3 different categories of classification methods.
+
+00:45:24.000 --> 00:45:36.000
+Oh, by the way, that last line, there's plenty of jargon in this business.
+
+00:45:36.000 --> 00:45:48.000
+You describe to describe the various errors. Many different terms. And they change from them in some domains, certain terms are more.
+
+00:45:48.000 --> 00:45:58.000
+Are used more often and so on. It can easily take you half an hour to go through these definitions and figure out.
+
+00:45:58.000 --> 00:46:05.000
+Which is what? Then they're all basically ratios of certain things. So, so I'm not going to spend those 15 min or half an hour going through those definitions.
+
+00:46:05.000 --> 00:46:27.000
+Just be aware that there's different lingo that's in involved here. For our purposes we have 2 particular error types and we know how to interpret So let's start now with the 1st approach.
+
+00:46:27.000 --> 00:46:32.000
+And here's what's happening. So in general, what we want to do is to build a classifier.
+
+00:46:32.000 --> 00:46:41.000
+And the classifier is a box that It takes an X. And makes a classification decision. That's what we want to do.
+
+00:46:41.000 --> 00:46:52.000
+But we're going to go to it and in an indirect way. First, st we are going to create some kind of model of the phenomenon that we're considering.
+
+00:46:52.000 --> 00:47:00.000
+And that particular model will run in this direction from y's to x's.
+
+00:47:00.000 --> 00:47:18.000
+And then once we have the model, we're going to use the base rule, a basic formula from probability to invert this model and make it run in the opposite way from X's to produce estimates of Y.
+
+00:47:18.000 --> 00:47:30.000
+The model that we're going to create here is going to evolve normal random variables. So we're going to call it a Gaussian model.
+
+00:47:30.000 --> 00:47:37.000
+More interestingly, see these words that I'm using here. A model of this type is a generative model.
+
+00:47:37.000 --> 00:47:47.000
+What is a generative model? You probably hear the words AI in AI, the generative AI is all the craze these days.
+
+00:47:47.000 --> 00:47:56.000
+So what exactly is a generative model? Remember, why is our discrete variable like cats and dogs?
+
+00:47:56.000 --> 00:48:08.000
+A generative model does the following. When I ask it, Show me a typical cut. It creates some random cut.
+
+00:48:08.000 --> 00:48:14.000
+Quentin I ask it show me a typical dog it creates for me the features Hey, it shows it shows me a particular dog.
+
+00:48:14.000 --> 00:48:32.000
+So in some sense, it shows me. The features of one specific dog and so on. So it's a model that given the class can tells you how are generated the individuals out of that class.
+
+00:48:32.000 --> 00:48:44.000
+So I'm going to make that a little more concrete as we go through this example. I would just wanted to make the connection that what we will be doing here, it's a very, very simple example.
+
+00:48:44.000 --> 00:48:51.000
+But of something that's very, very common and. And very much in vogue these days.
+
+00:48:51.000 --> 00:49:01.000
+Once we have the generative model, then we're going to discuss a little bit how to use the Bayes rule to invert the model and make decisions.
+
+00:49:01.000 --> 00:49:13.000
+So this approach is also. The basis of what is called Bayesian machine learning. So there's a whole sub fields in machine learning.
+
+00:49:13.000 --> 00:49:18.000
+Be not the dominant one but is used in many sub fields in many domains that's relies on the Bayes rule.
+
+00:49:18.000 --> 00:49:32.000
+That's a And the example that we're going to develop here is essentially the simplest instance of Bayesian machine learning.
+
+00:49:32.000 --> 00:49:44.000
+So what's happening exactly here? Let me show you the idea in pictures. Before we dive into the translation into math.
+
+00:49:44.000 --> 00:49:55.000
+So in pictures. We're thinking that we pretend that the world works the following way. Nature generates people.
+
+00:49:55.000 --> 00:50:03.000
+And make them some of them. To be sick at a certain age, let's say, and some of them to be healthy.
+
+00:50:03.000 --> 00:50:09.000
+So nature makes this decision. First.st
+
+00:50:09.000 --> 00:50:18.000
+And nature makes the decision also about the frequencies. Maybe in nature has works as follows that Buy a 1, let's say 10%.
+
+00:50:18.000 --> 00:50:37.000
+Pay 1, 90% will be healthy people and 10% will be sick. So pi one and pi 2 are the probabilities with which nature generates people of the 2 different kinds.
+
+00:50:37.000 --> 00:50:41.000
+And these are certain numbers that nature has fixed.
+
+00:50:41.000 --> 00:50:55.000
+And now you go and ask. What does a typical healthy person look like? And maybe you have a single feature X that describes something about a healthy person.
+
+00:50:55.000 --> 00:51:09.000
+So X is this axis of the feature. What does a healthy person look like? And for healthy people, they're not all the same, so they're described by a probability distribution.
+
+00:51:09.000 --> 00:51:23.000
+So this is the probability distribution of the feature of people who belong in one category. People who are sick in general will look different.
+
+00:51:23.000 --> 00:51:34.000
+And their feature. Will probably have a different range. It's definitely going to have a different type of distribution.
+
+00:51:34.000 --> 00:51:41.000
+And this is a particular model of how the world works. Okay, it's a toy model.
+
+00:51:41.000 --> 00:51:54.000
+And the idea is that nature 1st generates the wise. And then given the why, nature picks at random and x according to that distribution.
+
+00:51:54.000 --> 00:51:59.000
+So it's a model that starts from the x's and this distribution here is a conditional distribution of y's given x.
+
+00:51:59.000 --> 00:52:10.000
+Why is given x, so it's a model that proceeds from Sorry. I'm sorry. I misspoke.
+
+00:52:10.000 --> 00:52:18.000
+It's a model of X's given Y's. So it's a model that proceeds from Y's towards X's.
+
+00:52:18.000 --> 00:52:24.000
+So suppose that we have a model of the world of this particular type.
+
+00:52:24.000 --> 00:52:31.000
+Suppose that your physicists decided this is how the world works. How would you make classification decisions?
+
+00:52:31.000 --> 00:52:43.000
+So in a classification decision, somebody shows up. And I tell you that their feature X is down here.
+
+00:52:43.000 --> 00:52:50.000
+So in the x-axis If I tell you something has this feature. How would you classify them?
+
+00:52:50.000 --> 00:52:59.000
+Well, you're going to say this particular feature is quite like to occur. For category 2. It's very unlikely to occur for category one.
+
+00:52:59.000 --> 00:53:19.000
+So I'm going to make the decision that this person is of category 2. Conversely, if somebody shows up with this feature, I will argue This feature is essentially impossible for category 2.
+
+00:53:19.000 --> 00:53:26.000
+It is possible for category one, so I'm going to decide that they're of category one.
+
+00:53:26.000 --> 00:53:39.000
+How do we generalize this way of thinking? We could generalize by saying I'm going to look at p 1 of x and p 2 of x and just take whichever is the biggest one.
+
+00:53:39.000 --> 00:53:56.000
+That's almost correct, but we would be ignoring the frequency. With which things occur. That is, if somebody shows up and their feature is down there.
+
+00:53:56.000 --> 00:54:05.000
+It looks more like a sick person. But if I tell you that in this planet there are no sick people.
+
+00:54:05.000 --> 00:54:19.000
+Then you should be making the decision that they are healthy. So if I tell you that pi 2 is essentially 0, I should always make the decision that the person comes from the other class.
+
+00:54:19.000 --> 00:54:28.000
+So these probabilities here need to be taken into account in the decision making and that's exactly what the Bayes rule does.
+
+00:54:28.000 --> 00:54:35.000
+The Bayes rule tells you that to make the decision and to minimize the probability that you make a mistake.
+
+00:54:35.000 --> 00:54:50.000
+You should compare these 2 numbers. You compare p 1 and P 2 as in our heuristic derivation, but you also take into account the prior probabilities of the different classes.
+
+00:54:50.000 --> 00:54:58.000
+So that's in a nutshell what's going to happen in the methods that we will be discussing.
+
+00:54:58.000 --> 00:55:10.000
+And from now and until the for the next 1520 min or so, we will just be doing the details of this and some generalizations of what I just told you.
+
+00:55:10.000 --> 00:55:18.000
+So to be more specific. For these distributions p 1 and P 2, we're going to assume that their normal distributions.
+
+00:55:18.000 --> 00:55:24.000
+So we're going to pretend that this is how the world works, that it's generating features according to a normal distribution.
+
+00:55:24.000 --> 00:55:36.000
+Normal distributions, the 2 normal distributions are different for the 2 different classes. Each one of them has a mean and a variance.
+
+00:55:36.000 --> 00:55:43.000
+So we need to cook up also to specify the means of the variances. How do we do that?
+
+00:55:43.000 --> 00:55:57.000
+Well, in our training sets, we have examples. Of individuals and they can look at all the health in Look at the distribution of them in my data set.
+
+00:55:57.000 --> 00:56:06.000
+Look at the mean, look at the variance of that. So based on the data, I can figure out what is the mean in class one and what's the variance in class one.
+
+00:56:06.000 --> 00:56:17.000
+And similarly for class 2. So once we have the data and the examples, we can figure out the means and the variances and this way creates a model.
+
+00:56:17.000 --> 00:56:26.000
+So that's the idea. But we want to generalize what I just wrote instead of just having 2 classes.
+
+00:56:26.000 --> 00:56:34.000
+We want to be more general to have multiple classes. Okay, that you can probably see how to generalizes.
+
+00:56:34.000 --> 00:56:44.000
+But more important also do it for the high dimensional case. Where we have feature vectors, not just the one dimensional feature.
+
+00:56:44.000 --> 00:56:52.000
+And in order to do that, we are going to need distributions that are like normal distributions, but in multiple dimensions.
+
+00:56:52.000 --> 00:57:06.000
+Why variance and not standard deviation that's a good question it's the same thing somehow you learning the variance is the same thing as learning the standard deviation it doesn't matter.
+
+00:57:06.000 --> 00:57:25.000
+Now the variance. Typically any method for estimating variances. Typically you would 1st estimate the variance and if you want standard deviation you take the square root of that.
+
+00:57:25.000 --> 00:57:34.000
+But the usual representation in textbooks when we describe the parameters of a normal distribution, usually it's the variance that's called the parameter.
+
+00:57:34.000 --> 00:57:45.000
+But in case it doesn't make a big difference. So let's now specify the Gaussian, what is involved in the model.
+
+00:57:45.000 --> 00:57:54.000
+A little more mathematically. So in a model, the 1st component was.
+
+00:57:54.000 --> 00:58:07.000
+The frequency with which nature is generating healthy sick people cats or dogs and all that. These are the prior probabilities.
+
+00:58:07.000 --> 00:58:18.000
+Quite fraction of the overall population belongs to a certain class or to another class. The index k here will stand for the class index.
+
+00:58:18.000 --> 00:58:30.000
+So for a particular class, the k class, this is the probability that the random individual belongs to the case class and we pretend that just nature produces individuals.
+
+00:58:30.000 --> 00:58:40.000
+With a different class characteristics. We call these the prior probabilities. They're prior. This is what you know about the wise.
+
+00:58:40.000 --> 00:58:53.000
+Before you see any exits. So is They are prior to seeing. To seeing X.
+
+00:58:53.000 --> 00:59:13.000
+Once you know the class of a person People in a certain class are distributed in the same way. These are the distributions that I was showing you before and we're going to make the assumption that these are normal distributions with a certain mean and a certain variance.
+
+00:59:13.000 --> 00:59:25.000
+Now in the when X is one dimensional. It is a normal. Distribution is has a certain formula and that formula involves the mean and the variance.
+
+00:59:25.000 --> 00:59:33.000
+And there's a normalizing constant. Now the important thing to notice here is that the distribution for each class is a different one.
+
+00:59:33.000 --> 00:59:41.000
+We have different parameters for each class. And that corresponds to the pictures that I had in the previous slide.
+
+00:59:41.000 --> 00:59:49.000
+P 1. Was a different distribution from P 2. Now let's unravel the notation here.
+
+00:59:49.000 --> 01:00:05.000
+Since x is multi-dimensional, it has many components. So we take the mean for of each component, stack them one on top of the other, and this way we get the mean vector or the vector of the means.
+
+01:00:05.000 --> 01:00:29.000
+So that's the easy part. How about the variance? Well, the formula in the multi-dimensional case for a Gaussian distribution He's an expression that looks almost like the one for the one dimensional distribution, except that in the place of One over sigma k squared.
+
+01:00:29.000 --> 01:00:40.000
+Now we have the inverse of a certain matrix. So instead of taking the inverse of a certain number, now here we have the inverse of a certain matrix.
+
+01:00:40.000 --> 01:00:44.000
+What is that matrix? That matrix is called the variance matrix of the distribution. It's just a matrix of parameters.
+
+01:00:44.000 --> 01:00:59.000
+That is basically a normalized version of the correlation of the correlations between the different components of the random variables.
+
+01:00:59.000 --> 01:01:16.000
+Now, you can for God forget the formula and and all the math that's involved here. The key point is that there is a generalization of the concept of the normal distribution, which applies to the high dimensional setting.
+
+01:01:16.000 --> 01:01:30.000
+What does a high dimensional normal look like? Okay, here's a 2 dimensional picture. Even in multiple dimensions, normals, multi-dimensional normals have this kind of bell shape.
+
+01:01:30.000 --> 01:01:48.000
+Now try to imagine it in higher dimensions if you can, but typically, not typically always what happens is that it's a kind of a bell that's centered on a certain point and that point is the mean vector of that distribution.
+
+01:01:48.000 --> 01:01:50.000
+So it's a point in space that point, the vector associated with that point, that's the mean of the distribution.
+
+01:01:50.000 --> 01:01:58.000
+And that weird metrics see here determines the shape of that distribution. Whether it's symmetrical or not.
+
+01:01:58.000 --> 01:02:16.000
+Quite special about normals. The one thing that you should remember is that the contours or the level sets of that distribution happen to be ellipses.
+
+01:02:16.000 --> 01:02:27.000
+So along an ellipse around the mean, the height of the distribution is constant. So you have those ellipses and does the ellipses become narrower and narrower.
+
+01:02:27.000 --> 01:02:43.000
+Distribution goes up. And now to visualize what's happening with when you have multiple classes. What's happening is that one class has a certain mean and the certain covariance metrics that determines the shape of the distribution.
+
+01:02:43.000 --> 01:02:57.000
+Under the other class, we have a different mean, but also possibly a different shape. So bottom line is that's really the picture that tells what have we done with the modeling.
+
+01:02:57.000 --> 01:03:06.000
+We have 2 categories. One category is described by those blue contours that describes the distribution of those type of people.
+
+01:03:06.000 --> 01:03:15.000
+And then for the other one, we have the red ones. Somebody's asking, do I Is there a square that's missing?
+
+01:03:15.000 --> 01:03:22.000
+What happens to that square? No, that square shows up because it's this term. Times that.
+
+01:03:22.000 --> 01:03:35.000
+Sigma k square is like is the variance. And this C metrics. Is covariances and variances and all that.
+
+01:03:35.000 --> 01:03:42.000
+So it does involve squares. So covariances and variances already have the squares.
+
+01:03:42.000 --> 01:03:51.000
+So everything is consistent. Compatible and fine. Does the bilateral symmetry of the normal extent to the higher dimensions?
+
+01:03:51.000 --> 01:04:06.000
+Bilateral symmetry, yes, in the sense that If you make this line here, the left part and the right part will be, there's going to be symmetry around that line.
+
+01:04:06.000 --> 01:04:14.000
+So along any line, there is symmetry, but you do not have rotational symmetry. So you do not get circles.
+
+01:04:14.000 --> 01:04:25.000
+The only case the case where you get circles is when the C metrics is a diagonal matrix.
+
+01:04:25.000 --> 01:04:36.000
+In that case, you're going to get circles. But otherwise, You will not.
+
+01:04:36.000 --> 01:04:42.000
+Okay, so this is what the Gaussian model is going to be.
+
+01:04:42.000 --> 01:04:43.000
+But the model, it's a model of what NAT, how nature generates X's and Y's.
+
+01:04:43.000 --> 01:05:00.000
+But we do not have that model. We only have examples. So can we learn from the examples the parameters of the Okay.
+
+01:05:00.000 --> 01:05:08.000
+The parameters of the model or the model itself. So this is the model building, the modeling part.
+
+01:05:08.000 --> 01:05:19.000
+The parameters that we need to figure out are 3 types. How does with what frequency does nature generate people of the 2 cut of the different categories?
+
+01:05:19.000 --> 01:05:32.000
+How can we? Estimate that based on the datasets. What is pi K? The probability that the typical person is of class K.
+
+01:05:32.000 --> 01:05:35.000
+Now, probabilities are like frequencies. When you choose random people out of the population with what frequency are you going to encounter?
+
+01:05:35.000 --> 01:05:54.000
+People with class K. Okay, so how do I estimate that? Well, I look at my dataset and see what's the frequency with which People of Class K are showing up.
+
+01:05:54.000 --> 01:06:08.000
+So out of my entire, data base, I look and go and measure. So for example, in our data set that we have, we the estimated probability of default.
+
+01:06:08.000 --> 01:06:17.000
+Would be 3.3% which is this.
+
+01:06:17.000 --> 01:06:25.000
+Okay, that's how we estimate it. So that's pretty simple. You estimate the probability, the underlying probabilities.
+
+01:06:25.000 --> 01:06:31.000
+By just counting frequencies. How about the mean vector? And we have to do that for every possible class.
+
+01:06:31.000 --> 01:06:44.000
+How do I estimate the mean vector? For people of a certain class. Well, I just look at the examples that I have.
+
+01:06:44.000 --> 01:06:52.000
+From that class and see what are the mean values. So I take, I look at the individuals of class K.
+
+01:06:52.000 --> 01:07:05.000
+Then take the average of their means and that's my estimate of the mean for class K. All right, and finally we also need to estimate this covariance metrics.
+
+01:07:05.000 --> 01:07:15.000
+Okay, so here it gets a little more complicated, but covariances are also some kind of expectations.
+
+01:07:15.000 --> 01:07:27.000
+Here's the math formula. Don't bother too much with it. We have a column vector and a row vector, the product of these 2 things is actually a matrix.
+
+01:07:27.000 --> 01:07:47.000
+It's an expected value of a matrix. And the way that you estimate this is that for each one of the entries of these matrices You estimate these expected values and the way you do it again is that expected values are just frequencies.
+
+01:07:47.000 --> 01:07:59.000
+Overview population so I can estimate these by taking average values over all samples. So this is not something that you will be implementing.
+
+01:07:59.000 --> 01:08:11.000
+The software will do all that for you automatically. Rather, the point I want to make is that there's a certain structure of Gaussian models.
+
+01:08:11.000 --> 01:08:19.000
+They correspond to certain assumptions. Gaussian models involve various parameters. And the modeling part.
+
+01:08:19.000 --> 01:08:35.000
+Is to estimate the parameters of those models. When those parameters have an interpretation of being expectations. You can estimate expectations by just taking averages.
+
+01:08:35.000 --> 01:08:47.000
+So this is the high level story without appealing to any math. So the modeling part can be done in a relatively way based on the data that we have.
+
+01:08:47.000 --> 01:08:59.000
+And this methodology that was used in this slide goes under the name of plug-in estimation, which is when you're trying to estimate something.
+
+01:08:59.000 --> 01:09:06.000
+The expectation of that something, you just take the average value of that something over your data sets.
+
+01:09:06.000 --> 01:09:15.000
+So we're done with the model. Presumably now we have a model and then the next part is to use the base road.
+
+01:09:15.000 --> 01:09:32.000
+The base rule is an amazing formula, very simple but extremely powerful and useful. And it allows us to calculate those posterior probabilities.
+
+01:09:32.000 --> 01:09:42.000
+Why is we call that the posterior probability? It's the probability of being of a certain class after we see the features.
+
+01:09:42.000 --> 01:09:49.000
+Pi K is the prior probability. It's the probability of being in a certain class before you see.
+
+01:09:49.000 --> 01:10:01.000
+The X's. After you see the X's, you revise your beliefs and this expression here would be the new beliefs.
+
+01:10:01.000 --> 01:10:21.000
+Given what I know about that individual. So the posterior probability has this simple formula. And if You are to make a decision and you want to have us Small, a probability of a mistake as possible.
+
+01:10:21.000 --> 01:10:29.000
+Let's say I tell you that there's 3 classes and one class has probability point 3. The other class has probability.
+
+01:10:29.000 --> 01:10:40.000
+Point 5 and the other has probability point 2. Which class should you guess? If you want to avoid mistakes as much as you can.
+
+01:10:40.000 --> 01:10:48.000
+Well, you should choose the most likely class. Make the decision that it's a It's an individual from that class.
+
+01:10:48.000 --> 01:11:01.000
+You should be. What you should be doing for your decision-making would be to look at these probabilities for the different classes and pick the class for which this probability is biggest.
+
+01:11:01.000 --> 01:11:08.000
+So you compare the different classes, choose the class with the largest posterior. Notice that K is not involved in the denominator.
+
+01:11:08.000 --> 01:11:22.000
+So all that you need to do is to calculate this numerator here for the different classes and choose the one which is biggest.
+
+01:11:22.000 --> 01:11:32.000
+And this approach overall minimizes the probability of error. This is a basic result that associated with also with the base formula.
+
+01:11:32.000 --> 01:11:47.000
+So how do we apply this to our particular setting? Well, here's the prior. According to a Gaussian model, there's a closed form formula.
+
+01:11:47.000 --> 01:12:07.000
+For the distribution of the x's. Given the class K. So all that we need to do is to calculate This and pick the K for every K to calculate it and pick the K for which this is biggest.
+
+01:12:07.000 --> 01:12:15.000
+Okay, now you may be thinking how do I calculate all that? Well, remember, we have already estimated the pi k's.
+
+01:12:15.000 --> 01:12:26.000
+We have estimated mu, C and mu. These are parts of the model. When an individual comes in, They come in with their X.
+
+01:12:26.000 --> 01:12:34.000
+So now you also know X and then you plug in everything in that formula and out you get a certain number.
+
+01:12:34.000 --> 01:12:43.000
+And that number that you get is specific to that class K. You repeat that for all classes and choose the class that wins.
+
+01:12:43.000 --> 01:12:57.000
+That's the methods. And that's okay. Again, I'm giving you the details so that you get some idea of what's behind or inside the box or behind the wall.
+
+01:12:57.000 --> 01:13:07.000
+There software that does all that for you. There's a 1 line script that says run Quadratic discriminate analysis for me.
+
+01:13:07.000 --> 01:13:27.000
+You hit the button and you will get the results of this method. Now it turns out that this method will end up producing classifiers that divide the space using quadratic functions.
+
+01:13:27.000 --> 01:13:34.000
+If you're curious about the bath, there's a simple explanation on the slide that I'm going to skip.
+
+01:13:34.000 --> 01:13:40.000
+Now some people raise the very good question, what does gamma K denote? So let's go back a little bit.
+
+01:13:40.000 --> 01:13:57.000
+So for a normal distribution, there's a certain normalizing constant and that normalizing constant in this case would be 1 2 pi One over square root of 2 pi sigma squared.
+
+01:13:57.000 --> 01:14:03.000
+This is for the one dimensional case. I just need't want to write the full thing. It's a normalizing constant.
+
+01:14:03.000 --> 01:14:15.000
+Similarly, in the multi-dimensional case, gamma k is something like this, but it involves the determinant of the C matrix.
+
+01:14:15.000 --> 01:14:16.000
+So it's an even uglier and messier formula. Basically, gamma k is a normalizing factor.
+
+01:14:16.000 --> 01:14:29.000
+That we know what it is given all the all the estimation that we have done.
+
+01:14:29.000 --> 01:14:45.000
+Special choice of discriminate analysis is If it happens that all the covariance matrices are the same for all classes, Then discriminate analysis gives you linear boundaries.
+
+01:14:45.000 --> 01:14:52.000
+For making the classification decisions and for those of you who will have the time and the curiosity there's a simple math explanation of why it happens, but I do not want to spend time on that.
+
+01:14:52.000 --> 01:15:09.000
+Instead, I'm going to show you the typical picture of what's going on. If we have different means, but same covariances.
+
+01:15:09.000 --> 01:15:19.000
+As in this picture. So in this case, same covariances mean CK is the same for all K.
+
+01:15:19.000 --> 01:15:26.000
+Then remember I told you that the covariance matrix determines the shape of the ellipses.
+
+01:15:26.000 --> 01:15:34.000
+In that case, we are going to have ellipses with the same shape. And the only difference is that they have different means.
+
+01:15:34.000 --> 01:15:47.000
+In this case, when sort of by symmetry you should one would guess well that it has to be a line that divides the 2 and that's what you use to make the decisions.
+
+01:15:47.000 --> 01:15:56.000
+So on this side you decide blue, on that side you decide red. Where exactly is that line located?
+
+01:15:56.000 --> 01:16:07.000
+That depends on the threshold and that's affected by the prior probabilities. If the prior probabilities tell me that almost everyone is blue, Then I'm going to shift my classifier and put it there.
+
+01:16:07.000 --> 01:16:21.000
+So that I choose blue more often. I have a bias. In favor of blue if I already know that almost everyone is blue.
+
+01:16:21.000 --> 01:16:35.000
+Now when the covariance matrices are different, you can get more interesting pictures. Suppose one normal is concentrated here and it's very wide, has a very big variance.
+
+01:16:35.000 --> 01:16:40.000
+The other normal has a mean here, but it has a small variance, so it's very concentrated.
+
+01:16:40.000 --> 01:16:45.000
+How should you make decisions in this case?
+
+01:16:45.000 --> 01:16:58.000
+Okay, well, it turns out the optimal is something like that. If you are inside this black region, decide red and if you're outside the side blue.
+
+01:16:58.000 --> 01:17:12.000
+So this is a quadratic divider. This divider, the black curve, is described by a quadratic equation so it would be something like an ellipse that's described by a quadratic equation.
+
+01:17:12.000 --> 01:17:15.000
+So it would be something like an ellipse that divides the space into 2 into 2.
+
+01:17:15.000 --> 01:17:22.000
+So that's how quadratic who wants a rise and if you want to see a picture on actual data.
+
+01:17:22.000 --> 01:17:25.000
+If you have, you can use this method with multiple classes. You run linear discriminate analysis. You get dividing boundaries.
+
+01:17:25.000 --> 01:17:40.000
+That are going to be straight lines. Whereas if you run quadratic, you're going to get a curves of another type.
+
+01:17:40.000 --> 01:17:50.000
+Let's see. I was planning to take a break a little later, but we're all ready above beyond the hour.
+
+01:17:50.000 --> 01:17:57.000
+So let me take a few questions and give you a break and then continue. The discussion.
+
+01:17:57.000 --> 01:18:07.000
+Are those pies coming from sterling approximation? I'm not sure about which Pies.
+
+01:18:07.000 --> 01:18:23.000
+There's definitely no sterling approximation. If by pi's the question refers to this, these pies are the prior probabilities and prior probabilities are just frequencies with which the different classes show up.
+
+01:18:23.000 --> 01:18:35.000
+Show up within our datasets So, pies in the normalizing factor or in the normalizing factor, why did we get this?
+
+01:18:35.000 --> 01:18:46.000
+Why did that pie work? Well, the only reason is because if you try to find the normalizing factor and you do this particular a girl.
+
+01:18:46.000 --> 01:18:54.000
+That particular integral has the value of one over square root 2 pi. Why is that? Because that's what it turns out to be.
+
+01:18:54.000 --> 01:19:01.000
+It's a calculus exercise.
+
+01:19:01.000 --> 01:19:07.000
+You know, look for other questions.
+
+01:19:07.000 --> 01:19:21.000
+You somewhat, oh, I missed the part where you remove the denominator. Well, we want to compare this for different case and choose The one K for which this is biggest.
+
+01:19:21.000 --> 01:19:28.000
+When you do the comparison, The numerator, the denominator is constant. It's the same for all k's.
+
+01:19:28.000 --> 01:19:36.000
+So it's not going to make a difference. I'm going to just choose the K. For which the numerator is biggest.
+
+01:19:36.000 --> 01:19:49.000
+What is the covariance matrix doing? Exactly what is it correlating? Okay, so for those of you who are curious to know what the covariance metrics really is.
+
+01:19:49.000 --> 01:20:05.000
+Let's suppose that we have Just 2 random variables. Let's say you and V, the covariance matrix would be would have an entry here which is the covariance of you with V.
+
+01:20:05.000 --> 01:20:15.000
+Here the covariance of you with V. And here it would have the covariance of you with itself.
+
+01:20:15.000 --> 01:20:24.000
+What is a covariance? Covariance of 2 random variables is expected value of u minus.
+
+01:20:24.000 --> 01:20:28.000
+The mean of you?
+
+01:20:28.000 --> 01:20:35.000
+Times V minus expected value of V.
+
+01:20:35.000 --> 01:20:44.000
+It turns out to be the same as the correlation of you with V times the standard deviation of you times the standard deviation of.
+
+01:20:44.000 --> 01:20:56.000
+So the covariance between 2 random variables is essentially the correlation between those 2 random variables, but scales according to the standard deviations.
+
+01:20:56.000 --> 01:21:08.000
+So this matrix has the covariances in the off diagonal parts. It's a symmetric matrix and in the diagonal it has covariances of the random variable with itself.
+
+01:21:08.000 --> 01:21:19.000
+Well, the covariance of a random variable with itself is just the variance itself. So here we would have the variance of you and here we would have the variance of V.
+
+01:21:19.000 --> 01:21:28.000
+So that's what the covariance matrix in the two-dimensional case when the random variables are independent, the covariance metrics would be diagonal.
+
+01:21:28.000 --> 01:21:42.000
+So the covariance metrics essentially, for the higher dimensional case, it's a metrics with a typical ijth entry being the covariance between xi and xj.
+
+01:21:42.000 --> 01:21:52.000
+So it's indicates the correlation between xi and xj, but it's not exactly correlation, it's correlation scaled.
+
+01:21:52.000 --> 01:21:55.000
+According to standard deviations.
+
+01:21:55.000 --> 01:22:03.000
+So covariance means it's, okay.
+
+01:22:03.000 --> 01:22:13.000
+One cannot say more. In English words without running into trouble. Like the last question in the chat covariance is not variance.
+
+01:22:13.000 --> 01:22:33.000
+Covariance is. The correlation between 2 very random variables but scaled. Really it's this mathematical formula for the case of 0 mean random variables the covariance is just this thing, expected value of u times v.
+
+01:22:33.000 --> 01:22:47.000
+Somebody is okay. I'll take one more question and then have our break. We have 2 more methods to cover.
+
+01:22:47.000 --> 01:23:02.000
+Okay. What happened here? Why does All right, to ask the question in the chat. What's happening is that there's a quadratic term.
+
+01:23:02.000 --> 01:23:17.000
+Here. But that quadratic term is the same for all. So it doesn't make a difference And so for that reason, what makes a difference is only the other terms.
+
+01:23:17.000 --> 01:23:27.000
+And the other terms only in both X linearly and that's why we end up doing a linear comparison.
+
+01:23:27.000 --> 01:23:37.000
+Okay, so covariance is a plane. Did I write line? No, yeah, the divider is not a line.
+
+01:23:37.000 --> 01:23:45.000
+It's a plane, but we call it, call call it linear. Alright, so, we.
+
+01:23:45.000 --> 01:23:57.000
+Hi, time management is a little bit of an issue here. Going to take a quick break. A real break for you to breathe and continuing the topic of goals.
+
+01:23:57.000 --> 01:24:00.000
+Goes have been so fascinated by this class. They decided to start doing some readings and catch up with their data sites.
+
+01:24:00.000 --> 01:24:30.000
+So see you in about 3 min. And get moving with the rest.
+
+01:27:21.000 --> 01:27:28.000
+All right, let's continue now and let's go to
+
+01:27:28.000 --> 01:27:32.000
+Or example.
+
+01:27:32.000 --> 01:27:39.000
+So, here's the performance of the training sets. But first, st let's see what exactly are we trying to do.
+
+01:27:39.000 --> 01:27:52.000
+Remember that 3% of the records only correspond to defaults. So one classifier A very dumb one is to always decide that it's not a defaulting.
+
+01:27:52.000 --> 01:27:59.000
+Customer. When am I going to make a mistake if it was a defaulting customer? How often that happens?
+
+01:27:59.000 --> 01:28:10.000
+3.33%. So I can get my. I can get this class this error rate with a very stupid classifier.
+
+01:28:10.000 --> 01:28:12.000
+If we are to do We want to do a little better than that or much better if possible. Let's see how much better we do.
+
+01:28:12.000 --> 01:28:28.000
+Well, we try LDA and QDA. And QDA turns out to do a little, a little better.
+
+01:28:28.000 --> 01:28:39.000
+That was for the case where we only use one component of X, only one of the features. Then we try the 2 methods using both, using all 3 of the features.
+
+01:28:39.000 --> 01:28:49.000
+Then performance improves a little bit and we can bring it down the best possible out of these methods would be 2.7%.
+
+01:28:49.000 --> 01:28:56.000
+So let's look in more detail into the results for one particular method, LDA. And this is how the errors go.
+
+01:28:56.000 --> 01:29:05.000
+Most of the errors that we make, it's actually customers who end up defaulting. But we thought they wouldn't.
+
+01:29:05.000 --> 01:29:16.000
+Okay, that's unfortunate. Can we bring it down? Well, maybe we'll maybe we will try other methods as well and see if something works better.
+
+01:29:16.000 --> 01:29:17.000
+But remember that in the real world, there's no way to perfectly predict who is going to default.
+
+01:29:17.000 --> 01:29:31.000
+But in any case, these mistakes are painful, but at least the classifier managed to catch 81 people.
+
+01:29:31.000 --> 01:29:40.000
+Would be defaulters. And it catches them. So it wouldn't have given them the loans and it would have saved some.
+
+01:29:40.000 --> 01:29:48.000
+Even these small savings can be pretty significant for a bank to cut the default rate. In this way is definitely an improvement.
+
+01:29:48.000 --> 01:30:03.000
+So it's. A substantial fraction of the defaulters, I guess it's about one quarter of the defaulters would be caught by these methods.
+
+01:30:03.000 --> 01:30:14.000
+Now this is the performance of the training set. We should always also look the performance in some independent, with some independent validation.
+
+01:30:14.000 --> 01:30:26.000
+And by using cross validation here, what we found is that the error rate would be 2.76%. And so this is good news.
+
+01:30:26.000 --> 01:30:38.000
+We have not done any overfitting. The actual performance on new individuals. Is about the over the same as the performance we had gotten on the training set.
+
+01:30:38.000 --> 01:30:56.000
+However, an issue that comes to this practical case is that not all error types are equally costly. So if you default There's a certain cost that the bank will incur and this is the value of the loan.
+
+01:30:56.000 --> 01:31:02.000
+It's all this money that I loaned. I'm losing it. Me meaning the bank.
+
+01:31:02.000 --> 01:31:09.000
+That's very costly. On the other hand, The other type of mistake is not as costly.
+
+01:31:09.000 --> 01:31:19.000
+It's just a lost customer. So a customer showed up. That customer would have been good, but I predicted that they would default.
+
+01:31:19.000 --> 01:31:26.000
+And because of that, I didn't give the loan. So I just lost the interest I would be gaining from those customers.
+
+01:31:26.000 --> 01:31:38.000
+And typically that's a much smaller number. So typically the cost of these errors The 2 52 would be much bigger than the cost of the other type of error.
+
+01:31:38.000 --> 01:31:45.000
+And maybe we want to take that into account in our decision making.
+
+01:31:45.000 --> 01:32:06.000
+So. And how do we do that? How do we take this into account? When we minimize the probability of error, what we do to classify the people, we look at the probability that they're bad versus the probability that they're good and whichever is bigger that's the decision that we're making.
+
+01:32:06.000 --> 01:32:16.000
+So if the probability of defaulting is more than 50%, then we say that this person is a bad one and we classify them as defaulters.
+
+01:32:16.000 --> 01:32:26.000
+When you put the costs in, you can formulate the problem of not minimizing the probability of error, but minimizing the expected cost.
+
+01:32:26.000 --> 01:32:39.000
+Of the errors. And when you do the math, it's turns out that the decision rule is pretty similar except that those probabilities are weighted also by the corresponding costs.
+
+01:32:39.000 --> 01:32:49.000
+What that ends up doing is to shift the thresholds in one direction. So it makes one type of mistake more likely, the other type of mistake less likely.
+
+01:32:49.000 --> 01:33:05.000
+So unbalanced costs can be handled in a systematic way and you should always do that when the different types of course, different types of errors have very different types of costs.
+
+01:33:05.000 --> 01:33:13.000
+So indeed, we're going to increase the overall. Error rate but we're going to reduce We're going to reduce the costs.
+
+01:33:13.000 --> 01:33:31.000
+So that's all that they wanted to say for this particular type of method. And now let us start running with the second type of method which is the logistic, logistic regression approach.
+
+01:33:31.000 --> 01:33:45.000
+So here we will try to build a classifier directly. We will try to build directly a model that from X's goes to wise or goes to decisions.
+
+01:33:45.000 --> 01:34:00.000
+Okay, here's a general idea that could come to mind. If we're looking let's say for linear classifiers, we could look for the linear classifiers that makes the least number of errors.
+
+01:34:00.000 --> 01:34:06.000
+On the training set. So can I tweak this line so that it makes as few errors as possible?
+
+01:34:06.000 --> 01:34:15.000
+This is actually could be a very Good idea. That's really what we're trying to do, except for one catch.
+
+01:34:15.000 --> 01:34:23.000
+There's no feasible, computationally feasible algorithm that can do that in practice.
+
+01:34:23.000 --> 01:34:29.000
+That you make. Is going to take in computer science legal, it's going to take exponential time.
+
+01:34:29.000 --> 01:34:38.000
+It's a very hard computational problem. There's no way to find in practice the classifier with the fewest.
+
+01:34:38.000 --> 01:34:46.000
+Errors on the training set. So this approach has to be abandoned. So maybe let's try a different idea.
+
+01:34:46.000 --> 01:34:52.000
+Let's try to use a regression. Suppose that X is one dimensional and this is our data set.
+
+01:34:52.000 --> 01:35:00.000
+You can use ordinary. Regression, ordinary list squares to fit the Y's to the X's.
+
+01:35:00.000 --> 01:35:16.000
+As if the Y's were continuous random variables, even though they're not. You can still pose the least squares problem and get the regression line and make a decision that whenever that regression line is above.
+
+01:35:16.000 --> 01:35:25.000
+0 point 5. Whenever we're above that, then we make one decision. Otherwise, we make the other decision.
+
+01:35:25.000 --> 01:35:31.000
+So that would correspond to a classifier that uses this particular threshold. Well, for this picture, it's not too bad, but in general, this doesn't work well.
+
+01:35:31.000 --> 01:35:39.000
+And the main reason is that the criterion, the quadratic criterion, makes absolutely no sense in the classification context.
+
+01:35:39.000 --> 01:35:53.000
+In the classification context, we're interested in mistakes. The probability of mistakes, not in any kind of distances.
+
+01:35:53.000 --> 01:36:02.000
+So let's try to change this way of thinking a little bit. Instead of trying to fit a straight line, through the data.
+
+01:36:02.000 --> 01:36:16.000
+Let's try to fit a straight line that looks a little more like this. A curve that ranges between 0 and one.
+
+01:36:16.000 --> 01:36:28.000
+And interpret that curve. As the probability of being of a certain class. So what does that blue curve tell us?
+
+01:36:28.000 --> 01:36:43.000
+When x is high. So if we're here, for example, the blue line is Close to one and so the blue line tells us that this individual is very likely to be of class one.
+
+01:36:43.000 --> 01:36:57.000
+For an individual down here, this blue curve is going to tell us that this person is has a low probability of being a 1, so most likely to 0 we're going to declare 0.
+
+01:36:57.000 --> 01:37:13.000
+So, and if we have an individual who's somewhere in the middle, this blue line, this blue curve is going to tell us the probability that this person is of a certain last world the probabilities are about 50 50 so we're not really sure.
+
+01:37:13.000 --> 01:37:23.000
+So actually this would be very useful information if we have it because it also tells us how certain we are about a decision.
+
+01:37:23.000 --> 01:37:37.000
+So it would be great if we had a nice blue line. Of this type. That is sort of compatible with the data that we have.
+
+01:37:37.000 --> 01:37:55.000
+If the costs of the different decisions are equal so costs are balanced, you would take that probability and compare it with 0 point 5 and depending on which way the comparison goes, you would make one decision or the other.
+
+01:37:55.000 --> 01:38:02.000
+So that's the general idea. Try to fit a blue line through the data.
+
+01:38:02.000 --> 01:38:08.000
+The catch is that we do not have an available. The update that that exactly can help us fit a blue line.
+
+01:38:08.000 --> 01:38:21.000
+Where, but before going to that, What do we mean by a blue line, a blue curve, with this kind of shape?
+
+01:38:21.000 --> 01:38:28.000
+And that goes between 0 and one. Well, we're going to introduce a parameterized family.
+
+01:38:28.000 --> 01:38:40.000
+Curves of possible blue lines and we're going to look into the problem of picking the best possible blue line, the blue line that's best aligned with the data.
+
+01:38:40.000 --> 01:38:48.000
+So what kind of curves are we going to consider? She use a plot of a particular nonlinear function.
+
+01:38:48.000 --> 01:39:01.000
+Not this what this nonlinear function does if x goes to infinity then this term disappears. And the function goes to one.
+
+01:39:01.000 --> 01:39:04.000
+And that's what we see here. You can also do the calculation when x goes to negative infinity.
+
+01:39:04.000 --> 01:39:16.000
+This curve goes to 0. So it's a curve that goes between 0 and one and somewhere in between rises smoothly.
+
+01:39:16.000 --> 01:39:26.000
+So we call that a logistic function. So that's the general shape that we want. But not exactly this curve.
+
+01:39:26.000 --> 01:39:44.000
+We also want to consider somewhat different curves of the same, but of the same type. Now we're going to use a curve of this type to model the probability that Y is of class one as a function of x.
+
+01:39:44.000 --> 01:39:53.000
+To keep that probability a little more general, so to generalize the class of blue lines, we actually introduced some parameters.
+
+01:39:53.000 --> 01:40:01.000
+And what those parameters, theta 0 and theta one do, is that they take this blue curve and they can shift it.
+
+01:40:01.000 --> 01:40:09.000
+So it's some quick here, or they can scale it so that it rises faster or it rises slower.
+
+01:40:09.000 --> 01:40:22.000
+So having those 2 parameters in our hands, we can create blue lines with the same general shape. But with a different location and with a different sharpness.
+
+01:40:22.000 --> 01:40:31.000
+So this is the parametrized class that we're going to consider. For the probability of being of class one.
+
+01:40:31.000 --> 01:40:37.000
+And if that's the probability of class one, what ever is left would be the probability of the other class.
+
+01:40:37.000 --> 01:40:47.000
+And when you do the math in order for the probabilities to add up to one for the other class, it would be the expression that I have up there.
+
+01:40:47.000 --> 01:41:00.000
+So this is the type of curves we want to consider. And we want to then choose the particular values of the parameters that are most compatible with the data.
+
+01:41:00.000 --> 01:41:08.000
+How do we generalize now? There's 2 generalizations that we want to do. And we want to deal with.
+
+01:41:08.000 --> 01:41:15.000
+Multiple classes. And also with x being a vector.
+
+01:41:15.000 --> 01:41:18.000
+X being a vector, I guess that would be simple. That theta is a vector and we take the inner product with the X's.
+
+01:41:18.000 --> 01:41:41.000
+With multiple classes, well, we just have a different theta parameter for each one of the classes. So we stipulate in the one-dimensional case that for each class the probability of being in a certain class is proportional.
+
+01:41:41.000 --> 01:41:56.000
+To this expression. And so going to the higher dimensional case. We replace theta X with the vector product of theta with X.
+
+01:41:56.000 --> 01:42:04.000
+Notice that we have a different theta for each one of the different classes. So this is what we postulate.
+
+01:42:04.000 --> 01:42:14.000
+This is the model structure that we assume about the world. We assume that for a given value of X, the probability that you belong to a certain class is proportional to this exponential function.
+
+01:42:14.000 --> 01:42:31.000
+So theta k times x is sort of the strength of the evidence in favor of class K. So probabilities are going to be proportional to this.
+
+01:42:31.000 --> 01:42:42.000
+On the other hand, the probabilities of the different classes need to add up to one and to make them add up to one, you introduce a normalizing constant in the denominator.
+
+01:42:42.000 --> 01:42:47.000
+So this is a sum over all possible classes so that and that makes the sum of those probabilities over all case that some is going to be equal to one.
+
+01:42:47.000 --> 01:43:03.000
+So we have normalized. So this is the mobile structure that we do. Postulate, we assume that this describes the world.
+
+01:43:03.000 --> 01:43:09.000
+So somebody asked, is this the error function? No, there's that's not the error function.
+
+01:43:09.000 --> 01:43:11.000
+This is just a particular type of curve. Described by some parameters that goes from 0 to one and the name for it is that it's a logistic function.
+
+01:43:11.000 --> 01:43:29.000
+So we assume this model, we assume that that's how the world is described. This is what my lingo from the previous lectures.
+
+01:43:29.000 --> 01:43:40.000
+This is like a structural model. We assume that the world has a certain structure. That relates access to wise in a probabilistic way.
+
+01:43:40.000 --> 01:43:47.000
+We assume this structure and under the assumption of this structure, now let's find the best fitting thetas.
+
+01:43:47.000 --> 01:43:59.000
+Again, what is SS is just a dummy variable. So it just means that we take those expressions for each one of the classes and add them up.
+
+01:43:59.000 --> 01:44:11.000
+It's like what we have here. It's the sum over all different classes. So that the probabilities add up to one.
+
+01:44:11.000 --> 01:44:21.000
+And we want to find now the best choice of parameters. Notice that we have one vector for each one of the classes.
+
+01:44:21.000 --> 01:44:33.000
+Once we have chosen those parameters, the decision rule is pick the class which is the most likely. Pick the K for which this expression is biggest.
+
+01:44:33.000 --> 01:44:47.000
+The denominator does not involve k, so pick the K for which This expression is biggest. Doing that is the same as speaking the K for which This is biggest.
+
+01:44:47.000 --> 01:44:59.000
+Just whatever comes inside the exponential. And so since we're doing that, it means that we are ending up with a linear classifier.
+
+01:44:59.000 --> 01:45:06.000
+So this method, the logistic regression methods, does give us fairly simple classifiers, linear classifiers.
+
+01:45:06.000 --> 01:45:17.000
+The only catch is how do we find best fitting vectors? We have the method of ordinary least squares to do best fit.
+
+01:45:17.000 --> 01:45:29.000
+But ordinary least squares would apply if somebody had given us examples of these probabilities and then we try to fit them.
+
+01:45:29.000 --> 01:45:42.000
+But nobody gives us such examples. We do not have examples of these probabilities. We only have examples of specific individuals and the classes of those specific individuals.
+
+01:45:42.000 --> 01:45:54.000
+So we have to do something else. To do the training. And the training is done using the maximum likelihood method.
+
+01:45:54.000 --> 01:46:14.000
+The maximum likelihood method is something that we discussed briefly in the context of linear regression and the general idea and maximum likelihood method is that you have a model That model involves a parameter theta, and you choose the value of the parameter.
+
+01:46:14.000 --> 01:46:24.000
+Which is most compatible with the data. The value of the parameter for which The likelihood of observing the data.
+
+01:46:24.000 --> 01:46:36.000
+That you actually observed. Is biggest. The choice of theta for which the observe the actually observed data are most likely to have occurred.
+
+01:46:36.000 --> 01:46:56.000
+So the details of this goes as follows. We have assumed this model structure. And having this model structure, the likelihood function of the particular data is the product of the probabilities of seeing those particular y's that we did observe.
+
+01:46:56.000 --> 01:47:04.000
+Those probabilities are given by these ugly formulas. So take those ugly formulas and plug them in here.
+
+01:47:04.000 --> 01:47:12.000
+That gives you the likelihood function. It's a messy function that but involves the thetas.
+
+01:47:12.000 --> 01:47:23.000
+And you take that function, it's a mess, but computers can deal with a mess and the computer then opt and finds the theta.
+
+01:47:23.000 --> 01:47:27.000
+For which these big expression is going to be maximized. So the computer can solve the maximum likelihood problem for you.
+
+01:47:27.000 --> 01:47:48.000
+Once you have chosen once we have committed to this particular structure. So if I give you these specific example data with certain features and the classes of the individuals, the likelihood function is going to be what's the probability that I observe those Y's?
+
+01:47:48.000 --> 01:47:56.000
+It's the probability that I observe this particular Y given my X, the probability of the other Y and so on.
+
+01:47:56.000 --> 01:48:03.000
+Notice that the thetas show up inside those probabilities. So thetas are going to show up.
+
+01:48:03.000 --> 01:48:08.000
+Everywhere inside here.
+
+01:48:08.000 --> 01:48:15.000
+So this function is a massive function of the thetas very nonlinear. So we want to optimize that.
+
+01:48:15.000 --> 01:48:23.000
+Typically, you take the logarithm of this and not you, the computer will do it for you.
+
+01:48:23.000 --> 01:48:30.000
+Takes the logarithm, this becomes a sum of different terms and the computer maximizes the sum of these terms.
+
+01:48:30.000 --> 01:48:36.000
+No need to think more about all the symbols that you see in this slide. The bottom line is There is a standard statistical method, the maximum likelihood method.
+
+01:48:36.000 --> 01:48:56.000
+That allows you to to optimize parameters. Do maximum likelihood method can be applied to this particular model structure and it's going to find for you the best choice of the thetas.
+
+01:48:56.000 --> 01:49:03.000
+It's a messy nonlinear computational problem, but still it can be solved fairly efficiently.
+
+01:49:03.000 --> 01:49:12.000
+Because one can calculate gradients fairly easily. It's a convex problem and they're efficient special purpose algorithms.
+
+01:49:12.000 --> 01:49:28.000
+Now all this is sort of background inside of box stuff. In reality, when you do your test, your your projects and all that you just hit the bottom and you say please run logistic regression for me
+
+01:49:28.000 --> 01:49:38.000
+And the computer will do that and will output. There's no closed for no analytical solution to this problem.
+
+01:49:38.000 --> 01:49:47.000
+You can only do it computationally. It's very different than quadratic regression because quadratic regression fits quadratic functions to data.
+
+01:49:47.000 --> 01:49:56.000
+Here we're fitting functions. That are nothing like quadratic. These sigmoids.
+
+01:49:56.000 --> 01:50:05.000
+Do not look like quadratic. That's 1 difference. And the second difference is that we do not have examples of the values of these curve.
+
+01:50:05.000 --> 01:50:16.000
+So it's not exactly the regression. Can we use bootstrap in this context? Of course you can use bootstrapping anything you do in statistics?
+
+01:50:16.000 --> 01:50:29.000
+How would you use bootstrap? Once you have once you have committed to this method. This method will give you estimated parameters.
+
+01:50:29.000 --> 01:50:42.000
+And you may want to ask about the accuracy of those parameters and the standard errors of those parameters. That is how confident am I about the values of those parameters.
+
+01:50:42.000 --> 01:50:54.000
+Then you can use Bootstrap by generating many synthetic data sets, run, linear, run logistic regression on those synthetic data sets.
+
+01:50:54.000 --> 01:51:03.000
+Get the histogram and from that histogram, you are going to figure out the standard error of your parameter estimates.
+
+01:51:03.000 --> 01:51:26.000
+So bootstrap is a generic method. That can be applied whenever you're estimating parameters and you want to know whether your parameters are Fluctuating too much or they too too specific to your data set or are they reliable?
+
+01:51:26.000 --> 01:51:36.000
+Comments and caveats, every comment from linear regression applies here. So. You may be able to get a classifier that makes great predictions, tells you nothing about causality.
+
+01:51:36.000 --> 01:51:45.000
+You can always, you always have the choice, what features do I include? So you try different possibilities for your features.
+
+01:51:45.000 --> 01:51:55.000
+So in logistic regression, for example, if you use features, instead of having the original vector x, you might have some augmented vector that involves all the features that are here.
+
+01:51:55.000 --> 01:52:08.000
+You can do regularization. If you want to avoid overfitting, you can put a penalty that penalizes when the parameters are too big.
+
+01:52:08.000 --> 01:52:17.000
+This is like ridge regression. You can also put a penalty that involves the sum of the absolute values and that would be like lasso.
+
+01:52:17.000 --> 01:52:25.000
+So pretty much everything in our discussion of linear regression has analogs in this context. What, how do you choose this parameter gamma?
+
+01:52:25.000 --> 01:52:33.000
+That's a hyper parameter in the regularization penalty you try, you do it by trial and error and chooses the experimental.
+
+01:52:33.000 --> 01:52:52.000
+And finally, the big caveat is that performance on the training set is no guarantee of good performance later in the future in order to assess the later performance you need to set aside some data and use them as a validation set or you can do fold cross validation and everything else that we have.
+
+01:52:52.000 --> 01:53:04.000
+Discussed so far. If you're interested in the accuracy of your parameters, you can generate confidence intervals.
+
+01:53:04.000 --> 01:53:13.000
+You can also do hypothesis tests and hypothesis test would help you answer whether a certain feature is relevant for your problem in deciding the class.
+
+01:53:13.000 --> 01:53:19.000
+Or not.
+
+01:53:19.000 --> 01:53:30.000
+Okay, now let's look at the results that we get using logistic regression. So logistic regression does did the bug the same as QDA when we use all you want component of the X's.
+
+01:53:30.000 --> 01:53:44.000
+When you do the classification using all of X, logistic regression does. Oh, terrible. Okay, is there an explanation for this?
+
+01:53:44.000 --> 01:53:51.000
+No, I don't have one and I it's unlikely that anyone can really get an explanation.
+
+01:53:51.000 --> 01:54:00.000
+So these methods as opposed to linear regression are very complicated. And pretty non-linear. And they can act unpredictably.
+
+01:54:00.000 --> 01:54:06.000
+There's no way to tell ahead of time. To What is going to work well and what is it?
+
+01:54:06.000 --> 01:54:19.000
+You just try different methods. And then you cross validate to choose between different methods. And then we did run logistic regression, but of the lasso type.
+
+01:54:19.000 --> 01:54:26.000
+Where we throw in some regularization penalty. Let's say to avoid overfitting. And amazingly this did better than any of the other methods.
+
+01:54:26.000 --> 01:54:34.000
+Can I explain it? Could I have predicted it? Not really. So that's the that would be the method of choice.
+
+01:54:34.000 --> 01:54:49.000
+However, these are all results on the training set. You should always cross validate. So we did run the numbers.
+
+01:54:49.000 --> 01:55:04.000
+With 10 fold cross validation. The nice thing to watch here was that There results on cross validation were not too far from the results on the training set.
+
+01:55:04.000 --> 01:55:15.000
+So there was no overfitting here, no matter which method we use.
+
+01:55:15.000 --> 01:55:23.000
+And logistic regression with absolute value regularization is still the winner.
+
+01:55:23.000 --> 01:55:27.000
+Okay.
+
+01:55:27.000 --> 01:55:46.000
+Now, of course, you realize that we're talking about tiny differences here. If you make 271 mistakes, you get an error rate of 2 71%.
+
+01:55:46.000 --> 01:55:51.000
+Yes, 200 mistakes on the 2,000 data set is 2% error rate. Here it's 272 mistakes.
+
+01:55:51.000 --> 01:56:03.000
+So the differences is that one method catches one extra customer, one extra defaulter compared to another one.
+
+01:56:03.000 --> 01:56:17.000
+So they're not huge differences anyway. But we sort of see that around 2.7 is the best that we might hope to be able to do.
+
+01:56:17.000 --> 01:56:28.000
+Okay, now what's special about this example? Is that we not only have unbalanced costs, but we also have an unbalanced dataset.
+
+01:56:28.000 --> 01:56:37.000
+Namely, we have many more individuals of one type compared to the other. Suppose that class one, ours is the defaulting customers.
+
+01:56:37.000 --> 01:56:47.000
+We have very few defaulting customers. So when we do the maximum likelihood optimization, We're maximizing this expression.
+
+01:56:47.000 --> 01:57:01.000
+There's very few red terms, so the maximization is more focused on the blue terms. And it's focused on the blue terms, but the blue terms are not the ones that are the important ones.
+
+01:57:01.000 --> 01:57:16.000
+The important ones are the defaulting customers. Those are the ones that we want to catch. But most of the terms, most of the examples in our data set are are here.
+
+01:57:16.000 --> 01:57:20.000
+So the formulation.
+
+01:57:20.000 --> 01:57:33.000
+Has is concentrating on the good customers because the data set is unbalanced. On the other hand, the bad customers are the really important and the really costly ones.
+
+01:57:33.000 --> 01:57:42.000
+So maybe we need to do that somehow to tell the mathematics that look We're really interested in that term.
+
+01:57:42.000 --> 01:57:52.000
+Those are the bats and the costly customers. How do you tell the mathematics that this is what you're interested in?
+
+01:57:52.000 --> 01:58:05.000
+P, okay, I guess what's on the slide is what I already said. The way to tell the mathematics, please paid more attention to the red terms is to throw in a weight.
+
+01:58:05.000 --> 01:58:22.000
+In front of that sum that increases the importance of that term. Now this is essentially the same as creating fake red terms or fake defaulting customers.
+
+01:58:22.000 --> 01:58:37.000
+So If w is equal to 2, This is the same as having twice as many red terms. Which is the same as taking the defaulting customers and create copies of them.
+
+01:58:37.000 --> 01:58:49.000
+And put another copy in in my dataset. So create fake additional defaulting customers. So as to make your data set to be a little more balanced.
+
+01:58:49.000 --> 01:59:03.000
+There are other ways of doing the same thing. Some are more fancy than that. There are some methods of creating fake fake records using the ones that we have available it's synthetic methods that use typical features of other defaulting customers.
+
+01:59:03.000 --> 01:59:15.000
+To create others that look alike. That look alike like that. Okay, the last method has is easy to describe.
+
+01:59:15.000 --> 01:59:32.000
+But still I want to leave a few minutes for that. Let me very quickly look at the questions. Methods other than close across validation to validate?
+
+01:59:32.000 --> 01:59:48.000
+No, there aren't. How do you determine the weight value? You can't, you just try different values of the weight and see how and you see the trade-off between the 2 error types and see where do you like the results.
+
+01:59:48.000 --> 01:59:55.000
+You could reduce the good customers, but by doing that you're throwing away information in your data set.
+
+01:59:55.000 --> 02:00:05.000
+So it's better to increase the bad customers rather than throwing away. Parts of the data sets.
+
+02:00:05.000 --> 02:00:10.000
+Okay, in which case is QDA better?
+
+02:00:10.000 --> 02:00:24.000
+No, there's no provable way. Nothing you can say provably unless it's a situation in which you're normal assumption if your QDA assumptions are Truly valid.
+
+02:00:24.000 --> 02:00:42.000
+Then QDA is the optimal method in that setting. And going away from machine learning to and business if you go to engineering in communication systems it's very often that noise is are Gaussian.
+
+02:00:42.000 --> 02:00:52.000
+So . DA. Has been used a lot in traditional signal processing and communication and detection systems.
+
+02:00:52.000 --> 02:00:59.000
+So in those settings, you can say that's a very good method, but otherwise. It's you just try it.
+
+02:00:59.000 --> 02:01:09.000
+So QDA involves a very specific type of model with normal distributions. In most cases, these models are quite wrong.
+
+02:01:09.000 --> 02:01:16.000
+You just try it. It's a systematic way of creating a classifier and hope that it's going to do well.
+
+02:01:16.000 --> 02:01:22.000
+But it's it's an arbitrary assumption. Same thing with logistic regression. It involves logistic regression involves a pretty strong assumption about nature.
+
+02:01:22.000 --> 02:01:46.000
+That probabilities are described by this formula. What in the world could justify this? I mean, it sort of has reasonable behavior, reasonable flexibility, but it's it's a wrong it's never a correct assumption.
+
+02:01:46.000 --> 02:01:57.000
+However, it produces classifiers. If it's if it gives you a good classifier in the end, then you just use that and and take it.
+
+02:01:57.000 --> 02:02:06.000
+So in the real world, you will try all methods to see which one. Works well.
+
+02:02:06.000 --> 02:02:12.000
+So, finally, the last methods we cannot do it in just 5 min because it's very simple.
+
+02:02:12.000 --> 02:02:18.000
+It doesn't involve any modeling, it doesn't involve any math. What's in nearest neighbor classifier?
+
+02:02:18.000 --> 02:02:25.000
+Suppose we have objects that are blue and brown. And then a new person, a new object comes in.
+
+02:02:25.000 --> 02:02:33.000
+How do you classify it? Well, you look for the nearest objects in your dataset and adopt the label of that object.
+
+02:02:33.000 --> 02:02:44.000
+So in this case, the nearest object is blue. So I'm going to declare the newcomer to that it is a blue opt.
+
+02:02:44.000 --> 02:02:57.000
+Now this is a little bit too sensitive. And we want to maybe not just look at the closest one, but look at the few of the neighbors and that leads us to the K nearest neighbor classifier.
+
+02:02:57.000 --> 02:03:07.000
+Sorry for the notation conflict. K here is not the number of classes. K is how many neighbors you look at. K is how many neighbors you look at.
+
+02:03:07.000 --> 02:03:11.000
+So you look at the K nearest neighbors you look at. So you look at the K nearest neighbors and take a majority vote between the labels.
+
+02:03:11.000 --> 02:03:28.000
+So if K is equal to 3, I'm going to look at my 3 nearest neighbors. And in this case, the nearest the out of the 3 nearest neighbors, the majority is browned and I'm going to Brown is going to be my decision.
+
+02:03:28.000 --> 02:03:46.000
+So nearest neighbor classifiers are very simple. There's no training required. There's a little bit of real-time calculation that you have to do when an individual, a new object comes in, you have to search your entire database, find the nearest neighbors.
+
+02:03:46.000 --> 02:03:56.000
+And that can take work if your database is huge and there are special tricks and special data structures that can speed things up.
+
+02:03:56.000 --> 02:04:09.000
+So how well does this method do? We applied that's methods and we actually did cross validation mode.
+
+02:04:09.000 --> 02:04:20.000
+What is a cross validation mode? You have our database. Keep out one customer. Pretend that this customer is coming in.
+
+02:04:20.000 --> 02:04:25.000
+You look at the nearby neighbors and use that to make the decision. That customer was left out from the dataset.
+
+02:04:25.000 --> 02:04:35.000
+So we do have the label. And so we can see if the decision made on the basis of everything else.
+
+02:04:35.000 --> 02:04:44.000
+Is correct or not. So we try the method for different choices of k, the number of neighbors. And performance.
+
+02:04:44.000 --> 02:04:59.000
+Got best somewhere around here. With 14 or 15 or 13 a neighborhood of this size. We can actually do a plot.
+
+02:04:59.000 --> 02:05:07.000
+We did it out of curiosity for different choices of K. So if you look at too few neighbors, which is in the beginning.
+
+02:05:07.000 --> 02:05:21.000
+The method is not doing that well. For a larger number of neighbors, it starts doing reasonably well. The differences are not are not huge.
+
+02:05:21.000 --> 02:05:27.000
+And you can pick any value of k in that range.
+
+02:05:27.000 --> 02:05:39.000
+One thing to notice is that the performance is actually is very close to the best performance that we got using the other more sophisticated methods.
+
+02:05:39.000 --> 02:05:50.000
+And so one moral from this case study is that a very simple method like nearest neighbors can do extremely well, be competitive with fancier methods.
+
+02:05:50.000 --> 02:06:05.000
+This is more often the case in low dimensional problems in higher dimensions. Distances are less meaningful. They behave in stranger ways and the methods do not go that well.
+
+02:06:05.000 --> 02:06:14.000
+Checking to find the best value of k. Is an instance of hyper parameter search. We have an algorithm, but that algorithm has a knob.
+
+02:06:14.000 --> 02:06:17.000
+In this case, it's the number of neighbors. And so we try it for different choices of that knob and we use.
+
+02:06:17.000 --> 02:06:32.000
+Cross validation to get to the ideal value. Now one question, what is this? Value and why?
+
+02:06:32.000 --> 02:06:45.000
+Quite happens if K is huge? If K is huge, let's say K is close to 10,000, which is the size of our data sets.
+
+02:06:45.000 --> 02:06:56.000
+What does it mean to look at? Everybody and think of them as neighbors. It's democracy, yes.
+
+02:06:56.000 --> 02:07:09.000
+It's democracy and it's also Looking at the majority vote, what is the majority? The majority is people who are not defaulting.
+
+02:07:09.000 --> 02:07:17.000
+So, no matter who is that's coming, the decision is going to be. Not a default.
+
+02:07:17.000 --> 02:07:26.000
+How often am I going to make mistakes? I'm going to make mistakes. If it is a defaulter and that happens with Yeah.
+
+02:07:26.000 --> 02:07:34.000
+At the rate of 3.3 3%. And this curve actually does. Settled to 3.3%.
+
+02:07:34.000 --> 02:07:38.000
+So once you are looking at big enough neighborhoods, you're basically doing majority voting, then you just declare in favor of one class.
+
+02:07:38.000 --> 02:07:52.000
+So it's the least computationally expensive methods. Among all the methods we have seen as far as offline.
+
+02:07:52.000 --> 02:07:59.000
+Training is concerned. It is more expensive. Online. What do I mean by online?
+
+02:07:59.000 --> 02:08:09.000
+When a new person comes in with logistic regression you just Calculate this. And see how big it is and you make the decision.
+
+02:08:09.000 --> 02:08:17.000
+So it's a very quick thing. With nearest neighbors, you have to look at your 1 billion data points and discover neighbors.
+
+02:08:17.000 --> 02:08:23.000
+So that could be prohibited. Depending on the application.
+
+02:08:23.000 --> 02:08:32.000
+Scaling matters a lot. If you have a picture like this, the nearest neighbor is going to be.
+
+02:08:32.000 --> 02:08:46.000
+Even with k equals 3, the nearest neighbor decision would be blue. But if I scale the X's, If I scale one of the x's and not the other, the diagram is going to get stretched.
+
+02:08:46.000 --> 02:08:53.000
+And now if I look at my neighbors, the majority is going to be brown. And it's going to be a different decision.
+
+02:08:53.000 --> 02:09:01.000
+So how you, so nearest neighbor methods are very sensitive to the way that your features have been scaled.
+
+02:09:01.000 --> 02:09:14.000
+You can play with the scalings. One general rule of thumb would be to try to have the components of X have comparable ranges because otherwise it's going to focus on only one of the components.
+
+02:09:14.000 --> 02:09:28.000
+And it ignore ignore the other features. This is essentially the same as using a weighted metric. Your distance function instead of being the usual Euclidean distance, you throw in some weights there.
+
+02:09:28.000 --> 02:09:38.000
+And then the next question is, okay, and how do I choose this the weights? Well, you can say let me do a hyper parameter search.
+
+02:09:38.000 --> 02:09:46.000
+But if you have too many features, then the search itself would be just too complicated. So this is not a practical idea.
+
+02:09:46.000 --> 02:09:58.000
+It's more just to understand conceptually. What scaling and waiting do. And in general, I guess it's a general wisdom that nearest neighbor methods tend to be more and more sensitive to scaling and waiting as you go to higher.
+
+02:09:58.000 --> 02:10:09.000
+Dimensions when you have higher dimensional features. So that's the end of what I wanted to cover today.
+
+02:10:09.000 --> 02:10:19.000
+There's some slides for your per user that this is just part of a much bigger landscape. Lots and lots of algorithms and approaches and methods.
+
+02:10:19.000 --> 02:10:37.000
+You'll see more of them in coming weeks, something that we haven't discussed, but it is important is that when you get a model, it's not just how good are the results, but it's also whether those models can be interpreted, are you learning something about the world?
+
+02:10:37.000 --> 02:10:51.000
+When you take those models and when you make predictions, can you explain them? So if you use machine learning to send somebody to jail, you should be able to explain the rationale why they're going to jail.
+
+02:10:51.000 --> 02:10:57.000
+So in that respect, nearest neighbors. Are very good in terms of self-explanability.
+
+02:10:57.000 --> 02:11:06.000
+I can say Beth is going to jail. Because she's the nearest neighbor of those through people who were criminals who went to jail.
+
+02:11:06.000 --> 02:11:17.000
+So you can explain the decision. It's not as clear in logistic regression that how much of an explanation you can give and all that.
+
+02:11:17.000 --> 02:11:28.000
+Now, but nearest neighbor message do not give you any model. They do not tell you anything about the real physics that's involved here.
+
+02:11:28.000 --> 02:11:33.000
+Alright, so, I'll stop here. And we're ready for the mentoring session.
+
+02:11:33.000 --> 02:11:46.000
+I will pass the baton. Are you?
+
+02:11:46.000 --> 02:11:47.000
+So.
+
+02:11:47.000 --> 02:11:56.000
+Thank you so much, Professor. Thank you so much for that wonderful lecture. I see a lot of comments about these lectures this week.
+
+02:11:56.000 --> 02:11:59.000
+We're very positive. So thank you for wonderful explanations and the deep dive into different algorithms.
+
+02:11:59.000 --> 02:12:16.000
+That was very helpful. Just because a lot of learners tend to leave after this, a quick reminder that there will be mental learning sessions this weekend.
+
+02:12:16.000 --> 02:12:17.000
+There will be 2 mental learning sessions. On Saturday, we will be talking about regression and on Sunday.
+
+02:12:17.000 --> 02:12:31.000
+We will be talking about classification. So if you can attend them, please make sure, you attend those.
+
+02:12:31.000 --> 02:12:40.000
+Next week we do have lectures. The sessions are going to be the same Monday, Wednesday and Friday, with Professor Daley.
+
+02:12:40.000 --> 02:12:50.000
+And we will be talking about, card algorithms like tree based algorithms. So please join us next week as well for the live lectures.
+
+02:12:50.000 --> 02:12:58.000
+But that being said, we have our mentor available for us today. Freeman.
+
+02:12:58.000 --> 02:13:03.000
+Hello, Freeman. Are you there? Good morning. Hey.
+
+02:13:03.000 --> 02:13:08.000
+Hey, Ankit. Hey, Professor. Good morning, everybody.
+
+02:13:08.000 --> 02:13:11.000
+We'll dive right into the questions here. And so please if you have any questions, please put them in the chat.
+
+02:13:11.000 --> 02:13:22.000
+I am moderating them so I'll try to ask as many questions as I possibly can. So one of the questions we have is can we elaborate on those pair of ellipses near from each other?
+
+02:13:22.000 --> 02:13:39.000
+What do they represent? Ideally linking to the example. So I think this is the question based on one of the examples, the professor had covered.
+
+02:13:39.000 --> 02:13:46.000
+So yeah are you aware of that example Freeman?
+
+02:13:46.000 --> 02:13:54.000
+I'm not exactly sure which specific example. I don't know if Professor wants to speak to that.
+
+02:13:54.000 --> 02:13:55.000
+Oh.
+
+02:13:55.000 --> 02:13:58.000
+Okay, maybe Yeah, yeah, maybe even professor is back, we can take that question again.
+
+02:13:58.000 --> 02:13:59.000
+Okay.
+
+02:13:59.000 --> 02:14:09.000
+Let's kind of go over some of the earlier asked questions. Can we use PCA to determine the best vector for the line?
+
+02:14:09.000 --> 02:14:21.000
+So when we were talking about logistic regression, we're talking about, the line and the question is can we use PCA since we don't know where the line is going to be.
+
+02:14:21.000 --> 02:14:23.000
+Can we use PCA for first? st
+
+02:14:23.000 --> 02:14:34.000
+No, the This shape forward, answer is no. The practical approach. And an effective one is experimentation.
+
+02:14:34.000 --> 02:14:46.000
+So you just gonna kind of, experiment shifting the boundaries. So usually the way it works is you would depending on.
+
+02:14:46.000 --> 02:14:51.000
+Which cost is highest for the business, you would shift the boundaries accordingly towards one side of the arrow.
+
+02:14:51.000 --> 02:15:16.000
+In order to make a combination or make more room for the other half of it and so you would experiment with different options to kind of get the best solution out of it based on the major metric that you are monitoring.
+
+02:15:16.000 --> 02:15:25.000
+Another question I see is, is there a hierarchy of preferred classification methods or is it case by case?
+
+02:15:25.000 --> 02:15:35.000
+Absolutely kiss-based. That being said, there are certain situations that might give you some. You know, good ideas on what to get started with.
+
+02:15:35.000 --> 02:15:47.000
+So usually in machine learning. It has 2 things that you always have to pay attention to and make sure that the solution that you are looking for.
+
+02:15:47.000 --> 02:16:00.000
+Is good in that area. And aligns very well with the business. So all this machine learning methods and techniques that you've covered so far and that you're gonna cover more, they do essentially to main things.
+
+02:16:00.000 --> 02:16:10.000
+Prediction. And explanation. So sometimes the business is just looking for prediction. I don't care about explanation.
+
+02:16:10.000 --> 02:16:18.000
+What that test you is that out of All the tools, all the techniques that you know, the ones that.
+
+02:16:18.000 --> 02:16:19.000
+I'm very good at prediction but not so good at explanation. You could use them and the business won't care.
+
+02:16:19.000 --> 02:16:30.000
+In that kind of situation. There are the situations where it is explanation that is required. Maybe like the business is trying to figure out the major factors.
+
+02:16:30.000 --> 02:16:42.000
+So, you know, variables driving is starting behavior or something. Observation. And then you're looking for the modest with higher extentability power.
+
+02:16:42.000 --> 02:16:48.000
+And in other situations, both. So you get those, you know, ideas and then you walk up.
+
+02:16:48.000 --> 02:16:55.000
+But then another thing to keep in mind is the same plug the better. So if you can solve it with the logistic regression.
+
+02:16:55.000 --> 02:17:01.000
+Why do you need in your network?
+
+02:17:01.000 --> 02:17:10.000
+Yeah. So maybe professor can take the question from before. So professor there was a question about one of the slides that was shown.
+
+02:17:10.000 --> 02:17:19.000
+About the ellipses, that were near each other in one of the examples.
+
+02:17:19.000 --> 02:17:20.000
+Bug the clubs? The
+
+02:17:20.000 --> 02:17:29.000
+So. On ellipses there was a slide where there were 2 ellipses that were drawn next to each other earlier there's a question.
+
+02:17:29.000 --> 02:17:31.000
+That was about. UDA.
+
+02:17:31.000 --> 02:17:41.000
+Yeah, it was around the NDA and QDA slide.
+
+02:17:41.000 --> 02:17:42.000
+And what was the question?
+
+02:17:42.000 --> 02:17:51.000
+Down there the yeah the question exactly is can we elaborate on those pairs of ellipses near from each other?
+
+02:17:51.000 --> 02:17:53.000
+What do they represent?
+
+02:17:53.000 --> 02:17:58.000
+Okay.
+
+02:17:58.000 --> 02:18:12.000
+These are the level sets of the distribution of X's. So this is the X space. We have 2 features x 1 and x 2 And these are the contours or the level sets of the distribution.
+
+02:18:12.000 --> 02:18:28.000
+People of category blue. They're described by some distribution that kind of I cannot draw very well. That's why we use the ellipses.
+
+02:18:28.000 --> 02:18:37.000
+It's a bell shaped curve that's sitting on top of those ellipses and the ellipses are the places where the distribution has a constant level.
+
+02:18:37.000 --> 02:18:50.000
+I don't know if you can see my. Hands in the picture you the distribution has some ellipses and then as we go up the distribution goes higher and higher.
+
+02:18:50.000 --> 02:19:06.000
+Think of a big or a bell that's sitting sample. So that's how what blue people look like and that's what red people do like against sort of distribution concentrated there.
+
+02:19:06.000 --> 02:19:16.000
+So blue people are of these types. And if I get someone here, He seems to be, he or she seems to be more compatible with the blue category.
+
+02:19:16.000 --> 02:19:27.000
+So I'm going to declare them to be blue. If they're there, they're more within the bulk of the red distribution, so I would call them red.
+
+02:19:27.000 --> 02:19:32.000
+So they're just the level sets over the distribution.
+
+02:19:32.000 --> 02:19:45.000
+The one dimensional case would be simpler. There are no ellipses in the one dimensional case.
+
+02:19:45.000 --> 02:19:56.000
+Where was that picture? In the
+
+02:19:56.000 --> 02:20:08.000
+Okay, so. In the one dimensional case, these are the distributions and the contours that distribution takes a constant value just those 2 points, then that would be one contour, the other contrary would be there.
+
+02:20:08.000 --> 02:20:36.000
+So we're describing Where's the distribution takes certain, But the way to interpret the ellipses is that you have a distribution sitting on top of it and the distribution is kind of give you the shape of the bell that's sitting on top.
+
+02:20:36.000 --> 02:20:56.000
+I think we'll move to the next question if there are more questions about, okay, it seems like the, the learner understood that explanation fully.
+
+02:20:56.000 --> 02:20:57.000
+Whoops.
+
+02:20:57.000 --> 02:21:02.000
+So great. Professor, I think we are seeing the screen of some USPS mail. Yeah, I just, wanna make sure because it has like address and stuff.
+
+02:21:02.000 --> 02:21:15.000
+So one of the other questions we have is, so is the K nearest neighbor method the least computationally expensive method among all the methods that we saw.
+
+02:21:15.000 --> 02:21:29.000
+No. And I'm, zooming you are comparing logistic regression with LD, QDE and So it won't be the least computationally expensive method.
+
+02:21:29.000 --> 02:21:39.000
+Logistic regression would be very low computationally. So if you're looking for something that is.
+
+02:21:39.000 --> 02:21:40.000
+Yeah.
+
+02:21:40.000 --> 02:21:49.000
+Come to her less expensive amongst those 3. This is a kind of less tends to be less computationally expensive as compared to QDE.
+
+02:21:49.000 --> 02:21:52.000
+Okay.
+
+02:21:52.000 --> 02:22:02.000
+But definitely amongst the 4 K and A is in the least competitionally expensive. Logistic regression would be.
+
+02:22:02.000 --> 02:22:05.000
+Yeah. Right.
+
+02:22:05.000 --> 02:22:15.000
+But, Let me add that besides the computational expense, there's also some statistical expense.
+
+02:22:15.000 --> 02:22:16.000
+Hmm.
+
+02:22:16.000 --> 02:22:22.000
+That is QD. Has to estimate all those entries of the covariance metrics.
+
+02:22:22.000 --> 02:22:38.000
+And if you have 100 features this is a met metrics with 10,000 entries If you're data set only has 10,000 points.
+
+02:22:38.000 --> 02:23:03.000
+10,000 data are 2 little to estimate a metrics with 10,000 entries. So that has to also be taken into account and so QDA is not necessarily and very practical methods if your data set is limited in size.
+
+02:23:03.000 --> 02:23:10.000
+One of the other questions we have is can same real world problem be start using both supervised and unsupervised approach.
+
+02:23:10.000 --> 02:23:22.000
+If so, what is one of those examples where we can do same prediction? Using an unsupervised and super waste model.
+
+02:23:22.000 --> 02:23:37.000
+How certainly that's very common practice. So. And I can give you one example where I kind of used, an NLP technique on
+
+02:23:37.000 --> 02:23:48.000
+Comments, you know, put in by credit managers. To extract insights from the. And leverage them.
+
+02:23:48.000 --> 02:23:57.000
+And then build. A classification model. To make prediction on new comments that are put in by.
+
+02:23:57.000 --> 02:24:22.000
+Crazy too many just and so It's kind of like a combination of 2 techniques there. Using NLP and then using classification model but the overall goal was to have a classification in front of the end users that You can put in a comment as a creative manager and you wouldn't talk to that coming that retaining a, which signifies the level of criticality, whether it's work.
+
+02:24:22.000 --> 02:24:32.000
+The senior management's attention or everything is good or things like that.
+
+02:24:32.000 --> 02:24:33.000
+Sorry.
+
+02:24:33.000 --> 02:24:40.000
+So, unsupervised learning, if I understand what you said, is used as a 1st stage.
+
+02:24:40.000 --> 02:24:51.000
+To to summarize or simplify the data before and you go and do the supervised learning for prediction.
+
+02:24:51.000 --> 02:24:55.000
+Right in that in that case that was what happened
+
+02:24:55.000 --> 02:25:06.000
+Yes, so it's not really an alternative. It's rather, it's an extra tool that is unsupervised learning can never do the job of supervised learning.
+
+02:25:06.000 --> 02:25:08.000
+It can help.
+
+02:25:08.000 --> 02:25:15.000
+Absolutely. Absolutely. Yeah, so it's more like just a combination of. Multiple techniques.
+
+02:25:15.000 --> 02:25:18.000
+Solving one problem in that case.
+
+02:25:18.000 --> 02:25:26.000
+Yeah, I think the question was more related to can we get the same result by using a supervisor and unsupervised method.
+
+02:25:26.000 --> 02:25:27.000
+Oh, okay. I see. Got it. Okay.
+
+02:25:27.000 --> 02:25:29.000
+So I think professors comment basically answers that Okay, next question that we have is with classification to, or with logistic.
+
+02:25:29.000 --> 02:25:44.000
+Regression, do we have to check, certain assumptions like we do with linear regressions?
+
+02:25:44.000 --> 02:26:11.000
+Good question because some of this is do apply. In logistic regression as well. We don't commonly check because we used, you know, all the techniques to optimize the algorithm or check is effectiveness, but it's definitely something you would want to check if especially, you're struggling to get a good performing model on the DSA.
+
+02:26:11.000 --> 02:26:21.000
+It helps provide a guide because you might need to do some transformations and some of the input variables. So So answer your question directly, you should.
+
+02:26:21.000 --> 02:26:25.000
+Yes.
+
+02:26:25.000 --> 02:26:38.000
+Another other questions we have is are there any scenarios where cross validation could be misleading?
+
+02:26:38.000 --> 02:26:39.000
+Hmm.
+
+02:26:39.000 --> 02:26:41.000
+Good question. Prof.
+
+02:26:41.000 --> 02:27:08.000
+Maybe, if the data is inbalanced and you're not like adjusting for that imbalance when you create your cross validations then they and let's say you end up with all 10 cross validations where Your data just is, selected randomly in a way that the, that the bias class, predictions are more accurate than your model might end up.
+
+02:27:08.000 --> 02:27:30.000
+Being biased towards that category as well. But as you increase the number of cross validation folds the likelihood of that happening reduces So, I would think that that is probably one of the cases if you choose a less value of cross validation like less number of falls to run.
+
+02:27:30.000 --> 02:27:41.000
+And your data is heavily biased, then that could happen. Maybe professor has another scenario where it could be misleading.
+
+02:27:41.000 --> 02:28:00.000
+Well, there's a higher level danger that your data sets. Itself is misleading. That is, if your data sets is not fully represented of the population, but it's a little.
+
+02:28:00.000 --> 02:28:12.000
+Less is it's balanced in a different way than the real world then no matter how long cross validate you're not going to catch.
+
+02:28:12.000 --> 02:28:25.000
+That's defect. Now if your data are representative then you understand that course validation is itself a noisy process because you're choosing your faults at random.
+
+02:28:25.000 --> 02:28:34.000
+As and kids said, With enough falls, it's unlikely that you will get something very drastic.
+
+02:28:34.000 --> 02:28:51.000
+Sometimes people try to. Preserve some structure when they choose the hold outset so if you know that your population is 50%.
+
+02:28:51.000 --> 02:29:00.000
+Cats and 50% dogs you would want maybe your hauled out sets to also have 50% cuts and 50% dogs.
+
+02:29:00.000 --> 02:29:12.000
+And you can enforce that by sampling separately from the dogs and separately. From the cats, things like that.
+
+02:29:12.000 --> 02:29:23.000
+One of the questions we have and this might be a more important question. With respect to different classification methods, are there any best practices or guidelines, criteria on when one should use one method over the other.
+
+02:29:23.000 --> 02:29:37.000
+It seems to be very arbitrary. Okay. That we should test all methods.
+
+02:29:37.000 --> 02:29:56.000
+Yeah, I mean, it's a good question because you have a lot of techniques at your disposal and then sometimes it's difficult to figure out the right one in a given situation but again, it's hard for you to turn off straight off the back from the beginning, which one is going to give you.
+
+02:29:56.000 --> 02:30:02.000
+The best performance on a given data set in great world situations. And so trying different algorithms is common practice.
+
+02:30:02.000 --> 02:30:16.000
+What we do is we try to have like you know, a good mix of the selections. So we could have, you know, linear nonlinear models.
+
+02:30:16.000 --> 02:30:23.000
+We could have, you know, the basic ones with some, some good techniques and things like that. We could mix them.
+
+02:30:23.000 --> 02:30:35.000
+And then compare the performances. Hey, again, having said that, couple of things, like I said, I think it was the very 1st question that you keep in mind is what is the overall business objective?
+
+02:30:35.000 --> 02:30:47.000
+So the business is. They let's figure out the major factors. That are impacting. The same price.
+
+02:30:47.000 --> 02:30:58.000
+So if you are looking for explanation, then you will be gravitating towards the modest that offer you higher and the ones that offer little to none.
+
+02:30:58.000 --> 02:31:07.000
+Sustainability. And then if it is just prediction then you have more freedom to kind of like play around with a lot of this modest.
+
+02:31:07.000 --> 02:31:17.000
+But again, starting with the simplest solutions is the best practice because You don't want to build an over complicated solution for a very simple problem.
+
+02:31:17.000 --> 02:31:29.000
+Right? So if I build a new network to do classification. For a given use case and ankit builds logistic regression that is doing exactly the same or even having better performance.
+
+02:31:29.000 --> 02:31:42.000
+This model is obviously a solution in that situation because You don't want to over complicate things. So, consider the overall business objective in Trustee.
+
+02:31:42.000 --> 02:31:58.000
+Simple as possible.
+
+02:31:58.000 --> 02:31:59.000
+Hmm.
+
+02:31:59.000 --> 02:32:05.000
+Yeah, I agree. I mean, it will be. You can choose model like in practice we don't build every model like as the question was stating right interpretability, scalability of the model, sparsity within the data, imbalances within the data.
+
+02:32:05.000 --> 02:32:10.000
+There are different criteria under which you can select a subset of models. Right linearity versus non-linearity of the data.
+
+02:32:10.000 --> 02:32:23.000
+So you test for different conditions you look at different scenarios of the data and you build a subset of models that you want to build.
+
+02:32:23.000 --> 02:32:35.000
+Okay, apply every single model. You will always have a way of selecting a subset of models and then you build those upside of models and compare with respect to each other as Freeman mentioned.
+
+02:32:35.000 --> 02:32:44.000
+So that's that's kind of like a general way of how we go about doing this.
+
+02:32:44.000 --> 02:32:56.000
+Is it always a good idea to do a scatter plot? Of why before deciding which model or approach to use.
+
+02:32:56.000 --> 02:33:10.000
+You could you could make a startup plot if you have you know numerical variables in your data. Now 1st of all if you're doing classification your target variable is probably categorical.
+
+02:33:10.000 --> 02:33:17.000
+And so you won't even have the opportunity of plotting the independent variables against it using a scatter plug.
+
+02:33:17.000 --> 02:33:25.000
+But in C regression, for example, it's KATA clock will give you an idea of the existence of linear relationship.
+
+02:33:25.000 --> 02:33:32.000
+Now, that being said, you also need to keep in mind some of the techniques that you're gonna cover in the coming days.
+
+02:33:32.000 --> 02:33:45.000
+Are able to capture nonlinear relationships and so the non-existence of non-existence of linear relationship between your independent variable and the target variable.
+
+02:33:45.000 --> 02:33:56.000
+It's not a conclusion that there is no relationship at all between your independent and target variable. The could be a relationship that is nonlinear.
+
+02:33:56.000 --> 02:34:03.000
+And so making scare up plots, especially when you're building regression models, is a helpful exploratory.
+
+02:34:03.000 --> 02:34:08.000
+Technique, you know, you could do that as part of your DETA exploration to get some ideas of.
+
+02:34:08.000 --> 02:34:17.000
+Linear relationships and things like that. And again, tied, tiny back to the question of how to choose the right model.
+
+02:34:17.000 --> 02:34:24.000
+Some of those explorations, especially if you have a data set that is predominantly continuous variables.
+
+02:34:24.000 --> 02:34:34.000
+And you're doing regression and there's no linear relationship and then you build A linear regression model, you're not getting good performance.
+
+02:34:34.000 --> 02:34:55.000
+Is that kind of like giving you some ideas that maybe you need to transform some of your intended variables? And try plotting them against the target variable and see if you have more, linear relationship and things like that that might have improved the performance of the model.
+
+02:34:55.000 --> 02:35:09.000
+One question that I should that just popped up if we are using categorical data in combination with numerical data, do we always normalize all the numerical data for models to work properly?
+
+02:35:09.000 --> 02:35:16.000
+And how is the categorical data handled in these models?
+
+02:35:16.000 --> 02:35:30.000
+That's a good question. Again. For distance based modest especially yes it is definitely very important for you to standardize them whether it's normalization that is the best .
+
+02:35:30.000 --> 02:35:42.000
+So One of those many standardization techniques you want to implement. It's fine. Now with the categorical variables, the way you encode them.
+
+02:35:42.000 --> 02:35:54.000
+Much as, right? So if you have, if the unique values of your categorical variable Do not have an inherent order in them.
+
+02:35:54.000 --> 02:36:02.000
+Then if you choose Oh, an encoding technique that introduces order, maybe gives it 1, 2, 3, 4, 5.
+
+02:36:02.000 --> 02:36:11.000
+Then that's of magnitude that is not It's not, it's not a good thing for the model.
+
+02:36:11.000 --> 02:36:20.000
+Because the one that has a 5 for example even after normalization of standardization is still gonna carry higher value than the one has one.
+
+02:36:20.000 --> 02:36:39.000
+And it's gonna indicate higher importance to the model unfairly. So performing normalization of standardization, especially for algorithms that compute some sort of distance like, that you talked about today for example is very important.
+
+02:36:39.000 --> 02:36:46.000
+And then for the category of variables you can cool them accordingly. Dominic variables technique for example do not introduce order.
+
+02:36:46.000 --> 02:36:56.000
+And so it's helpful in that kind of situation. You don't introduce or necessary bias.
+
+02:36:56.000 --> 02:37:09.000
+Another question that we have is how do we know that the model which uses best fitted is it based on the result of the error rate?
+
+02:37:09.000 --> 02:37:16.000
+Yeah, it is based on the, evaluation technique to measure the error in the mode in.
+
+02:37:16.000 --> 02:37:28.000
+Consideration of the overall business objective. And so, With classification models, we know that accuracy isn't enough.
+
+02:37:28.000 --> 02:37:36.000
+You know, to just major the performance of the model. So we use all the metrics like recall precision.
+
+02:37:36.000 --> 02:37:49.000
+So if recall is the most valuable. Measurement criteria for that particular situation. Then we will compare all the models based on recall.
+
+02:37:49.000 --> 02:37:54.000
+If it is precision, then we'll do the same thing. Hey, if it's f 1 score.
+
+02:37:54.000 --> 02:37:58.000
+We'll go accordingly.
+
+02:37:58.000 --> 02:38:11.000
+We'll take one more question here. Can you please explain again what do you mean by updating your posterior after observing a new data?
+
+02:38:11.000 --> 02:38:16.000
+So I think this is with respect to when we were talking about the example. With.
+
+02:38:16.000 --> 02:38:30.000
+Yep. Okay. Let me take that so. Probability of default was 3.3% So this is my prior.
+
+02:38:30.000 --> 02:38:36.000
+If a new person comes in and you ask, I know nothing about that person and you ask me what do you think about them?
+
+02:38:36.000 --> 02:38:44.000
+I'll tell you, well, they will default with 3% probability because that's the historical rate.
+
+02:38:44.000 --> 02:38:57.000
+But then I see If you think about that person, probability of default. Given that income. Is 1 million.
+
+02:38:57.000 --> 02:39:06.000
+And they're not a student and balance. Is 1 billion.
+
+02:39:06.000 --> 02:39:19.000
+Then I'm going to update and say that the probability of default. Is much smaller. So that's what the posterior is.
+
+02:39:19.000 --> 02:39:28.000
+How do we calculate that posterior to calculate that posterior? You need to have a model on which you can do ballistic calculations.
+
+02:39:28.000 --> 02:39:41.000
+So in the Gaussian setting. Because it was a full probabilistic model and we saw a way of actually calculating the posterior.
+
+02:39:41.000 --> 02:39:49.000
+The words posterior and prior only apply when you are doing Bayesian statistics. So you have prior probability.
+
+02:39:49.000 --> 02:40:02.000
+So it only applies to the today to the Gaussian setting. In the in logistic regression we're sort of learning directly.
+
+02:40:02.000 --> 02:40:21.000
+This probability of default but you wouldn't necessarily call it posterior because there's no Bayesian assumption.
+
+02:40:21.000 --> 02:40:22.000
+I hope that answers that question. We are kind of at the end of the time. Limit over here.
+
+02:40:22.000 --> 02:40:38.000
+So we'll stop here with the questions. Remember that if you still have further questions, you can ask them during your mental learning session over the weekend.
+
+02:40:38.000 --> 02:40:48.000
+With that being said, thank you everybody for joining this week for the lectures. We are Done with the basic techniques of regression and classification.
+
+02:40:48.000 --> 02:41:01.000
+Next week, we will continue our discussion on solving other algorithms. To perform regression and classification using tree based algorithms and ensemble models.
+
+02:41:01.000 --> 02:41:02.000
+So thank you, Professor, for the wonderful week and all the wonderful lectures that we've had.
+
+02:41:02.000 --> 02:41:13.000
+Thank you, Freeman, for answering all the questions towards the end of these. Lectures as well.
+
+02:41:13.000 --> 02:41:21.000
+Thank you and Keith and Freeman and thank you everyone for joining this week. Enjoy the rest the rest of this class.
+
+02:41:21.000 --> 02:41:23.000
+Thank you.
+
+02:41:23.000 --> 02:41:26.000
+Thank you, Professor. Thanks. Thanks everyone.
+
+02:41:26.000 --> 02:41:28.000
+Take care everybody. Okay.
+
+02:41:28.000 --> 02:41:48.000
+Bye.
+

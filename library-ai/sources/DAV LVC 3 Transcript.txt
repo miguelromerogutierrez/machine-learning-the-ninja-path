@@ -1,0 +1,2994 @@
+[Faculty (Olympus)] 19:00:36
+Hello everyone. Good morning. Good afternoon. Good evening to everybody depending on where we are.
+
+[Faculty (Olympus)] 19:00:43
+I see that the chat has been enabled for everyone now. Great. So welcome to your last, class of this week.
+
+[Faculty (Olympus)] 19:00:55
+Just a quick reminder that the material for the weekend, the mental learning session has been released for you.
+
+[Faculty (Olympus)] 19:01:02
+So if you have some extra time, please go over that. We will have 2 mental learning sessions starting from this week, one on Saturday and one on Sunday.
+
+[Faculty (Olympus)] 19:01:13
+If you have any questions regarding that, please contact your program manager. Because mental learning sessions are mandatory. That being said, again, please do not put anything in the Q&A section.
+
+[Faculty (Olympus)] 19:01:30
+Please interact in the chat section and make sure that all your questions and comments are being sent to everyone.
+
+[Faculty (Olympus)] 19:01:38
+I see some questions that are being sent still to host and panelists. So please reach out to them.
+
+[Faculty (Olympus)] 19:01:46
+Also, we will again have a QA section towards the end. So you can ask questions about the meta learning session towards the end.
+
+[Faculty (Olympus)] 19:01:54
+So that we don't take time right now about that. So with that being said, I will hand over the session to professor.
+
+[Faculty (Olympus)] 19:02:03
+Today we will be studying about clustering, which will be one of the other methods in unsupervised learning.
+
+[Faculty (Olympus)] 19:02:07
+Good morning, Professor.
+
+[Prof. Uhler] 19:02:09
+Thank you very much and hello everyone. Welcome back. So, this is going to be the 3, rd lecture of this week.
+
+[Prof. Uhler] 19:02:18
+So the last one that we're having this week, and so like last time I would like to start with, you know, just, doing a little bit of a recap of what have we done so far and what are we expecting to do today.
+
+[Prof. Uhler] 19:02:33
+So what have we done so far? So we started off on Monday, right? With, talking about, when you're in this lucky situation where you can have influence on the data collection process, what is important that you do then, how important it is to come up with the right question, then collect the right data to answer that question.
+
+[Prof. Uhler] 19:02:55
+And then from then on, you can go into data analysis mode of, 1st of all, trying to figure out whether if you see a trend in the data, whether that is actually significant.
+
+[Prof. Uhler] 19:03:05
+So we talked about hypothesis testing and then we even already went into starting to think about now you get your large scale data sets what do you do as a 1st thing when you get such a data set, right?
+
+[Prof. Uhler] 19:03:17
+And so we talked about and we'll continue talking about these types of data sets today where it's like one big table of data where you know your rows are the samples, so these could be individuals for example in a in a customer database and then the columns are all of the covariance or or features that you're measuring on this particular.
+
+[Prof. Uhler] 19:03:37
+On all of these people. For example, be all kinds of demographic information and how they have interact with you as a company.
+
+[Prof. Uhler] 19:03:45
+Okay, so that's and then there we talked about a particular principal component analysis as a very simple and fast linear method for visualizing the data in 2 dimensions.
+
+[Prof. Uhler] 19:03:57
+We'll talk a lot more about principal component analysis today as a method is pre-processing the data for like in particular cutting down on computation time.
+
+[Prof. Uhler] 19:04:09
+We also already talked about T, stochastic neighbor embedding to TS and E, as a non-linear method for visualizing.
+
+[Prof. Uhler] 19:04:19
+Ts and E, as a nonlinear method for visualizing your data and we saw so nicely how you know, as a non-linear method for visualizing your data, as a non-linear method for visualizing your data.
+
+[Prof. Uhler] 19:04:25
+And we saw so nicely how, you know, on this like very simple data set on MNIST, how it was actually able to identify what types of groups or clusters we may have in the data, right?
+
+[Prof. Uhler] 19:04:30
+Without telling it from these handwritten digits that we have like the digit 4 and the digit one and the digit 0, it was actually able to identify that there were different groups in the data set and all of the fours, right, came out to be kind of clustered that the zeros came out to be kind of clustered, etc.
+
+[Prof. Uhler] 19:04:48
+And in fact, it even broke up the different digits a little bit too much. So there were some clusters of like, you know, different ones.
+
+[Prof. Uhler] 19:04:54
+Although they were all the digit one, but of course, you know, the algorithm doesn't know that we that all of these should have been the same group.
+
+[Prof. Uhler] 19:05:01
+But it was pretty good at identifying different groups inside the dataset, right? Much better than principal component analysis.
+
+[Prof. Uhler] 19:05:08
+But of course, it pays a price and we saw this that it has a much, much longer, it took much longer in order to compute it.
+
+[Prof. Uhler] 19:05:16
+So a much more computationally intensive method. So that's what we did so far and the 1st lecture.
+
+[Prof. Uhler] 19:05:24
+Then in the second lecture on Wednesday, right, we moved on to a different data modality and we saw that really networks appear every like in any kind of application domain you have networks that appearing and they're just simply not used yet enough that type of information when you're doing data analysis.
+
+[Prof. Uhler] 19:05:40
+And so, it was important to also look at what can you do when you have networks, right?
+
+[Prof. Uhler] 19:05:46
+When you have network structure and that is also given to you in the dataset and how can you make use of it and what are some of the 1st things that we would do when you actually get a network data set?
+
+[Prof. Uhler] 19:05:55
+And so we talked about how important it is to 1st look at what are the connected components in the data set, right?
+
+[Prof. Uhler] 19:06:02
+That often you have one large connected component, a lot of small ones, so don't spend too much time looking at the small ones.
+
+[Prof. Uhler] 19:06:07
+That make something like 0 point 0 1% of all of your data set, maybe there is something interesting in there, but like you don't want to spend all of your time on that one.
+
+[Prof. Uhler] 19:06:17
+Then we talked about degree, right? Degree distribution and how you can identify nodes that have a very high degree, so many neighbors.
+
+[Prof. Uhler] 19:06:25
+And we also talked about, you know, this diameter of the network, right, how long it takes to actually transverse the network.
+
+[Prof. Uhler] 19:06:33
+We saw that the diameter of network is in fact you know the 6 degrees of freedom that was coined already very early on that that's actually true in the in the Facebook network.
+
+[Prof. Uhler] 19:06:44
+And then we also talked about homophily, right, to understand like which nodes, which nodes in a network are more connected than you would expect just by chance.
+
+[Prof. Uhler] 19:06:53
+And we saw that there can be different trends depending on what kind of application you're looking at.
+
+[Prof. Uhler] 19:06:57
+We saw in the Facebook network that we had even things like that people with a lot of friends tend to be friends with people with a lot of friends.
+
+[Prof. Uhler] 19:07:06
+So that's, that's what we've had, so far. So, that was in the, a little bit of a recap of what we've done so far.
+
+[Prof. Uhler] 19:07:15
+And now today what we're going to go into is we're going to go into clustering.
+
+[Prof. Uhler] 19:07:20
+Okay, so clustering is, and we, thought about it, you know, a little bit already, right on Monday, when I gave a little bit of an overview of where we are.
+
+[Prof. Uhler] 19:07:31
+So in terms of clustering, we said like, well, there's supervised learning and there's unsupervised learning and so supervised learning and the setting where you know you have you already know exactly what you're looking for so say in mail right I have spam and not spam and I can label some by hand and then now comes a new message and I just want to figure out whether the spam or
+
+[Prof. Uhler] 19:07:52
+not. Okay, but now, in unsupervised setting, that's the setting where you're much, much more often in.
+
+[Prof. Uhler] 19:07:58
+Right, and the unsupervised setting, so there you don't know yet what you're looking for.
+
+[Prof. Uhler] 19:08:03
+So you have, you know, a whole lot of customers and now you want to figure out different groups in them or you know you have a whole lot of patience you want to understand other different patients that may respond more similarly to the same drug.
+
+[Prof. Uhler] 19:08:16
+And then others, right? So this is like to identify different patient subgroups or in the customers to identify different subgroups of customers that may respond similarly to an online to advertising so that you can have a more personalized advertising strategy.
+
+[Prof. Uhler] 19:08:32
+So that's what we're talking about today. So we're going to talk about clustering.
+
+[Prof. Uhler] 19:08:36
+And in particular, so we're going to talk about clustering in both settings. So in the settings where you have this big scale data set, right, which is just a big table of like your customers and then a whole lot of features.
+
+[Prof. Uhler] 19:08:47
+But in fact you can also do clustering in a network. Alright, and the network we may also want to do clustering and there, we, in the in that setting there it's actually called community.
+
+[Prof. Uhler] 19:08:57
+Detection we want to understand what are the different communities that that we can detect in the network. So that's what we're going to do today.
+
+[Prof. Uhler] 19:09:05
+So to kind of, you know, have an integrator view of everything that we're doing. We are going to apply or talk about clustering and then actually talk about it in both of these.
+
+[Prof. Uhler] 19:09:14
+Text so that. Yeah, so that we can kind of, you know, summarize everything, that we've done this week and get back to all of the different topics.
+
+[Prof. Uhler] 19:09:24
+Okay, so that's just an overview. Now what I would like to do is start off with a little bit more recap of actually thinking, you know, we had like all these things about.
+
+[Prof. Uhler] 19:09:33
+The eigenvectors and things like that at the beginning, right? And then, some people haven't seen eigenvectors, so then that was, you know, then there were a lot of questions about it.
+
+[Prof. Uhler] 19:09:41
+So I still want to do something a little bit mathematical now to get back to. So we said that, you know, in data science there is never going to be any free lunch, right?
+
+[Prof. Uhler] 19:09:52
+So either, it's going to cost a lot in terms of, right? So either it's going to cost a lot in terms of computation time, but then maybe you can get to better.
+
+[Prof. Uhler] 19:09:58
+It's going to cost a lot in terms of computation time, but then maybe you can get to better methods, but you'll never get anything for free.
+
+[Prof. Uhler] 19:10:00
+So what we often have to do and we'll see this today is we need to somehow cut down the data.
+
+[Prof. Uhler] 19:10:04
+So we have like data living in a million dimensional space. We need to get rid of some of the some of the variables or some of yeah some of the dimensions in order to actually have a method run a little bit faster.
+
+[Prof. Uhler] 19:10:14
+And so we can run, we can use principal component analysis to do this, right? We saw that, you know, the principal component and Alice is very nice because it keeps the directions that are that have the most signal.
+
+[Prof. Uhler] 19:10:25
+Or the 1st principal components. So how do you decide which ones to keep? So how many principal components do we keep?
+
+[Prof. Uhler] 19:10:34
+How would we decide that?
+
+[Prof. Uhler] 19:10:39
+How would you decide if you need to like somehow you know you are in a you have a data set that just the method that you want to run and you know people are already talking about K-means clustering so we're going to talk about K-mans clustering so that it's just too slow and so people already put in that you know what I would look at is so screenshots I will
+
+[Prof. Uhler] 19:10:59
+talk about this like how quickly the eigenvalues or decaying. And people are also putting in explained variants.
+
+[Prof. Uhler] 19:11:08
+So and that we should just keep choose the highest eigenvalues. So how many should we keep? Okay, so some people are also putting in that oh maybe what we should keep is more like some cut off like 70% of explained variance in fact often we do 80% of explained variance such as like some number but yeah 70 or 80% of explained is, is a general kind of guideline that people do.
+
+[Prof. Uhler] 19:11:34
+Now is there something, and so that's so you would keep all of the eigenvalues so that you get to around 70% or 80% of explained variance or 80% of explained variance.
+
+[Prof. Uhler] 19:11:42
+So now there is also someone, Kido puts in that it's, Bigger than one explained by one variable and so maybe is getting at something else that is actually mathematically.
+
+[Prof. Uhler] 19:11:55
+So another way of doing it is to keep all variables. So if you use the correlation, okay, so let's go based on that.
+
+[Prof. Uhler] 19:12:02
+If you use the correlation to build the principal component to do principal component analysis, then another way of doing It is actually and it's not much mathematically much sounder is to keep all variables that have a variance that is larger than one.
+
+[Prof. Uhler] 19:12:17
+What would be the intuition for why we should do that? So, you know, so if I draw that here.
+
+[Prof. Uhler] 19:12:25
+So let's try to draw this. So what one would do is the following. So you would You would do the following, so you would have here all of your different eigenvalues.
+
+[Prof. Uhler] 19:12:37
+So this is the size of an eigenvalue and you order your eigenvalues. This is eigenvalue 1, 2, 3, 4, 5.
+
+[Prof. Uhler] 19:12:45
+Etc. Okay, so these are all my eigenvalues. And then the 1st one would be a very large one.
+
+[Prof. Uhler] 19:12:51
+Maybe the second one is also large. etc. So this would then look something like this. And then maybe there now.
+
+[Prof. Uhler] 19:12:57
+Etc. And so maybe here size, this is size one, then here maybe of 2, 3, etc.
+
+[Prof. Uhler] 19:13:05
+And so what I'm saying is or what, Kido is putting into the chat is that, oh, you know, there is also an, an intuition for actually just keeping all of the ones that are larger than one.
+
+[Prof. Uhler] 19:13:19
+And this actually has a very good, mathematical intuition and makes a lot of sense in many different applications when you're using the correlation matrix to build principal component.
+
+[Prof. Uhler] 19:13:29
+Analysis, we already talked about when we should use correlation and when we should covariance matrix.
+
+[Prof. Uhler] 19:13:32
+Right, the correlation matrix when we actually have or looking at, different variables that are measured in very different units, then we should always use the correlation matrix.
+
+[Prof. Uhler] 19:13:42
+So what does that mean to keep and so let me just tell you what this actually means and then you will like try to mathematically say why that's the case.
+
+[Prof. Uhler] 19:13:51
+So in fact, if you only keep all eigenvalues that are larger than one, so all of the directions that explain and then what this is in fact equivalent to is to keeping all directions or you know all principal components that have a largest that have more variability than what you would expect by chance.
+
+[Prof. Uhler] 19:14:13
+So if you keep all eigenvalues, so I'll eigenvectors corresponding to eigenvalues that are larger than one.
+
+[Prof. Uhler] 19:14:21
+Well, that is in fact equivalent to is to keeping all directions, so all eigenvectors, or old principal components, that explain more variants than what you would expect by chance.
+
+[Prof. Uhler] 19:14:34
+Can anyone think through why that is the case? Let's talk about the correlation matrix. So what do we have a correlation matrix?
+
+[Prof. Uhler] 19:14:41
+How does that look like? It has ones on the diagonal, right?
+
+[Prof. Uhler] 19:14:46
+So if it has one's on the diagonal, what is and how large is an average eigenvalue?
+
+[Prof. Uhler] 19:14:54
+Now for the people who know who have learned a lot about eigenvectors and eigenvalues. They may know what is the size of an average I can value.
+
+[Prof. Uhler] 19:15:09
+So. The average size, okay, so what is the sum of the eigenvalues? The sum of all eigenvalues is how large.
+
+[Prof. Uhler] 19:15:21
+It's the trace, exactly. Okay, perfect. So, Yalcek is putting in what is the, Average eigenvalue, it's 1, okay, because the sum of the eigenvalues is equal to the trace.
+
+[Prof. Uhler] 19:15:31
+What is the trace? The trace is just the sum of all of the diagonal elements. So if you sum up all diagonal right we have as many because every one of them is one and then if you divide it by the number of rows then you know you get your average eigenvalue so your average I can value is one.
+
+[Prof. Uhler] 19:15:48
+Okay, so the expected size of the eigenvalue is actually one here. And so if I'm saying that you're keeping all eigenvectors that have eigenvalues that are larger than one, that means you're keeping all directions.
+
+[Prof. Uhler] 19:16:03
+So all principal components that explain more variance than what you would expect by chance. Okay. So this is in fact just keeping all eigenvectors corresponding to eigenvalues that are larger than one is actually a very, very mathematically well-founded way of choosing how many eigenvectors or how many principal components I should keep in the data center.
+
+[Prof. Uhler] 19:16:26
+Okay, so, so either people go by just, you know, some guideline of like, okay, kind of like a very arbitrary guideline of keeping 70 or 80% of the variance of the total variance explained, or you're just filtering out all of the eigenvalues that are smaller than what you would expect by chance.
+
+[Prof. Uhler] 19:16:46
+Okay, and so in that way, as Grace put it, we would expect that, you know, in this way is this, it is filtering out some of the numbers.
+
+[Prof. Uhler] 19:16:54
+Which, as I'm glad some agree, it's much more elegant way of doing it.
+
+[Prof. Uhler] 19:17:00
+Then, then, you know, just going by some, basically arbitrary number of like keeping 70 or 80%.
+
+[Prof. Uhler] 19:17:09
+Okay, so that's, and of course, and, you know, you don't generally have to throw out data, but, often what we will see in today's lecture is that many of the methods they are, you know, you can get better methods, but you're going to pay a price in terms of computation time.
+
+[Prof. Uhler] 19:17:24
+So often the better methods you're actually not able to apply on your large data sets just because it would take too long.
+
+[Prof. Uhler] 19:17:31
+So then you have to do some pre-processing to throw out, you know, some of the noise in the data, which any ways you don't care about, you know, some of the noise in the data, which anyways you don't care about, you know, some of the noise in the data, which anyways you don't care about and then you can run these methods that are better because now
+
+[Prof. Uhler] 19:17:40
+you're actually going to use less computation time. So that's That's why we would want to do this.
+
+[Prof. Uhler] 19:17:44
+And so we would then not include, these directions here that are just noise and that are not as relevant for the data.
+
+[Prof. Uhler] 19:17:52
+Ask people are putting into the chat.
+
+[Prof. Uhler] 19:17:55
+Okay, so, so that's how this works. So that's a recap on principal component analysis just to go back to all these you know discussions that we had on eigenvalues and eigenvectors etc.
+
+[Prof. Uhler] 19:18:08
+Now let's also recap because that will also be important for today, right? If we want to do clustering, we already saw print, stochastic neighbor embedding as a method where it seems like, hey, that might help us for doing clustering.
+
+[Prof. Uhler] 19:18:21
+But in fact, a stochastic neighbor embedding is not considered a clustering method and so I would like to, I would like to just go, briefly through why is stochastic neighbor embedding not considered a clustering.
+
+[Prof. Uhler] 19:18:33
+So stochastic neighbor embedding and also just again doing recap in terms of the method and then we'll go into what are actually clustering methods.
+
+[Prof. Uhler] 19:18:42
+So, so stochastic neighbor embedding is, how it's actually working is this nonlinear method where you have points in a high dimensional space.
+
+[Prof. Uhler] 19:18:52
+And I would like to represent the same samples in 2 dimensions, right? That's what we said.
+
+[Prof. Uhler] 19:18:59
+And what, stochastic neighbor embedding does is it tries to keep somehow close by points close by and the further away points we don't care.
+
+[Prof. Uhler] 19:19:05
+Okay, so, so now let's talk about how it actually does this. So in the high dimension, and I'll also explain where the T comes from.
+
+[Prof. Uhler] 19:19:14
+So in the high dimensional space, what you can do is instead this is actually a very interesting part of how this method works.
+
+[Prof. Uhler] 19:19:21
+And the high dimensional space, we have all of our points, right? Line into high dimensional space.
+
+[Prof. Uhler] 19:19:28
+Now how does method does it? It doesn't look at really distances. What it tries to do is it tries to build a distribution in the high dimensional space.
+
+[Prof. Uhler] 19:19:34
+And in stochastic neighbor embedding how it builds the distribution is on every point we're just putting a little Gaussian.
+
+[Prof. Uhler] 19:19:41
+The difference to T's, stochastic neighbor embedding is instead of putting a little Gaussian and putting a little T distribution on every one of my points.
+
+[Prof. Uhler] 19:19:48
+That's the only difference where the T comes from. Okay. So let me put on every point I wrote T distribution or a little Gaussian.
+
+[Prof. Uhler] 19:19:56
+Okay. Now that defines a distribution. So now I have one distribution that is given by all of my samples and I'm just placing a little Gaussian on top of it.
+
+[Prof. Uhler] 19:20:04
+That gives me one distribution. Now, how stochastic neighbor embedding tries to do it is it now tries to embed the points into two-dimensional space.
+
+[Prof. Uhler] 19:20:12
+So that once you put little Gaussians on top of them, the 2 distributions that you get out in the high dimensional space are in the low dimensional space are as similar as possible.
+
+[Prof. Uhler] 19:20:21
+And there are different ways for measuring distances between distributions. So, so how, stochastic neighbor embedding does this visualization here is really trying to find the distribution.
+
+[Prof. Uhler] 19:20:34
+A low dimensional space so that the distances between the 2 distributions are as small as possible. So now could anyone and I'm still just doing a little bit of a recap, right?
+
+[Prof. Uhler] 19:20:44
+So could anyone, have an idea of why stochastic neighbor embedding is actually not considered a clustering method and that's why we talked about it when we were talking about visualization and we're not going to talk I mean we'll use it but but it's really not considered a clustering method so we didn't teach it in this in this in today's lecture.
+
+[Prof. Uhler] 19:21:05
+So, so why is it not called a clustering? So, let me give a little bit more intuition.
+
+[Prof. Uhler] 19:21:13
+So what is required for a clustering? So for a clustering method, what is required?
+
+[Prof. Uhler] 19:21:18
+Is I need to be able to somehow break up the space. I need to give you an algorithm. That you know once you have done clustering on you know say you have a current customer base okay and in your current customer base you've figured out that you have like 4 different clusters of people a cluster of people who are really interested in sports, a cluster of people who are really interested in cooking.
+
+[Prof. Uhler] 19:21:39
+Say they have bought a lot of cooking books and things like this. Another cluster of people who are really interested in general just reading and so they buy a lot of books, etc, etc.
+
+[Prof. Uhler] 19:21:51
+Okay, so we're saying we have like, you already identified, 4 different clusters in your customer base.
+
+[Prof. Uhler] 19:21:58
+Now comes a new customer and based on whatever the data have, you have on that customer, you would like to be able to not do the whole clustering again, right?
+
+[Prof. Uhler] 19:22:06
+So there should be a function that takes in a new customer and spits out. What kind of cluster that customer belongs to.
+
+[Prof. Uhler] 19:22:13
+So how do we do this in stochastic neighboring building? Would this work in stochastic neighbor embedded?
+
+[Prof. Uhler] 19:22:22
+Would we, would we be able to identify somehow this function that takes in a new customer and tells us to which cluster it belongs to?
+
+[Prof. Uhler] 19:22:35
+Yes, so, exactly. So because stochastic neighbor embedding is based on all of the samples you have, it is building a distribution.
+
+[Prof. Uhler] 19:22:43
+If I give you a new data point, it has to build a new distribution. So every time you give me a new data point, it will actually have to build a new distribution.
+
+[Prof. Uhler] 19:22:51
+So it has to redo everything. Okay? So that's the reason why I actually teased the plastic neighbor embedding is not considered a clustering method, but it is considered a visualization.
+
+[Prof. Uhler] 19:23:01
+Okay, so when we're today going to talk about clustering methods, we will not talk about, you will see that and I will have a list of the ones that I'm going to talk about here.
+
+[Prof. Uhler] 19:23:11
+So you will see that T. Stochastic neighbor embedding is not a method that we're going to talk about as a clustering method.
+
+[Prof. Uhler] 19:23:18
+It is not considered a clustering method. What we are instead going to talk about are 4 different clustering methods.
+
+[Prof. Uhler] 19:23:24
+Someone already bought brought up K. Means clustering and we'll talk about. Another method that is highly related to K means clustering.
+
+[Prof. Uhler] 19:23:33
+So these 2 K-means and Gaussian, they actually, Gaussian mixture model, they, they are in one category of clustering methods and then we'll talk also about another category of clustering methods.
+
+[Prof. Uhler] 19:23:41
+Which is hierarchical and TPC. So, but that's just intuition for why and I'll move back to the overview.
+
+[Prof. Uhler] 19:23:50
+That's just intouition for why, stochastic neighbor embedding is considered a visualization method.
+
+[Prof. Uhler] 19:23:56
+We talked about it in the 1st lecture and it's not considered a clustering method. Because every time a new point comes up, then you would have to actually redo the whole, the whole clustering again and you would actually possibly get other clusterings out of that when you get a new data point.
+
+[Prof. Uhler] 19:24:10
+Okay. So, so let's go through what is, so I already gave a little bit of intuition.
+
+[Prof. Uhler] 19:24:18
+So I like to 1st always give a little bit of intuition of what we're doing. And then we're actually diving into the slides.
+
+[Prof. Uhler] 19:24:25
+And so now let's get started with diving into these slides. Okay. So what is clustering?
+
+[Prof. Uhler] 19:24:30
+So, clustering is, where we need to identify. You are given a whole lot of samples, right?
+
+[Prof. Uhler] 19:24:35
+They live in some high-dimensional space. Now I can of course always only draw in 2 dimensions.
+
+[Prof. Uhler] 19:24:41
+So I'm drawing here in 2 dimensions but think of the data in 1,000 dimensional space. And so you would like to identify, say, these are, you know, you have a customer base, and you would like to identify different groups of customers that are more similar to each other.
+
+[Prof. Uhler] 19:24:54
+Okay, so for example, you may want to find customer groups to adjust advertisement to or you may want to find some types of a disease to fine tune treatment, etc.
+
+[Prof. Uhler] 19:25:03
+Okay. So now, let me look at this particular example in 2 dimensions again, because I can only draw in 2 dimensions.
+
+[Prof. Uhler] 19:25:13
+Here what I would be looking for, right, is without knowing it here it's pretty clear I would have one group in the middle and then one group outside.
+
+[Prof. Uhler] 19:25:20
+Okay, that's kind of what clustering would do. Now, what we really want you to take away, and this is very, very critical, is that if you only have 2 variables, like age and income.
+
+[Prof. Uhler] 19:25:32
+Please do not use any of the methods that we're going to talk about today. Okay, you don't need mathematical tools in order to identify clusters in 2 dimensions.
+
+[Prof. Uhler] 19:25:44
+Our eye is extremely good at identifying clusters. Like, and here, for example, that there is one cluster in the middle and then there is one cluster outside.
+
+[Prof. Uhler] 19:25:52
+Has been trained to do this in fact through revolution we needed to understand where are animals moving and be able to understand that an animal that is moving is one cluster.
+
+[Prof. Uhler] 19:26:02
+So, we're very, very good. Our eyes are very, very good at identifying clusters.
+
+[Prof. Uhler] 19:26:07
+So we should not use definitely any mathematical tool will not be as good as your eye in 2 dimensions.
+
+[Prof. Uhler] 19:26:13
+What we're talking about here is when your data set lives in a high dimensional space, right, where you're, you have stocks for example and you're measuring the stock prices over a thousand days.
+
+[Prof. Uhler] 19:26:24
+Well, our eye cannot look at a thousand dimensions. That's where you need mathematical methods and computational methods, algorithmic methods, as we're talking about today, to really identify and analyze the data on a computer to say and understand what are different clusters that you have.
+
+[Prof. Uhler] 19:26:39
+Okay, so that's where we're going to. Be using the clustering methods that we're, developing today, not, in 2 dimensions, but of course I can only draw into dimensions.
+
+[Prof. Uhler] 19:26:50
+So, so that's where, the issue comes from. Okay. So that's the problem that we want to solve.
+
+[Prof. Uhler] 19:26:56
+So we want to think of this as in 1,000 dimensional space and still we would like to be able to understand that here there is one group and then outside there is another group.
+
+[Prof. Uhler] 19:27:07
+Okay. So now let's give a little bit of intuition for the different methods. So I already told you that we're going to talk about 2 separate groups of and let me actually just give a little bit of an overview on how they work.
+
+[Prof. Uhler] 19:27:22
+And then we'll dive into really going through. So first, st let me just try to draw here.
+
+[Prof. Uhler] 19:27:29
+So we have 2 different answering methods. Let's start with the 1st one. So, and again, I can draw in 2 or 3 dimensions, but not more.
+
+[Prof. Uhler] 19:27:37
+So always think of this living in a high dimensional space. So let's say this is my data.
+
+[Prof. Uhler] 19:27:44
+And here I have some more points. Okay, so it's pretty clear from how I drew this that are 3 clusters in this data set, right?
+
+[Prof. Uhler] 19:27:53
+But now again, that's just because by I, we can look at it. So it looks like 3 clusters.
+
+[Prof. Uhler] 19:27:59
+But if this wasn't a 1,000 dimensional space, we couldn't look at it. So now this is where we have to come up with mathematical ways to formalize how to we identify that there are 3 clusters in a 1,000 dimension space.
+
+[Prof. Uhler] 19:28:10
+So what is it that you know by I we're saying okay there are 3 clusters but what exactly are we using in order to say that there are 3 clusters.
+
+[Prof. Uhler] 19:28:18
+How would I write this down like more mathematically? What is it that I can use in order to say that there are 3 constants?
+
+[Prof. Uhler] 19:28:25
+Okay, so it has to be something about distance or proximity. Right? Or similarity exactly.
+
+[Prof. Uhler] 19:28:32
+So somehow if 2 points are very similar and or very close then, you know, we would want to say that all these points are kind of very close to each other.
+
+[Prof. Uhler] 19:28:40
+And so they should all be within one. You know, within one cluster. And Jeff is saying even maybe I could say it even differently, well, I could point somehow if I find a cluster then all of the distances of the points to the center of the cluster should be small.
+
+[Prof. Uhler] 19:28:58
+Okay, now that requires us to know where the centers of the clusters are. And also how many clusters we have.
+
+[Prof. Uhler] 19:29:06
+But say, okay, someone already tells us that in this data set there are 3 clusters. Right we have to then talk about how do we find out that there are 3 clusters in the state.
+
+[Prof. Uhler] 19:29:18
+Then I know that there would be 3 means. And so what is said there is that, oh, you know, maybe what I would like to do is say, oops, let me change everything.
+
+[Prof. Uhler] 19:29:28
+Okay, let me change. Is that I have a mean maybe here and I have a mean here and I have a mean here, right?
+
+[Prof. Uhler] 19:29:35
+And now the distance is to all these points is actually very small. They all fit into this little bowl here and here they fit into a bowl and you need that in trouble.
+
+[Prof. Uhler] 19:29:43
+Okay, so that's kind of what is being proposed is that the distance to one center point and that also then of course means that the distance, to all of these points here is actually very, very soon.
+
+[Prof. Uhler] 19:29:55
+Okay, and then the distance here is small and the distance is here. And then the distances between clusters are pretty big.
+
+[Prof. Uhler] 19:30:03
+Okay, so what we'll see and this is in fact intuition for K-means. So K-means algorithm and we'll go through it slowly.
+
+[Prof. Uhler] 19:30:10
+Now I'm just providing intuition. So K means algorithm and there is a K in there, K means.
+
+[Prof. Uhler] 19:30:17
+So it's an algorithm where you already assume you know how many clusters there are. We will try to figure out afterward how many clusters there are.
+
+[Prof. Uhler] 19:30:24
+But you assume you know how many is K is. Okay. So in this case, 3 clusters.
+
+[Prof. Uhler] 19:30:29
+And then you you have K mes okay centers and I need to place the centers in such a way so that the distance to all of the points to one of the centers is as small as possible.
+
+[Prof. Uhler] 19:30:41
+Hey, very, very intuitive. Now, of course, we need to talk about how do we figure out what K is and how do we figure out where to put the cluster means?
+
+[Prof. Uhler] 19:30:49
+Okay. So those are the 2 questions, but that's like one way of doing it is I already assume I know how many clusters there are and then I have to place the Gluster means some.
+
+[Prof. Uhler] 19:30:59
+Okay. So that's, that's, what's the, and, and, yeah, and then we'll talk about how to initialize these types of algorithms.
+
+[Prof. Uhler] 19:31:09
+Now let's go through the other type of method. And they'll try to draw something similar to what we had.
+
+[Prof. Uhler] 19:31:18
+Like this, so maybe you're Okay. Okay. So, and we'll go very carefully through all of these methods. Okay.
+
+[Prof. Uhler] 19:31:27
+This is just to provide some intuition and I'll also answer a lot of the questions that are coming in while we're going through the methods.
+
+[Prof. Uhler] 19:31:34
+Okay, so, and, okay, there's another question that I'll get to.
+
+[Prof. Uhler] 19:31:39
+So, okay, so, so there is a completely different way of doing it. I often like to, and also it has to do with distances as people put in, but it's a different way.
+
+[Prof. Uhler] 19:31:49
+It doesn't have to do with figuring out where the centers are, like in K-means.
+
+[Prof. Uhler] 19:31:56
+And it also doesn't assume that you already know how many clusters there are. But to me, it always seems like more like how, you know, if you look at how kids do clustering when they're playing with Legos, for example, and they're trying to take together Lego blocks that are closer to each other.
+
+[Prof. Uhler] 19:32:11
+Then that's to me more similar to the second type of method where they would just say like, oh, you know, these 2 points here, they're the closest together.
+
+[Prof. Uhler] 19:32:20
+So I'm just making 1 point out of it. And then maybe these 2 points are also super close, so putting them together, all of these points here down here are all super close.
+
+[Prof. Uhler] 19:32:28
+So I'm just putting making one big blow out of them. Okay, now what is the next closest point?
+
+[Prof. Uhler] 19:32:34
+Well, the next closest point is maybe up here. So I'm putting all of these here together.
+
+[Prof. Uhler] 19:32:38
+And now the next closes maybe again up here, right? So now all of the ones up here are all in one cluster, right?
+
+[Prof. Uhler] 19:32:44
+These are all clustered together. And now what about down here? So now you have another one.
+
+[Prof. Uhler] 19:32:52
+This one is probably the next closest. The next closes the next closest. Maybe now the next closest is up here.
+
+[Prof. Uhler] 19:32:57
+Now you see how I'm always increasing the distance, right? So now the next closest is maybe here.
+
+[Prof. Uhler] 19:33:02
+The next close is maybe here, maybe here, right? Now maybe here. etc. And then like all of these distances are being filled in.
+
+[Prof. Uhler] 19:33:13
+And so now you see that we kind of got to 3 different clusters. Now the distance is growing.
+
+[Prof. Uhler] 19:33:19
+Growing, growing, nothing is happening. Nothing is happening. Nothing's happening at some point, right?
+
+[Prof. Uhler] 19:33:24
+I'm going to add in this distance. This I'm going to group together those 2 clusters.
+
+[Prof. Uhler] 19:33:29
+And then at some point I'm going to group together all clusters to get. Okay, so, so that's another method where you saw that we didn't have to know what the beginning, how many clusters there are.
+
+[Prof. Uhler] 19:33:41
+Just kind of continuously grouped together things, right? So customers that are the most similar and 1st going to group them together and then I'm, I'm growing, growing and it's called aglomerative clustering as people are saying it's a bottom-up method.
+
+[Prof. Uhler] 19:33:56
+I'm growing, growing my clusters, always putting together customers that are more similar to each other until all the way at the end everyone is clustered together.
+
+[Prof. Uhler] 19:34:05
+So still I will need to kind of figure out right where in this whole path should I stop the else during.
+
+[Prof. Uhler] 19:34:09
+But you can already have the intuition now where I'm going to stop clustering, right?
+
+[Prof. Uhler] 19:34:13
+Because you're kind of you're increasing the distance by which you know you're still clustering people together and so you are increasing, increasing, increasing the distance if nothing happens for a very long time.
+
+[Prof. Uhler] 19:34:27
+Well, that's probably a pretty good time to say like, hey, I don't want to continue clustering, right?
+
+[Prof. Uhler] 19:34:34
+Because it's very, very, robust in that frame. So like here, it took us a long time until we added this edge here in where we're saying like these 2 clusters are now going to become one cost.
+
+[Prof. Uhler] 19:34:44
+And so that's kind of where we would actually say where we would stop clustering. And so these are these methods over here as you could see, right?
+
+[Prof. Uhler] 19:34:53
+Is a very different method than the types just intuitively. It's a very different method than the types over there.
+
+[Prof. Uhler] 19:34:58
+We will talk exactly when to stop clustering, but we would stop clustering when you're increasing the distance a lot and nothing happens.
+
+[Prof. Uhler] 19:35:04
+Your clusters are just not changing. And so these methods over here, so for example, hierarchical clustering is actually falling into this method.
+
+[Prof. Uhler] 19:35:12
+And in fact, also dB scan is very similar to one of the methods in hierarchical clustering.
+
+[Prof. Uhler] 19:35:19
+So these 2 methods that we're going to talk about, they're kind of in the second category.
+
+[Prof. Uhler] 19:35:23
+And then K-means clustering or Gaussian mixture model that's in this category where we have to know how many clusters there are before.
+
+[Prof. Uhler] 19:35:30
+Okay, so we will be talking about these different types of methods. Now there was a, types of methods.
+
+[Prof. Uhler] 19:35:40
+Now there was a question in the chat also about neural networks. Now there was a question in the chat also about neural networks.
+
+[Prof. Uhler] 19:35:42
+And so neural networks, and so neural networks, and so neural networks, again, so they can be used very well for 2 different tasks.
+
+[Prof. Uhler] 19:35:46
+And so neural networks, again, so they can be used very well for 2 different tasks, right? One is classification.
+
+[Prof. Uhler] 19:35:47
+We already talked about that's not today's lecture. That's a supervised method. You will be talking about classification, but that's in the setting where you have a lot of training data where you already know exactly what you're looking for.
+
+[Prof. Uhler] 19:35:58
+I'm looking for span, non-spam. I have 2 different groups. I just want to get a new, a new, say, a new email.
+
+[Prof. Uhler] 19:36:07
+I want to be able to classify it. Into these 2. Here we're in the setting where we're getting a data set.
+
+[Prof. Uhler] 19:36:12
+We don't know what is in it. We don't know how many groups there are, right?
+
+[Prof. Uhler] 19:36:16
+We would like to identify what is actually what, you know, what could be in this data set, how many different customers groups do I have?
+
+[Prof. Uhler] 19:36:24
+May I then like want to actually have advertising strategies that are very specific to these different customer groups. So that's the problem we're looking at.
+
+[Prof. Uhler] 19:36:30
+So then there's another, so, so neural networks can be used for classification.
+
+[Prof. Uhler] 19:36:36
+You'll talk about this. The neural networks can also be used for representation learning. So for identifying important features in the dataset.
+
+[Prof. Uhler] 19:36:42
+So, but again, that doesn't solve this problem. So there you would get, you know, instead of like your data living and then 1,000 dimensional space, maybe now you're going to embed your data into a 256 dimensional space.
+
+[Prof. Uhler] 19:36:54
+Then still you need to do clustering in that space. Okay? So the methods we're going to talk about here cannot be replaced by neural networks.
+
+[Prof. Uhler] 19:37:02
+Those will always be, this is always a step that you will do no matter whether you're using a neural network in order to identify new features.
+
+[Prof. Uhler] 19:37:10
+Then after that you still after doing representation learning, you still have to do So, and so we will, so in that latent space in this new latent space that you may learn using a neural network, you still need to do clustering there in order to identify whether different customer groups, whether different patient groups, what are different product groups, what are different, different stock groups, etc.
+
+[Prof. Uhler] 19:37:33
+So that's what we're talking about here in this in this lecture. Okay. And there are great questions about, you know, how do different units of the measurement affect clustering, etc.
+
+[Prof. Uhler] 19:37:43
+So that's kind of the features that we're using and how we're parameterizing these features.
+
+[Prof. Uhler] 19:37:49
+And in fact, we'll talk today about that. Yes, that matters. But there is actually another choice that matters much more and we'll talk about and and we'll talk about that.
+
+[Prof. Uhler] 19:37:58
+Okay, so whether you measure distances between individuals and Euclidean distance or whether you use, you know, other types of distances like l 1, l infinity, etc.
+
+[Prof. Uhler] 19:38:10
+So just how you're encoding these things actually doesn't matter as much as another choice that we're going to talk about today.
+
+[Prof. Uhler] 19:38:16
+Okay, so that will be kind of interesting. Okay, so this is what we're doing. Okay, so we will be discussing, 2 different types of methods.
+
+[Prof. Uhler] 19:38:24
+So a total of 4 methods, but those 2 will be similar to each other intuitively and those 2 will be also intuitively similar to each other.
+
+[Prof. Uhler] 19:38:32
+Now why is the problem of clustering so hard? Well, the problem of clustering is so hard because like, you know, even if I give you a hundred individuals and I just want to make 3 groups out of it.
+
+[Prof. Uhler] 19:38:46
+Okay, so I have a hundred individuals. I just want to make 3 groups out of it. Then there are 3 to the 100 ways of grouping these individuals into 3 groups.
+
+[Prof. Uhler] 19:38:55
+So this is a huge number. And so we cannot just enumerate all of them. Okay, there is no way for us to actually just go through and a new way to all of them and so therefore we need some computational methods.
+
+[Prof. Uhler] 19:39:09
+So that's why this is such a hard task. Okay, so let's 1st go into K means and a lot of the questions.
+
+[Prof. Uhler] 19:39:17
+There's a really great questions that are all in here. So we will talk about them when we're actually going through the different methods.
+
+[Prof. Uhler] 19:39:23
+So first, st K means clustering. So K means clustering is the most well known clustering method.
+
+[Prof. Uhler] 19:39:27
+And so what will also be important during this lecture is that we always talk about whether advantages and disadvantages of the different.
+
+[Prof. Uhler] 19:39:35
+K-means clustering is also super fast, so it can be run on, you know, very large scale data sets and, with a lot of features that you're measuring.
+
+[Prof. Uhler] 19:39:44
+So can means clustering is super fast, meaning it will have a lot of disadvantages otherwise, right?
+
+[Prof. Uhler] 19:39:49
+So probably we can pride easily come up with better methods, but again, you will never be able to just get a better method with paying a price.
+
+[Prof. Uhler] 19:39:58
+So the price you're going to pay is always going to be in terms of computation time.
+
+[Prof. Uhler] 19:40:03
+So how does K-means clustering work? So we already had a little bit of intuition.
+
+[Prof. Uhler] 19:40:08
+So, people who are saying this, right? So what we want to do is we want to minimize the distance of all points.
+
+[Prof. Uhler] 19:40:15
+Between each other, so the distances of old points between each other within a cluster. And equivalently, in fact, mathematically and again, I have the references at the end.
+
+[Prof. Uhler] 19:40:25
+I will not do the math. You can actually also think of it as not just minimizing the distances between, between points within a cluster, but actually also maximizing the distance between points between different clusters.
+
+[Prof. Uhler] 19:40:38
+So you want different clusters to be as far apart as possible and you want the points within a cluster to be as close as possible.
+
+[Prof. Uhler] 19:40:46
+So that's, that. Now, One can actually show again mathematically that actually minimizing the distance within points within a cluster is equivalent to just trying to find the center of the cluster as we did it.
+
+[Prof. Uhler] 19:41:00
+You know, all of you guys were saying, right, we should like minimize distances between points or we should find a point in a cluster and then minimize the distance from that cluster center.
+
+[Prof. Uhler] 19:41:11
+That's just the same. That's all equivalent.
+
+[Prof. Uhler] 19:41:13
+Okay, so now how do we do this? There were all these questions that were so great, right? So how do we do this?
+
+[Prof. Uhler] 19:41:19
+So, you know, I give you points. Again, I can only draw in 2 dimensions. So let's say I give you all these great points.
+
+[Prof. Uhler] 19:41:25
+And I tell you, and we have to talk about that on the next slide, I already tell you there are 3 clusters.
+
+[Prof. Uhler] 19:41:31
+We still need to talk about how to find the number of clusters. But say there are 3 clusters.
+
+[Prof. Uhler] 19:41:36
+So now I need to find the cluster means, right? And where do I place the cluster means?
+
+[Prof. Uhler] 19:41:40
+And it was already put into the chat. Let's just start at random. So we're just going to place 3 cluster means anywhere.
+
+[Prof. Uhler] 19:41:47
+So we have a red cluster mean was placed somewhere. We have a green cluster mean and we have a blue cluster.
+
+[Prof. Uhler] 19:41:53
+So they were just placed randomly. Now how does this algorithm work? Well, so 1st of all, which points should belong to the red cluster?
+
+[Prof. Uhler] 19:42:02
+Well, we're just going to say the close all of the points. It just belongs to the closest cluster.
+
+[Prof. Uhler] 19:42:07
+So this gray point here, well, it is closer to the to the red cluster mean that it is to the green cluster mean that's why I'm turning this point here red.
+
+[Prof. Uhler] 19:42:16
+Then now I go to this great point. Well, it is closer to the green cluster mean than to the red one and to the blue one.
+
+[Prof. Uhler] 19:42:23
+So I'm turning this one here. Similarly, all these points, they're closer to this point.
+
+[Prof. Uhler] 19:42:29
+That's why they were all turned green. And all of these points over here, they were all turned blue because they are closest to this cluster center than they are to.
+
+[Prof. Uhler] 19:42:38
+Okay, that's the 1st step. But now these centers is these round dots they have to be cluster means.
+
+[Prof. Uhler] 19:42:46
+Well, so we have to update them. Right, so here we only have one data point. So what is the cluster mean over it?
+
+[Prof. Uhler] 19:42:53
+Well, the cluster mean has to move exactly on top of it. And that's what has happened here.
+
+[Prof. Uhler] 19:42:58
+Now we have all these green points here. We can compute the cluster, and we see that the cluster mean had to move a little bit.
+
+[Prof. Uhler] 19:43:05
+And similarly for the blue points, right? So the blue points, we also have to figure out the cluster mean over them and you see that the blue point has moved.
+
+[Prof. Uhler] 19:43:14
+And so now comes the next step. Now again, we have to figure out for every one of the points.
+
+[Prof. Uhler] 19:43:21
+Are they now closest to this point to this cluster mean or to this cluster mean or to that cluster mean now you see that these points that were green before they are now closest to this cluster mean so they're all turning red.
+
+[Prof. Uhler] 19:43:31
+Etc. Okay. And so you just iterate this algorithm, you continue continue continue continue. And now the question is when does the algorithm stop?
+
+[Prof. Uhler] 19:43:40
+Well, the algorithm stops when a points don't move in. Okay, so that's some what you would output.
+
+[Prof. Uhler] 19:43:45
+And that's how K means clustering works.
+
+[Prof. Uhler] 19:43:50
+So, now there are questions, you know, so you really don't know where to put the cluster means, right?
+
+[Prof. Uhler] 19:43:56
+So that's why, you just put them somewhere. We don't know. I mean, if you have any prior knowledge of where to place them, you could use some of your prior knowledge.
+
+[Prof. Uhler] 19:44:04
+Place them in some points. I often actually placed the cluster mean somewhere on top of one of my samples so that I don't go like very, very far away.
+
+[Prof. Uhler] 19:44:12
+Or you know, you literally just randomly placed it.
+
+[Prof. Uhler] 19:44:16
+And again, the process stops when the points don't move any. Okay, when the cluster means don't move anymore that's when this algorithm stops.
+
+[Prof. Uhler] 19:44:27
+Okay, so this is how, K-mans clustering works. So iteratively, It, tries to iteratively, it tries to identify, you know, a place where the cluster mean is so that where you know you're doing a distribution of your points into clusters so that the distance to the cluster mean is as small as possible.
+
+[Prof. Uhler] 19:44:52
+Now, there are really great questions about something called global or local optimum. Okay. Now if I go back again, so we said that clustering is a very hard problem.
+
+[Prof. Uhler] 19:45:02
+So if we really want to find the optimal way of clustering, we would have to go through all the possibilities.
+
+[Prof. Uhler] 19:45:10
+Of in this case, right, we have 1, 2, 3, 4, 5, 6, 7, 8, 9, 1011, 12 points and putting 12 points into 3 groups.
+
+[Prof. Uhler] 19:45:19
+So that's 3 to the 12. So if we really want to find the solution to this problem, we would have to go through all 3 to the 12 many possibilities.
+
+[Prof. Uhler] 19:45:28
+We cannot do that. So we need algorithms. I mean, we cannot even do it with 12 points.
+
+[Prof. Uhler] 19:45:32
+So certainly not with a thousand points. So we need algorithms that can give us some solution. That is good enough.
+
+[Prof. Uhler] 19:45:40
+But they will not be able to guarantee that you're getting the optimal solution. And so that's here where, you know, what you're going to get is a global optimum.
+
+[Prof. Uhler] 19:45:49
+You don't know yet whether there are not other better optimal. So the globe, sorry, a local optimist at the local optimum depends on how you start.
+
+[Prof. Uhler] 19:45:57
+So there is randomness in this algorithm as many are pointing out, right? That, you know, I'm starting randomly.
+
+[Prof. Uhler] 19:46:03
+I don't know anything about where these cluster means should go. So you just place them somewhere and you're going to converge to some solution.
+
+[Prof. Uhler] 19:46:10
+Right at some point this cluster means don't move anymore, so you're you're converging to some solution.
+
+[Prof. Uhler] 19:46:16
+Now that's why it's so important in K-means clustering that you choose, you don't dress around K, means clustering once.
+
+[Prof. Uhler] 19:46:24
+You may run it again and again, and then you choose the best solution out of all of the ones that you get.
+
+[Prof. Uhler] 19:46:28
+Now, how do you know what is the best? Well, the good thing is you have an objective function, right?
+
+[Prof. Uhler] 19:46:32
+You're trying to minimize the distance of all points the cluster means. So you do know which run is better than the other one.
+
+[Prof. Uhler] 19:46:40
+And so you just keep the one with the smallest objective function that, you know, tries that has a smaller average distance of all the points to the Okay, so that's, so that's how you would, how you would understand which run is the best one.
+
+[Prof. Uhler] 19:46:57
+And why it is actually important and K-means clustering to do a couple of restarts, right, where you just randomly place all of your cluster.
+
+[Prof. Uhler] 19:47:05
+Means at the beginning some.
+
+[Prof. Uhler] 19:47:08
+Okay, so now I'll get to the question of like what it means to put, samples on top of other samples.
+
+[Prof. Uhler] 19:47:14
+I'll get to it when we're talking about the new one. Now what is really critical is how do we choose the number of clusters, right?
+
+[Prof. Uhler] 19:47:21
+Because here I just, told you, well, let's start with 3. But who tells us that we should start with 3?
+
+[Prof. Uhler] 19:47:27
+Okay, now, based on, based on everything, that we have actually, so there is one method and Carlos already put it in here is the elbow method of like what people often use for choosing how many clusters there are.
+
+[Prof. Uhler] 19:47:41
+And we will talk about it. Okay. Now, So, okay, actually let's talk about it 1st and then and then go through why this often doesn't work so well.
+
+[Prof. Uhler] 19:47:50
+Okay, so, what is the elbow method? So it does the following. So here, you know, what do we have on the y axis?
+
+[Prof. Uhler] 19:48:00
+Okay, so on the long axis we have exactly this within group sum of square. So what is this?
+
+[Prof. Uhler] 19:48:03
+It's exactly these distances that we're trying to minimize, right? So we said like what K means algorithm, the objective function of k means algorithms.
+
+[Prof. Uhler] 19:48:11
+It is trying to minimize, trying to put the cluster centers in such a way so that the distances of all points within that cluster to that cluster mean are minimized.
+
+[Prof. Uhler] 19:48:20
+Okay, that's exactly what this is. So all of these distances average that's that's what this y-axis is.
+
+[Prof. Uhler] 19:48:28
+And now you can compute this for, you know, if you assume that there is just one cluster.
+
+[Prof. Uhler] 19:48:33
+If, if you choose k equals to 2, features k equals to 3, k equals to 4, etc.
+
+[Prof. Uhler] 19:48:39
+Now the 1st question that I have is the following is You know, why can I not just choose the number of clusters based on where this function is as small as possible?
+
+[Prof. Uhler] 19:48:53
+What's the value of this function where the value is as small as possible?
+
+[Prof. Uhler] 19:49:00
+0 exactly how Matt puts it in. Okay, so, so this function here is so the problem is this function is always becoming smaller.
+
+[Prof. Uhler] 19:49:10
+And in fact, whenever you have as many clusters, As there are data points, then it is always 0. Right?
+
+[Prof. Uhler] 19:49:17
+Why is that? Because every data point then can become its own cluster. So then the distance of every point to the cluster mean is always 0.
+
+[Prof. Uhler] 19:49:27
+Okay, so, so then this one here will always go to 0. So that's not a good strategy.
+
+[Prof. Uhler] 19:49:34
+We cannot just choose where it's the smallest because you definitely don't want to have as many clusters as you have points, right?
+
+[Prof. Uhler] 19:49:40
+That's a useless algorithm. Okay, so then what people often do is this elbow method where you say you know so okay so why would you want to have fewer clusters because we need to then interpret them right so if you have like a large customer base you probably don't want to end up with like 20 clusters because then you have to go in and try to identify what does this cluster even
+
+[Prof. Uhler] 19:50:01
+mean. Okay, are these people interested in reading? Are these people interested in sports? Are these people interested?
+
+[Prof. Uhler] 19:50:06
+Right, so now comes Centreportation. So you want to have few clusters. And so then the intuition is the following.
+
+[Prof. Uhler] 19:50:12
+So here, why would we choose 3 instead of 4? Well, because between 3 and 4, right?
+
+[Prof. Uhler] 19:50:18
+The objective function doesn't decrease so much. Actually very very little. So 4 is not much better than 3.
+
+[Prof. Uhler] 19:50:24
+However, it's much more, it's harder to interpret for cluster than it is to interpret 3 clusters.
+
+[Prof. Uhler] 19:50:29
+So you would just stop here. Because right it's worth going from 2 to 3 because you objective function is decreasing a lot of going from 2 to 3.
+
+[Prof. Uhler] 19:50:40
+So the y-axis is decreasing a lot. However, you know, how much harder it is to, yes, it is harder to interpret 3 clusters than it is to interpret clusters, but at the same time you got a big gain in terms of objective function.
+
+[Prof. Uhler] 19:50:51
+Whereas afterwards, you know, yes, you're always paying at price in terms of how hard it is to interpret, but you're actually not gaining that much.
+
+[Prof. Uhler] 19:50:59
+So that's why here in this case. What we would choose is actually 3 clusters.
+
+[Prof. Uhler] 19:51:05
+Okay, so now there are questions about derivatives and things like this. So now again, here we are in 2 dimensions.
+
+[Prof. Uhler] 19:51:12
+Please whenever you're in 2 dimensions, don't do something mathematically. So anyways, all of these methods, they're not, you know, any, they're just like basically arbitrary to decide where is there an elbow.
+
+[Prof. Uhler] 19:51:24
+So just look at these plots. And figure out where you would want to do it caught off. Okay, so again, whenever something is in 2 dimensions, you can look at it and you can figure out.
+
+[Prof. Uhler] 19:51:34
+You can figure out where you should actually do your, column.
+
+[Prof. Uhler] 19:51:39
+Okay, and so if you already know how many clusters you need, well, then you already know what to choose.
+
+[Prof. Uhler] 19:51:46
+Okay, in that setting. So that's a great setting when you're actually there in that setting that you already have that knowledge.
+
+[Prof. Uhler] 19:51:51
+That's pretty nice. Then you don't have to do any of this, figuring out how many clusters they're on.
+
+[Prof. Uhler] 19:51:56
+Okay, so. So that's this. Now I do want to talk about so, okay, so if you, you know, this is like a very simple example where we just have 12 points and so, you know, with 12 points, okay, we don't want to go to 12 clusters, we probably already know that the right number of clusters is somewhere between one and 6.
+
+[Prof. Uhler] 19:52:16
+Right. However, now let me give you, you know, a more realistic, setting, right?
+
+[Prof. Uhler] 19:52:22
+Where in a realistic setting, you have like a hundred 1,000 customers. So now you don't know how many or let's even take the mnest example that we had, right?
+
+[Prof. Uhler] 19:52:31
+And the Mnest example, we didn't have a hundred 1,000 hundreds and digits, but you know, we had a few 100 handwritten digits.
+
+[Prof. Uhler] 19:52:38
+So there, how do we know? How do we get a good intuition for right? How many like over which range should we run K-means clustering?
+
+[Prof. Uhler] 19:52:48
+Because here you see like we had to run K-mans clustering with K equals to run.
+
+[Prof. Uhler] 19:52:54
+We have to run K means clustering with K equals to 3, 4, 5, 6. So if you have a hundred 1,000 points, you definitely don't want to run k-means with k goes to 100,000 points you definitely don't want to run k-means with k goes to 1 2 3 4 5 6 7 8 9 10 up to 100 or something right so how do you figure out which range you
+
+[Prof. Uhler] 19:53:10
+should use which range should you analyze when you're trying to run K-means clustering and you know a very very large scale data set.
+
+[Prof. Uhler] 19:53:20
+What would you do? And think maybe about the MNIST example that we already had.
+
+[Prof. Uhler] 19:53:26
+How do you figure out the relevant? The relevant, range here. What could give you some intuition?
+
+[Prof. Uhler] 19:53:37
+Okay, so we can, so we could say that maybe we do, we just think that we can do something like logarithmic or square root of the number of samples, but.
+
+[Prof. Uhler] 19:53:49
+I mean, in many, that's so, so there can be data sets that are huge, should have a million samples, but then still they only have 3 groups, whereas you can have a small data set with 12 samples and it also only has 3 groups.
+
+[Prof. Uhler] 19:54:02
+So there is another, a suggestion that, okay, maybe we take big distances first.st We tried to figure out kind of the range and then we go and search in there.
+
+[Prof. Uhler] 19:54:11
+So all of these things work, but let's think a little bit more about what we've done so far.
+
+[Prof. Uhler] 19:54:15
+There is one method that we've talked about. That we've talked about, which can give you a lot of intuition for how many clusters you should expect.
+
+[Prof. Uhler] 19:54:24
+Okay, go that just puts it in sarcastic neighbor embedding, right? So PCA actually, so you could run PCA, but as we saw, like usually principal component analysis, you just get out one big cluster.
+
+[Prof. Uhler] 19:54:35
+You, we saw it in MN. Missed, right? We saw that basically what came out is just one big cluster.
+
+[Prof. Uhler] 19:54:42
+So it doesn't give us intuition for how many clusters there could be. Whereas T.
+
+[Prof. Uhler] 19:54:46
+Stochastic naper embedding, it's not a clustering method because I cannot give you a new point and that you can tell me which cluster it is.
+
+[Prof. Uhler] 19:54:51
+However, what I can do is give you an intuition for how many clusters you should expect to see in your data.
+
+[Prof. Uhler] 19:54:57
+Right for that it's perfect. And in fact, I would always use stochastic neighbor embedding in order to get an intuition for how many clusters I should expect.
+
+[Prof. Uhler] 19:55:06
+And remember the Mnest example that we had there, right? So we were running it on I think 6 digits.
+
+[Prof. Uhler] 19:55:12
+If you looked at, you know, how the how the image looked like, it kind of showed something like a cluster.
+
+[Prof. Uhler] 19:55:18
+So often stochastic neighbor embedding actually breaks up more clusters. And so it usually finds a couple more clusters and what you should really there to be.
+
+[Prof. Uhler] 19:55:28
+How many clusters you should expect there to be so that you know which range to search over when you're actually doing K-means.
+
+[Prof. Uhler] 19:55:35
+Okay, so I would always, so as you know, that's how the course is built, right?
+
+[Prof. Uhler] 19:55:40
+So we 1st do principal component analysis and stochastic naive embedded always in order to get an intuition for what our dataset looks like.
+
+[Prof. Uhler] 19:55:48
+So PCA principle component analysis can already identify possibly some outliers that you may want to remove.
+
+[Prof. Uhler] 19:55:54
+But then stochastic neighbor embedding is really amazing at suggesting how many clusters there could be so that you have an idea of how many clusters there are in your data set.
+
+[Prof. Uhler] 19:56:03
+And then you can use K-means algorithm around that number of clusters. So now I know whether I should concentrate between, you know, and 12 or whether I should concentrate between 2 and 6.
+
+[Prof. Uhler] 19:56:15
+Okay, so that's what you can get out of. Stochastic neighbor embedding and then concentrate on that range.
+
+[Prof. Uhler] 19:56:22
+Okay, so it's so just elbow method will generally not work you too much computation time, but stochastic neighbor embedding connected with available method afterwards where you're doing K-means clustering that actually can work very hard.
+
+[Prof. Uhler] 19:56:37
+Okay, so. So, and it's here nicely summarized by Roha. So sometimes you have to use principal component analysis before you do t stochastic neighbor embedding in order because maybe stochastic neighbor embedding actually often if you have a million points lying in a thousand dimensional space, it's actually too big of a data set to run.
+
+[Prof. Uhler] 19:56:56
+So you would already cut off some of the dimensions so you can do PCA and keep 70 or 80% of the variance or only keep all of the eigenvalues that are larger than one.
+
+[Prof. Uhler] 19:57:05
+Then you do stochastic neighbor embedding and from stochastic neighbor embedding you could figure out how many clusters there are an idea of how many clusters there are and then you can use K-means algorithm on your data set around that range, that you found from stochastic neighbor.
+
+[Prof. Uhler] 19:57:20
+That's exactly how such a workflow can run. Okay, however, now we will talk also about that maybe K means algorithm is a good algorithm, but you know, and it's very, very fast.
+
+[Prof. Uhler] 19:57:32
+However, there are definitely disadvantages of K-mans and clustering. Because of this, because again, we can build better algorithms, so it will pay a little bit of price in terms of computation time.
+
+[Prof. Uhler] 19:57:43
+And now let's talk about all of the disadvantages. Okay. So what are some of the disadvantages?
+
+[Prof. Uhler] 19:57:49
+Well, a disadvantages and that's why it's so critical if you want to use K-mans algorithm that you always use PCA 1st in order to identify out times.
+
+[Prof. Uhler] 19:57:58
+Because imagine, right, if I go back here, if I would have one big outlier, so say like in the data set, you know, and this happens often, like if you look at real data like in a customer base that someone put in that someone is 900 like I don't know like someone has 900 years old instead of 90 years old or instead of 9 years old where they just add like another 0.
+
+[Prof. Uhler] 19:58:17
+That those kinds of things because many many data sets are actually just you know there's someone who manually added in data then a mistakes like that can happen often and some of them you can catch just because you have a data point that is so far out that you just don't believe that it is a real one.
+
+[Prof. Uhler] 19:58:32
+Okay, so it's really critical there that you actually add in, that you do principal component analysis 1st in order to figure out whether, right, whether there are some outliers.
+
+[Prof. Uhler] 19:58:45
+And outliers really hurt you and in, K-mans clustering because as you see here, right, that center mean always move.
+
+[Prof. Uhler] 19:58:52
+And so if I have a point that is very far away, then the mean will move very, very far away.
+
+[Prof. Uhler] 19:58:56
+Soldier is a disadvantage of. Having of having of kings clustering with dealing with outliers and there is a way around it but again you're always paying a computational price and to here is and I'll do a break very soon I do want to choose a good point to make it right.
+
+[Prof. Uhler] 19:59:13
+So here is, how you would, get around it, right? So, so K-means clustering is very sensitive to outliers.
+
+[Prof. Uhler] 19:59:23
+So what is a good way of dealing with it is the following is partitioning around MEDALE and now you know there was this cost at this question earlier on that I want to get to of like well what does it what do I what am I saying of that we would start the algorithm with having the cluster means be on top of of samples.
+
+[Prof. Uhler] 19:59:44
+Okay. And and here, what do I mean by that? And that's exactly what I'm saying here.
+
+[Prof. Uhler] 19:59:51
+So if I go back to the example. So instead of starting like cluster means randomly, I would often just choose, you know, if I want to have K close to 3, I would just choose 3 samples and put my and that's how I would start it and then run K means of course the cluster means will move and they will be not on top of and.
+
+[Prof. Uhler] 20:00:11
+However, you can constrain the algorithms to always keep the sample mean that the cluster means on top of samples.
+
+[Prof. Uhler] 20:00:20
+Okay, in that way, even if you have big outliers, the sample mean cannot move very, very far away.
+
+[Prof. Uhler] 20:00:28
+So that's what the, methods does. So it is actually constrained to have these cluster.
+
+[Prof. Uhler] 20:00:36
+Means always be on top of one of the of the samples. So it's not allowed to just have a cluster mean be like what you see here, right?
+
+[Prof. Uhler] 20:00:43
+Where they're like outside. It's always this setting here where the cluster mean is on top of one of the samples.
+
+[Prof. Uhler] 20:00:49
+And that way you can, you know, you can protect the algorithm to be too sensitive to outliers and, you know, really help it, to, you know, because the cluster means cannot move too far away.
+
+[Prof. Uhler] 20:01:04
+And why is it computationally demanding? Well, now I'm not just looking at, right, minimizing distance and attributing every point to the closest one.
+
+[Prof. Uhler] 20:01:14
+But I have another constraint, which is actually a hard constraint to satisfy where all of the cluster means always have to remain on top of one of the samples.
+
+[Prof. Uhler] 20:01:22
+So that's where hardness comes from because you always have to now go through all of the different samples.
+
+[Prof. Uhler] 20:01:27
+To figure out which one is the one where I should actually be moving my mean to. So it's not continuous.
+
+[Prof. Uhler] 20:01:34
+So now it became a discrete, setting where I have to figure out which one of my, points is actually the closest one.
+
+[Prof. Uhler] 20:01:41
+Okay, so, what I will now take a break, but I do want to give 1st the intuition to, what is another disadvantage, which will actually lead us to the Gaussian mixture model.
+
+[Prof. Uhler] 20:01:54
+So what is another disadvantage, that we have seen before in the K-means clustering and then we'll talk about how to get rid of it, is that actually every sample, right, if I go back to the little picture, every sample belongs to exactly one cluster.
+
+[Prof. Uhler] 20:02:07
+So let's think about a customer base, right, where it would be amazing if, you know, like, so for example here, you can have a, an example that is close to the red cluster.
+
+[Prof. Uhler] 20:02:23
+Mean and also close to the green cluster mean, but just a little bit further away from green, but it's just a little bit further away from green, then it will just be, will only be put into one, into one cluster, namely red.
+
+[Prof. Uhler] 20:02:33
+So imagine people where, you know, a particular person is interested in sports and in reading and buys a lot of, you know, so as close to the cluster with books that buy a whole lot of book articles and it's also close to the cluster where they buy all kinds of things.
+
+[Prof. Uhler] 20:02:50
+And like tennis racket and baseball, etc. So, and you're thinking about an advertising strategy.
+
+[Prof. Uhler] 20:02:56
+Well, you would like to show this person. Yes, I mean, this person is closer to the sports articles, but you know, is also close to the to the book.
+
+[Prof. Uhler] 20:03:05
+Well, you probably want to show this person, say, you know, 55% of the time, an ad related to sports and then 45% of the time an ad related to books.
+
+[Prof. Uhler] 20:03:16
+Right? But not just say like, oh, this person can only be in one group. And so that's a huge disadvantage of K-means clustering, and we'll actually talk about, and so that's what it means to have hard cluster.
+
+[Prof. Uhler] 20:03:28
+So every person is only in one of the and clusters. But you can actually do soft clusters where a person can be with a particular probability in one cluster and with another probability in another cluster and in another cluster.
+
+[Prof. Uhler] 20:03:40
+So in that way you can have advertising strategies that are mixtures of the different strategies. Okay, so when how does this cold is hard versus soft cluster?
+
+[Prof. Uhler] 20:03:50
+And so that's what we're going to talk about after the break. So now I'll take 5 min of questions.
+
+[Prof. Uhler] 20:03:58
+So it's 33. So we'll continue at 38. So I'll just take some questions and you guys can get get up and your legs and get some water and then we're meeting back here.
+
+[Prof. Uhler] 20:04:09
+Okay, so, let me go through some more of the questions and feel free to add in some more questions.
+
+[Prof. Uhler] 20:04:17
+If you'd like to.
+
+[Prof. Uhler] 20:04:19
+Okay, so let me go back to. Thinking about, keeping points on top of samples.
+
+[Prof. Uhler] 20:04:27
+So, what is the metallic method to? So all of the cluster centers always have to be on top of a customer.
+
+[Prof. Uhler] 20:04:35
+That's what it means. So we have our data points, which are customers, and so our cluster centers always have to remain on top of one of the customers and cannot just mean move into some empty space and becoming a new type of customer.
+
+[Prof. Uhler] 20:04:50
+So that's what it means, when I say the cluster centers must be an observation.
+
+[Prof. Uhler] 20:04:55
+Okay. What is also interesting about this method generally is that, and this is also written here, that then you have a unique representative.
+
+[Prof. Uhler] 20:05:04
+So if I then do my postering. As before. So now every one of these cluster means is never allowed to like here move into empty space.
+
+[Prof. Uhler] 20:05:11
+They always have to remain on one of the squares and one of the samples. But what then comes out?
+
+[Prof. Uhler] 20:05:16
+What is interesting is that, you also have a representative of that cluster. Right, so whatever that cluster meet is is like now a sample and so I can look at who that sample is like and then get some interpretation of what the different clusters are.
+
+[Prof. Uhler] 20:05:31
+Okay, so that's, so that's that. So, there are questions in terms of like how could we speed up that computation, etc.
+
+[Prof. Uhler] 20:05:43
+I can bottom computing speed it up. So, you know, 1st of all, I mean, most of us do not have access to it, right?
+
+[Prof. Uhler] 20:05:49
+And so this really doesn't really have to do with factorizing numbers and questions. So, it will have to see basically for what types of computations will really quantum computing be able to speed up those types of computations will really quantum computing be able to speed up those types of computations.
+
+[Prof. Uhler] 20:06:03
+But it's a very interesting question, but I think we just don't know. Okay, so, so then if we go back to What was the y axis?
+
+[Prof. Uhler] 20:06:15
+So the why access we can really see as, so generally it's some squares.
+
+[Prof. Uhler] 20:06:22
+It's the sum of squared distances just computationally that's easier to compute. And that's why this is how it's called, but really you can think of it as just, you know, the distances of every one of the points within a cluster to the cluster center.
+
+[Prof. Uhler] 20:06:35
+And then you average that over all of the clusters. So that's the objective function that is minimized when you're doing K-means cluster.
+
+[Prof. Uhler] 20:06:46
+So in terms of outliers and questions about outliers. Okay, so these are great questions.
+
+[Prof. Uhler] 20:06:55
+So, you know, if at the beginning, right, we start with our cluster means and we put them on top of samples.
+
+[Prof. Uhler] 20:07:01
+Random chose one of the outliers. So 1st of all, outliers are called outliers because there are few of them.
+
+[Prof. Uhler] 20:07:07
+So the chance of it being picked as one of the outliers is extremely small. But if it is, as we said, we would always run this out with a couple of times, right?
+
+[Prof. Uhler] 20:07:20
+Because anyways, like, depends on the starting point. And so for sure if you run it twice.
+
+[Prof. Uhler] 20:07:25
+You know, an outlier cannot be something that happens half of the time. So otherwise it wouldn't be called an outlier.
+
+[Prof. Uhler] 20:07:32
+So you would not actually run into any of these issues. But, but yes, in the case of where you choose an outlier, then you would then the mean customer mean would actually never move.
+
+[Prof. Uhler] 20:07:44
+So that's actually correct.
+
+[Prof. Uhler] 20:07:47
+Okay, can, and there are other questions, which are actually great, then is not just, has nothing, not just to do with the PAM method, but actually also with K-means clustering.
+
+[Prof. Uhler] 20:07:58
+So there is a probability 0, but so okay can happen. So if I make so okay if you just at random choose your cluster centers they cannot happen that's the cluster that the algorithm will loop However, I can construct.
+
+[Prof. Uhler] 20:08:13
+You know, I can construct exactly where I should put my cluster means in order to make the algorithm loop, meaning that it will actually not converge.
+
+[Prof. Uhler] 20:08:22
+But if you just choose your cluster, you literally have to construct it like literally pointing out that if you just move your point a little bit.
+
+[Prof. Uhler] 20:08:31
+You just add a little bit of noise and, looping will never happen. So it happens with probability 0.
+
+[Prof. Uhler] 20:08:37
+And so, that's a nice thing. And so that's the same as for Pam as well.
+
+[Prof. Uhler] 20:08:42
+So looping is not something that we have to, and it's a measure 0 set exactly as people put in if it's to do it mathematically correctly.
+
+[Prof. Uhler] 20:08:52
+Okay, so that's, I think everyone is already getting back. So those were, very, some of the great questions that were brought up that we were talking about.
+
+[Prof. Uhler] 20:09:02
+Just briefly during the break. But now what we'll do is we'll continue on.
+
+[Prof. Uhler] 20:09:06
+So we will solve the question that I asked just before the break, right, of like hmm it would be nice right if we would have a method where in particular for things like advertising strategies but also and for things like you know for medical strategies where we wouldn't just have every sample be a attributed to exactly one cluster.
+
+[Prof. Uhler] 20:09:28
+But it would be kind of nice to know that this sample is actually pretty close to 2 different clusters and yes, you know, it is closer to one than the other.
+
+[Prof. Uhler] 20:09:37
+But you know, it's like 65% in one and then say 35% in Right, that would be pretty nice.
+
+[Prof. Uhler] 20:09:44
+And so the Scoutsian mixture model actually allows you to do that. Okay, so it's an extension.
+
+[Prof. Uhler] 20:09:49
+So again, we're going to, so again, better method, clearly better, right? It's an amazing, it's great if we can also get that type of information, for, doing things like advertising strategies.
+
+[Prof. Uhler] 20:10:02
+Medical. You know, like kind of methods of like what treatments we should give, etc.
+
+[Prof. Uhler] 20:10:08
+But of course we're paying the computation price. A computational price. Yeah. So it's a soft version of okay, means clustering.
+
+[Prof. Uhler] 20:10:18
+It's known as Gaussian mixture mall. Again, we need to know how many clusters there are as before, but now there will in addition to being a soft version of K-means clustering there will also be a really nice way to figure out into which cluster we should actually like how many clusters there are.
+
+[Prof. Uhler] 20:10:31
+So how does, so again, so we won't not go through the mathematics, but, all I want to do, all I want to give you as intuition for why this method is a soft method is that instead of having these hard clusters, right, where we have just red, green, blue, right, there's no mixture.
+
+[Prof. Uhler] 20:10:50
+It actually has distribution. So it says that, you know, the red is a Gaussian distribution with some mean, then the green is a Gaussian distribution with some mean and then the blue is also Gaussian distribution with some mean.
+
+[Prof. Uhler] 20:11:02
+And so therefore, right? Therefore now here, if you have a point, it will always belong to every all of the 3 clusters with some probability.
+
+[Prof. Uhler] 20:11:12
+You might have the highest probability of being red and then some probability. 60% red and then maybe 25% green and then 15%.
+
+[Prof. Uhler] 20:11:23
+Blue. Okay. So that's a really nice, a really nice approach where it gives you the probabilities of belonging to each one of the clusters.
+
+[Prof. Uhler] 20:11:31
+Now in addition, because it uses statistical methods, not like before of just minimizing some distances.
+
+[Prof. Uhler] 20:11:37
+So it uses a statistical model. Which in this case is a Gaussian mixture model, you can actually exactly compute how many clusters there are.
+
+[Prof. Uhler] 20:11:45
+And it's something, and now again, this is like all things that one had to prove at some point.
+
+[Prof. Uhler] 20:11:52
+But now the interesting thing about when you're using a Gaussian mixture model is there is a different objective function.
+
+[Prof. Uhler] 20:11:56
+That actually where we know where you can prove where in any example you're going to do the objective function always looks that it comes down and then it goes back up.
+
+[Prof. Uhler] 20:12:05
+Okay, so the objective function is always going to be something where it comes down and then goes back up.
+
+[Prof. Uhler] 20:12:11
+And so in that objective function, you can actually choose, always choose the number of based on when is that objective function minimize.
+
+[Prof. Uhler] 20:12:19
+Okay, so there will be one minimum exactly and you can choose just that minimum. So that's super nice.
+
+[Prof. Uhler] 20:12:26
+You don't have to do things like elbow method because the objective function is always decreasing. Okay, so there is for a Gaussian mixture model because it's based on a statistical model, and a, model, we know exactly how to correct for having more.
+
+[Prof. Uhler] 20:12:42
+And having more, more, clusters. And so that correction term is what is known as BIC, what I had on the slide, Basian information criterion.
+
+[Prof. Uhler] 20:12:49
+So it just kind of, it corrects, this objective function in the right way. So that all you have to do is just choosing where is the minimum of it and that just tells you how many clusters there are in a Gaussian.
+
+[Prof. Uhler] 20:13:00
+Okay, so I'll ring but from this slide so that I'm not mixing up this slide but that's what it means over here that you know or if you're choosing this model here, there is actually a statistically sound way to choosing the number of clusters.
+
+[Prof. Uhler] 20:13:16
+You don't have to do this elbow method, etc. You just write down the patient information criteria and there will be this one minimum and then that's exactly how many clusters you should take.
+
+[Prof. Uhler] 20:13:25
+Okay, so that's 2 advantages, right? And, so disadvantage of K means clustering.
+
+[Prof. Uhler] 20:13:32
+So we now went through it. So advantage, very fast. Disadvantages, right? It's a hard clustering method meeting every point is only belonging to one cluster, no mixing.
+
+[Prof. Uhler] 20:13:42
+So we had the disadvantage at the disadvantage solved by using Gaussian mixture model.
+
+[Prof. Uhler] 20:13:49
+The other disadvantage is you have to do this complicated, you know, not complicated, but kind of, you know, arbitrary elbow method.
+
+[Prof. Uhler] 20:13:57
+In order to figure out how many clusters there could be Gaussian, we know exactly what the right number of clusters is.
+
+[Prof. Uhler] 20:14:03
+And the other thing was that it is not robust to outliers. And then of course, we talked about PAM in terms of, in terms of, how, how you can get around that problem.
+
+[Prof. Uhler] 20:14:14
+Great questions in terms of relative increase and computational costs. So this, there is different types of increases.
+
+[Prof. Uhler] 20:14:21
+So one is increase in terms of how many samples you have. The other one is increase in terms of what is the dimension of the space and which the samples live.
+
+[Prof. Uhler] 20:14:31
+All of this matters for how much increase there is and then also the Gaussian mixture model you can choose different types of for example how many clusters you have and then how general do you want your Gaussian distributions to be able to be like.
+
+[Prof. Uhler] 20:14:44
+So all of these things depends, on, you know, how much slower it becomes and you probably want to play around with it.
+
+[Prof. Uhler] 20:14:51
+Right in terms of seeing, you 1st use PCA, you see you come into a lower dimensional space.
+
+[Prof. Uhler] 20:14:56
+You then run it there. Hopefully it's still fast. Right and then you slowly add on more dimensions and to see whether you can still want it.
+
+[Prof. Uhler] 20:15:03
+So many things that it depends on so there is no one answer that can just tell you. Now you can run it and now you can not.
+
+[Prof. Uhler] 20:15:13
+Okay, so that's a little bit of an overview on these methods that all come in the same kind of framework, right?
+
+[Prof. Uhler] 20:15:19
+It's all all of them kind of require or run multiple times and you'll have to know like how many clusters you have and then you can optimize for the number of clusters.
+
+[Prof. Uhler] 20:15:28
+So you would always use the casting neighbor embedding right in order to 1st figure out, what is the right the right kind of range of clusters that I should be looking at and then in a Gaussian mixture model you just run it over that range you see the BIC criterion or you know in if you just use K means clustering you would run it over that range and you would
+
+[Prof. Uhler] 20:15:49
+see where is the elbow. Okay, so that's, so that's how, and, so again, so as people are putting in, so we would not want to use K, and the Gaussian mixture model in order to figure out how many clusters because it's extremely slow.
+
+[Prof. Uhler] 20:16:05
+Okay, so you definitely want to use stochastic neighbor embedding in order to figure out to have a good intuition for how many clusters there are not Gaussian mixture model because you would want to run only Gaussian mixture model over a range that is relevant.
+
+[Prof. Uhler] 20:16:20
+Because that's far far too slow
+
+[Prof. Uhler] 20:16:24
+Okay, so always 1st use visualization methods. So PCA, stochastic neighbor, betting to get a good intuition for it and then move on to the clustering methods.
+
+[Prof. Uhler] 20:16:34
+Good. So that's all one part of clustering. Now I do want to get to the other one because I think they're very, very interesting and they're not used enough.
+
+[Prof. Uhler] 20:16:43
+Okay, so people all, many people know K-means clustering. Many people don't use hierarchical clustering, although you know, for some of the functions, they're actually nearly as fast as K.
+
+[Prof. Uhler] 20:16:53
+So let's talk about them and they have a lot of advantages as well. And they're very, very different types of algorithms.
+
+[Prof. Uhler] 20:17:00
+So it's really good that you have at least one and one and always in your pocket. Okay, because you don't know in clustering again, this is a setting where we don't really know what is the right answer, right?
+
+[Prof. Uhler] 20:17:10
+Because we don't know yet what we're looking for. So it is always important to run actually multiple clustering methods.
+
+[Prof. Uhler] 20:17:16
+And in particular, I would suggest that you always run one of the second class as well. To something like KAY means clustering that is very fast.
+
+[Prof. Uhler] 20:17:22
+So we already gave the intuition of what these hierarchical clustering methods are. So we did that bottom up, right?
+
+[Prof. Uhler] 20:17:30
+Where we said like, oh, you know, the Lego block kind of thing. So if you have 2 individuals or 2 stocks that are very similar to each other, we 1st merge them together.
+
+[Prof. Uhler] 20:17:38
+Someone brought up at the endogram. Here is the under. So we 1st merge, the 2 stocks.
+
+[Prof. Uhler] 20:17:44
+Similar to each other, then we merge the next 2 that are the most similar to each other, etc.
+
+[Prof. Uhler] 20:17:50
+Until if you continue merging all the way at the top, everything is merged. Right, so now the question is where, so 1st of all, we get to see the full hierarchy.
+
+[Prof. Uhler] 20:18:01
+We don't choose beforehand how many clusters there are. We actually get to see the full hierarchy of like, you know, these 2 stocks are more than most similar to each other than these 2 stocks are most similar to each other then now these 3 stocks together are more similar to each other and then only come all of them together.
+
+[Prof. Uhler] 20:18:17
+Okay, so really, really nice way of representing the full data where you get to see all of the similarities if you're running this for example on a customer base you get to see all of the similarities or these 2 clusters customers are the most similar to each other, etc, and how the groups are forming.
+
+[Prof. Uhler] 20:18:34
+And then again, how do we do cut off and we'll go through it more slowly, but right.
+
+[Prof. Uhler] 20:18:40
+So here, what is, what is increasing is the similarity or the distance. So at the bottom, right, this means that if we merge them here, that we merged them when the distance was very small and then we're always increasing increasing distances and see who else is being merged together.
+
+[Prof. Uhler] 20:18:54
+And so you would want to, you know, choose a cutoff where even if you increase the distance a lot, not much is changing.
+
+[Prof. Uhler] 20:19:01
+Meaning the clusters are not changing. Nothing is being added together. Okay, so we'll go through that now.
+
+[Prof. Uhler] 20:19:06
+So, but this is all just the intuition so that we know what we're actually looking at and hierarchical foster.
+
+[Prof. Uhler] 20:19:12
+Okay, so here, you know, someone actually multiple people at the beginning and it was such an important question.
+
+[Prof. Uhler] 20:19:18
+And I said, I will get back to it later. Asked, well, you know, what matters in clustering, right?
+
+[Prof. Uhler] 20:19:24
+If I, you know, how, how I pre process the data and what, you know, how do I measure distances between individuals?
+
+[Prof. Uhler] 20:19:32
+Is it just Euclidean distance, some other way of measuring distances? And I said there is something else that matters much more in clustering than that.
+
+[Prof. Uhler] 20:19:38
+And, so now that's where we're getting to that. Okay. Namely, what matters more than just the distance between say how do I measure distances between 2 digits, right, the handwritten digits.
+
+[Prof. Uhler] 20:19:51
+We had all these grey scales. I can just take like distance or I can take like the minimum value and any one of the directions, etc.
+
+[Prof. Uhler] 20:19:57
+I could do all kinds of things of measuring distances between 2 handwritten digits. Well, what actually matters more and we'll see it.
+
+[Prof. Uhler] 20:20:05
+And this is a really important choice. That you should think about when you're doing cluster.
+
+[Prof. Uhler] 20:20:09
+Is in fact this choice here and what do I mean by linkage? Okay, so say you already so at the beginning right you just have to compute distances between different stocks or different handwritten digits but at some point right you have to compute distances between different So now say I have these, all of these ones here are one cluster and then I have full of these here or another
+
+[Prof. Uhler] 20:20:35
+cluster.
+
+[Prof. Uhler] 20:20:39
+And so now I have 2 clusters. Now I need to compute thisances between clusters, right?
+
+[Prof. Uhler] 20:20:44
+You sometimes have to word together to clusters. So now there are many different ways of actually computing distances between clusters.
+
+[Prof. Uhler] 20:20:53
+So all of this is one cluster, all of this is one cluster. So what a single linkage though.
+
+[Prof. Uhler] 20:20:58
+So it chooses to the to to measure distances between clusters as just a minimum distance.
+
+[Prof. Uhler] 20:21:03
+So that would be this. So the distance between these 2 clusters will be defined as the minimum instance.
+
+[Prof. Uhler] 20:21:10
+Complete linkage would use the maximum this. So what would be the maximum distance? Probably this.
+
+[Prof. Uhler] 20:21:19
+Okay. And average linkage would choose the average so it would make an average point and average point and it would choose the distance to be this between 2 Okay, there are other ways.
+
+[Prof. Uhler] 20:21:34
+You may have heard of Ward, which is very similar to average, etc. I'm just choosing here 3 that are representative and give you actually very different phenomena.
+
+[Prof. Uhler] 20:21:43
+So, so now what I did here is give you 3 pictures. Okay, where the different colors correspond to different clusters.
+
+[Prof. Uhler] 20:21:53
+And I'm saying that any of these pictures you can actually reach that cluster. So again, in hierarchical clustering, right, we are doing this whole den and then at some point we decide where we should cut it off.
+
+[Prof. Uhler] 20:22:06
+So here I'm saying that you know there is a way for one of these linkages. So when you're using one of these linkages, so each one of these linkage, 1st of all, corresponds to one of the pictures.
+
+[Prof. Uhler] 20:22:16
+Okay, so that's 1. Question here. And then I'm saying that, you know, for whatever linkage that I'm using, there is a way of choosing the distance so that I actually get back this picture, that I get back this picture, that I get back this picture.
+
+[Prof. Uhler] 20:22:32
+So what you see here is that You know, will now figure out which one of these belongs to which one of the pictures.
+
+[Prof. Uhler] 20:22:39
+But what you see is that they actually reach very different clusterings. So there is one of these linkages that can identify these very, very elongated clusters.
+
+[Prof. Uhler] 20:22:50
+Most of them cannot. Okay, but there is one of the linkages up here that can actually identify these very elongated clusters.
+
+[Prof. Uhler] 20:22:58
+Just interesting, right? Because sometimes you might have to, if you're looking at things that are varying over time, etc, you might actually expect to see elongated clusters.
+
+[Prof. Uhler] 20:23:08
+And so we'll have to figure out which ones of these is able to find along beta then one of them is going to be able to find these, you know, very small.
+
+[Prof. Uhler] 20:23:19
+So if you're expecting to see small clusters, but many clusters and the small clusters are kind of, they can actually even be very close together.
+
+[Prof. Uhler] 20:23:26
+One of them is able to do this. And then one of them is doing the more standard thing like, you know, what we have seen in K-means clustering, etc.
+
+[Prof. Uhler] 20:23:34
+So I would like to start with this one because this is usually, because I told you that each one of them belongs to one.
+
+[Prof. Uhler] 20:23:40
+Let's maybe this one is probably the easiest to figure out. So let's try to figure out this one here, what it is, which one belongs to here.
+
+[Prof. Uhler] 20:23:50
+And so now you can all guess and then we'll figure it out together. Okay, so complete is mentioned a lot and maybe I should already say it's not complete.
+
+[Prof. Uhler] 20:24:02
+Maybe you can track to, okay, so there is others. So now it's, more single than average.
+
+[Prof. Uhler] 20:24:10
+And in fact, single is the answer. Okay, so it is single. And, and so let's go through it and in fact, you will see other examples where you have elongated clusters later on where it is really important to understand which ones can give you elongated clusters.
+
+[Prof. Uhler] 20:24:29
+Okay, so, so how can we get these elongated clusters? And so as I said, so this is.
+
+[Prof. Uhler] 20:24:37
+Okay, let me 1st write it.
+
+[Prof. Uhler] 20:24:40
+Okay, this one is single. Okay, so why is it single? So 1st of all, if it let's 1st rule out why it is not maximum distance.
+
+[Prof. Uhler] 20:24:49
+So in order for this blue cluster here to all be in one cluster, how would it compute the maximum distance?
+
+[Prof. Uhler] 20:24:56
+Well, the maximum distance. Would be in order something like, you know, like even something like this, right?
+
+[Prof. Uhler] 20:25:04
+Will be the maximum distance. But if you actually take that maximum distance and you look at the distance between these 2.
+
+[Prof. Uhler] 20:25:09
+They actually fall within that maximum distance. So they should have the same color if you were going to take, maximum distance or complete linkage.
+
+[Prof. Uhler] 20:25:19
+So that already rules that one out. As so it cannot be maximum. However, it can be minimal distance because you know what is the minimum distance?
+
+[Prof. Uhler] 20:25:30
+Within this so that all of these guys here are all in the same color well the minimum distance is this big right.
+
+[Prof. Uhler] 20:25:36
+Because every other point is within it right these distances here are much smaller than that However, if you take, the minimal distance around this bowl, right, then nobody else is in it, so they can all be in one call.
+
+[Prof. Uhler] 20:25:51
+So again, here I can only draw in 2 dimensions. That's why this is an example in 2 dimensions to show that, about that intuition works in any dimension.
+
+[Prof. Uhler] 20:26:02
+So single linkage is a linkage method that can identify elongated clusters. No matter in what I mentioned it is, because all that matters is that you have points that are close by in any direction.
+
+[Prof. Uhler] 20:26:16
+So even in a very inner 1,000 dimensional space, it can actually identify elongated clusters.
+
+[Prof. Uhler] 20:26:20
+We'll see that other methods cannot be done. Okay, so this one here is single a single linkage.
+
+[Prof. Uhler] 20:26:26
+So that's something that we really have to keep in mind. Single linkage can identify elongated cluster.
+
+[Prof. Uhler] 20:26:31
+So if you have time series or things that vary over time and they can vary into any direction, you don't know in which direction they vary.
+
+[Prof. Uhler] 20:26:37
+Single linkage might be a very nice way of actually identifying clusters in there. Now the next one, let's do this one here on this side, because this is another one that is actually an important one to understand for many different types of applications we used this actually quite a lot.
+
+[Prof. Uhler] 20:26:53
+So what will be this one here? Okay. So here a lot of people are saying, okay, we'll do now a lot of, so I will just say, so this one is complete.
+
+[Prof. Uhler] 20:27:07
+And this one is the average. Okay, so let me go through it. So this one here is complete.
+
+[Prof. Uhler] 20:27:14
+So now this is the maximum. So whenever you have to want to find a lot of small clusters but the small clusters can actually be kind of close together.
+
+[Prof. Uhler] 20:27:22
+This is complete because right this is now max distance within one cluster is this big. If you have to do max, so why are these 2 clusters not clustered together?
+
+[Prof. Uhler] 20:27:30
+Because the max distance between them is much bigger.
+
+[Prof. Uhler] 20:27:34
+So, so complete linkage is able to identify small clusters that are actually not so well separated.
+
+[Prof. Uhler] 20:27:40
+So we do this often when we need to find small clusters like where we prefer to get many clusters but small clusters generally you should use complete because it's able because it's for things that are really, really well cluster.
+
+[Prof. Uhler] 20:27:53
+Okay, and it will only group them together if they're very, very well clustered and then even if they're just a little bit away, it will move the next guy separately.
+
+[Prof. Uhler] 20:28:00
+So we usually use complete for these kinds of things. And then average is actually the one thing that does basically always the same as K-means cluster.
+
+[Prof. Uhler] 20:28:10
+Okay, so average is kind of not a very useful one because you could also just use K means clustering and generally often you just get the same results out out of k means clustering or average hierarchical cluster.
+
+[Prof. Uhler] 20:28:22
+Okay, so average can just find these, you know, very well separated, like kind of simple clusters in order to identify them.
+
+[Prof. Uhler] 20:28:29
+So that's what, So that's how you can identify these clusters.
+
+[Prof. Uhler] 20:28:36
+Okay, so, again, stochastic neighbor embedding doesn't do any clustering, stochastic neighbor embedding is just a visualization method.
+
+[Prof. Uhler] 20:28:44
+It doesn't perform clustering itself. So it doesn't use any of these.
+
+[Prof. Uhler] 20:28:50
+Okay, so, so that's, so it just does, you know, it gets to the representation in a different way, not in terms of using these linkages.
+
+[Prof. Uhler] 20:29:01
+Okay, so hopefully this was able to also give you some intuition. actually going through the math of ethics is often important in order to get the right intuition, which is what we just.
+
+[Prof. Uhler] 20:29:13
+So, now, you know, I, we already talked about this. I don't think I have to go through far through it where we said like, hmm, how do we choose the number of clusters in a dentogram?
+
+[Prof. Uhler] 20:29:25
+Well, we said, right, we will just choose it wherever there is the biggest drop in distance. So, you know, here, for example, you could decide that whether I take this distance or whether I take this distance, right?
+
+[Prof. Uhler] 20:29:37
+This is the only place where something changes. Anything in between, if you choose your cutoff anywhere in between, you always get 3 clusters.
+
+[Prof. Uhler] 20:29:44
+So very, very robust, right? So you would choose it either here or maybe also otherwise up here, right?
+
+[Prof. Uhler] 20:29:54
+If you choose anything up here, you will always get 2 clusters, no matter how you choose it.
+
+[Prof. Uhler] 20:29:56
+Whereas down here, if I choose it like this or if I choose it just a little bit above, right?
+
+[Prof. Uhler] 20:30:00
+It will always change. Like how many clusters I get. So that's why, you know, down here you would not want to choose, the cut off somewhere down here.
+
+[Prof. Uhler] 20:30:07
+You don't want it to be so, not robust. That if I change my distance a little bit, then suddenly all of the clusters are changing.
+
+[Prof. Uhler] 20:30:13
+Okay. So that's, that's this one we already talked about on how to choose the number of clusters in, in, in, in these bottom up or top down approaches.
+
+[Prof. Uhler] 20:30:27
+So, so now the last one that is, still missing is the dB scan example.
+
+[Prof. Uhler] 20:30:34
+So dB scan, I just have it here, because it has become very popular for some reason.
+
+[Prof. Uhler] 20:30:40
+But it's not really clear. It should be popular because it's 1st it requires more time than the hierarchical clustering method in particular the single linkage method but it tries to do the same as single linkage basically.
+
+[Prof. Uhler] 20:30:56
+Okay, so it uses more time but instead of using this I would always use single linkage instead of PP scan.
+
+[Prof. Uhler] 20:31:02
+But it has become very popular for some reason. So I do want to, talk about it just so that you understand that, you know, how, powerful hierarchical clustering is that it can actually give you all these different types of clusters, right?
+
+[Prof. Uhler] 20:31:15
+I can identify these elongated clusters. I can identify these small clusters, but many of them and I want them to be separated or I can do kind of similar things like a means clustering can do.
+
+[Prof. Uhler] 20:31:27
+Okay, the very simple things like, you know, just find out like, the very simple things like, you know, just find out like round the shaped clusters that are well separated from each other.
+
+[Prof. Uhler] 20:31:33
+Okay, so, and we'll then look at, which methods can identify with cluster.
+
+[Prof. Uhler] 20:31:39
+So that's, when we're going into a case study. Okay. So, but let's 1st do what is dB scan and what is it trying to do?
+
+[Prof. Uhler] 20:31:46
+Well, the intuition is exactly single linkage clustering. It wants to be able to identify these elongated clusters.
+
+[Prof. Uhler] 20:31:52
+Okay, that's the whole intuition for coming up with dB scan. Now, dB scan has 2 parameters.
+
+[Prof. Uhler] 20:31:57
+So one is the same as in single linkage clustering, right? When the dentogram, we're kind of increasing the distance.
+
+[Prof. Uhler] 20:32:03
+That's 1 of the parameters. So that's this epsilon. That's just the same as what we have in single linkage clustering.
+
+[Prof. Uhler] 20:32:10
+Now, you know, dB scan has another parameter and instead of so what it just what this parameter does and now this is where it makes it much slower right because you will have to run the method many many times with different parameters because you don't know how to choose it before.
+
+[Prof. Uhler] 20:32:24
+So what is this parameter here with minimum number of points? It's a parameter that says that, well, maybe, you know, like what we saw before, single linkage, it actually grows clusters, even if they are just of thickness one.
+
+[Prof. Uhler] 20:32:39
+Right, when they are very, very thin, elongated clusters, it still continues growing to clusters.
+
+[Prof. Uhler] 20:32:46
+Whereas here you have this thing here, which is minimum number of points, which tells you how many points do I have to have around me within that distance so that I could continue growing the cluster.
+
+[Prof. Uhler] 20:32:56
+So here in this case, for example, I would, call it 3, right?
+
+[Prof. Uhler] 20:32:59
+So here, if you call it 3, then this point here should still grow the cluster because it has 1, 2, 3 points next to it.
+
+[Prof. Uhler] 20:33:05
+But here, this guy here is actually not anymore in the cluster. It only has 1 point next to it within that distance.
+
+[Prof. Uhler] 20:33:11
+So that's what minimum number does. So you see here it only grows clusters like elongated clusters, but they have to have a certain distance, a certain thickness.
+
+[Prof. Uhler] 20:33:21
+That's all the difference. That's what you're gaining by dB scan.
+
+[Prof. Uhler] 20:33:26
+You're losing a lot by actually having to run it many, many times in order to figure out what your minimum distance, minimum number of points should actually be.
+
+[Prof. Uhler] 20:33:33
+Okay, so this parameter here is something that you have to tune. And, and which will tell you, you know, which, which will either continue growing the clusters or will not continue growing the clusters.
+
+[Prof. Uhler] 20:33:45
+And exactly that's what would then be considered as a then zone where I'm continuing to grow or I wouldn't continue to.
+
+[Prof. Uhler] 20:33:52
+Okay, so that's dB scan, just because you may have heard of it and you may want to know what intuition is, why people are using it and the intuition is exactly the same as what, why single linkage was, developed.
+
+[Prof. Uhler] 20:34:06
+Okay. Now, now let's, okay, so I have one more slide before I go to the, before I go to a key study where I'm asking you guys to, to tell me which clustering method would actually be able to understand.
+
+[Prof. Uhler] 20:34:19
+Which one of the different, of the different clusters. Okay.
+
+[Prof. Uhler] 20:34:24
+Okay, so, Okay, so now there are a lot of questions of, hey, we came up with so many clustering methods.
+
+[Prof. Uhler] 20:34:32
+When do they use what, right? Really good questions. So we already went through. So, so you 1st of all in clustering, you should always use more than one method because you don't know what you're looking for, right?
+
+[Prof. Uhler] 20:34:43
+We don't know yet whether we're looking for alligator clusters. We don't know yet whether we're looking for these small clusters.
+
+[Prof. Uhler] 20:34:48
+Maybe that the application will give you a little bit of intuition. Like when I have time varying stuff where I think like something varies continuously I need to figure out in which direction it's going.
+
+[Prof. Uhler] 20:34:57
+I want to find these elongated clusters. When I actually really want to have many clusters but small but you know very few people in them because I have a lot of therapies and I really want to have like very very special like really know which people are very similar to each other that I would always use.
+
+[Prof. Uhler] 20:35:21
+And I really want to have like very, very special, like really know which people are very similar to each other that I would always use, complete linkage. Right. And then otherwise I don't know what I'm looking for.
+
+[Prof. Uhler] 20:35:22
+Well, then there's average linkage or there is K means clustering. So those are methods that you would definitely just want to apply and see what comes out of them and then try to make some intuition about the data sets.
+
+[Prof. Uhler] 20:35:32
+And so now there is there has been already at the beginning and now of course now even more, right?
+
+[Prof. Uhler] 20:35:38
+Is there a way to then afterwards check which clustering method is like a better one. So which one gives you better clusters?
+
+[Prof. Uhler] 20:35:43
+Mathematically, like more computationally. And so that's what one way I'm going to present here is silhouette plots are actually used quite a lot to compare different clustering methods against each other.
+
+[Prof. Uhler] 20:35:54
+So the result of different clustering methods against each other. And so what does, so what do these silhouettes mean?
+
+[Prof. Uhler] 20:36:03
+So this is how it looks like. So this is now actually the silhouette plot ran on this data set.
+
+[Prof. Uhler] 20:36:08
+Okay, again, it's unfortunately just 2 dimensional data, but the silhouette plot was ran on it and this is the output.
+
+[Prof. Uhler] 20:36:15
+Okay, this is how a silhouette plot looks like. So here you have all of your different samples.
+
+[Prof. Uhler] 20:36:20
+Every one of them gets a silhouette with that's just a score. We'll discuss what it is.
+
+[Prof. Uhler] 20:36:24
+And here you see that this algorithm had 3 clusters namely this is one cluster this is another cluster and this is another cluster.
+
+[Prof. Uhler] 20:36:32
+Okay, so what are these numbers? So they tell you how well, so 1st of all, there is an average silhouette with, so that's just the average over all these numbers.
+
+[Prof. Uhler] 20:36:40
+This comes out to be here 0 point 6 1. And actually let me already go to the next slide which says that you know generally we would say that if you have a number that is larger than 0 point 5 it's actually pretty well clustered.
+
+[Prof. Uhler] 20:36:52
+It's hard to get a very large number in these silhouettes. Now, how do you get to this number?
+
+[Prof. Uhler] 20:36:57
+What does the number mean? Well, why do we want it? So 1st of all, the number can be anywhere between minus one and one.
+
+[Prof. Uhler] 20:37:03
+If it's smaller than 0, it means that something would roll in your clustering.
+
+[Prof. Uhler] 20:37:08
+So it should always be positive. So, so what do these numbers mean? Okay, so it's very intuitive, right?
+
+[Prof. Uhler] 20:37:16
+What we said at the beginning in clustering, what do we want to do? Well, we want to have the distance between points within a cluster to be small.
+
+[Prof. Uhler] 20:37:23
+And the distance between points between different clusters to be big. So that's all this does.
+
+[Prof. Uhler] 20:37:29
+Okay, so a of the point is the average distance of that point to all of the other points within the cluster.
+
+[Prof. Uhler] 20:37:37
+So we want this number to be small. Whereas B of a point We want that number to be big because that's the average distance of that point to the closest cluster.
+
+[Prof. Uhler] 20:37:50
+It doesn't belong to. So we would like this to be picked. So that's why we want to be to be bigger than A.
+
+[Prof. Uhler] 20:37:57
+So then this comes out to be positive. And then, we divide by, you know, something so that it makes it between minus one and one.
+
+[Prof. Uhler] 20:38:03
+This is just a normalization. Okay, so that's why so Silhouette score gives you, like a score of how good your clusters look like after applying a particular clustering method.
+
+[Prof. Uhler] 20:38:15
+And so that's what, we often apply. So we would like to do different clustering methods.
+
+[Prof. Uhler] 20:38:22
+We get these plots out and then you can compare this number here. Also, what you get out of these plots and I often use this is you get to see which points and this is now kind of going into the intuition, right?
+
+[Prof. Uhler] 20:38:33
+Even when you use Scoutsian mixture, there you get a probability of a particular sample being part of different clusters.
+
+[Prof. Uhler] 20:38:40
+Of course, for the other methods, you don't get that. However, a silhouette score, a silhouette plot like this can still give you the intuition because what this score means like now here for example for individual or sample number 9 means that if it's small it means that this sample, yes it was clustered into the black cluster, but really it could have also been and it was
+
+[Prof. Uhler] 20:39:01
+close to other points in the red or in the green cluster. That's why it's small.
+
+[Prof. Uhler] 20:39:06
+Okay, so the small numbers here mean that these are points that were actually very poorly clustered.
+
+[Prof. Uhler] 20:39:12
+So they are actually between different clusters.
+
+[Prof. Uhler] 20:39:15
+So that's how.
+
+[Prof. Uhler] 20:39:19
+Okay, perfect. So that's, how all of this works. And so this is like a very good method to actually give you an overview of, you know, an overview of or, or be able to compare different clustering results against each other.
+
+[Prof. Uhler] 20:39:36
+And, and give you some intuition for which clustering method may fit better on your particular data.
+
+[Prof. Uhler] 20:39:44
+So this can be applied for every cluster method. Okay, so this is, can be used to compare any 2 clustering methods against each other based on the data set that you were giving.
+
+[Prof. Uhler] 20:39:55
+Okay, so now comes to case study, which I really want you to be thinking about. So this is the data set that you saw at the beginning.
+
+[Prof. Uhler] 20:40:05
+Again, I cannot, write, I cannot give you a data set in a thousand dimensional space and ask you to think about which method will do well because we couldn't even look at the data.
+
+[Prof. Uhler] 20:40:13
+So again, unfortunately I have to do it in 2 dimensions. Okay, so I'm giving you the same example as what we saw at the beginning and we said our eye is very, very good at identifying in this case there should just be 2 clusters.
+
+[Prof. Uhler] 20:40:25
+Orange and blue. Okay? Even if I didn't give you the colors, right? You would say this is one cluster.
+
+[Prof. Uhler] 20:40:31
+This is one cluster. So now, which methods if you were to and I said at the beginning, please don't run any of these methods in 2 dimensions.
+
+[Prof. Uhler] 20:40:39
+Your I is so good at identifying it, right? So which methods are actually able to identify that there are 2 clusters here and which methods would not be able to identify that there are 2 clusters.
+
+[Prof. Uhler] 20:40:51
+Okay, so I think people are already putting in, the right ones. So it's like minimum distance, so it's like single linkage.
+
+[Prof. Uhler] 20:40:58
+Plus during NTP scan. Okay. And in fact, that is the answer. And all the others are not able to identify the clusters.
+
+[Prof. Uhler] 20:41:07
+And let me show you what happens. Okay, so this is probably going to be pretty interesting. So if you look single, if you use single linkage, it has no issue of figuring out that here there are 2 clusters.
+
+[Prof. Uhler] 20:41:18
+DB scan no issue of figuring out that here there are 2 clusters. However, if you would apply K-means clustering or Gaussian mixture model, they cannot understand that they are 2 clusters.
+
+[Prof. Uhler] 20:41:31
+So they will just randomly and you know this is like every time you run it it will give you a different split.
+
+[Prof. Uhler] 20:41:36
+Okay so they will just randomly put a split through your data set. And say that this one here is one cluster and this one here is another cluster.
+
+[Prof. Uhler] 20:41:46
+Okay. Or here this one here is one cluster and this one here is one cluster. So K-means clustering or Gaussian mixture models, they cannot understand these Logated clusters.
+
+[Prof. Uhler] 20:41:58
+Right, because so, so Gaussian mixture model because it always chooses like everything that is the closest to it as one cluster.
+
+[Prof. Uhler] 20:42:04
+It can only find these kind of rounder shaped clusters. And well separate the clusters kind of with the picture that we had an average linkage that's the type of clusters that K-means clustering can find.
+
+[Prof. Uhler] 20:42:16
+Okay. But, and Gaussian make sure, man, you might say that, you know, a Gaussian distribution can actually be allocated.
+
+[Prof. Uhler] 20:42:25
+So it can find elevated clusters but not elongated clusters that are on top of each other.
+
+[Prof. Uhler] 20:42:29
+Right? That are nested in each other because either you're clustering Gaussian mixture model or you're outside but Gaussians cannot be nested on top of each other.
+
+[Prof. Uhler] 20:42:38
+So here, so Gaussian mixture model is not able to find these elongated clusters that are nested in, in each of.
+
+[Prof. Uhler] 20:42:47
+There's no way. Okay. Now, there's a good question here about the club. The colors are random, right?
+
+[Prof. Uhler] 20:42:53
+Because in clustering, we don't know yet what the clusters mean, whether this is cold cluster 0 or this is called cluster one.
+
+[Prof. Uhler] 20:42:59
+So this is just, you know, when you run these algorithms it will label them as some, it will just give it some number.
+
+[Prof. Uhler] 20:43:06
+So cluster 0 cluster one plus or 2 cluster 3. And then afterwards you have to go in and and actually analyze what these clusters actually.
+
+[Prof. Uhler] 20:43:14
+Okay, so now again, great question. Also from Leanne about, you know, like now here you could look at it, right?
+
+[Prof. Uhler] 20:43:22
+That's why I gave you this example and like now you see clearly that hierarchical clustering is doing a good job, GB scan is doing a good job, the other one is not.
+
+[Prof. Uhler] 20:43:29
+Well, what you would do is you would run this. Okay. And, you should run it actually for those examples and see that, you know, and one of them you will actually do, very well and in the other one, you know, does this average silhouette with would be very good for some clustering methods, the ones where it actually works and for the other ones it would really not
+
+[Prof. Uhler] 20:43:47
+work. And the other one is, you know, sometimes literally you run many different clustering methods and you get similar results here in the average silhouette width.
+
+[Prof. Uhler] 20:43:55
+And that's when you, you know, clustering is something where then afterwards you have to go into the data and you need to get an intuition for, right?
+
+[Prof. Uhler] 20:44:04
+What do these different clusters mean? Why are these customers more similar to each other and these customers more similar to each other?
+
+[Prof. Uhler] 20:44:12
+What is really the difference between these different clusters? Okay, and that's where you then go in and analyze things of like, you know, let me look at 2 clusters and take the differences between all of these different people.
+
+[Prof. Uhler] 20:44:23
+So now I can look at what is the direction, so on which dimension, like when you're when you have all of your data modalities, sorry, when you have all of your samples, you have like feature 1, 2, 3, 4, right?
+
+[Prof. Uhler] 20:44:36
+One is age, one is income, one is etc. And you can look at which one of these is the most different between my 2 groups.
+
+[Prof. Uhler] 20:44:43
+So which ones of the features are the most different? That gives you some intuition for what are the different clusters that you actually found.
+
+[Prof. Uhler] 20:44:50
+Okay, and that's exactly the profiling exactly that you would then do in a in a business.
+
+[Prof. Uhler] 20:44:56
+Okay, you would get your clusters out and now comes the interpretation. Now comes also the really fun thing, right?
+
+[Prof. Uhler] 20:45:01
+I cannot look at every customer, but maybe if I have 3 groups or 4 groups or 5 groups, I can start to understand how are they different from each other.
+
+[Prof. Uhler] 20:45:09
+What are these segments that we actually identify? Okay, that's exactly where I work, clustering comes in.
+
+[Prof. Uhler] 20:45:16
+Okay, so now I do want to go full cycle and also get to what we have talked about on Wednesday, which was networks.
+
+[Prof. Uhler] 20:45:24
+Okay. So for now, we all did only clustering on data sets that are this big table, right, where we're thinking about customers, we're thinking about stocks, we're thinking about for me it's like cells in a patient right blood cells for example and I want to do clustering and identify whether maybe there is a cluster what identifies that says that something is different.
+
+[Prof. Uhler] 20:45:42
+That only in this patient do I see this cluster of blood cells, which suggests that there might be some disease.
+
+[Prof. Uhler] 20:45:48
+Okay? So that's the setting where we are applying clustering to in all these different applications.
+
+[Prof. Uhler] 20:45:53
+We haven't talked about networks yet. And networks clustering is equally important. And so what I want to do in the last 15 min or so is actually talking about clustering in the network setting.
+
+[Prof. Uhler] 20:46:06
+So, but, maybe before I go there, let me just check and take if there is, some more, questions I can take on question.
+
+[Prof. Uhler] 20:46:13
+I'm so cute.
+
+[Prof. Uhler] 20:46:17
+And oh, okay. And so there is a great, there was a great question about, did I hear all already do PCA or stochastic neighbor embedding?
+
+[Prof. Uhler] 20:46:24
+So because it was 2 dimensional, I didn't do any PCA or T stochastic neighbor embedding first, st but you would definitely want to do that if you have a high dimensional space.
+
+[Prof. Uhler] 20:46:35
+Okay, so when you are like very high dimensional space, then you could do PC or TC, you would always want to do it in order to 1st get a visualization of your data.
+
+[Prof. Uhler] 20:46:43
+Okay, so, and so as map puts it so every one of these clustering algorithms is somehow specialized to identify a different type of cluster.
+
+[Prof. Uhler] 20:46:53
+And that's very, that's exactly how it is. Okay, that's why I think this slide here, was so important.
+
+[Prof. Uhler] 20:47:00
+To suggest that, you know, depending on what type of cluster you may expect in the data or you simply just don't know, and that means you should have many different clustering algorithms in your pocket because every clustering algorithm is somehow specialized to be able to identify a certain type of structure.
+
+[Prof. Uhler] 20:47:17
+And so if all you have as a method in your pocket is c-mans clustering, you're always only able to identify these sorts of Okay.
+
+[Prof. Uhler] 20:47:26
+You will never be able to identify the other types of clustered. Okay. However, if you have other types of methods in your pocket, like single linkage clustering or like DP scan, etc.
+
+[Prof. Uhler] 20:47:41
+You're also able to identify these elevated cluster. And in addition, if you have something like complete linkage in your pocket, right, you have another method that can actually identify if you need to find like very small clusters of individuals that are very, very similar to each other, then you would always use this one.
+
+[Prof. Uhler] 20:47:55
+And so again, there is no one clustering method that is the best. Like there is simply not.
+
+[Prof. Uhler] 20:48:01
+It really depends on the underlying structure of the data and so it depends again on like what types of data sets do you have and if you don't have any intuition for what you should expect have to use different clustering methods.
+
+[Prof. Uhler] 20:48:11
+Okay, you have to use different clustering methods. You have to then be able to analyze those types of plots of silhouette plots and look at, you know, which ones actually fit better in your in your data set.
+
+[Prof. Uhler] 20:48:22
+There is simply no rule of thumb for clustering. You only rule of thumb is use different clustering methods, okay?
+
+[Prof. Uhler] 20:48:29
+You don't know yet what is actually in your data set. So that's why we're doing data analysis.
+
+[Prof. Uhler] 20:48:34
+We want to understand what is in it and we can only understand it if we actually use different types of clustering.
+
+[Prof. Uhler] 20:48:40
+Okay, so, so with that, let me actually now move, to the network.
+
+[Prof. Uhler] 20:48:47
+Okay. So how would we do clustering in a network? Now, the nice thing is everything we've done so far can be applied in network.
+
+[Prof. Uhler] 20:48:55
+And then we'll talk about just, you know, because I like to do recap of everything we've done.
+
+[Prof. Uhler] 20:49:01
+This week. So then I'll go through 2 very specific algorithms. That are only there for networks.
+
+[Prof. Uhler] 20:49:07
+But 1st we can say that everything we've done so far, all of the clustering methods we've just talked about, we can actually apply them in networks.
+
+[Prof. Uhler] 20:49:15
+Because all we need, right, is from a network. We can figure out a distance matrix. We can make distances between between notes by just you and you can define it depending on your application right we talked about a lot of these things so either it is how many you remember how we talked about hops or steps so we could say a distance between say 2 individuals in a social network is how many people do I have to go through in order to
+
+[Prof. Uhler] 20:49:38
+be able to get to this particular person. Or in a transportation network, maybe it's not how many, oh, in some applications actually it's, it's, even when you're looking at flight routes or train routes, it's how often you have to change trains.
+
+[Prof. Uhler] 20:49:53
+So it could be how many pops you need to do. But maybe you're also optimizing for how long it takes.
+
+[Prof. Uhler] 20:49:59
+So then it's more like a weighted network where the distance between 2 points is actually the sum of the weights.
+
+[Prof. Uhler] 20:50:04
+Okay. So we talked a lot about that of like how to write how the network, the weights, etc, how that all depends on the application.
+
+[Prof. Uhler] 20:50:13
+And so you can come up depending on the application you have, you would come up with a distance. Matrix, right, between any one of your 2 nodes.
+
+[Prof. Uhler] 20:50:22
+And now based on the distance matrix, so it could be half distances, it could be number, it could even be things like, oh, how many like, you know, we talked about how many common friends we have.
+
+[Prof. Uhler] 20:50:31
+It could even be things like how many common friends we have could be your distance between 2 individuals in a network.
+
+[Prof. Uhler] 20:50:40
+Right or it could just be the correlation between how my neighbors look like. So depending on the application you could come up with a distance matrix between individuals.
+
+[Prof. Uhler] 20:50:51
+And then you can just run all of these clustering methods that we just talked. Okay, so that's 1 strategy just use exactly what we just all went through all of the different all of the different methods that we've gone through and then apply them.
+
+[Prof. Uhler] 20:51:07
+And based on you know some distance matrix that you come up with. Where you know you come up with it depending on your application.
+
+[Prof. Uhler] 20:51:16
+Okay, so that's 1 way of doing a community detection or clustering in a network.
+
+[Prof. Uhler] 20:51:21
+Now let's talk about 2 because I like to, kind of go through, and recap what we did also on Wednesday.
+
+[Prof. Uhler] 20:51:29
+Okay. So let's recap what we did on Wednesday when we talked about networks and come up with a method.
+
+[Prof. Uhler] 20:51:35
+And I know that you guys can just come up, like here you'll see how intuitive data science is.
+
+[Prof. Uhler] 20:51:40
+So let's come up with a separate method that actually just works on networks. And so I like to do this one because we have until now in hierarchical clustering, right?
+
+[Prof. Uhler] 20:51:50
+We have only talked about the bottom up one. Where we're merging individuals, right? We said like, oh, well, merge to individuals if they're more similar to each other and then we keep merging.
+
+[Prof. Uhler] 20:51:58
+But we can also do hierarchical clustering top down. Because we can take a big network and we can start cutting it up, right?
+
+[Prof. Uhler] 20:52:08
+So we can start cutting it up the big network, cutting it more and more and more until I actually see communities.
+
+[Prof. Uhler] 20:52:13
+So now comes the question of how would you cut it up? And what might this have to do with between this centrality?
+
+[Prof. Uhler] 20:52:21
+Alright, so we talked about between the centrality. So what was between the centrality good for?
+
+[Prof. Uhler] 20:52:30
+So what's that between the centrality try to identify?
+
+[Prof. Uhler] 20:52:37
+We remember the criminal networks, right? So there we, we had the intuition that exactly, so as Daniel puts it in, it's the best person to remove in order to break up the network the most.
+
+[Prof. Uhler] 20:52:50
+Well, isn't this now or exactly how Alexandra is putting it in, right? It's the week we can also apply that in the edge.
+
+[Prof. Uhler] 20:52:59
+So before we were just talking about the notes, so then that person that we had to remove in order to break the network most up.
+
+[Prof. Uhler] 20:53:06
+Well, now here we're doing community detection. So really, it's just the same framework applied to the edges.
+
+[Prof. Uhler] 20:53:13
+We want to now find the weakest link. Right? What is the edge that we should remove in order to break up the network the most?
+
+[Prof. Uhler] 20:53:21
+So that's exact. So it's so intuitive, right? Of like now that we've talked about so many things and networks, now you can come up with your own new method for doing community detection and you actually get to a very well known method.
+
+[Prof. Uhler] 20:53:33
+So this one is known as Gerva and Newman's algorithm. So what it does is exactly that.
+
+[Prof. Uhler] 20:53:38
+Okay, so it just removes the edges that break up the network the most and it's just iteratively does this.
+
+[Prof. Uhler] 20:53:47
+So you compute between the centrality of all of your edges and you just keep removing them and you will see that slowly, right, the network will become disconnected and you will actually find communities.
+
+[Prof. Uhler] 20:53:56
+And the more you can of course continue all the way until every node is its own community but you probably want to stop beforehand, right?
+
+[Prof. Uhler] 20:54:02
+And again, where do you stop? Well, you look at the between the centrality, it will, right, the numbers will always become smaller, but sometimes, right, nothing happens for a long range.
+
+[Prof. Uhler] 20:54:11
+And that's when your network is very, is very stable. That's where you would stop again.
+
+[Prof. Uhler] 20:54:15
+So that's how you can now come up with your own methods, okay? And, similarly, let me go to the Louvre.
+
+[Prof. Uhler] 20:54:23
+Method, which is actually the fastest. Method that is specific for networks for community detections.
+
+[Prof. Uhler] 20:54:28
+And I will show you, and it's now a bottom up. So it's again, it's a hierarchical clustering method.
+
+[Prof. Uhler] 20:54:35
+And it's a bottom of hierarchical clustering method. And so now the question is, what is it?
+
+[Prof. Uhler] 20:54:40
+So instead of it's it's just a different linkage. Okay, so instead of single linkage or complete linkage or average linkage that we already talked about, it just defines a new linkage that makes sense for networks.
+
+[Prof. Uhler] 20:54:53
+Namely, it's called as the modularity score, so that's the linkage that it's using.
+
+[Prof. Uhler] 20:54:58
+It's just hierarchical clustering on the network. Using a different linkage.
+
+[Prof. Uhler] 20:55:02
+And so what is the modularity score? Well, it is just, you know, it now we need to figure out whether 2 clusters should be merged or not.
+
+[Prof. Uhler] 20:55:10
+Okay. So all it does is it looks at, you know, if I look at 2 clusters together and I want to know whether I should merge them or not, it looks at how many edges there are between the 2 clusters and whether there are more clusters, I'm sorry, more edges within these 2 clusters than on average in the whole network.
+
+[Prof. Uhler] 20:55:26
+If there are, it just merges them. Okay, so that's what the, so it's just, you know, it's just the bottom of hierarchical clustering method.
+
+[Prof. Uhler] 20:55:35
+So, Iglomerative clustering where you, where, in this case, Luma, so Blondell, etc, there are multiple, one of them being Luba.
+
+[Prof. Uhler] 20:55:46
+Oh sorry, no, that was wrong. So there are multiple authors and they were all at Nuba.
+
+[Prof. Uhler] 20:55:50
+I think this is actually a place. So they develop this algorithm. So this is just a new, that's just the linkage that they're using.
+
+[Prof. Uhler] 20:55:58
+And now let me show you a very nice application of these kinds of things. Okay, and I will end with exactly this case study.
+
+[Prof. Uhler] 20:56:05
+So this is a case study. Huge network. This is 2 million customers. So this is the Belgian mobile phone network.
+
+[Prof. Uhler] 20:56:13
+Okay, so 2 million customers in Belgium so there are 3 languages but 2 main languages. So one or 3 official languages I should say German is also an official language, but there are 2 main languages that are being spoken, namely Dutch and French.
+
+[Prof. Uhler] 20:56:29
+And so now all we're doing is, so in this case it's showing you lubar method applied to this huge network.
+
+[Prof. Uhler] 20:56:35
+Now, that is the bottom up one, right, where we're continuing to merge, merge, merge, merge, merge, nodes.
+
+[Prof. Uhler] 20:56:42
+And so these big notes here actually mean that there is another big big network inside right which is all the nodes that were merged there.
+
+[Prof. Uhler] 20:56:49
+And so this is amazing without knowing anything about that there are these 2 main, 2 main, and languages spoken.
+
+[Prof. Uhler] 20:56:57
+You can actually identify which you know which people belong into which are that there are 2 languages and that there are 2 main clusters in here.
+
+[Prof. Uhler] 20:57:10
+Okay. And if someone is bringing up, it will be interesting to do this in Switzerland.
+
+[Prof. Uhler] 20:57:12
+I agree. I'm Swiss, so we would actually see very nice clusters probably that they are forming up as well.
+
+[Prof. Uhler] 20:57:18
+And so here you see this amazing nice, right? So you have one cluster over here, you have one cluster over here, and you have another node in here, which is a cluster itself, right?
+
+[Prof. Uhler] 20:57:27
+Which is a huge cluster here of all kinds of mixed things and mixed means, right? So you have people that can talk to each other.
+
+[Prof. Uhler] 20:57:34
+Now we don't know what language. Maybe they're also speaking English to each other, but at least they can, right?
+
+[Prof. Uhler] 20:57:39
+They can, they can go between the French speaking part and, the, and the DUP speaking part, right?
+
+[Prof. Uhler] 20:57:48
+So they have a language, either they speak both languages or they speak both languages or they're speaking another language.
+
+[Prof. Uhler] 20:57:51
+Either they speak both languages or they're speaking another language, where, they're actually talking to each other in here.
+
+[Prof. Uhler] 20:57:55
+So this can be without us knowing, right, who is speaking what? We can actually identify, we don't know what is red and what is green, right?
+
+[Prof. Uhler] 20:58:02
+We can then go in and ask some, you know, we could just choose one person in here, maybe the most central one and see what they're actually speaking.
+
+[Prof. Uhler] 20:58:08
+But we can identify this so nicely just from a mobile phone network of who is calling who. And as people are putting in yet this is just who is calling Okay, and so every point is a is a person but of course these bigger points here already are many many different people.
+
+[Prof. Uhler] 20:58:25
+So that's how you should, think of, you should think of this, data set.
+
+[Prof. Uhler] 20:58:31
+So, LUVAN MEFFA is something that is so fast that you can actually apply to, to a network on 2 million people.
+
+[Prof. Uhler] 20:58:36
+So that's the type of method that you would be applying. In those settings. Okay, so that's just to end with, you know, a very large scale application of where you would do clustering and again a completely different setting, right?
+
+[Prof. Uhler] 20:58:49
+So this is on what happens when you do clustering on a large scale mobile network and what you're able to understand or what you're able to see.
+
+[Prof. Uhler] 20:58:58
+Okay, and so with that, so what I always like to do at the end of course is again, giving you all the references so that I know, you know, in 2 h we're covering so much material and so many different examples.
+
+[Prof. Uhler] 20:59:11
+So I do like to give you some more things where you can just read up and go through it again.
+
+[Prof. Uhler] 20:59:17
+If you can just read up and go through it again if you like to. So if you want to just read about generally about clustering all the different methods.
+
+[Prof. Uhler] 20:59:22
+So if you want to just read about generally about clustering all the different methods that we went through here is, you know, a textbook and a little chapter of it.
+
+[Prof. Uhler] 20:59:26
+Now I only did clustering on networks that in the last 15 min just to show you that everything applies that we've talked about.
+
+[Prof. Uhler] 20:59:34
+But of course this is a huge field in itself. So if you care a lot about networks have a lot of network data sets, then there are even other types of methods that you can, that are also specifically designed, for, community detection in them.
+
+[Prof. Uhler] 20:59:51
+Of course this Blondel is the paper that I told you about this new method that I actually showed you the results for, but there are many other of these types of methods as well.
+
+[Prof. Uhler] 21:00:01
+So with that, I had a lot of fun with all of the questions that you guys were asking and, and answering them and bringing me into different types of applications and seeing where this all could be applied, etc.
+
+[Prof. Uhler] 21:00:15
+So this is really great. So thank you for all the participation was a lot of fun. And I know that you all now have another half an hour where you can answer even or ask even more questions and get more of them answered and then you'll have a lot of great learning sessions also over the weekend.
+
+[Prof. Uhler] 21:00:32
+And then of course new lectures after that as well. So thank you all and I will turn it over to Ankit and you guys will start another session.
+
+[Moderator - Ankit Agrawal] 21:00:46
+Thank you so much, Professor, for that wonderful week. Of course we covered a lot of different algorithms and a lot of different materials so I see a lot of comments about students.
+
+[Moderator - Ankit Agrawal] 21:00:58
+Being impressed by the material but also being a little bit overwhelmed. So hopefully with all the material, all the references that you have provided and with all the mental learning sessions.
+
+[Moderator - Ankit Agrawal] 21:01:10
+It will become a little bit easier for learners to thank you so much again for a wonderful set of lectures.
+
+[Moderator - Ankit Agrawal] 21:01:18
+Thoroughly enjoyed it. I do see we have Freeman over here with us as a mentor to answer some of the questions so we'll get right into it.
+
+[Moderator - Ankit Agrawal] 21:01:27
+Hello Freeman, good morning.
+
+[Mentor - Freeman Goja] 21:01:29
+Thank you. Morning Professor and everyone.
+
+[Moderator - Ankit Agrawal] 21:01:34
+We'll get right into the course, questions over here. Where do I download the course slides?
+
+[Moderator - Ankit Agrawal] 21:01:42
+So the course slides should be available at the same location on alumnus dashboard like the slides for the previous to lectures as well.
+
+[Moderator - Ankit Agrawal] 21:01:53
+Okay, so let's get started with some of the questions. What about eigenvectors explaining less than expected variance?
+
+[Moderator - Ankit Agrawal] 21:02:04
+Is that worth investigating or is that just a sign they are irrelevant dimensions?
+
+[Mentor - Freeman Goja] 21:02:17
+Okay, so, explaining less than expected variance.
+
+[Mentor - Freeman Goja] 21:02:26
+I mean if you continue
+
+[Mentor - Freeman Goja] 21:02:30
+Taking on additional again vectors, you would eventually achieve the expected variance that you are looking at. If you have a threshold of this 70% variance and You're looking at 4, vectors that are not able to give you that, maybe 5, 6, 7 would give you that.
+
+[Mentor - Freeman Goja] 21:02:49
+So I think. Practically what is of most importance in some situations is coming up at the number that really makes a business sense.
+
+[Mentor - Freeman Goja] 21:03:01
+So that could be a constraint where the number that makes the most business sense is 4 or 5. But 4 or 5 begin vectors are not able to give you the expected explained variance.
+
+[Mentor - Freeman Goja] 21:03:15
+That would be understandable in The indication of that might be that the method is not very suitable for that particular use case or you might need to tweak the use case itself a little bit to suit that particular method.
+
+[Mentor - Freeman Goja] 21:03:34
+Is that a change the method or you? Tweak the problem a little bit to suit the method.
+
+[Moderator - Ankit Agrawal] 21:03:43
+If you leave now, will we lose attendance point? So no, we are you, if we leave now, you will not lose, attendance points.
+
+[Moderator - Ankit Agrawal] 21:03:53
+One of the important questions I see over here is can you contextualize the work we did within this week?
+
+[Moderator - Ankit Agrawal] 21:04:01
+Of data science project. So how where in the life cycle of a data science project would we use these methods?
+
+[Mentor - Freeman Goja] 21:04:09
+We've done a lot this week. So we've done. Exploratory.
+
+[Mentor - Freeman Goja] 21:04:16
+Data analysis, visualization, and we've also done machine learning. So If you if you look at it and we won't tie it back to what you had done in the past so we started from you know, basically getting to know our data.
+
+[Mentor - Freeman Goja] 21:04:36
+Get an overview of the data getting some descriptive statistics about the data. And then doing some basic data explorations like, you know, univariate by various analysis, but then we stepped things up a little bit.
+
+[Mentor - Freeman Goja] 21:04:50
+Into some more advanced explorations. And you looked at. Getting an idea of, you know, what different kind of groups could come up in a cluster of handling some high-dimensional idea with approaches like TCA.
+
+[Mentor - Freeman Goja] 21:05:08
+And then you started on supervised learning. So indeed also some network analysis there and you've talked about clustering today.
+
+[Mentor - Freeman Goja] 21:05:19
+So essentially what you've done this week will fall on the Exploration and the call machine learning aspect and you're still gonna land more call machine learning techniques, but that's where we would place it in the exploration and machine learning piece.
+
+[Moderator - Ankit Agrawal] 21:05:41
+Can we download the presentation transcript text after the call is over. So, Jonathan, if you enable transcript text after the call is over.
+
+[Moderator - Ankit Agrawal] 21:05:47
+So, Jonathan, if you enable transcript at the beginning and you have it available on your end you can download transcript at the beginning and you have it available on your end you can download transcript at the beginning and you have it available on your end you can download it but the beginning and you have it available on your end you can download it but the great learning staff should provide you The transcript for the previous for all the sessions
+
+[Moderator - Ankit Agrawal] 21:05:58
+on your dashboard. So the transcript, the video recording, the QA, all of that should be available on your dashboard for every lecture.
+
+[Moderator - Ankit Agrawal] 21:06:08
+When large corporations use data science, do they use these methods as is or do they customize it beyond an advanced level for their own proprietary methods.
+
+[Mentor - Freeman Goja] 21:06:20
+It's all depends on the use case. You could you could be working for Google and all you have to do is just It's simple PC for a particular problem.
+
+[Mentor - Freeman Goja] 21:06:32
+So it's not really about an organization, it's about the use case more specifically. And then you could be working for a small organization.
+
+[Mentor - Freeman Goja] 21:06:40
+But then you may have to you know, do some more advanced stuff. So it depends on the use case.
+
+[Mentor - Freeman Goja] 21:06:47
+So you've talked about network analysis and you've also done clustering. And we're working on a project for fraud detection.
+
+[Mentor - Freeman Goja] 21:06:58
+I think about 2, 3 years ago. And it was an unsupervised problem.
+
+[Mentor - Freeman Goja] 21:07:04
+Most fraud detection problems are usually supervised. So you can like build. You know, a machine learning order to predict whether transaction is fraudulent or not, but this one was different.
+
+[Mentor - Freeman Goja] 21:07:16
+It was unsupervised. And so what I had to do was to implement network analysis and cost. So we need network analysis basically to identify.
+
+[Mentor - Freeman Goja] 21:07:25
+You know like the defraud masterminds and then We use things like, degrees centrality to identify, you know, the key individuals.
+
+[Mentor - Freeman Goja] 21:07:36
+The key players and then clustering analysis to identify, you know, the hubs, you know, so it depends on the use case.
+
+[Mentor - Freeman Goja] 21:07:47
+Basically, in that kind of case, it was a little more advanced than what you would in visage if a fraud detection analysis to look like.
+
+[Mentor - Freeman Goja] 21:07:58
+But that was what was needed in that kind of used case. So it's all about the use case rather than the organization.
+
+[Moderator - Ankit Agrawal] 21:08:06
+Okay. Is there a method that we can give? The maximum number of members in a cluster and it gives us a intuition around how to define these clusters.
+
+[Mentor - Freeman Goja] 21:08:21
+Going with the maximum number of members in a cluster.
+
+[Moderator - Ankit Agrawal] 21:08:27
+The data points in the cluster like if we put a threshold on the maximum number of Yeah.
+
+[Mentor - Freeman Goja] 21:08:31
+That would be like a dB scan.
+
+[Mentor - Freeman Goja] 21:08:36
+That would be, that would be a dB's camera still is the minimum number you will get, not the maximum.
+
+[Moderator - Ankit Agrawal] 21:08:43
+But we can limit camings, right? We can, there is a threshold parameter on K means we can say how many maximum number of to allocate within each cluster.
+
+[Mentor - Freeman Goja] 21:08:55
+I mean, you could.
+
+[Moderator - Ankit Agrawal] 21:08:55
+Within the largest cluster.
+
+[Mentor - Freeman Goja] 21:08:59
+Right. I mean, you could do that, but I'm thinking around like. Well, if you have use, I'm just wondering why you would want to do that in.
+
+[Mentor - Freeman Goja] 21:09:12
+Get clostering algorithm.
+
+[Moderator - Ankit Agrawal] 21:09:17
+One way to think about it would be that maybe you know what your maximum size of a cluster is, but you don't know.
+
+[Moderator - Ankit Agrawal] 21:09:24
+How many clusters you have or what other what number of members you might have in other clusters.
+
+[Moderator - Ankit Agrawal] 21:09:31
+Like let's say in like a fraud detection or something, right? You may know that in your data set, there are very high number of like let's say people who are very high credit score, but you don't know how the other clusters are.
+
+[Mentor - Freeman Goja] 21:09:32
+Right.
+
+[Moderator - Ankit Agrawal] 21:09:48
+Or something like that. I don't know. I'm I'm also thinking about some use case for it, but Maybe if you wanted to let's say some sort of like.
+
+[Mentor - Freeman Goja] 21:09:50
+Right.
+
+[Moderator - Ankit Agrawal] 21:09:57
+Country wise clustering and you know maximum number of countries that can be grouped together in one group but not in other cases.
+
+[Moderator - Ankit Agrawal] 21:10:05
+So.
+
+[Mentor - Freeman Goja] 21:10:05
+Yeah, yeah, I guess yeah, there might be some maybe some results constraint, in managing the groups where you would want to have maybe like a max number.
+
+[Mentor - Freeman Goja] 21:10:16
+So yeah, I mean in that kind of situation you could play around with that but then you still have to figure out the optimal number of clusters which is usually the way we even major the quality of the clusters right so You want to add into the D, come up with cost tasks that are very homogeneous.
+
+[Mentor - Freeman Goja] 21:10:36
+And so if you go and put a cap on the membership first.st And then you struggle with getting homogeneous cost us to feed into that cap, it might be a bigger problem.
+
+[Mentor - Freeman Goja] 21:10:48
+So. Yeah. Yeah.
+
+[Moderator - Ankit Agrawal] 21:10:50
+Yeah. So as computing and processing capacities increases, are there methods that are more likely to be favorable than the others?
+
+[Mentor - Freeman Goja] 21:11:08
+Sorry, of course, some methods are more computationally expensive than others. So if you look at.
+
+[Mentor - Freeman Goja] 21:11:16
+Something like K is pretty fast and is less computational intensive. Ask compared to other methods like GMMs, where probabilities are computed.
+
+[Mentor - Freeman Goja] 21:11:31
+For each data point in that. Increases the computational cost pretty quickly. So, I mean, even with Tom and.
+
+[Mentor - Freeman Goja] 21:11:41
+Amy's, Key means is relatively less computationally intensive than. And so there are definitely these methods that are more computationally efficient than other ones.
+
+[Mentor - Freeman Goja] 21:11:53
+And those computational constraints might be the reason why you may not have even. The flexibility of trying other ones that you may want to compare in a given situation.
+
+[Moderator - Ankit Agrawal] 21:12:10
+Where in the clustering process do we apply a delay out plot?
+
+[Mentor - Freeman Goja] 21:12:18
+So you do a single clock to. Compare the quality of clusters that an algorithm, a clustering algorithm.
+
+[Mentor - Freeman Goja] 21:12:29
+Is giving you. So. You can. Okay, at what stage will you apply that?
+
+[Mentor - Freeman Goja] 21:12:37
+It's really, so we could also use a seal hood plus to kind of determine after money will cost us at some point when we are not able to get a conclusive.
+
+[Mentor - Freeman Goja] 21:12:48
+A decision with a method like the ABLE method. And maybe other visualization techniques if possible in a given situation.
+
+[Mentor - Freeman Goja] 21:13:01
+We're still not able to. Get a conclusive decision of how many number of clusters are optimal.
+
+[Mentor - Freeman Goja] 21:13:06
+We could try see who's called there. I mean you see who plot even at that point. But let's say that's not a problem in the beginning.
+
+[Mentor - Freeman Goja] 21:13:14
+Then we can use the see who plot after we had built the algorithms to compare the quality of clusters that we are getting.
+
+[Mentor - Freeman Goja] 21:13:22
+From the different algorithms. So it would be like a an evaluation method at that point.
+
+[Moderator - Ankit Agrawal] 21:13:40
+When should we use Kings versus Gaussian mixture model?
+
+[Mentor - Freeman Goja] 21:13:48
+So for a variety of reasons. One is computational cost. So, K is relatively very. It's scalable, as compared to, GMMs.
+
+[Mentor - Freeman Goja] 21:14:06
+So computational wise, you can. Apply key means on Small to large data sets pretty easily.
+
+[Mentor - Freeman Goja] 21:14:16
+GMMs who struggle or take up more computational resources on very high, I mean, you know, very large data sets.
+
+[Mentor - Freeman Goja] 21:14:25
+Now, having said that. ER, if computational cost isn't really a problem, you would want to try.
+
+[Mentor - Freeman Goja] 21:14:33
+This 2 methods together and compare their performances rather than assuming. That one is better than the order. Without testing them on the on the data set.
+
+[Mentor - Freeman Goja] 21:14:49
+The other thing is outliers are kind of they are both susceptible to appliance, key means and GMM.
+
+[Mentor - Freeman Goja] 21:14:56
+With, you can apply some little tweaks in there to. Take care of the effect of the outliers.
+
+[Mentor - Freeman Goja] 21:15:04
+Like if you use like. A means plus plus technique. But for GMMs, you would have to remove the outliers from the data set.
+
+[Mentor - Freeman Goja] 21:15:14
+And so there's some situations where you don't want to remove the outliers wanna keep them because they have.
+
+[Mentor - Freeman Goja] 21:15:19
+Some sort of information that's relevant. You wanna keep them in the data set, then you would wanna avoid GMMs in that kind of situation as well.
+
+[Mentor - Freeman Goja] 21:15:30
+So that's some of these things you might take into consideration and decide whether the algorithm based on his character is this is suitable for that environment but if both of them are reboot then you would want to build them and measure their performances on the and decide which one is performing better.
+
+[Moderator - Ankit Agrawal] 21:15:53
+I see somebody saying I hope the MLS would be longer this weekend. So yes, there would be a 4 h of MLS F starting from this week, right?
+
+[Moderator - Ankit Agrawal] 21:16:04
+2 h on Saturday. And 2 h on Sunday. And they will cover different material. They are not going to cover the exact same material.
+
+[Moderator - Ankit Agrawal] 21:16:12
+So yes, that is going to happen. Our self-organizing maps still used in data science for clustering.
+
+[Mentor - Freeman Goja] 21:16:23
+Not a very procular technique, I would say.
+
+[Moderator - Ankit Agrawal] 21:16:30
+Sorry.
+
+[Mentor - Freeman Goja] 21:16:33
+No, very popular I would say so I mean We have very, very efficient, you know, and relatively Accumate modest or techniques like some of the ones that you've talked about today are very common.
+
+[Mentor - Freeman Goja] 21:16:50
+There are still a lot more plus sign techniques out there. And some of them a little more advanced than the ones that you have talked about that I, so.
+
+[Mentor - Freeman Goja] 21:17:01
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:17:09
+Could we use the question, make sure model 1st to determine how many clusters we want for K
+
+[Mentor - Freeman Goja] 21:17:18
+No, that wouldn't be the right approach because even in GMMs they they still needs to tammy.
+
+[Mentor - Freeman Goja] 21:17:31
+The optimum number of clusters right and we use something like the BIg. So, there are techniques like the ABLE plot.
+
+[Mentor - Freeman Goja] 21:17:44
+That you could use and sometimes even the sea hoods call. So. You could use those to becoming the optimal world clusters for KB rather than GM.
+
+[Moderator - Ankit Agrawal] 21:17:59
+Yeah. When we have a large number of people data, such like 1 million. Do you still use a layout score?
+
+[Mentor - Freeman Goja] 21:18:12
+We can still make you see who's plot or see who computes the whose cause for a million data points, right?
+
+[Mentor - Freeman Goja] 21:18:22
+So I guess the question is about. Your actual technique in the computational resources available and the demands of that particular technique.
+
+[Mentor - Freeman Goja] 21:18:35
+So those are basically things I'll be your limitations as to whether we can compute. Yes.
+
+[Moderator - Ankit Agrawal] 21:18:43
+Can you give your point of view for most advanced techniques?
+
+[Mentor - Freeman Goja] 21:18:51
+Most advanced techniques. I mean. There are like I've mentioned one of K means plus plus, it's like an advanced of the key means that you've talked about being.
+
+[Mentor - Freeman Goja] 21:19:06
+He has, it's a little more advanced than the key means, but it does have its own advantages that have stabilized, you know, the problem with the random initialization of K.
+
+[Mentor - Freeman Goja] 21:19:16
+But I also the sub-stra techniques that I also used. This ones are a little more advanced than.
+
+[Mentor - Freeman Goja] 21:19:24
+The. K is, of KMM, or hierarchical cluster.
+
+[Mentor - Freeman Goja] 21:19:32
+That doesn't mean this ones are not complex in their own. Right. There are also very advanced, you know, so I think Kami's would be the simplest of the ones that you have talked about today.
+
+[Mentor - Freeman Goja] 21:19:45
+GMMs are also advanced modest. They're not simple at all. So.
+
+[Mentor - Freeman Goja] 21:19:53
+There are other ones as well that you didn't cover to do like the key means and the abstract techniques like that and probably a lot more.
+
+[Mentor - Freeman Goja] 21:20:00
+But. There are different levels of complexity with them.
+
+[Moderator - Ankit Agrawal] 21:20:06
+Yeah, just to clarify that the methods that we have learned today, there are more clustering methods than these ones that are available.
+
+[Moderator - Ankit Agrawal] 21:20:16
+There's a whole documentation and psychic learn that is available for this. But yeah, just, Other question we have is when data is categorical, what would be a more suitable method?
+
+[Mentor - Freeman Goja] 21:20:33
+I, so.
+
+[Mentor - Freeman Goja] 21:20:38
+Yeah, you're still gonna code the categorical data, 1st of all. To convert it to However, I've found methods like the you know, less helpful in those kind of situations where Data variables are mostly categorical.
+
+[Mentor - Freeman Goja] 21:21:04
+From my own experience. I don't know where yours look like Enkey, but I found Pam really struggle.
+
+[Mentor - Freeman Goja] 21:21:10
+With, data sets that have very high number of categorical variables. Apart from that.
+
+[Mentor - Freeman Goja] 21:21:19
+The other ones are relative. You must have to like really build those different algorithms and compare them to find.
+
+[Mentor - Freeman Goja] 21:21:29
+The optimal one. The other thing that helps is If the kind of clustering is sort of hierarchical.
+
+[Mentor - Freeman Goja] 21:21:40
+Like products. Craig, for example, where you could have like product categories and subcategories and things like that.
+
+[Mentor - Freeman Goja] 21:21:49
+Then hierarchical clustering, either aglumerative or divisive, tends to be very helpful in those kind of situations.
+
+[Mentor - Freeman Goja] 21:21:59
+But with categorical variables in particular, yeah.
+
+[Moderator - Ankit Agrawal] 21:21:59
+Yeah, us.
+
+[Moderator - Ankit Agrawal] 21:22:03
+Yeah, so for my from my experience, there are some variations to came in that are available like called K mores and K prototypes.
+
+[Moderator - Ankit Agrawal] 21:22:16
+Those are very, very powerful for categorical and then other than that. My favorite method would be hierarchical or aglumerative as Bingman has also mentioned.
+
+[Moderator - Ankit Agrawal] 21:22:24
+Those are also very good methods. For, for categorical. So I see Charles in the channel, so mentioning KMOs.
+
+[Mentor - Freeman Goja] 21:22:33
+Hmm.
+
+[Moderator - Ankit Agrawal] 21:22:34
+Yeah, so K modes and key prototypes are very common methods. And variations to K-means and K meteorite methods for categorical variables they look at the mode instead of the mediums and averages and so yeah very powerful methods over there.
+
+[Moderator - Ankit Agrawal] 21:22:48
+So as I mentioned earlier that there are other methods and other variations to these methods available. This is just a very generalized discussion of 4 different methods.
+
+[Mentor - Freeman Goja] 21:22:59
+Alright.
+
+[Moderator - Ankit Agrawal] 21:22:59
+And dB scan is also very popular for categorical so that can be another way to go about it.
+
+[Moderator - Ankit Agrawal] 21:23:10
+Good. So one of the questions we have is if we do PCA prior to T and K means why would we still want to do PAM method doesn't PCA prevent having outliers within the data center?
+
+[Mentor - Freeman Goja] 21:23:30
+No, so 1st of all, PCA is not a method to controlling outliers. So let's get that.
+
+[Mentor - Freeman Goja] 21:23:39
+Clear. And so we won't be using PCA as a pre-processing step to controlling outliers in order to build.
+
+[Mentor - Freeman Goja] 21:23:50
+The key means mother. So if we use PCA in clustering in most cases will will be trying to Get a sense of.
+
+[Mentor - Freeman Goja] 21:24:01
+Optima number of clusters more than any other thing. That's where it would help us the most to give us an idea.
+
+[Mentor - Freeman Goja] 21:24:09
+Of optimal number of clusters is still not a definite technique that we use to determine the the magic key value for kings.
+
+[Mentor - Freeman Goja] 21:24:19
+But it will give us an intuition, an idea of what the up to one of our cost gas might look like for the data set.
+
+[Mentor - Freeman Goja] 21:24:30
+Usually helpful when you are having a conversation with the business on a use case they have no idea of what a good number would look like.
+
+[Mentor - Freeman Goja] 21:24:37
+And you're able plot is still struggling to give you a definitive number. And things like that.
+
+[Moderator - Ankit Agrawal] 21:24:48
+Somebody is asking what would be a good spot to read about these methods.
+
+[Mentor - Freeman Goja] 21:24:58
+There's a lot of resources online. There are some articles that don't have one in my name on.
+
+[Mentor - Freeman Goja] 21:25:05
+Clossering techniques I can find one in share but I saw some of the resources that Professor was sharing as well are very helpful.
+
+[Mentor - Freeman Goja] 21:25:15
+There are some very detailed researches in there that also explain this clustering concept in very good detail.
+
+[Mentor - Freeman Goja] 21:25:23
+And then you see the actual implementation. It gives you a very good idea of. How the methods are applied.
+
+[Moderator - Ankit Agrawal] 21:25:33
+I would just recommend that, like once you know the name of the method, just go to chat GPT and ask it to summarize it for you.
+
+[Moderator - Ankit Agrawal] 21:25:41
+That's what I do when I have to learn new methods, at least at the beginning, like just to get a higher level understanding before I dive into like a research paper or something.
+
+[Moderator - Ankit Agrawal] 21:25:50
+I would just take go to like chat GPT or like Gemini or some free tool out there and just be like, hey, summarize this method for me.
+
+[Mentor - Freeman Goja] 21:25:58
+Hmm.
+
+[Moderator - Ankit Agrawal] 21:25:58
+And read up on that, get a little bit of an intuition, then I would say. Explain the maps to me a little bit or something and then I would go into the paper and that paper will start making a lot more sense to me after that.
+
+[Moderator - Ankit Agrawal] 21:26:11
+So. I like one example you could do is open chat GPT in your guest browser and say hey explain a K me to me and then say explain the map behind Kings to me.
+
+[Moderator - Ankit Agrawal] 21:26:22
+And then you can you can see that the answers are very very clear you can also say explain this method to me as a 5 year old or something and It will come up with interesting ways to explain it to you.
+
+[Moderator - Ankit Agrawal] 21:26:36
+So. I would recommend that 1st before you dive into like books or research papers because that might overwhelm you.
+
+[Moderator - Ankit Agrawal] 21:26:46
+But yeah, as, Freeman mentioned books and then research papers are also a great place to learn about this.
+
+[Moderator - Ankit Agrawal] 21:26:55
+How to visualize cluster with multiple dimensions if PCA is mainly used as a pre- to determine number of clusters.
+
+[Mentor - Freeman Goja] 21:27:06
+Just me. So you can use just need to kind of Get an idea of those costs as visually, right?
+
+[Mentor - Freeman Goja] 21:27:15
+On a high dimensional data set. So. Disney is a good technique for visualizing those different possible number of cross staff any data set.
+
+[Moderator - Ankit Agrawal] 21:27:37
+What we didn't cover was developing this clustering on existing data and then we have a new data point and want to determine what that is in.
+
+[Moderator - Ankit Agrawal] 21:27:47
+Seems like prediction, which is a different topic.
+
+[Mentor - Freeman Goja] 21:27:51
+Hmm. Yeah, and you're gonna cover this, you're gonna cover the, supervise running methods, but that's a good question, very good one because There are certain situations where We use this unsupervised learning techniques to come up with this cost.
+
+[Mentor - Freeman Goja] 21:28:10
+And now have levers that we use to train. A supervised machine learning model. To make prediction on new data points.
+
+[Mentor - Freeman Goja] 21:28:21
+So you're gonna land the supervised learning, I think next week.
+
+[Moderator - Ankit Agrawal] 21:28:25
+Yeah. I think next week we start with like, linear regression, logistic regression and regularization methods.
+
+[Moderator - Ankit Agrawal] 21:28:34
+So. Okay. Is there a website where we can interact with these kind of models without coding just to visualize on a 2D or 3 day graph how they behave.
+
+[Mentor - Freeman Goja] 21:28:35
+Yeah.
+
+[Mentor - Freeman Goja] 21:28:50
+Yeah, I think there is. Let me drop the link in the chat. I think this one where you can.
+
+[Mentor - Freeman Goja] 21:29:00
+You know, like a playground, just play around with them. And let's see if I can find a question here.
+
+[Mentor - Freeman Goja] 21:29:07
+So, right away.
+
+[Mentor - Freeman Goja] 21:29:13
+Okay, yeah, so I'll just drop the link in the chat here and.
+
+[Mentor - Freeman Goja] 21:29:19
+Yeah, you can take a look at that, See if you find what you're looking for.
+
+[Moderator - Ankit Agrawal] 21:29:21
+Oh yeah, yeah I love this. Yeah, I love this Naftali Harris playground framework.
+
+[Mentor - Freeman Goja] 21:29:27
+Okay.
+
+[Moderator - Ankit Agrawal] 21:29:28
+Yeah, yeah, this is really fun too. Actually, I can spend so much time on this because randomly doing stuff, I'll say yeah, good resource.
+
+[Mentor - Freeman Goja] 21:29:32
+Okay.
+
+[Mentor - Freeman Goja] 21:29:36
+Right.
+
+[Moderator - Ankit Agrawal] 21:29:36
+So all right, I think we will stop over here. We are almost out of time. So thank you everybody for joining us today.
+
+[Moderator - Ankit Agrawal] 21:29:45
+Hopefully that answers most of the questions that you guys had. If your questions were still unanswered, you can feel free to ask them to your mentors over the mental learning session over the weekend.
+
+[Moderator - Ankit Agrawal] 21:29:57
+Next week we will switch cares and we will move on with supervise learning framework for next couple of weeks.
+
+[Moderator - Ankit Agrawal] 21:30:06
+And we'll have different faculties from MIT covering different topics in the upcoming weeks.
+
+[Moderator - Ankit Agrawal] 21:30:11
+So please join us, again for these live lectures. I think next week, again, we are, on Monday, Wednesday and Friday.
+
+[Moderator - Ankit Agrawal] 21:30:21
+So until then, enjoy. Learning all the material. Please go through the pre reads if possible.
+
+[Moderator - Ankit Agrawal] 21:30:28
+Enjoy your mental learning sessions with hands on case studies and we'll see you next week. Take care.
+
+[Moderator - Ankit Agrawal] 21:30:33
+Thank you, Freeman, for answering all the questions. Appreciate it.
+
+[Mentor - Freeman Goja] 21:30:33
+Okay. Thanks, I'm kid. Thank you, everyone. Right
+

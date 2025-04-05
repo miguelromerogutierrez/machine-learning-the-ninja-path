@@ -1,0 +1,6942 @@
+[Moderator - Ankit Agrawal] 17:50:39
+Hello, everyone good morning. Good evening to everyone depending on where you are located. Welcome to the 3rd and the final session of this week, and also the final session of this program.
+
+[Moderator - Ankit Agrawal] 17:50:57
+Today we'll continue with our conversation on recommendation systems and talk a little bit more about some of the advanced methods that are being used in recommendation systems.
+
+[Moderator - Ankit Agrawal] 17:51:07
+A couple of reminders again. Please make sure that your chat is enabled for everyone. I do see some comments in the chat just being sent to host and panelists.
+
+[Moderator - Ankit Agrawal] 17:51:21
+So please make sure it's being sent to everyone. And when you're asking questions, please put a queue in front of it so that it's easier for us to track the questions. During the lecture. Again, we will have 8, 30 min session towards the end, where, if there are some questions that have not been answered.
+
+[Moderator - Ankit Agrawal] 17:51:43
+During the lecture? We can answer those questions towards the end.
+
+[Moderator - Ankit Agrawal] 17:51:43
+Also one more thing please limit your questions to the material itself. Do not ask questions related to the capstone project, or.
+
+[Moderator - Ankit Agrawal] 17:51:53
+Or the elective project. There will be separate sessions planned for that. So yeah, all the questions today, let's just make it about recommendation systems.
+
+[Moderator - Ankit Agrawal] 17:52:03
+But that being said, I will hand over the lecture to Professor.
+
+[Moderator - Ankit Agrawal] 17:52:08
+Good morning, Professor.
+
+[Faculty (Olympus)] 17:52:10
+Hey? Good morning. Good afternoon. Good evening. And okay. Thank you for.
+
+[Faculty (Olympus)] 17:52:14
+Reminding everybody about all the All. The relevant context appreciated.
+
+[Faculty (Olympus)] 17:52:20
+With that. Let me get started, and I'm sure
+
+[Faculty (Olympus)] 17:52:24
+All of you are.
+
+[Faculty (Olympus)] 17:52:26
+As much excited as I am, that now that we are.
+
+[Faculty (Olympus)] 17:52:31
+Near the end of the journey.
+
+[Faculty (Olympus)] 17:52:34
+Last session
+
+[Faculty (Olympus)] 17:52:37
+As I mentioned earlier.
+
+[Faculty (Olympus)] 17:52:39
+In today's session. We are gonna do
+
+[Faculty (Olympus)] 17:52:44
+Will cover a lot of content.
+
+[Faculty (Olympus)] 17:52:47
+Hopefully.
+
+[Faculty (Olympus)] 17:52:49
+You will. We will not do too much details.
+
+[Faculty (Olympus)] 17:52:54
+However, despite that, hopefully, you will see how things would come together nicely to solve the hardest version of the recommendation system problem. And again,
+
+[Faculty (Olympus)] 17:53:04
+My hope is that as we get closer to the end of this lecture.
+
+[Faculty (Olympus)] 17:53:08
+Lots of things might look start looking a little bit blurry, but.
+
+[Faculty (Olympus)] 17:53:11
+So hope. My hope is that you are.
+
+[Faculty (Olympus)] 17:53:15
+Keeping up with the.
+
+[Faculty (Olympus)] 17:53:17
+The overall.
+
+[Faculty (Olympus)] 17:53:19
+Picture, and what sort of the conceptually of putting things together rather than maybe getting lost into details.
+
+[Faculty (Olympus)] 17:53:26
+Course.
+
+[Faculty (Olympus)] 17:53:26
+Please feel free to keep. Ask me question all the time, and then I'll try to sort of respond.
+
+[Faculty (Olympus)] 17:53:32
+As, and when I get to that.
+
+[Faculty (Olympus)] 17:53:37
+In today's lecture. Here are the things I want to do.
+
+[Faculty (Olympus)] 17:53:39
+First, st I want to just do a recall.
+
+[Faculty (Olympus)] 17:53:43
+Of.
+
+[Faculty (Olympus)] 17:53:43
+What are the things that we have covered in lecture one and 2.
+
+[Faculty (Olympus)] 17:53:46
+I'll be quick!
+
+[Faculty (Olympus)] 17:53:49
+Then from there I want to pick up on.
+
+[Faculty (Olympus)] 17:53:52
+Thing that we did not cover. But I did mention last lectures that I would cover in this lecture as a starting point. I.
+
+[Faculty (Olympus)] 17:53:59
+Viewing.
+
+[Faculty (Olympus)] 17:54:00
+Optimization perspective or bringing optimization perspective.
+
+[Faculty (Olympus)] 17:54:04
+For.
+
+[Faculty (Olympus)] 17:54:05
+Recommendation systems.
+
+[Faculty (Olympus)] 17:54:08
+In particular, the rating based approach.
+
+[Faculty (Olympus)] 17:54:11
+And this is where a matter of least squares are introduced.
+
+[Faculty (Olympus)] 17:54:15
+It'll be reminiscent of.
+
+[Faculty (Olympus)] 17:54:17
+Regression.
+
+[Faculty (Olympus)] 17:54:19
+But in an interesting way.
+
+[Faculty (Olympus)] 17:54:21
+From there we'll get to the content of this lecture.
+
+[Faculty (Olympus)] 17:54:25
+In particular. The 1st thing I'll do is I'll start by.
+
+[Faculty (Olympus)] 17:54:29
+Introducing few interesting.
+
+[Faculty (Olympus)] 17:54:32
+Applications of recommendation system in the context of causal inference. What if analysis.
+
+[Faculty (Olympus)] 17:54:36
+And hopefully, that will be.
+
+[Faculty (Olympus)] 17:54:39
+Very different than what you would expect to start with.
+
+[Faculty (Olympus)] 17:54:43
+As we started the recommendation system.
+
+[Faculty (Olympus)] 17:54:47
+From there we will talk about 3
+
+[Faculty (Olympus)] 17:54:52
+Pieces of bringing things together.
+
+[Faculty (Olympus)] 17:54:55
+As you remember, in the lecture one, we looked at the 2 methods. One was rating based method, a preference method of averaging and second one was content, based.
+
+[Faculty (Olympus)] 17:55:05
+Lecture 2 was all about rating or preference based methods.
+
+[Faculty (Olympus)] 17:55:08
+Today I want to bring content in.
+
+[Faculty (Olympus)] 17:55:11
+Ratings together. Then I want to bring the time aspect together, and then I want to bring.
+
+[Faculty (Olympus)] 17:55:16
+Multiple measurements together. So those will be the 3 different modules that we'll cover.
+
+[Faculty (Olympus)] 17:55:22
+So quite a bit of things that we're gonna cover in next.
+
+[Faculty (Olympus)] 17:55:26
+To a little less than 2 h.
+
+[Faculty (Olympus)] 17:55:30
+Like other lectures, the end of an hour will take a 5 min, break.
+
+[Faculty (Olympus)] 17:55:35
+Okay, so with that, let's get started.
+
+[Faculty (Olympus)] 17:55:37
+Again. If you have questions from last lectures, please feel free to type right now.
+
+[Faculty (Olympus)] 17:55:42
+I'm happy to respond. Otherwise I'm going to get going.
+
+[Faculty (Olympus)] 17:55:50
+Okay. Great.
+
+[Faculty (Olympus)] 17:55:51
+So there's a question by Henrik.
+
+[Faculty (Olympus)] 17:55:54
+Question says, When should one use singular value? Thresholding over.
+
+[Faculty (Olympus)] 17:56:01
+And then, of course, there's sort of a.
+
+[Faculty (Olympus)] 17:56:04
+Try to explanation. So I think, Hendrik. Maybe, if I may paraphrase your question.
+
+[Faculty (Olympus)] 17:56:10
+We are looking at different collection of algorithms.
+
+[Faculty (Olympus)] 17:56:12
+So when should you use algorithm a versus B.
+
+[Faculty (Olympus)] 17:56:16
+Versus c.
+
+[Faculty (Olympus)] 17:56:18
+On one hand, these methods conceptually.
+
+[Faculty (Olympus)] 17:56:24
+Deal with different complexity of models.
+
+[Faculty (Olympus)] 17:56:28
+Collaborative filtering can deal with much more complex models than singular value. Thresholding.
+
+[Faculty (Olympus)] 17:56:32
+For that collaborative filtering needs more data versus singular value. Thresholding.
+
+[Faculty (Olympus)] 17:56:38
+Versus averaging.
+
+[Faculty (Olympus)] 17:56:39
+So conceptually, you want to use more complex methods when you're more data.
+
+[Faculty (Olympus)] 17:56:46
+Sparcer data. You have you.
+
+[Faculty (Olympus)] 17:56:48
+Less complex method.
+
+[Faculty (Olympus)] 17:56:51
+In reality.
+
+[Faculty (Olympus)] 17:56:52
+You might want a combination of things. For example, there are individuals for which you might have complex and lots of information available, and you want to use complex method versus individual, which is starting. And you want to use simple methods.
+
+[Faculty (Olympus)] 17:57:07
+Second is that.
+
+[Faculty (Olympus)] 17:57:11
+Which method to use might depend on the availability of data and.
+
+[Faculty (Olympus)] 17:57:15
+To do that, evaluate whether one is better than other use.
+
+[Faculty (Olympus)] 17:57:19
+Cross validation as a way to decide which one is better than others. Okay.
+
+[Faculty (Olympus)] 17:57:24
+So. In short, answer is not as straightforward as one would like.
+
+[Faculty (Olympus)] 17:57:29
+Conceptually, yes.
+
+[Faculty (Olympus)] 17:57:31
+In practice it gets more complicated.
+
+[Faculty (Olympus)] 17:57:38
+Very good.
+
+[Faculty (Olympus)] 17:57:39
+There's no other question I'm going to get started.
+
+[Faculty (Olympus)] 17:57:42
+Okay.
+
+[Faculty (Olympus)] 17:57:47
+Hook is a zoom pause. Let's continue.
+
+[Faculty (Olympus)] 17:57:50
+Wait, I forgot to mention, since this is the last lecture. I'll try to see if I can keep a last.
+
+[Faculty (Olympus)] 17:57:57
+10 min or so.
+
+[Faculty (Olympus)] 17:57:59
+For.
+
+[Faculty (Olympus)] 17:58:00
+A discussion where you can bring your questions.
+
+[Faculty (Olympus)] 17:58:05
+More generally.
+
+[Faculty (Olympus)] 17:58:06
+Of course I won't be able to answer your questions related to.
+
+[Faculty (Olympus)] 17:58:10
+Projects, but happy to answer, more broadly related to the topic here.
+
+[Faculty (Olympus)] 17:58:17
+Alright! So with that.
+
+[Faculty (Olympus)] 17:58:20
+Here is what we did in the.
+
+[Faculty (Olympus)] 17:58:24
+1st lecture.
+
+[Faculty (Olympus)] 17:58:26
+Primarily 1st lecture was about introducing.
+
+[Faculty (Olympus)] 17:58:29
+Topic.
+
+[Faculty (Olympus)] 17:58:30
+That is.
+
+[Faculty (Olympus)] 17:58:32
+Why we need recommendation. Why is it not just search.
+
+[Faculty (Olympus)] 17:58:35
+And formulating.
+
+[Faculty (Olympus)] 17:58:37
+The key prediction problem of recommendation system.
+
+[Faculty (Olympus)] 17:58:41
+In the simplest form. It was a matrix completion.
+
+[Faculty (Olympus)] 17:58:45
+And that's what we have been looking at so far.
+
+[Faculty (Olympus)] 17:58:49
+And more complex form. It's a time varying tensor.
+
+[Faculty (Olympus)] 17:58:53
+And this is what we will.
+
+[Faculty (Olympus)] 17:58:54
+Get to by the end of today's lecture.
+
+[Faculty (Olympus)] 17:58:58
+We started out with simple solutions. One was averaging, another was content, based.
+
+[Faculty (Olympus)] 17:59:05
+This is rating or preference based.
+
+[Faculty (Olympus)] 17:59:09
+That is, it doesn't care about identity of rows and columns versus this is.
+
+[Faculty (Olympus)] 17:59:14
+Uses.
+
+[Faculty (Olympus)] 17:59:15
+The content associated, or attributes.
+
+[Faculty (Olympus)] 17:59:21
+Users and items.
+
+[Faculty (Olympus)] 17:59:27
+And today we'll try to.
+
+[Faculty (Olympus)] 17:59:28
+Bring both of these 2 things together, that is.
+
+[Faculty (Olympus)] 17:59:31
+Approach is based on this and this not necessarily just these 2 algorithms.
+
+[Faculty (Olympus)] 17:59:39
+Reminding us.
+
+[Faculty (Olympus)] 17:59:41
+In short, the problem is that we have.
+
+[Faculty (Olympus)] 17:59:45
+Some ground, truth, matrix.
+
+[Faculty (Olympus)] 17:59:47
+Al.
+
+[Faculty (Olympus)] 17:59:48
+That we want to estimate.
+
+[Faculty (Olympus)] 17:59:50
+And the observations are noisy observations.
+
+[Faculty (Olympus)] 17:59:53
+Sometimes they're missing, and when they're observed.
+
+[Faculty (Olympus)] 17:59:56
+Even go to one.
+
+[Faculty (Olympus)] 17:59:58
+Data.
+
+[Faculty (Olympus)] 18:00:00
+A priority before we observe it.
+
+[Faculty (Olympus)] 18:00:03
+It. It's a random, variable, and an average. It's going to be.
+
+[Faculty (Olympus)] 18:00:08
+The true value.
+
+[Faculty (Olympus)] 18:00:11
+Given this sparse data, we want to still estimate the whole matrix.
+
+[Faculty (Olympus)] 18:00:15
+And it's a very hard problem.
+
+[Faculty (Olympus)] 18:00:16
+And we discussed that multiple times. Why, this is a hard problem through coins and whatnot.
+
+[Faculty (Olympus)] 18:00:24
+Okay.
+
+[Faculty (Olympus)] 18:00:25
+This was the averaging algorithm.
+
+[Faculty (Olympus)] 18:00:27
+The purpose of having this discussion was to talk about 2 things. One is.
+
+[Faculty (Olympus)] 18:00:33
+There is always uncertainty given, limited, and 2.
+
+[Faculty (Olympus)] 18:00:37
+Is, that.
+
+[Faculty (Olympus)] 18:00:39
+How do we utilize the.
+
+[Faculty (Olympus)] 18:00:42
+Outcome of prediction. Problem may be determined by the end decision, objective.
+
+[Faculty (Olympus)] 18:00:48
+Doing plus here represented. One type of objective minus here would represent different type of objective, and so on.
+
+[Faculty (Olympus)] 18:00:58
+Content based at least the way we looked at it became effectively a supervised learning. So in a sense, we applied the method we have learnt.
+
+[Faculty (Olympus)] 18:01:06
+In prior lectures.
+
+[Faculty (Olympus)] 18:01:07
+To this problem.
+
+[Faculty (Olympus)] 18:01:11
+Good.
+
+[Faculty (Olympus)] 18:01:12
+So that was lecture one.
+
+[Faculty (Olympus)] 18:01:16
+In terms of lecture 2.
+
+[Faculty (Olympus)] 18:01:18
+Be very much focused on preference based methods.
+
+[Faculty (Olympus)] 18:01:25
+So here.
+
+[Faculty (Olympus)] 18:01:26
+The entire focus was looking at.
+
+[Faculty (Olympus)] 18:01:31
+Huh!
+
+[Faculty (Olympus)] 18:01:32
+Rating.
+
+[Faculty (Olympus)] 18:01:34
+Or.
+
+[Faculty (Olympus)] 18:01:37
+Reference.
+
+[Faculty (Olympus)] 18:01:38
+Based.
+
+[Faculty (Olympus)] 18:01:40
+Approaches.
+
+[Faculty (Olympus)] 18:01:43
+And.
+
+[Faculty (Olympus)] 18:01:44
+The simplest one that we had looked at was averaging, and then we.
+
+[Faculty (Olympus)] 18:01:48
+Evolved it.
+
+[Faculty (Olympus)] 18:01:49
+The first.st
+
+[Faculty (Olympus)] 18:01:50
+Clustering where we said, Well.
+
+[Faculty (Olympus)] 18:01:54
+There is heterogrogenity in the world in terms of.
+
+[Faculty (Olympus)] 18:01:57
+Users and items.
+
+[Faculty (Olympus)] 18:01:59
+However.
+
+[Faculty (Olympus)] 18:02:00
+Many of them are similar to each other.
+
+[Faculty (Olympus)] 18:02:03
+Is there only few types of users and few types of items.
+
+[Faculty (Olympus)] 18:02:08
+That led to.
+
+[Faculty (Olympus)] 18:02:09
+Us looking for clusters.
+
+[Faculty (Olympus)] 18:02:11
+And then once we look at.
+
+[Faculty (Olympus)] 18:02:14
+Individuals in the same cluster, both for users and items. Then we can average within that, because everything is homogeneous within that.
+
+[Faculty (Olympus)] 18:02:22
+And there was that approach.
+
+[Faculty (Olympus)] 18:02:25
+Say, well, maybe we can actually do a little bit more.
+
+[Faculty (Olympus)] 18:02:28
+Personalized clustering instead of doing global clustering.
+
+[Faculty (Olympus)] 18:02:32
+And that's where we discussed.
+
+[Faculty (Olympus)] 18:02:35
+Collaborative, filtering.
+
+[Faculty (Olympus)] 18:02:36
+Oh!
+
+[Faculty (Olympus)] 18:02:38
+One of the most beautiful in the world of recommendation system.
+
+[Faculty (Olympus)] 18:02:43
+Quintessential machine learning, algorithm.
+
+[Faculty (Olympus)] 18:02:46
+And.
+
+[Faculty (Olympus)] 18:02:47
+Here we discussed how we can utilize similar users and items.
+
+[Faculty (Olympus)] 18:02:51
+To do create your personalized clusters, and then within that you can do average or weighted average of.
+
+[Faculty (Olympus)] 18:02:59
+To estimate the answers.
+
+[Faculty (Olympus)] 18:03:01
+Okay.
+
+[Faculty (Olympus)] 18:03:02
+We also extensively discussed why, this algorithm is very interesting.
+
+[Faculty (Olympus)] 18:03:07
+Being.
+
+[Faculty (Olympus)] 18:03:09
+Scalable Implementations.
+
+[Faculty (Olympus)] 18:03:11
+To incremental model updates.
+
+[Faculty (Olympus)] 18:03:13
+To interpret.
+
+[Faculty (Olympus)] 18:03:15
+And more.
+
+[Faculty (Olympus)] 18:03:18
+And then finally, the last thing we discussed last lecture was.
+
+[Faculty (Olympus)] 18:03:22
+Using and viewing the.
+
+[Faculty (Olympus)] 18:03:25
+Question of matrix completion as fundamentally a matrix or linear algebra.
+
+[Faculty (Olympus)] 18:03:31
+And we discussed how we can use.
+
+[Faculty (Olympus)] 18:03:34
+Singular value, decomposition.
+
+[Faculty (Olympus)] 18:03:37
+Of matrix.
+
+[Faculty (Olympus)] 18:03:38
+By filling missing values, by.
+
+[Faculty (Olympus)] 18:03:42
+Zeros.
+
+[Faculty (Olympus)] 18:03:43
+Or some constants.
+
+[Faculty (Olympus)] 18:03:44
+And then applying singular value, decomposition, and then thresholding and then normalizing by.
+
+[Faculty (Olympus)] 18:03:49
+Fraction of observed entries.
+
+[Faculty (Olympus)] 18:03:53
+The thing we did not discuss.
+
+[Faculty (Olympus)] 18:03:55
+Was, how do we think of the same thing as optimization?
+
+[Faculty (Olympus)] 18:04:00
+And why is optimization more interesting than just optimization? View of the same prop? Same algorithm is more interesting.
+
+[Faculty (Olympus)] 18:04:08
+And we'll talk about that today.
+
+[Faculty (Olympus)] 18:04:11
+Right.
+
+[Faculty (Olympus)] 18:04:13
+Before I.
+
+[Faculty (Olympus)] 18:04:15
+Proceed further any questions. If there are questions, please feel free to type. Now and then I can respond.
+
+[Faculty (Olympus)] 18:04:21
+Otherwise I'll start getting started with the optimization method.
+
+[Faculty (Olympus)] 18:04:31
+Okay. Thanks. Michael.
+
+[Faculty (Olympus)] 18:04:33
+Very good,
+
+[Faculty (Olympus)] 18:04:37
+Alright, so.
+
+[Faculty (Olympus)] 18:04:38
+Let's remind ourselves what we did right?
+
+[Faculty (Olympus)] 18:04:40
+So when we were doing
+
+[Faculty (Olympus)] 18:04:43
+Singular.
+
+[Faculty (Olympus)] 18:04:45
+Value.
+
+[Faculty (Olympus)] 18:04:48
+Thresholding.
+
+[Faculty (Olympus)] 18:04:51
+He said, that let's look at matrix.
+
+[Faculty (Olympus)] 18:04:54
+In particular, in y.
+
+[Faculty (Olympus)] 18:04:57
+If we have question mark or star.
+
+[Faculty (Olympus)] 18:05:00
+Then.
+
+[Faculty (Olympus)] 18:05:02
+Replace.
+
+[Faculty (Olympus)] 18:05:05
+Them.
+
+[Faculty (Olympus)] 18:05:07
+By 0.
+
+[Faculty (Olympus)] 18:05:08
+Or maybe we can also do some constant. For example, one option is.
+
+[Faculty (Olympus)] 18:05:11
+You can replace them by.
+
+[Faculty (Olympus)] 18:05:13
+Row average, or you can represent by column average, or you can represent by to just the way effectively.
+
+[Faculty (Olympus)] 18:05:20
+1st we can replace missing values by doing averaging, and then we can do singular value thresholding.
+
+[Faculty (Olympus)] 18:05:28
+The point is that no matter how or what approach we use, we're always going to have.
+
+[Faculty (Olympus)] 18:05:34
+Some kind of a silly.
+
+[Faculty (Olympus)] 18:05:36
+Are not as accurate.
+
+[Faculty (Olympus)] 18:05:38
+Way of filling missing values.
+
+[Faculty (Olympus)] 18:05:41
+And that could create bias that could create problems.
+
+[Faculty (Olympus)] 18:05:45
+So it would be really really nice if we can do.
+
+[Faculty (Olympus)] 18:05:49
+Singular value. Thresholding. Algorithm.
+
+[Faculty (Olympus)] 18:05:51
+Without.
+
+[Faculty (Olympus)] 18:05:53
+Needing to replace.
+
+[Faculty (Olympus)] 18:05:56
+Question marks or missing values.
+
+[Faculty (Olympus)] 18:05:57
+Of course.
+
+[Faculty (Olympus)] 18:05:59
+If you want to compute value decomposition, we can't do that way.
+
+[Faculty (Olympus)] 18:06:03
+Because singular value. Decomposition of a matrix fundamentally requires metrics to be full.
+
+[Faculty (Olympus)] 18:06:09
+So that's where optimization perspective becomes useful.
+
+[Faculty (Olympus)] 18:06:12
+So what is an optimization perspective.
+
+[Faculty (Olympus)] 18:06:16
+So optimization.
+
+[Faculty (Olympus)] 18:06:20
+View.
+
+[Faculty (Olympus)] 18:06:21
+Of.
+
+[Faculty (Olympus)] 18:06:23
+Singular value, composition.
+
+[Faculty (Olympus)] 18:06:24
+So for that, let's consider.
+
+[Faculty (Olympus)] 18:06:27
+A matrix. So suppose I have a matrix. M.
+
+[Faculty (Olympus)] 18:06:30
+Get into metrics. M is.
+
+[Faculty (Olympus)] 18:06:33
+And let's call it N. By.
+
+[Faculty (Olympus)] 18:06:36
+Actually, you know, what should use different notations, let's call it. I got a matrix Z.
+
+[Faculty (Olympus)] 18:06:41
+Which is.
+
+[Faculty (Olympus)] 18:06:43
+As before, and by a matrix. So N. Rows and M columns.
+
+[Faculty (Olympus)] 18:06:48
+End user and end items.
+
+[Faculty (Olympus)] 18:06:50
+And now I want to compute.
+
+[Faculty (Olympus)] 18:06:53
+It's
+
+[Faculty (Olympus)] 18:06:58
+R.
+
+[Faculty (Olympus)] 18:07:03
+Sorry! Oh.
+
+[Faculty (Olympus)] 18:07:05
+Rank, our decomposition.
+
+[Faculty (Olympus)] 18:07:08
+Okay.
+
+[Faculty (Olympus)] 18:07:12
+What do I mean by that? So.
+
+[Faculty (Olympus)] 18:07:14
+If we remember in singular value.
+
+[Faculty (Olympus)] 18:07:18
+Thresholding.
+
+[Faculty (Olympus)] 18:07:20
+Individual value. Thresholding, we said, Well.
+
+[Faculty (Olympus)] 18:07:22
+After we replaced y by 0. Let's call this white.
+
+[Faculty (Olympus)] 18:07:26
+We did white.
+
+[Faculty (Olympus)] 18:07:28
+That led to.
+
+[Faculty (Olympus)] 18:07:30
+Sigma k.
+
+[Faculty (Olympus)] 18:07:32
+UK. Vk, transpose for K equals to one to up to.
+
+[Faculty (Olympus)] 18:07:36
+Minimum of M. Comma, n.
+
+[Faculty (Olympus)] 18:07:38
+And then we thresholded it.
+
+[Faculty (Olympus)] 18:07:42
+By effectively saying, K equals to one up to R.
+
+[Faculty (Olympus)] 18:07:46
+Sigma, KUK. Vk transport, and then, of course, normalized it.
+
+[Faculty (Olympus)] 18:07:52
+Okay.
+
+[Faculty (Olympus)] 18:07:53
+So in this case it's this choice of R was a thresholding. Of course we discuss how we choose. R. But given R.
+
+[Faculty (Olympus)] 18:08:01
+In effect, what we're saying is that.
+
+[Faculty (Olympus)] 18:08:03
+We are.
+
+[Faculty (Olympus)] 18:08:04
+Truncating.
+
+[Faculty (Olympus)] 18:08:06
+It by its best.
+
+[Faculty (Olympus)] 18:08:08
+Rank, our approximation.
+
+[Faculty (Olympus)] 18:08:11
+Ignore normalization for a second. But that's what we are doing here.
+
+[Faculty (Olympus)] 18:08:15
+Okay.
+
+[Faculty (Olympus)] 18:08:17
+So.
+
+[Faculty (Olympus)] 18:08:19
+That is for a given matrix. We're trying to compute its.
+
+[Faculty (Olympus)] 18:08:24
+R.
+
+[Faculty (Olympus)] 18:08:26
+Components.
+
+[Faculty (Olympus)] 18:08:28
+That's what rank composition is.
+
+[Faculty (Olympus)] 18:08:34
+In particular.
+
+[Faculty (Olympus)] 18:08:37
+What that means. And if let me first.st
+
+[Faculty (Olympus)] 18:08:42
+Write this here.
+
+[Faculty (Olympus)] 18:08:44
+So I can rewrite this as.
+
+[Faculty (Olympus)] 18:08:48
+K equals, to one to up to r.
+
+[Faculty (Olympus)] 18:08:50
+Then I can say, you twiddle kidle K transpose.
+
+[Faculty (Olympus)] 18:08:55
+And what I did is I.
+
+[Faculty (Olympus)] 18:08:58
+Combined.
+
+[Faculty (Olympus)] 18:08:59
+One over P. Hat and Sigma K into Uk to define U twiddle.
+
+[Faculty (Olympus)] 18:09:04
+And bk is same as Wheatwill.
+
+[Faculty (Olympus)] 18:09:07
+Is rewriting.
+
+[Faculty (Olympus)] 18:09:09
+So, then.
+
+[Faculty (Olympus)] 18:09:11
+This can be, and this is where the.
+
+[Faculty (Olympus)] 18:09:13
+This is a well-known fact.
+
+[Faculty (Olympus)] 18:09:16
+One way to do this kind of thing is to do as minimize.
+
+[Faculty (Olympus)] 18:09:22
+Z.
+
+[Faculty (Olympus)] 18:09:24
+Minus.
+
+[Faculty (Olympus)] 18:09:27
+T. Equals to one up to R.
+
+[Faculty (Olympus)] 18:09:30
+Let's call it Youtube.
+
+[Faculty (Olympus)] 18:09:32
+Wheat will k transpose.
+
+[Faculty (Olympus)] 18:09:37
+The Frobenius Norm.
+
+[Faculty (Olympus)] 18:09:38
+Okay.
+
+[Faculty (Olympus)] 18:09:40
+Over.
+
+[Faculty (Olympus)] 18:09:42
+You twiddle k.
+
+[Faculty (Olympus)] 18:09:44
+We twiddle K.
+
+[Faculty (Olympus)] 18:09:46
+A Youtube case, a vector of.
+
+[Faculty (Olympus)] 18:09:49
+Blend. NB, 2 k is vector, of length. M.
+
+[Faculty (Olympus)] 18:09:52
+And that's why we get.
+
+[Faculty (Olympus)] 18:09:56
+This, as.
+
+[Faculty (Olympus)] 18:09:58
+M times, n, matrix. And this is a.
+
+[Faculty (Olympus)] 18:10:02
+Component of them.
+
+[Faculty (Olympus)] 18:10:04
+Okay.
+
+[Faculty (Olympus)] 18:10:06
+So.
+
+[Faculty (Olympus)] 18:10:08
+This is an optimization perspective.
+
+[Faculty (Olympus)] 18:10:11
+Off.
+
+[Faculty (Olympus)] 18:10:12
+This problem.
+
+[Faculty (Olympus)] 18:10:13
+Again I.
+
+[Faculty (Olympus)] 18:10:14
+Solved much, because here I'm requiring of entire matrix, which means that if I were to rewrite this.
+
+[Faculty (Olympus)] 18:10:22
+So let's rewrite this.
+
+[Faculty (Olympus)] 18:10:25
+This effectively would say, minimize summation over.
+
+[Faculty (Olympus)] 18:10:29
+I comma g.
+
+[Faculty (Olympus)] 18:10:31
+1, 2.
+
+[Faculty (Olympus)] 18:10:36
+So I equals one to up to.
+
+[Faculty (Olympus)] 18:10:41
+N.
+
+[Faculty (Olympus)] 18:10:43
+Then J. Equals to one to up to M.
+
+[Faculty (Olympus)] 18:10:46
+ZIJ.
+
+[Faculty (Olympus)] 18:10:48
+Minus.
+
+[Faculty (Olympus)] 18:10:49
+Keep 1, 2 up to R.
+
+[Faculty (Olympus)] 18:10:52
+You twiddle.
+
+[Faculty (Olympus)] 18:10:53
+Hi.
+
+[Faculty (Olympus)] 18:10:55
+Beetle, KJ.
+
+[Faculty (Olympus)] 18:10:58
+Square.
+
+[Faculty (Olympus)] 18:11:00
+And then these Youtube, KI.
+
+[Faculty (Olympus)] 18:11:04
+Be twitter. JK.
+
+[Faculty (Olympus)] 18:11:06
+Some real numbers.
+
+[Faculty (Olympus)] 18:11:09
+For K equals to one drop to r.
+
+[Faculty (Olympus)] 18:11:11
+I equals 2 up to N. And j. 1 to up to N.
+
+[Faculty (Olympus)] 18:11:16
+That means that we still are using all Ij's.
+
+[Faculty (Olympus)] 18:11:21
+But remember, y has missing values.
+
+[Faculty (Olympus)] 18:11:24
+Now.
+
+[Faculty (Olympus)] 18:11:25
+What?
+
+[Faculty (Olympus)] 18:11:28
+The optimization perspective, says that well.
+
+[Faculty (Olympus)] 18:11:30
+Only use the.
+
+[Faculty (Olympus)] 18:11:33
+Term here.
+
+[Faculty (Olympus)] 18:11:34
+That you observe everybody else. You just ignore.
+
+[Faculty (Olympus)] 18:11:36
+Because we don't know them, so we don't account for them.
+
+[Faculty (Olympus)] 18:11:40
+And what that would lead us to is the following version of optimization.
+
+[Faculty (Olympus)] 18:11:46
+Bit missing by you, that is.
+
+[Faculty (Olympus)] 18:11:48
+I comma j.
+
+[Faculty (Olympus)] 18:11:50
+That are observed, so only those that are observed.
+
+[Faculty (Olympus)] 18:11:53
+One of them we know y.
+
+[Faculty (Olympus)] 18:11:56
+And then.
+
+[Faculty (Olympus)] 18:11:57
+The same thing.
+
+[Faculty (Olympus)] 18:12:02
+And then you twitter.
+
+[Faculty (Olympus)] 18:12:06
+It would look K.
+
+[Faculty (Olympus)] 18:12:08
+And so on, the same condition as before.
+
+[Faculty (Olympus)] 18:12:11
+It says that now I've restricted my.
+
+[Faculty (Olympus)] 18:12:14
+Objective.
+
+[Faculty (Olympus)] 18:12:15
+Only 2 observed entries.
+
+[Faculty (Olympus)] 18:12:23
+Now, if we solve this problem.
+
+[Faculty (Olympus)] 18:12:25
+We will get.
+
+[Faculty (Olympus)] 18:12:28
+This.
+
+[Faculty (Olympus)] 18:12:28
+Which is effectively a better way to compute this.
+
+[Faculty (Olympus)] 18:12:34
+Is. Now, we have computed a truncation.
+
+[Faculty (Olympus)] 18:12:37
+Of.
+
+[Faculty (Olympus)] 18:12:40
+Noisy matrix with missing values.
+
+[Faculty (Olympus)] 18:12:42
+But not requiring filling with zeros or constants. Instead.
+
+[Faculty (Olympus)] 18:12:48
+It directly, solving this problem, and only restricting to.
+
+[Faculty (Olympus)] 18:12:51
+Observed Entries.
+
+[Faculty (Olympus)] 18:12:54
+Now how to solve this problem. I'll talk about that in a second.
+
+[Faculty (Olympus)] 18:12:58
+But let me sort of see if there are questions, and there are also a few questions from before, and I'll try to sort of answer them.
+
+[Faculty (Olympus)] 18:13:10
+So, Louise. If you don't mind if you could just.
+
+[Faculty (Olympus)] 18:13:15
+Post. Your questions addressed to everyone.
+
+[Faculty (Olympus)] 18:13:17
+Their question is that, can we review content? Based filtering? It was done quickly.
+
+[Faculty (Olympus)] 18:13:22
+Absolutely, Louise. I'll come back to it in the later part of today's lecture.
+
+[Faculty (Olympus)] 18:13:27
+So we will. We will cover that again.
+
+[Faculty (Olympus)] 18:13:32
+Valen's question is, I still don't quite understand the relationship between Svd. And collaborative. So.
+
+[Faculty (Olympus)] 18:13:39
+Well in wait for a bit, and I will try to sort of explain that.
+
+[Faculty (Olympus)] 18:13:43
+Both of them are.
+
+[Faculty (Olympus)] 18:13:46
+Trying to.
+
+[Faculty (Olympus)] 18:13:48
+Sol.
+
+[Faculty (Olympus)] 18:13:49
+For a problem under similar model structure.
+
+[Faculty (Olympus)] 18:13:53
+Svd is.
+
+[Faculty (Olympus)] 18:13:54
+Solving for simpler instances of that model.
+
+[Faculty (Olympus)] 18:13:59
+Collaborative filtering is trying to solve a lot more complicated.
+
+[Faculty (Olympus)] 18:14:03
+Instance of that model.
+
+[Faculty (Olympus)] 18:14:11
+Kristo's question is that optimization is powerful because latent values are highly involved.
+
+[Faculty (Olympus)] 18:14:16
+I guess
+
+[Faculty (Olympus)] 18:14:20
+The optimization is.
+
+[Faculty (Olympus)] 18:14:22
+Equally.
+
+[Faculty (Olympus)] 18:14:23
+At least.
+
+[Faculty (Olympus)] 18:14:25
+Model wise. It's trying to solve the same problem as singular value. Thresholding.
+
+[Faculty (Olympus)] 18:14:29
+Did.
+
+[Faculty (Olympus)] 18:14:31
+However.
+
+[Faculty (Olympus)] 18:14:36
+However.
+
+[Faculty (Olympus)] 18:14:37
+What it is doing is it is trying to solve the problem without.
+
+[Faculty (Olympus)] 18:14:41
+Assuming something from missing values, and that's why it does not incur additional noise or bias.
+
+[Faculty (Olympus)] 18:14:47
+Okay.
+
+[Faculty (Olympus)] 18:14:50
+Now. I'm not 100% sure. And I said, I can understand your question.
+
+[Faculty (Olympus)] 18:14:55
+Dosa.
+
+[Faculty (Olympus)] 18:14:56
+Not sure where the confusion matrix comes in.
+
+[Faculty (Olympus)] 18:15:00
+Okay.
+
+[Faculty (Olympus)] 18:15:04
+So in the scenario. If this is mathematical, it's it's perfectly fine. What I would suggest is that.
+
+[Faculty (Olympus)] 18:15:14
+The stick around, but till the end of the lecture, and some of our.
+
+[Faculty (Olympus)] 18:15:20
+Facilitators can help.
+
+[Faculty (Olympus)] 18:15:22
+Explain things by going through.
+
+[Faculty (Olympus)] 18:15:24
+Some of the specific examples of these things, and walk you through it slowly.
+
+[Faculty (Olympus)] 18:15:32
+Alright. So now the question is that, how do we solve for this.
+
+[Faculty (Olympus)] 18:15:37
+Again. This is where what's called a method called.
+
+[Faculty (Olympus)] 18:15:42
+Alternative.
+
+[Faculty (Olympus)] 18:15:46
+Least squares.
+
+[Faculty (Olympus)] 18:15:51
+Comes into existence.
+
+[Faculty (Olympus)] 18:15:52
+This is like doing linear regression in alternative.
+
+[Faculty (Olympus)] 18:15:56
+Okay, so what we're trying to solve is minimize.
+
+[Faculty (Olympus)] 18:16:01
+YIJ.
+
+[Faculty (Olympus)] 18:16:02
+Minus summation key. Now, let's say for simplicity, I'll choose K. Equals to.
+
+[Faculty (Olympus)] 18:16:07
+I'll choose R. Equals to one.
+
+[Faculty (Olympus)] 18:16:10
+Let's suppose R is one.
+
+[Faculty (Olympus)] 18:16:11
+So that I can explain it.
+
+[Faculty (Olympus)] 18:16:13
+Then you have.
+
+[Faculty (Olympus)] 18:16:15
+Uk is one you want, so I'm going to ignore that as a.
+
+[Faculty (Olympus)] 18:16:20
+As a index.
+
+[Faculty (Olympus)] 18:16:21
+Such as u 1. i'll forget about twiddle.
+
+[Faculty (Olympus)] 18:16:24
+And then b 1.
+
+[Faculty (Olympus)] 18:16:27
+Or UINB, j, in this case.
+
+[Faculty (Olympus)] 18:16:30
+Okay.
+
+[Faculty (Olympus)] 18:16:32
+And this is what we are trying to solve.
+
+[Faculty (Olympus)] 18:16:35
+So I come out.
+
+[Faculty (Olympus)] 18:16:39
+Hi comma j among entries.
+
+[Faculty (Olympus)] 18:16:43
+And then ui.
+
+[Faculty (Olympus)] 18:16:45
+PJ. Are these real values.
+
+[Faculty (Olympus)] 18:16:49
+Okay, so we're trying to solve this problem.
+
+[Faculty (Olympus)] 18:16:51
+Now.
+
+[Faculty (Olympus)] 18:16:52
+If.
+
+[Faculty (Olympus)] 18:16:54
+Let's try to sort of see, what sort of how do we solve this? This is a hard problem.
+
+[Faculty (Olympus)] 18:17:01
+One way to do this is what I would do iteratively. So say, suppose.
+
+[Faculty (Olympus)] 18:17:07
+For the second, that you already.
+
+[Faculty (Olympus)] 18:17:10
+V. So suppose you know v.
+
+[Faculty (Olympus)] 18:17:12
+So let's suppose we I give you. We start with a random guess.
+
+[Faculty (Olympus)] 18:17:16
+That these are known. Let's call them V, 0.
+
+[Faculty (Olympus)] 18:17:20
+Okay.
+
+[Faculty (Olympus)] 18:17:21
+And these are, let's suppose.
+
+[Faculty (Olympus)] 18:17:22
+Randomly.
+
+[Faculty (Olympus)] 18:17:24
+Initialized.
+
+[Faculty (Olympus)] 18:17:26
+Think of sampling a Gaussian from a Gaussian distribution.
+
+[Faculty (Olympus)] 18:17:31
+So if these are given, what would the you be?
+
+[Faculty (Olympus)] 18:17:35
+Well, let's suppose I want to compute VU 1.
+
+[Faculty (Olympus)] 18:17:40
+Looking at this.
+
+[Faculty (Olympus)] 18:17:41
+The terms in which UN is contained is where it's u 1 times vj, or one J is observed.
+
+[Faculty (Olympus)] 18:17:49
+Okay.
+
+[Faculty (Olympus)] 18:17:51
+You 2, etc. Those terms don't matter for the optimization of u, 1.
+
+[Faculty (Olympus)] 18:17:54
+And hence I can just ignore it, because these are given.
+
+[Faculty (Olympus)] 18:17:58
+So effectively to solve you one, or look for the best u 1 given v.
+
+[Faculty (Olympus)] 18:18:03
+I need to solve separately a sub instance of this that is.
+
+[Faculty (Olympus)] 18:18:07
+All the.
+
+[Faculty (Olympus)] 18:18:08
+Look at all the.
+
+[Faculty (Olympus)] 18:18:10
+Entries in role.
+
+[Faculty (Olympus)] 18:18:12
+One.
+
+[Faculty (Olympus)] 18:18:14
+Is one comma j. Entries that are observed.
+
+[Faculty (Olympus)] 18:18:18
+y 1 j minus.
+
+[Faculty (Olympus)] 18:18:20
+You.
+
+[Faculty (Olympus)] 18:18:23
+BJ, 0.
+
+[Faculty (Olympus)] 18:18:24
+Square.
+
+[Faculty (Olympus)] 18:18:25
+Now.
+
+[Faculty (Olympus)] 18:18:28
+As per assumption. This is already known, so I know this.
+
+[Faculty (Olympus)] 18:18:31
+This is what I've observed.
+
+[Faculty (Olympus)] 18:18:33
+I just don't know this.
+
+[Faculty (Olympus)] 18:18:36
+This should remind you of.
+
+[Faculty (Olympus)] 18:18:39
+Linear regression. This is the parameter linear model parameter, we want to observe, find.
+
+[Faculty (Olympus)] 18:18:44
+This is the label value, and this is the feature value.
+
+[Faculty (Olympus)] 18:18:47
+So in a sense. Now, this is a 1 dimensional linear regression problem.
+
+[Faculty (Olympus)] 18:18:51
+Can solve for it.
+
+[Faculty (Olympus)] 18:18:53
+If it's r dimensional, that is, if we general rank r, then this will be r dimensional problem.
+
+[Faculty (Olympus)] 18:19:01
+That means that given use, if I want to solve for V. Sorry given V is if I want to solve for use, it's.
+
+[Faculty (Olympus)] 18:19:09
+Independent linear regression problem, one for each row.
+
+[Faculty (Olympus)] 18:19:14
+And that's how we solve it.
+
+[Faculty (Olympus)] 18:19:17
+That is given.
+
+[Faculty (Olympus)] 18:19:18
+U, 0. I can solve for.
+
+[Faculty (Olympus)] 18:19:21
+B. 0. I can solve for you one.
+
+[Faculty (Olympus)] 18:19:23
+Now let's assume that UN is fixed.
+
+[Faculty (Olympus)] 18:19:27
+That is.
+
+[Faculty (Olympus)] 18:19:28
+This is known.
+
+[Faculty (Olympus)] 18:19:31
+I want to look for.
+
+[Faculty (Olympus)] 18:19:32
+But again, it's a very similar problem, so I can solve again least squares for V's. Now.
+
+[Faculty (Olympus)] 18:19:37
+Which will give me v. 1.
+
+[Faculty (Olympus)] 18:19:39
+Now that I have no v. 1.
+
+[Faculty (Olympus)] 18:19:42
+Let's assume we don't know you now. So then, sort of solve for you, which will give me you 2, and so on.
+
+[Faculty (Olympus)] 18:19:47
+So I'll keep iteratively solving.
+
+[Faculty (Olympus)] 18:19:50
+Use V's use? V's use?
+
+[Faculty (Olympus)] 18:19:53
+Starting with initial Random Guess.
+
+[Faculty (Olympus)] 18:19:56
+Till I converge.
+
+[Faculty (Olympus)] 18:19:59
+And each of this step is nothing but lots of simple linear regression problems.
+
+[Faculty (Olympus)] 18:20:05
+Ones that you have seen in detail earlier.
+
+[Faculty (Olympus)] 18:20:10
+And that's why this is alternative least quest, because we are alternating.
+
+[Faculty (Olympus)] 18:20:15
+Between solving, for use and solving for vs.
+
+[Faculty (Olympus)] 18:20:19
+Using least squares or linear regression.
+
+[Faculty (Olympus)] 18:20:23
+Tip.
+
+[Faculty (Olympus)] 18:20:25
+And that's what we are going to.
+
+[Faculty (Olympus)] 18:20:27
+Do here.
+
+[Faculty (Olympus)] 18:20:30
+Kate.
+
+[Faculty (Olympus)] 18:20:32
+So that's already squared. That's an optimization perspective. And
+
+[Faculty (Olympus)] 18:20:40
+That, in a sense.
+
+[Faculty (Olympus)] 18:20:42
+Gives us an idea of how we can solve the same value. Thresholding.
+
+[Faculty (Olympus)] 18:20:48
+But by using method of optimization without.
+
+[Faculty (Olympus)] 18:20:52
+Requiring assuming anything about missing values.
+
+[Faculty (Olympus)] 18:20:56
+Now, if you.
+
+[Faculty (Olympus)] 18:20:57
+Look at, for example.
+
+[Faculty (Olympus)] 18:21:01
+The manuscript around.
+
+[Faculty (Olympus)] 18:21:03
+That I have mentioned couple of times. Causal.
+
+[Faculty (Olympus)] 18:21:06
+Matrix completion.
+
+[Faculty (Olympus)] 18:21:09
+You will see that.
+
+[Faculty (Olympus)] 18:21:11
+This method, for example, is much better than.
+
+[Faculty (Olympus)] 18:21:15
+Singular value. Thresholding.
+
+[Faculty (Olympus)] 18:21:17
+When entries are not sampled, but a sample in the biased manner.
+
+[Faculty (Olympus)] 18:21:21
+And that's that's why. Because once a sample in the bias manner, if you assume missing values to be 0.
+
+[Faculty (Olympus)] 18:21:29
+Then you are biasing the data itself.
+
+[Faculty (Olympus)] 18:21:32
+And hence this method is useful.
+
+[Faculty (Olympus)] 18:21:34
+Let me sort of look at the questions, because, seems like there are bunch of questions.
+
+[Faculty (Olympus)] 18:21:43
+That have been brought up. Okay? So.
+
+[Faculty (Olympus)] 18:21:46
+Avi. Your question is for host and moderator.
+
+[Faculty (Olympus)] 18:21:50
+Okay.
+
+[Faculty (Olympus)] 18:21:53
+I think.
+
+[Faculty (Olympus)] 18:21:54
+I will let sort of.
+
+[Faculty (Olympus)] 18:21:58
+Them to respond.
+
+[Faculty (Olympus)] 18:22:02
+E piece question is it? Can you please explain with an example getting difficult to get an intuition? So I think.
+
+[Faculty (Olympus)] 18:22:11
+Ep. And Jeff. What I would suggest is that.
+
+[Faculty (Olympus)] 18:22:14
+It's an algorithm.
+
+[Faculty (Olympus)] 18:22:17
+Best way to explain this algorithm is through an abstract setting.
+
+[Faculty (Olympus)] 18:22:21
+If you wanted an example, an example would look something like this.
+
+[Faculty (Olympus)] 18:22:25
+Okay. And I'm gonna sort of
+
+[Faculty (Olympus)] 18:22:28
+Tell, give you very quick example, but my hope is that.
+
+[Faculty (Olympus)] 18:22:31
+You can. If it doesn't make sense, stick around and moderator can. The.
+
+[Faculty (Olympus)] 18:22:37
+Learning facilitators will walk you through it. Okay.
+
+[Faculty (Olympus)] 18:22:39
+So let's take.
+
+[Faculty (Olympus)] 18:22:41
+A setting of N equals to M equals to 2.
+
+[Faculty (Olympus)] 18:22:44
+Okay. Suppose why, that I'm observing.
+
+[Faculty (Olympus)] 18:22:48
+Is 0 1.
+
+[Faculty (Olympus)] 18:22:51
+0 and question mark.
+
+[Faculty (Olympus)] 18:22:54
+And
+
+[Faculty (Olympus)] 18:22:57
+We want to do. Let's call it rank. One approximation of this.
+
+[Faculty (Olympus)] 18:23:02
+I don't want to worry about this. So then, in that case.
+
+[Faculty (Olympus)] 18:23:05
+I'm looking for.
+
+[Faculty (Olympus)] 18:23:09
+Minimize, of.
+
+[Faculty (Olympus)] 18:23:11
+This entry, which is y 1, 1.
+
+[Faculty (Olympus)] 18:23:15
+Minus u, 1 b, one.
+
+[Faculty (Olympus)] 18:23:18
+Square.
+
+[Faculty (Olympus)] 18:23:19
+Plus this entry.
+
+[Faculty (Olympus)] 18:23:21
+Y, 1, 2 minus u, 1 v, 2 square.
+
+[Faculty (Olympus)] 18:23:25
+Because that's how this entry would be represented.
+
+[Faculty (Olympus)] 18:23:29
+This is. This is the decomposition of for this position.
+
+[Faculty (Olympus)] 18:23:35
+In rank, one representation.
+
+[Faculty (Olympus)] 18:23:37
+And then.
+
+[Faculty (Olympus)] 18:23:39
+I'm going to ignore, because I don't have this, and I'm going to consider this, which is.
+
+[Faculty (Olympus)] 18:23:46
+y 2 2 minus u, 2.
+
+[Faculty (Olympus)] 18:23:49
+B, 2 squared.
+
+[Faculty (Olympus)] 18:23:50
+Okay.
+
+[Faculty (Olympus)] 18:23:51
+Now, of course, we know the wise.
+
+[Faculty (Olympus)] 18:23:54
+So I'm going to fill them up in these entries.
+
+[Faculty (Olympus)] 18:23:57
+Okay.
+
+[Faculty (Olympus)] 18:23:57
+Which means that this is and minimize.
+
+[Faculty (Olympus)] 18:24:03
+0 minus u, 1 b one squared plus.
+
+[Faculty (Olympus)] 18:24:07
+One minus u, 1 square.
+
+[Faculty (Olympus)] 18:24:10
+Plus.
+
+[Faculty (Olympus)] 18:24:11
+0.
+
+[Faculty (Olympus)] 18:24:13
+Minus u, 2 v, 2.
+
+[Faculty (Olympus)] 18:24:16
+Okay.
+
+[Faculty (Olympus)] 18:24:16
+So that's my.
+
+[Faculty (Olympus)] 18:24:19
+Problem that I'm gonna solve.
+
+[Faculty (Olympus)] 18:24:22
+Now, since I'm gonna do alternative least squares.
+
+[Faculty (Olympus)] 18:24:25
+1st I'm going to start with initial random guess for these.
+
+[Faculty (Olympus)] 18:24:30
+So suppose I'll start with random guess. And here, arbitrary. It's not random. It's I'm going to just set it.
+
+[Faculty (Olympus)] 18:24:36
+Let's say, u, 1 equals to U 2 equals to one. That's my initial guess.
+
+[Faculty (Olympus)] 18:24:41
+Now, if I do that.
+
+[Faculty (Olympus)] 18:24:43
+So let's call this initially.
+
+[Faculty (Olympus)] 18:24:46
+Which means that.
+
+[Faculty (Olympus)] 18:24:48
+The above reduces to.
+
+[Faculty (Olympus)] 18:24:51
+0 minus u, 1 squared.
+
+[Faculty (Olympus)] 18:24:55
+Plus one minus.
+
+[Faculty (Olympus)] 18:24:56
+u, 1 square.
+
+[Faculty (Olympus)] 18:24:58
+Plus.
+
+[Faculty (Olympus)] 18:24:59
+0 minus.
+
+[Faculty (Olympus)] 18:25:01
+U 2 square.
+
+[Faculty (Olympus)] 18:25:04
+And now I want to minimize this.
+
+[Faculty (Olympus)] 18:25:06
+Over choice of UN.
+
+[Faculty (Olympus)] 18:25:10
+So let's go to the.
+
+[Faculty (Olympus)] 18:25:12
+Next page.
+
+[Faculty (Olympus)] 18:25:13
+So now, here is where I am trying to minimize over you on Youtube.
+
+[Faculty (Olympus)] 18:25:20
+And.
+
+[Faculty (Olympus)] 18:25:21
+The 0 minus. I can ignore the zeros.
+
+[Faculty (Olympus)] 18:25:24
+So here's what I was at.
+
+[Faculty (Olympus)] 18:25:26
+u, 1 square plus one minus u, 1 square.
+
+[Faculty (Olympus)] 18:25:29
+Plus u 2 square.
+
+[Faculty (Olympus)] 18:25:33
+Now, this problem decomposes nicely into terms containing u, 1 and terms containing U. 2.
+
+[Faculty (Olympus)] 18:25:38
+So this one can be.
+
+[Faculty (Olympus)] 18:25:41
+Done separately. There's minimize over one.
+
+[Faculty (Olympus)] 18:25:44
+UN square plus one minus u, 1 square.
+
+[Faculty (Olympus)] 18:25:47
+And this can be done separately. Minimize.
+
+[Faculty (Olympus)] 18:25:51
+Youtube, u, 2. Square.
+
+[Faculty (Olympus)] 18:25:53
+Alright, pop, quiz.
+
+[Faculty (Olympus)] 18:25:55
+What is? What is the solution for you to know.
+
+[Faculty (Olympus)] 18:26:05
+You're minimizing.
+
+[Faculty (Olympus)] 18:26:07
+0. Thank you. Mad. So this is 0.
+
+[Faculty (Olympus)] 18:26:10
+What about this one.
+
+[Faculty (Olympus)] 18:26:13
+What value of UN will minimize UN one minus u, 1.
+
+[Faculty (Olympus)] 18:26:24
+Alright, Jishno! You got it right.
+
+[Faculty (Olympus)] 18:26:26
+Half.
+
+[Faculty (Olympus)] 18:26:27
+Okay.
+
+[Faculty (Olympus)] 18:26:28
+So at this stage.
+
+[Faculty (Olympus)] 18:26:29
+What we've gotten you, one of one equals to half.
+
+[Faculty (Olympus)] 18:26:34
+You 2. Sorry, you 2 of one is.
+
+[Faculty (Olympus)] 18:26:36
+0.
+
+[Faculty (Olympus)] 18:26:37
+Now let's use this.
+
+[Faculty (Olympus)] 18:26:41
+To replace.
+
+[Faculty (Olympus)] 18:26:42
+Into these.
+
+[Faculty (Olympus)] 18:26:45
+And then solve for v. 1 and v. 2.
+
+[Faculty (Olympus)] 18:26:47
+Which means that now our objective is minimize over.
+
+[Faculty (Olympus)] 18:26:52
+v. 1 v, 2.
+
+[Faculty (Olympus)] 18:26:55
+And the 1st term is 0. So.
+
+[Faculty (Olympus)] 18:26:58
+This is.
+
+[Faculty (Olympus)] 18:27:01
+v, 1.
+
+[Faculty (Olympus)] 18:27:03
+Minus half v 1 squared, because that's a 0.
+
+[Faculty (Olympus)] 18:27:07
+This is one so.
+
+[Faculty (Olympus)] 18:27:10
+One minus half.
+
+[Faculty (Olympus)] 18:27:12
+Even square.
+
+[Faculty (Olympus)] 18:27:13
+And this one is 0. So that is.
+
+[Faculty (Olympus)] 18:27:16
+Plus.
+
+[Faculty (Olympus)] 18:27:17
+0.
+
+[Faculty (Olympus)] 18:27:20
+And given this
+
+[Faculty (Olympus)] 18:27:23
+We don't have any presence of v. 2. So we could choose any value. And let's say, for simplicity, we choose any value of v. 2 equals to.
+
+[Faculty (Olympus)] 18:27:34
+Me, too, of one equals to 0, and this one requires again solving as something.
+
+[Faculty (Olympus)] 18:27:39
+Similar to.
+
+[Faculty (Olympus)] 18:27:43
+this type of problem in particular. If I remove the 1 4th and multiply, it will be one square plus.
+
+[Faculty (Olympus)] 18:27:50
+4, minus.
+
+[Faculty (Olympus)] 18:27:52
+Maybe one square.
+
+[Faculty (Olympus)] 18:27:54
+And then this one would again give you something like.
+
+[Faculty (Olympus)] 18:27:58
+We.
+
+[Faculty (Olympus)] 18:27:59
+One equals, to 2.
+
+[Faculty (Olympus)] 18:28:02
+This one will give you v. 1 of one equals to 2.
+
+[Faculty (Olympus)] 18:28:06
+So now we will start with vmail with 0.
+
+[Faculty (Olympus)] 18:28:09
+And then do the same thing.
+
+[Faculty (Olympus)] 18:28:13
+As this. But now, instead of using v, 1, v. 2 equals one.
+
+[Faculty (Olympus)] 18:28:17
+We'll have different values.
+
+[Faculty (Olympus)] 18:28:20
+Okay.
+
+[Faculty (Olympus)] 18:28:23
+And then we'll continue.
+
+[Faculty (Olympus)] 18:28:28
+Well, we, the value would be 2. But wouldn't this be? This is 1, 4.
+
+[Faculty (Olympus)] 18:28:34
+So one half squared is 4. I will multiply it with this one. It'll cancel this. I'll have 4 in. Oh, I see you're right. It's 2.
+
+[Faculty (Olympus)] 18:28:43
+Thank you.
+
+[Faculty (Olympus)] 18:28:45
+And which means there will be one.
+
+[Faculty (Olympus)] 18:28:46
+Appreciate it, Eric. Thank you.
+
+[Faculty (Olympus)] 18:28:49
+Okay. And then this will continue like this.
+
+[Faculty (Olympus)] 18:28:55
+Alright. I hope this is an example. If not, please again stick around and.
+
+[Faculty (Olympus)] 18:29:00
+Facilitations would walk you through it.
+
+[Faculty (Olympus)] 18:29:04
+Alright, so.
+
+[Faculty (Olympus)] 18:29:06
+At this stage.
+
+[Faculty (Olympus)] 18:29:07
+What I've done is I'll.
+
+[Faculty (Olympus)] 18:29:09
+Effectively covered all the types of different algorithms that I wanted to cover.
+
+[Faculty (Olympus)] 18:29:15
+To.
+
+[Faculty (Olympus)] 18:29:16
+Describe how we can solve the matrix view of the recommendation system.
+
+[Faculty (Olympus)] 18:29:22
+I'll leave you with one thought process in terms of how you can use neural network to solve that.
+
+[Faculty (Olympus)] 18:29:27
+I want.
+
+[Faculty (Olympus)] 18:29:28
+Give you an algorithm, but I will leave you with.
+
+[Faculty (Olympus)] 18:29:33
+With an exercise.
+
+[Faculty (Olympus)] 18:29:35
+Okay. So these are the things we've already looked at.
+
+[Faculty (Olympus)] 18:29:37
+These are the details of what we did.
+
+[Faculty (Olympus)] 18:29:40
+Okay, this is what we did.
+
+[Faculty (Olympus)] 18:29:43
+Okay. And this is where I want to sort of.
+
+[Faculty (Olympus)] 18:29:47
+Okay, again, this is your.
+
+[Faculty (Olympus)] 18:29:50
+Exercise. If you're gonna apply it on data sets, please apply this to.
+
+[Faculty (Olympus)] 18:29:53
+Along with other algorithms and see how well this is. Do.
+
+[Faculty (Olympus)] 18:30:01
+Alright! So this is where.
+
+[Faculty (Olympus)] 18:30:04
+The the model comes in.
+
+[Faculty (Olympus)] 18:30:07
+Okay.
+
+[Faculty (Olympus)] 18:30:07
+Actually, let's just use this.
+
+[Faculty (Olympus)] 18:30:11
+So
+
+[Faculty (Olympus)] 18:30:14
+We've been talking about different methods.
+
+[Faculty (Olympus)] 18:30:16
+Collaborative filtering, singular value, thresholding, and all that.
+
+[Faculty (Olympus)] 18:30:19
+By the end of the day.
+
+[Faculty (Olympus)] 18:30:21
+What is the general question? Are these trying to ask an answer.
+
+[Faculty (Olympus)] 18:30:26
+Now this is where.
+
+[Faculty (Olympus)] 18:30:28
+We go back to.
+
+[Faculty (Olympus)] 18:30:31
+Point that we have been making is that we are using.
+
+[Faculty (Olympus)] 18:30:35
+The.
+
+[Faculty (Olympus)] 18:30:37
+Reference based.
+
+[Faculty (Olympus)] 18:30:40
+Or rating, based.
+
+[Faculty (Olympus)] 18:30:43
+Data only.
+
+[Faculty (Olympus)] 18:30:46
+That is, we don't care what we call.
+
+[Faculty (Olympus)] 18:30:51
+And columns in particular, rows and columns are identity less.
+
+[Faculty (Olympus)] 18:30:55
+Are there.
+
+[Faculty (Olympus)] 18:30:57
+Anonymous.
+
+[Faculty (Olympus)] 18:30:59
+You can give me data of user number 27 and move in number 20.
+
+[Faculty (Olympus)] 18:31:05
+And then I can renumber them. That is, I can say, well, no user number 27 is user number 25 and 25 became 27.
+
+[Faculty (Olympus)] 18:31:12
+And movie 29 became 27 became 29.
+
+[Faculty (Olympus)] 18:31:16
+All that will happen is, the row will flip and column will flip.
+
+[Faculty (Olympus)] 18:31:20
+But eventually data remains the same.
+
+[Faculty (Olympus)] 18:31:24
+In a sense.
+
+[Faculty (Olympus)] 18:31:26
+Val. Identity of rho and identity column means nothing. It's only the data inside that matters.
+
+[Faculty (Olympus)] 18:31:34
+When you hear a model like that in statistics, these are.
+
+[Faculty (Olympus)] 18:31:38
+Things that are called.
+
+[Faculty (Olympus)] 18:31:42
+Exchangeable.
+
+[Faculty (Olympus)] 18:31:45
+Distributions or exchangeable data.
+
+[Faculty (Olympus)] 18:31:48
+And for that.
+
+[Faculty (Olympus)] 18:31:51
+This is the most generic model that is.
+
+[Faculty (Olympus)] 18:31:55
+Entry.
+
+[Faculty (Olympus)] 18:31:58
+Any entry in, let's say, row I. In column J.
+
+[Faculty (Olympus)] 18:32:02
+Is some function, some unknown.
+
+[Faculty (Olympus)] 18:32:06
+Unknown.
+
+[Faculty (Olympus)] 18:32:09
+Or call it latent.
+
+[Faculty (Olympus)] 18:32:11
+An observed function.
+
+[Faculty (Olympus)] 18:32:12
+But it's the same function for every I.
+
+[Faculty (Olympus)] 18:32:16
+That's applied to.
+
+[Faculty (Olympus)] 18:32:17
+Characteristics associated with Row.
+
+[Faculty (Olympus)] 18:32:20
+And characteristic associated with the column.
+
+[Faculty (Olympus)] 18:32:23
+And these columns.
+
+[Faculty (Olympus)] 18:32:24
+Because we are in the setting where we may not know at all, because we're calling this row number 27 and column number 29. But.
+
+[Faculty (Olympus)] 18:32:33
+There is a ground truth that you and I don't know you, and I don't observe where there is a characteristics of user and item.
+
+[Faculty (Olympus)] 18:32:42
+When a specific functions applied to this determines the.
+
+[Faculty (Olympus)] 18:32:45
+Quantity of interest.
+
+[Faculty (Olympus)] 18:32:47
+So in simple terms this could be, that is, the users.
+
+[Faculty (Olympus)] 18:32:55
+Certain.
+
+[Faculty (Olympus)] 18:32:56
+Genetic Information.
+
+[Faculty (Olympus)] 18:32:59
+And.
+
+[Faculty (Olympus)] 18:33:00
+Movies.
+
+[Faculty (Olympus)] 18:33:01
+Certain, complicated.
+
+[Faculty (Olympus)] 18:33:03
+Patterns.
+
+[Faculty (Olympus)] 18:33:05
+Together, determine.
+
+[Faculty (Olympus)] 18:33:06
+Whether people like certain movie or not.
+
+[Faculty (Olympus)] 18:33:10
+Okay.
+
+[Faculty (Olympus)] 18:33:11
+And how that is determined. That function is we don't know. But there's some function.
+
+[Faculty (Olympus)] 18:33:16
+So this is
+
+[Faculty (Olympus)] 18:33:20
+Generic, model.
+
+[Faculty (Olympus)] 18:33:23
+Singular value. Thresholding assumes a specific function form, that is, the F.
+
+[Faculty (Olympus)] 18:33:28
+Takes this type of function.
+
+[Faculty (Olympus)] 18:33:32
+Collaborative filtering directly tries to solve this singular value. Thresholding tries to solve this.
+
+[Faculty (Olympus)] 18:33:36
+So in that sense.
+
+[Faculty (Olympus)] 18:33:40
+Singular value. Thresholding is trying to solve a special case of the model that collaborative filtering tries to solve. And this is.
+
+[Faculty (Olympus)] 18:33:49
+A universal model. So in that sense.
+
+[Faculty (Olympus)] 18:33:51
+Collaborative filtering is effectively as powerful as it gets.
+
+[Faculty (Olympus)] 18:33:54
+Assuming it has enough data.
+
+[Faculty (Olympus)] 18:33:58
+Okay.
+
+[Faculty (Olympus)] 18:33:59
+Now, if you think of this as a function form then a neural network for this would look something like this.
+
+[Faculty (Olympus)] 18:34:07
+I want to encode it as neural network.
+
+[Faculty (Olympus)] 18:34:09
+I will say, well, here is my neurons.
+
+[Faculty (Olympus)] 18:34:12
+And neurons.
+
+[Faculty (Olympus)] 18:34:14
+Corresponding to users.
+
+[Faculty (Olympus)] 18:34:17
+In year, my.
+
+[Faculty (Olympus)] 18:34:19
+M. Neurons.
+
+[Faculty (Olympus)] 18:34:22
+Corresponding to items.
+
+[Faculty (Olympus)] 18:34:24
+And then I've got this.
+
+[Faculty (Olympus)] 18:34:27
+One intermediate layer.
+
+[Faculty (Olympus)] 18:34:31
+Okay.
+
+[Faculty (Olympus)] 18:34:33
+And whatever comes out of this.
+
+[Faculty (Olympus)] 18:34:36
+Let's call it Ui.
+
+[Faculty (Olympus)] 18:34:38
+And bj, we apply some function on it.
+
+[Faculty (Olympus)] 18:34:42
+And that will give me F of ui.
+
+[Faculty (Olympus)] 18:34:45
+VJ.
+
+[Faculty (Olympus)] 18:34:48
+And here what we'll say is that, look
+
+[Faculty (Olympus)] 18:34:52
+If I'm user number one, this is one, and everything else is 0. If I'm user number I, this is position is one, and everything else is 0.
+
+[Faculty (Olympus)] 18:35:01
+So in a sense, ui.
+
+[Faculty (Olympus)] 18:35:04
+Is nothing but weight associated with.
+
+[Faculty (Olympus)] 18:35:09
+This.
+
+[Faculty (Olympus)] 18:35:15
+This neuron.
+
+[Faculty (Olympus)] 18:35:17
+Okay? And if we have many such connections.
+
+[Faculty (Olympus)] 18:35:22
+Here, then, that will form higher, dimensional, ui.
+
+[Faculty (Olympus)] 18:35:26
+So what I would like you to do is.
+
+[Faculty (Olympus)] 18:35:29
+Think about this style of neural network as a way to encode.
+
+[Faculty (Olympus)] 18:35:34
+Functional model like this.
+
+[Faculty (Olympus)] 18:35:37
+Try to think about. How would you use neutral network to solve.
+
+[Faculty (Olympus)] 18:35:45
+Alright
+
+[Faculty (Olympus)] 18:35:47
+And that's your homework.
+
+[Faculty (Olympus)] 18:35:51
+With that we're at the end of
+
+[Faculty (Olympus)] 18:35:55
+Catch up and optimization.
+
+[Faculty (Olympus)] 18:35:58
+And ready to start. Today's content.
+
+[Faculty (Olympus)] 18:36:00
+Before I do that. Let's see if there are.
+
+[Faculty (Olympus)] 18:36:03
+Big. There are key questions that are left.
+
+[Faculty (Olympus)] 18:36:07
+Ruci question is at what specific cases Svd of collaborative.
+
+[Faculty (Olympus)] 18:36:12
+Scruti, as I mentioned.
+
+[Faculty (Olympus)] 18:36:15
+Oh!
+
+[Faculty (Olympus)] 18:36:17
+As I mentioned
+
+[Faculty (Olympus)] 18:36:20
+Li J. Equals, F. Of Uij.
+
+[Faculty (Olympus)] 18:36:24
+If I take specific choice of F, where F says that F of Uij is, ui transpose vj, then this is singular value thresholding. If I allow F to be any F.
+
+[Faculty (Olympus)] 18:36:35
+Any.
+
+[Faculty (Olympus)] 18:36:36
+Continuous.
+
+[Faculty (Olympus)] 18:36:38
+Function.
+
+[Faculty (Olympus)] 18:36:39
+Then it is collaborative. This is a special case of those continuous functions.
+
+[Faculty (Olympus)] 18:36:43
+But here it could be any other function. For example.
+
+[Faculty (Olympus)] 18:36:47
+Ui plus vj plus ui transpose vj ui transpose dot. I mean all sorts of such things. I can do continuous function. Okay.
+
+[Faculty (Olympus)] 18:36:59
+To see this again. You might want to sort of look at
+
+[Faculty (Olympus)] 18:37:04
+Christina Lee used thesis.
+
+[Faculty (Olympus)] 18:37:08
+Excuse my former student. I think I mentioned her.
+
+[Faculty (Olympus)] 18:37:12
+Oh, she's a professor at Cornell.
+
+[Faculty (Olympus)] 18:37:13
+And.
+
+[Faculty (Olympus)] 18:37:15
+But thesis should be available online. That describes this. The mathematics behind this in a very careful manner.
+
+[Faculty (Olympus)] 18:37:24
+Jessic's question is, we approximate the minimum of function of 4 variables? What is the reason we do not do it directly by finding the point where the gradient is 0.
+
+[Faculty (Olympus)] 18:37:32
+Well, Jessica.
+
+[Faculty (Olympus)] 18:37:35
+It's not obvious that.
+
+[Faculty (Olympus)] 18:37:38
+You can actually identify 0 gradient point directly. And hence you want to iterate.
+
+[Faculty (Olympus)] 18:37:43
+That's the reason why we do gradient descent style algorithms.
+
+[Faculty (Olympus)] 18:37:48
+In that simple example. Maybe you could have done it.
+
+[Faculty (Olympus)] 18:37:51
+But more generally, it's not straightforward. When youire dimensional data.
+
+[Faculty (Olympus)] 18:37:55
+And since people asked me to show an example, I had to choose 2 by 2 examples, so it kind of.
+
+[Faculty (Olympus)] 18:38:01
+You can't have the cake and eat it. If you want to have a complicated problem, then I can't explain you with example, and if you want.
+
+[Faculty (Olympus)] 18:38:10
+You know, eat it, then it has to be simple example. Alright.
+
+[Faculty (Olympus)] 18:38:14
+I am mere mortal, and I cannot.
+
+[Faculty (Olympus)] 18:38:17
+Satisfy everyone.
+
+[Faculty (Olympus)] 18:38:19
+With that
+
+[Faculty (Olympus)] 18:38:21
+Let's let's continue.
+
+[Faculty (Olympus)] 18:38:26
+Okay, I think, Tasha, you have a question. Are we selected? Random? Then we back propagate.
+
+[Faculty (Olympus)] 18:38:33
+Natasha, if you did neural network implementation and you're gonna learn it.
+
+[Faculty (Olympus)] 18:38:38
+Maybe that's something you might want to do.
+
+[Faculty (Olympus)] 18:38:47
+Okay. So here is what we're going to do in rest of the lecture.
+
+[Faculty (Olympus)] 18:38:53
+We're going to talk about how.
+
+[Faculty (Olympus)] 18:38:56
+Preference, based.
+
+[Faculty (Olympus)] 18:38:57
+Approach.
+
+[Faculty (Olympus)] 18:38:59
+Meets content, based approach. And this is where I will review the content based. Approach again.
+
+[Faculty (Olympus)] 18:39:05
+So we're gonna bring those 2 things together. Then.
+
+[Faculty (Olympus)] 18:39:07
+To talk about.
+
+[Faculty (Olympus)] 18:39:09
+What if things are changing over time?
+
+[Faculty (Olympus)] 18:39:12
+For a second I will drop this, and I will just say, Well, I've got still me prices, but changing over time.
+
+[Faculty (Olympus)] 18:39:19
+As a special case, we'll have to solve a generic Time series problem. So we'll solve that too.
+
+[Faculty (Olympus)] 18:39:23
+And to do that we'll use matrix.
+
+[Faculty (Olympus)] 18:39:26
+At some level. We will cover effectively entire literature on Time series, but in 15 min.
+
+[Faculty (Olympus)] 18:39:32
+This through us very simple algorithm. So hopefully, this might be the.
+
+[Faculty (Olympus)] 18:39:37
+The Aha moment of this lecture, and maybe this entire collection of lectures.
+
+[Faculty (Olympus)] 18:39:42
+Hopefully. You'll be ready with.
+
+[Faculty (Olympus)] 18:39:45
+With a generic time.
+
+[Faculty (Olympus)] 18:39:46
+Algorithm that you can go and.
+
+[Faculty (Olympus)] 18:39:49
+Talk to your friend over a cocktail party.
+
+[Faculty (Olympus)] 18:39:52
+And finally, we'll bring everything together. Measurements, time.
+
+[Faculty (Olympus)] 18:39:57
+And.
+
+[Faculty (Olympus)] 18:39:59
+Content, altogether.
+
+[Faculty (Olympus)] 18:40:01
+As I do this
+
+[Faculty (Olympus)] 18:40:03
+Will be.
+
+[Faculty (Olympus)] 18:40:04
+Piecing lots of.
+
+[Faculty (Olympus)] 18:40:06
+Pieces of puzzle together. So what I'm hoping is that your eyes will get little blurry.
+
+[Faculty (Olympus)] 18:40:11
+So don't.
+
+[Faculty (Olympus)] 18:40:12
+Focus on details only focus on.
+
+[Faculty (Olympus)] 18:40:17
+Conceptual way of how put together.
+
+[Faculty (Olympus)] 18:40:20
+And then, when you have time, unmind it, and sort of.
+
+[Faculty (Olympus)] 18:40:27
+Reading through it.
+
+[Faculty (Olympus)] 18:40:28
+Good.
+
+[Faculty (Olympus)] 18:40:30
+So I'm.
+
+[Faculty (Olympus)] 18:40:32
+Making sure I'm warning you enough. That is your tightened your seat belt a lot.
+
+[Faculty (Olympus)] 18:40:38
+But before we do that, or talk about interesting applications in particular.
+
+[Faculty (Olympus)] 18:40:45
+How recommendation system can help answer various interesting? What if questions.
+
+[Faculty (Olympus)] 18:40:53
+Can also help us think about doing episode, time series, forecasting and things like that.
+
+[Faculty (Olympus)] 18:41:00
+So that's what I will discuss.
+
+[Faculty (Olympus)] 18:41:02
+Once I'm done explaining and discussing that with your question will be at a place where it will break for 5 min.
+
+[Faculty (Olympus)] 18:41:09
+And then we'll come back, and then we'll do those 3 topics in hopefully.
+
+[Faculty (Olympus)] 18:41:13
+15 min each, and then leave.
+
+[Faculty (Olympus)] 18:41:15
+10 to 15 min at the end for conversation.
+
+[Faculty (Olympus)] 18:41:22
+Alright! So with that, let's start with an interesting application.
+
+[Faculty (Olympus)] 18:41:27
+First, st I'm going to describe the problem itself.
+
+[Faculty (Olympus)] 18:41:30
+And then we'll see how recommendation system can have. In particular, the matrix.
+
+[Faculty (Olympus)] 18:41:36
+Completion view can help solve this problem.
+
+[Faculty (Olympus)] 18:41:39
+Alright. So let's discuss what is a problem.
+
+[Faculty (Olympus)] 18:41:42
+To explain the problem. Let's look at the chart here.
+
+[Faculty (Olympus)] 18:41:45
+So on y axis.
+
+[Faculty (Olympus)] 18:41:48
+We have year.
+
+[Faculty (Olympus)] 18:41:51
+On X-axis.
+
+[Faculty (Olympus)] 18:41:52
+We have.
+
+[Faculty (Olympus)] 18:41:54
+Per capita Gdp.
+
+[Faculty (Olympus)] 18:41:56
+Okay.
+
+[Faculty (Olympus)] 18:41:57
+The value here.
+
+[Faculty (Olympus)] 18:41:59
+Is.
+
+[Faculty (Olympus)] 18:42:02
+For this time series, or this time segment.
+
+[Faculty (Olympus)] 18:42:04
+Is.
+
+[Faculty (Olympus)] 18:42:06
+Per capita Gdp.
+
+[Faculty (Olympus)] 18:42:08
+Over the years.
+
+[Faculty (Olympus)] 18:42:10
+For a region called Basque country.
+
+[Faculty (Olympus)] 18:42:13
+So as many of might know.
+
+[Faculty (Olympus)] 18:42:16
+Basque country is region in northern Spain. Beautiful region! If you have not been there.
+
+[Faculty (Olympus)] 18:42:22
+As it happened.
+
+[Faculty (Olympus)] 18:42:26
+Around late seventies.
+
+[Faculty (Olympus)] 18:42:28
+This region went through terrorism.
+
+[Faculty (Olympus)] 18:42:32
+And indeed, as you can see.
+
+[Faculty (Olympus)] 18:42:39
+Economy was growing effectively, and then there was a dip.
+
+[Faculty (Olympus)] 18:42:39
+And then started growing again.
+
+[Faculty (Olympus)] 18:42:42
+As one may.
+
+[Faculty (Olympus)] 18:42:43
+Anticipate and expect.
+
+[Faculty (Olympus)] 18:42:45
+That whenever there is.
+
+[Faculty (Olympus)] 18:42:49
+There's always.
+
+[Faculty (Olympus)] 18:42:50
+Impact on economy. There is so much.
+
+[Faculty (Olympus)] 18:42:54
+Global unrest going on right now, and can imagine how much impact, how much terrible impact it is.
+
+[Faculty (Olympus)] 18:43:02
+Having.
+
+[Faculty (Olympus)] 18:43:04
+Across the globe right.
+
+[Faculty (Olympus)] 18:43:05
+No matter what site you are, it's just not good.
+
+[Faculty (Olympus)] 18:43:10
+Now, the question is that okay? So we know that it has an impact. But can we.
+
+[Faculty (Olympus)] 18:43:15
+Quantify the impact.
+
+[Faculty (Olympus)] 18:43:16
+Good.
+
+[Faculty (Olympus)] 18:43:18
+So here is.
+
+[Faculty (Olympus)] 18:43:20
+A hypothetical.
+
+[Faculty (Olympus)] 18:43:23
+Bosque.
+
+[Faculty (Olympus)] 18:43:25
+That we are putting here.
+
+[Faculty (Olympus)] 18:43:28
+And.
+
+[Faculty (Olympus)] 18:43:28
+The hypothetical says that well.
+
+[Faculty (Olympus)] 18:43:32
+I'm growing as before.
+
+[Faculty (Olympus)] 18:43:34
+And then I continue growing like this.
+
+[Faculty (Olympus)] 18:43:38
+And this hypothetical is effectively.
+
+[Faculty (Olympus)] 18:43:41
+Basque, in which unrest has not.
+
+[Faculty (Olympus)] 18:43:44
+Happen. There is.
+
+[Faculty (Olympus)] 18:43:46
+It's.
+
+[Faculty (Olympus)] 18:43:46
+What would happen to Bask Region if it had not experienced terrorism.
+
+[Faculty (Olympus)] 18:43:54
+And that's this dotted line.
+
+[Faculty (Olympus)] 18:43:57
+So if you can imagine, and if we can come up with such.
+
+[Faculty (Olympus)] 18:44:02
+Answer to such a what if question, then we can say, Look.
+
+[Faculty (Olympus)] 18:44:06
+This at this year. This has been the impact on.
+
+[Faculty (Olympus)] 18:44:10
+The Gd.
+
+[Faculty (Olympus)] 18:44:13
+Turns out that impact continues.
+
+[Faculty (Olympus)] 18:44:16
+Over time.
+
+[Faculty (Olympus)] 18:44:17
+So in a sense that if you believe this analysis.
+
+[Faculty (Olympus)] 18:44:22
+What it says is that.
+
+[Faculty (Olympus)] 18:44:23
+These type of shocks, and one time shocks do have long lasting effect.
+
+[Faculty (Olympus)] 18:44:29
+Doesn't disappear.
+
+[Faculty (Olympus)] 18:44:30
+So it's not just temporal, but actually it continues even 20 years later.
+
+[Faculty (Olympus)] 18:44:37
+So now the question is, how did we come up with this hypothetical.
+
+[Faculty (Olympus)] 18:44:42
+Answer to what? If question.
+
+[Faculty (Olympus)] 18:44:46
+Right before I do that I'm gonna.
+
+[Faculty (Olympus)] 18:44:48
+Give you another example.
+
+[Faculty (Olympus)] 18:44:52
+Here is a more interesting example of.
+
+[Faculty (Olympus)] 18:44:54
+Evaluating impact of policy.
+
+[Faculty (Olympus)] 18:44:57
+So last administrator.
+
+[Faculty (Olympus)] 18:44:59
+Current administration in United States.
+
+[Faculty (Olympus)] 18:45:02
+Lots of
+
+[Faculty (Olympus)] 18:45:04
+Legislation.
+
+[Faculty (Olympus)] 18:45:07
+Have been passed.
+
+[Faculty (Olympus)] 18:45:09
+I mean, it's remarkable.
+
+[Faculty (Olympus)] 18:45:10
+What legislation has happened? Okay.
+
+[Faculty (Olympus)] 18:45:16
+However
+
+[Faculty (Olympus)] 18:45:19
+We don't know whether that would have impact on.
+
+[Faculty (Olympus)] 18:45:22
+Things. For example, there's a Chips act.
+
+[Faculty (Olympus)] 18:45:26
+Says that sort of it should promote.
+
+[Faculty (Olympus)] 18:45:29
+Manufacturing of.
+
+[Faculty (Olympus)] 18:45:33
+Electronics.
+
+[Faculty (Olympus)] 18:45:35
+Circuits, ics.
+
+[Faculty (Olympus)] 18:45:38
+In.
+
+[Faculty (Olympus)] 18:45:39
+United States! More.
+
+[Faculty (Olympus)] 18:45:40
+10 years later. Maybe we'll look back and see if it did. Indeed.
+
+[Faculty (Olympus)] 18:45:45
+And if so, what was the impact?
+
+[Faculty (Olympus)] 18:45:49
+Here is.
+
+[Faculty (Olympus)] 18:45:50
+To evaluate that kind of what if answer or impact of policy.
+
+[Faculty (Olympus)] 18:45:54
+Here's another example of a policy that was passed in California.
+
+[Faculty (Olympus)] 18:45:59
+In late 1980, S.
+
+[Faculty (Olympus)] 18:46:02
+Call Proposition 99, we'd say that.
+
+[Faculty (Olympus)] 18:46:05
+Every purchase of tobacco product will levy certain.
+
+[Faculty (Olympus)] 18:46:09
+Tax on those purchases, and those texts will be utilized to educate people against.
+
+[Faculty (Olympus)] 18:46:13
+In terms of what is the impact of tobacco consumption on health? Okay?
+
+[Faculty (Olympus)] 18:46:19
+And towards that here. What we're measuring is on y-axis per capita cigarette sales as a proxy of tobacco consumption, and on X axis is the time.
+
+[Faculty (Olympus)] 18:46:29
+This is the time.
+
+[Faculty (Olympus)] 18:46:32
+Message was done.
+
+[Faculty (Olympus)] 18:46:33
+As you can see, this is the real.
+
+[Faculty (Olympus)] 18:46:37
+Tobacco, consumption, or proxy of tobacco, consumption.
+
+[Faculty (Olympus)] 18:46:41
+And this is that hypothetical. What if saying that.
+
+[Faculty (Olympus)] 18:46:45
+What if at this time proposition 9 was not passed? It will continue like this.
+
+[Faculty (Olympus)] 18:46:50
+And it's.
+
+[Faculty (Olympus)] 18:46:52
+This.
+
+[Faculty (Olympus)] 18:46:54
+Difference is the impact of that proposition on tobacco consumption.
+
+[Faculty (Olympus)] 18:46:59
+It is the attribution we.
+
+[Faculty (Olympus)] 18:47:02
+Now, how does one go about.
+
+[Faculty (Olympus)] 18:47:04
+Finding such dashed line.
+
+[Faculty (Olympus)] 18:47:06
+This is exactly.
+
+[Faculty (Olympus)] 18:47:08
+A matrix completion problem. Why?
+
+[Faculty (Olympus)] 18:47:12
+So consider the following setup.
+
+[Faculty (Olympus)] 18:47:13
+So.
+
+[Faculty (Olympus)] 18:47:15
+Rose.
+
+[Faculty (Olympus)] 18:47:16
+Are.
+
+[Faculty (Olympus)] 18:47:18
+Different units. I would call in the context of.
+
+[Faculty (Olympus)] 18:47:23
+Bask. This is the Basque region, and these are other regions.
+
+[Faculty (Olympus)] 18:47:27
+In the Europe and.
+
+[Faculty (Olympus)] 18:47:31
+This is time!
+
+[Faculty (Olympus)] 18:47:33
+This is the time when.
+
+[Faculty (Olympus)] 18:47:36
+In Basque context.
+
+[Faculty (Olympus)] 18:47:38
+Terrorism happens in the context of California.
+
+[Faculty (Olympus)] 18:47:41
+Law was passed.
+
+[Faculty (Olympus)] 18:47:43
+These are the values that we were.
+
+[Faculty (Olympus)] 18:47:45
+Tracky.
+
+[Faculty (Olympus)] 18:47:47
+Context of Basque.
+
+[Faculty (Olympus)] 18:47:48
+The per capita Gdp. In the context of California. It was.
+
+[Faculty (Olympus)] 18:47:55
+Per Capita's cigarette sales.
+
+[Faculty (Olympus)] 18:47:59
+In context of California. This was the target, and these were other states.
+
+[Faculty (Olympus)] 18:48:03
+And now
+
+[Faculty (Olympus)] 18:48:06
+For all other States.
+
+[Faculty (Olympus)] 18:48:08
+Or the wood regions, where.
+
+[Faculty (Olympus)] 18:48:10
+There was no such.
+
+[Faculty (Olympus)] 18:48:12
+Conflict happen.
+
+[Faculty (Olympus)] 18:48:13
+The world continues as is.
+
+[Faculty (Olympus)] 18:48:16
+Versus for California or for Basque.
+
+[Faculty (Olympus)] 18:48:20
+Things change here. So let's get rid of all of these values. Remove them.
+
+[Faculty (Olympus)] 18:48:23
+Because what we want to know is that.
+
+[Faculty (Olympus)] 18:48:26
+If the world continues as is.
+
+[Faculty (Olympus)] 18:48:29
+For California or Basque. What the world would look like.
+
+[Faculty (Olympus)] 18:48:32
+So, in a sense. Now, I've got a matrix.
+
+[Faculty (Olympus)] 18:48:35
+Old matrix where I'm observed everything.
+
+[Faculty (Olympus)] 18:48:38
+But this part.
+
+[Faculty (Olympus)] 18:48:40
+Now for this, I can complete this matrix. For example, using collaborative filtering, that is, I can say that. Well, let me find.
+
+[Faculty (Olympus)] 18:48:48
+This is the role. Let me find all other rows that look similar to this one.
+
+[Faculty (Olympus)] 18:48:52
+Look at that other values and average them and produce this.
+
+[Faculty (Olympus)] 18:48:56
+Or.
+
+[Faculty (Olympus)] 18:48:57
+Let me take this row and compute linear combination of other things, and then use the same linear combination. To complete this, all sorts of different matrix completion algorithm, I can use.
+
+[Faculty (Olympus)] 18:49:07
+But.
+
+[Faculty (Olympus)] 18:49:08
+This is
+
+[Faculty (Olympus)] 18:49:11
+Actively, matrix completion.
+
+[Faculty (Olympus)] 18:49:14
+Okay.
+
+[Faculty (Olympus)] 18:49:15
+And that's if I clear recommendation system problem.
+
+[Faculty (Olympus)] 18:49:20
+So that's how we can solve all of these problems. Now let's see if there are few questions before we break. And then when we come back we'll start with the.
+
+[Faculty (Olympus)] 18:49:30
+Looking at the 3 methods.
+
+[Faculty (Olympus)] 18:49:32
+Alright. So I think.
+
+[Faculty (Olympus)] 18:49:36
+That should I think we answered that question.
+
+[Faculty (Olympus)] 18:49:38
+Thank you. Shanah's absolutely user of actually.
+
+[Faculty (Olympus)] 18:49:44
+Found the right thing. So this is called synthetic controls.
+
+[Faculty (Olympus)] 18:49:47
+If you want to read more.
+
+[Faculty (Olympus)] 18:49:49
+This stuff.
+
+[Faculty (Olympus)] 18:49:51
+You can look at synthetic interventions which takes this to the next level.
+
+[Faculty (Olympus)] 18:49:56
+Take tensor view of matrix completion leads to.
+
+[Faculty (Olympus)] 18:50:00
+Even synthetic intervention.
+
+[Faculty (Olympus)] 18:50:02
+It's like.
+
+[Faculty (Olympus)] 18:50:03
+At the end of this lecture. Whatever we study as the most complicated method that becomes synthetic intervention and causal inference.
+
+[Faculty (Olympus)] 18:50:11
+And is a thesis of Aneesha. Guru is now at Columbia.
+
+[Faculty (Olympus)] 18:50:16
+And Dennis Shen, who is now at University of California.
+
+[Faculty (Olympus)] 18:50:20
+Professors, their thesis actually.
+
+[Faculty (Olympus)] 18:50:23
+Explains these things.
+
+[Faculty (Olympus)] 18:50:27
+Okay.
+
+[Faculty (Olympus)] 18:50:28
+Linds question is, how do you solve for.
+
+[Faculty (Olympus)] 18:50:31
+Time t plus n.
+
+[Faculty (Olympus)] 18:50:32
+For this values which is missing values. You choose your favorite completion algorithm.
+
+[Faculty (Olympus)] 18:50:38
+Pete. What is a typical accuracy of prediction is acceptable for this type of metrics. Completion? Problem again.
+
+[Faculty (Olympus)] 18:50:44
+Pete,
+
+[Faculty (Olympus)] 18:50:46
+Given data and a given method you choose, you get the accuracy.
+
+[Faculty (Olympus)] 18:50:51
+And.
+
+[Faculty (Olympus)] 18:50:51
+That's the best you can get. Given data. Now.
+
+[Faculty (Olympus)] 18:50:54
+Whether it's acceptable or not depends on your decision making.
+
+[Faculty (Olympus)] 18:50:57
+Okay.
+
+[Faculty (Olympus)] 18:51:01
+Excellent. Alright! Chris will take this last question and then break when I create this matrix. Should I hold any assumption on.
+
+[Faculty (Olympus)] 18:51:08
+On its rank. No.
+
+[Faculty (Olympus)] 18:51:09
+Alright. So with that we'll break. We'll come back.
+
+[Faculty (Olympus)] 18:51:13
+In 5 min.
+
+[Faculty (Olympus)] 18:55:54
+Okay.
+
+[Faculty (Olympus)] 18:56:05
+Alright. So at this stage we're gonna sort of.
+
+[Faculty (Olympus)] 18:56:10
+Move to the next set of things is an interesting application to.
+
+[Faculty (Olympus)] 18:56:15
+Using the same method to.
+
+[Faculty (Olympus)] 18:56:18
+Predict or estimate.
+
+[Faculty (Olympus)] 18:56:20
+What would happen to an outcome of game in the midway of the game. But I'm gonna skip that in interest of time.
+
+[Faculty (Olympus)] 18:56:27
+Okay, and.
+
+[Faculty (Olympus)] 18:56:29
+We'll start with.
+
+[Faculty (Olympus)] 18:56:31
+The 1st topic.
+
+[Faculty (Olympus)] 18:56:33
+Of bringing.
+
+[Faculty (Olympus)] 18:56:34
+Preference based approach along with the content approach.
+
+[Faculty (Olympus)] 18:56:38
+And this is where I will implicitly review the context.
+
+[Faculty (Olympus)] 18:56:43
+Method.
+
+[Faculty (Olympus)] 18:56:46
+Now Krista has a question which she's asking to host and panelists. Krista, if you could.
+
+[Faculty (Olympus)] 18:56:52
+Give it to everyone. I think that'll be great, so that everybody knows.
+
+[Faculty (Olympus)] 18:56:59
+We had learned that you need minimum 30 samples for statin does the same follow.
+
+[Faculty (Olympus)] 18:57:06
+Here you need 30 comparative samples.
+
+[Faculty (Olympus)] 18:57:10
+Indeed, Krista, some form of that minimum number should matter.
+
+[Faculty (Olympus)] 18:57:15
+And that depends on the.
+
+[Faculty (Olympus)] 18:57:18
+Dimensionality of the problem at some level.
+
+[Faculty (Olympus)] 18:57:20
+And you want to
+
+[Faculty (Olympus)] 18:57:23
+If you look at actually the link, for example, that.
+
+[Faculty (Olympus)] 18:57:26
+Jeffrey has posted an associated manuscript.
+
+[Faculty (Olympus)] 18:57:30
+You will see.
+
+[Faculty (Olympus)] 18:57:32
+Lot of detail, statistical analysis to help understand that.
+
+[Faculty (Olympus)] 18:57:38
+Excellent.
+
+[Faculty (Olympus)] 18:57:40
+So with that, let's start with this.
+
+[Faculty (Olympus)] 18:57:44
+Alright! Now you have slides and all that instead. What I'll do is I'll sort of walk us through.
+
+[Faculty (Olympus)] 18:57:51
+The whiteboard.
+
+[Faculty (Olympus)] 18:57:53
+So again, as we discussed
+
+[Faculty (Olympus)] 18:57:59
+The generic model is that Li J. Is some function of.
+
+[Faculty (Olympus)] 18:58:06
+Features associated with I. And features associated with J.
+
+[Faculty (Olympus)] 18:58:10
+You IVJ.
+
+[Faculty (Olympus)] 18:58:13
+Okay. Now.
+
+[Faculty (Olympus)] 18:58:15
+What can happen is.
+
+[Faculty (Olympus)] 18:58:17
+Some of these features are known.
+
+[Faculty (Olympus)] 18:58:23
+And.
+
+[Faculty (Olympus)] 18:58:24
+Some of these.
+
+[Faculty (Olympus)] 18:58:27
+Features are unobserved.
+
+[Faculty (Olympus)] 18:58:29
+Okay.
+
+[Faculty (Olympus)] 18:58:31
+Similarly aspects of the feature might be observed.
+
+[Faculty (Olympus)] 18:58:35
+And aspect of the feature are unobserved.
+
+[Faculty (Olympus)] 18:58:38
+Good.
+
+[Faculty (Olympus)] 18:58:39
+In a sense this is my content.
+
+[Faculty (Olympus)] 18:58:43
+And this is what is not observed.
+
+[Faculty (Olympus)] 18:58:47
+For example, in the context of.
+
+[Faculty (Olympus)] 18:58:49
+Movie lens.
+
+[Faculty (Olympus)] 18:58:50
+These might be. These are the characteristics of users that we had data for.
+
+[Faculty (Olympus)] 18:58:57
+But there are other aspects that we don't observe that determine.
+
+[Faculty (Olympus)] 18:59:01
+Users preference for movies.
+
+[Faculty (Olympus)] 18:59:03
+Similarly.
+
+[Faculty (Olympus)] 18:59:04
+These are the movie characteristics that are given already in the movie lens data.
+
+[Faculty (Olympus)] 18:59:10
+But these are other characteristics of the movie that we don't observe, and that determine the users preference.
+
+[Faculty (Olympus)] 18:59:17
+So.
+
+[Faculty (Olympus)] 18:59:18
+In a sense, we've got.
+
+[Faculty (Olympus)] 18:59:20
+Content.
+
+[Faculty (Olympus)] 18:59:22
+And we've got.
+
+[Faculty (Olympus)] 18:59:24
+Other parts that we want to use to estimate it.
+
+[Faculty (Olympus)] 18:59:26
+When we do preference based.
+
+[Faculty (Olympus)] 18:59:30
+Approach. Rating Based Approach.
+
+[Faculty (Olympus)] 18:59:32
+But it's averaging, or whether it's a.
+
+[Faculty (Olympus)] 18:59:35
+Singular value, thresholding or collaborative or optimization based approach.
+
+[Faculty (Olympus)] 18:59:40
+We assume that there are no such x's, and y's there only these.
+
+[Faculty (Olympus)] 18:59:44
+Unobserved pieces, and then we try to recover it from the data.
+
+[Faculty (Olympus)] 18:59:48
+Here we have this and this together.
+
+[Faculty (Olympus)] 18:59:51
+Okay.
+
+[Faculty (Olympus)] 18:59:52
+So one way to.
+
+[Faculty (Olympus)] 18:59:54
+Write, that.
+
+[Faculty (Olympus)] 18:59:55
+As a model form is to say that well, my LIJ.
+
+[Faculty (Olympus)] 19:00:01
+This function of.
+
+[Faculty (Olympus)] 19:00:03
+XIAI.
+
+[Faculty (Olympus)] 19:00:05
+This is observed, this is not observed.
+
+[Faculty (Olympus)] 19:00:08
+And.
+
+[Faculty (Olympus)] 19:00:10
+YJ.
+
+[Faculty (Olympus)] 19:00:11
+Bj.
+
+[Faculty (Olympus)] 19:00:12
+This is observed, this is not observed.
+
+[Faculty (Olympus)] 19:00:16
+And of course we don't know the function.
+
+[Faculty (Olympus)] 19:00:20
+Okay.
+
+[Faculty (Olympus)] 19:00:21
+A simpler instance of this model, and I will use that simpler instance for the purpose of.
+
+[Faculty (Olympus)] 19:00:28
+For.
+
+[Faculty (Olympus)] 19:00:30
+Pedagogical reason, but also it's a good.
+
+[Faculty (Olympus)] 19:00:33
+Question.
+
+[Faculty (Olympus)] 19:00:34
+Okay, is that.
+
+[Faculty (Olympus)] 19:00:35
+Is a good model.
+
+[Faculty (Olympus)] 19:00:38
+Is follows, so.
+
+[Faculty (Olympus)] 19:00:39
+We'll say that.
+
+[Faculty (Olympus)] 19:00:41
+Well, this is.
+
+[Faculty (Olympus)] 19:00:44
+f, 1.
+
+[Faculty (Olympus)] 19:00:46
+XI.
+
+[Faculty (Olympus)] 19:00:47
+Y.
+
+[Faculty (Olympus)] 19:00:48
+As this is F. 2 of.
+
+[Faculty (Olympus)] 19:00:51
+AI, BJ.
+
+[Faculty (Olympus)] 19:00:53
+There's an edit model.
+
+[Faculty (Olympus)] 19:00:55
+In particular for F, when I'll assume it to be linear model. That is.
+
+[Faculty (Olympus)] 19:00:59
+Alpha. XI.
+
+[Faculty (Olympus)] 19:01:01
+Plus beta YJ plus gamma.
+
+[Faculty (Olympus)] 19:01:05
+Like linear regression.
+
+[Faculty (Olympus)] 19:01:07
+And then F, 2.
+
+[Faculty (Olympus)] 19:01:09
+I will assume.
+
+[Faculty (Olympus)] 19:01:10
+The low, rank model.
+
+[Faculty (Olympus)] 19:01:13
+That, for example, the one that we assumed for.
+
+[Faculty (Olympus)] 19:01:16
+That was you assumed.
+
+[Faculty (Olympus)] 19:01:18
+Implicitly behind singular value, thresholding like AI transpose B.
+
+[Faculty (Olympus)] 19:01:23
+So.
+
+[Faculty (Olympus)] 19:01:24
+This is my model.
+
+[Faculty (Olympus)] 19:01:29
+This is the unknown value that I want to estimate. What we instead observe is a noisy version of this right.
+
+[Faculty (Olympus)] 19:01:34
+What we observe is y. If we observe, if it's not observed, then it's.
+
+[Faculty (Olympus)] 19:01:40
+Question, mark, style, but if it.
+
+[Faculty (Olympus)] 19:01:43
+Then it's YLIJ plus some noise on Ij.
+
+[Faculty (Olympus)] 19:01:48
+So putting it other way.
+
+[Faculty (Olympus)] 19:01:52
+Now from the perspective of.
+
+[Faculty (Olympus)] 19:01:53
+We have the following for some.
+
+[Faculty (Olympus)] 19:01:57
+For some set of I comma. J.
+
+[Faculty (Olympus)] 19:01:59
+We observe that YIJ is.
+
+[Faculty (Olympus)] 19:02:03
+So YJ equals 2.
+
+[Faculty (Olympus)] 19:02:07
+And let me write it in different unknown from so Alpha.
+
+[Faculty (Olympus)] 19:02:10
+So all the things that are not.
+
+[Faculty (Olympus)] 19:02:13
+No.
+
+[Faculty (Olympus)] 19:02:14
+That are observed are written in black.
+
+[Faculty (Olympus)] 19:02:17
+All the things that are not observed are written in.
+
+[Faculty (Olympus)] 19:02:21
+Blue.
+
+[Faculty (Olympus)] 19:02:26
+So Alpha, Beta, and Gamma are unknown parameters.
+
+[Faculty (Olympus)] 19:02:29
+And of course.
+
+[Faculty (Olympus)] 19:02:33
+AI transpose. Bj, are also unknown.
+
+[Faculty (Olympus)] 19:02:38
+And then we have in addition.
+
+[Faculty (Olympus)] 19:02:40
+Noise. We don't observe noise.
+
+[Faculty (Olympus)] 19:02:43
+So what we observe is.
+
+[Faculty (Olympus)] 19:02:46
+Why?
+
+[Faculty (Olympus)] 19:02:47
+XIYJ.
+
+[Faculty (Olympus)] 19:02:50
+And let's put this model. We want to learn Alpha, beta gamma. And this and this is, of course, a 0 mean noise. So we want to get rid of it.
+
+[Faculty (Olympus)] 19:02:59
+So the question is that, how do we learn these? Alpha Beta Gamma A's and B's.
+
+[Faculty (Olympus)] 19:03:13
+Nope.
+
+[Faculty (Olympus)] 19:03:16
+Here's an approach.
+
+[Faculty (Olympus)] 19:03:18
+Okay.
+
+[Faculty (Olympus)] 19:03:19
+Say, well, look.
+
+[Faculty (Olympus)] 19:03:20
+These are unknown things.
+
+[Faculty (Olympus)] 19:03:23
+So 1st let me see how much.
+
+[Faculty (Olympus)] 19:03:26
+Of my observations I explained by X's and Y.
+
+[Faculty (Olympus)] 19:03:29
+Because it's possible that.
+
+[Faculty (Olympus)] 19:03:32
+You know. You have given me.
+
+[Faculty (Olympus)] 19:03:36
+The.
+
+[Faculty (Olympus)] 19:03:38
+Attributes about me, which is color of my eye.
+
+[Faculty (Olympus)] 19:03:41
+And attribute about.
+
+[Faculty (Olympus)] 19:03:43
+Movie, which is
+
+[Faculty (Olympus)] 19:03:45
+Year of the movie.
+
+[Faculty (Olympus)] 19:03:47
+And these 2 things have nothing to do with users, preferences.
+
+[Faculty (Olympus)] 19:03:52
+So it's possible that we might just realize that these Excise and Yges are completely informative about this.
+
+[Faculty (Olympus)] 19:03:58
+Or maybe they are.
+
+[Faculty (Olympus)] 19:04:00
+So the best thing to do is to given this.
+
+[Faculty (Olympus)] 19:04:05
+Observations. First, st let's try to find out how much of the wise.
+
+[Faculty (Olympus)] 19:04:09
+Can x and y explain.
+
+[Faculty (Olympus)] 19:04:13
+And the things that X and y cannot explain.
+
+[Faculty (Olympus)] 19:04:15
+We'll try to fit them.
+
+[Faculty (Olympus)] 19:04:17
+Using A's and B's.
+
+[Faculty (Olympus)] 19:04:20
+Okay, so again.
+
+[Faculty (Olympus)] 19:04:21
+2. Step approach.
+
+[Faculty (Olympus)] 19:04:24
+Okay.
+
+[Faculty (Olympus)] 19:04:27
+2. Step approach.
+
+[Faculty (Olympus)] 19:04:32
+Step, one.
+
+[Faculty (Olympus)] 19:04:35
+Okay.
+
+[Faculty (Olympus)] 19:04:36
+Learn.
+
+[Faculty (Olympus)] 19:04:39
+How much.
+
+[Faculty (Olympus)] 19:04:40
+Of.
+
+[Faculty (Olympus)] 19:04:42
+Data.
+
+[Faculty (Olympus)] 19:04:43
+IEY.
+
+[Faculty (Olympus)] 19:04:46
+Can be.
+
+[Faculty (Olympus)] 19:04:48
+Explained.
+
+[Faculty (Olympus)] 19:04:50
+With.
+
+[Faculty (Olympus)] 19:04:53
+Attributes that are observed.
+
+[Faculty (Olympus)] 19:04:57
+X and y.
+
+[Faculty (Olympus)] 19:04:59
+And then.
+
+[Faculty (Olympus)] 19:05:01
+Step, 2.
+
+[Faculty (Olympus)] 19:05:04
+Remaining.
+
+[Faculty (Olympus)] 19:05:07
+Learn.
+
+[Faculty (Olympus)] 19:05:08
+Through.
+
+[Faculty (Olympus)] 19:05:12
+Preference or rating based approach.
+
+[Faculty (Olympus)] 19:05:17
+Okay.
+
+[Faculty (Olympus)] 19:05:20
+This would mean.
+
+[Faculty (Olympus)] 19:05:22
+That effectively.
+
+[Faculty (Olympus)] 19:05:24
+Try to fit the best linear model in this. In our example here.
+
+[Faculty (Olympus)] 19:05:28
+Using this as label, and these as features.
+
+[Faculty (Olympus)] 19:05:33
+Once you fit the best linear model, subtract that linear model from this and whatever that subtraction remains to that, you fit this.
+
+[Faculty (Olympus)] 19:05:42
+That's what this 2 step approach mean.
+
+[Faculty (Olympus)] 19:05:45
+So now let's formalize it.
+
+[Faculty (Olympus)] 19:05:49
+Okay. Now, before I formalize it and start.
+
+[Faculty (Olympus)] 19:05:51
+If there are questions please feel free to ask me, otherwise I'll continue.
+
+[Faculty (Olympus)] 19:06:04
+Case.
+
+[Faculty (Olympus)] 19:06:07
+What is gate? What is gamma is.
+
+[Faculty (Olympus)] 19:06:10
+A constant. It's a constant shift.
+
+[Faculty (Olympus)] 19:06:13
+Okay.
+
+[Faculty (Olympus)] 19:06:15
+Just like in linear regression, you have and
+
+[Faculty (Olympus)] 19:06:20
+Intercept.
+
+[Faculty (Olympus)] 19:06:24
+Alright! So with that.
+
+[Faculty (Olympus)] 19:06:27
+Let's do step one.
+
+[Faculty (Olympus)] 19:06:28
+Step, one.
+
+[Faculty (Olympus)] 19:06:32
+Learn.
+
+[Faculty (Olympus)] 19:06:33
+Alpha beta gam.
+
+[Faculty (Olympus)] 19:06:35
+Okay. And the way you do that is.
+
+[Faculty (Olympus)] 19:06:37
+You've got
+
+[Faculty (Olympus)] 19:06:40
+Okay. Fit.
+
+[Faculty (Olympus)] 19:06:42
+Best.
+
+[Faculty (Olympus)] 19:06:44
+Linear.
+
+[Faculty (Olympus)] 19:06:45
+Model.
+
+[Faculty (Olympus)] 19:06:48
+I minimize choice of Alpha Beta gamma.
+
+[Faculty (Olympus)] 19:06:51
+Of.
+
+[Faculty (Olympus)] 19:06:52
+YIJ. Minus Alpha Xi minus Beta, Yj, minus Gamma square.
+
+[Faculty (Olympus)] 19:06:59
+Summation over all ij. That are.
+
+[Faculty (Olympus)] 19:07:02
+Observed in the data.
+
+[Faculty (Olympus)] 19:07:03
+And let's say this gives you Alpha star, beta star.
+
+[Faculty (Olympus)] 19:07:07
+Gamma, stuff.
+
+[Faculty (Olympus)] 19:07:10
+Okay.
+
+[Faculty (Olympus)] 19:07:11
+Now, at this stage I can just pause, and I can say that.
+
+[Faculty (Olympus)] 19:07:15
+I have effectively done.
+
+[Faculty (Olympus)] 19:07:18
+Content, based filtering.
+
+[Faculty (Olympus)] 19:07:20
+There's a question earlier that what is a content based filtering. I hope you already seen what content based filtering is.
+
+[Faculty (Olympus)] 19:07:26
+But now.
+
+[Faculty (Olympus)] 19:07:28
+I would like.
+
+[Faculty (Olympus)] 19:07:30
+Add to it.
+
+[Faculty (Olympus)] 19:07:32
+The.
+
+[Faculty (Olympus)] 19:07:34
+Reading, based approach.
+
+[Faculty (Olympus)] 19:07:36
+And towards that.
+
+[Faculty (Olympus)] 19:07:38
+I will start with in. I will do. Step 2.
+
+[Faculty (Olympus)] 19:07:41
+Good.
+
+[Faculty (Olympus)] 19:07:43
+Now for step 2 1st is, I'm going to compute this Delta yig, is YJ.
+
+[Faculty (Olympus)] 19:07:50
+Minus Alpha XI minus beta star YJ.
+
+[Faculty (Olympus)] 19:07:54
+Mine does get my start.
+
+[Faculty (Olympus)] 19:07:55
+Okay.
+
+[Faculty (Olympus)] 19:07:56
+For.
+
+[Faculty (Olympus)] 19:07:57
+All ij that were already observed.
+
+[Faculty (Olympus)] 19:08:00
+Okay.
+
+[Faculty (Olympus)] 19:08:00
+Because.
+
+[Faculty (Olympus)] 19:08:02
+Remember if Yj's question Mark or Star.
+
+[Faculty (Olympus)] 19:08:05
+What does question mark or star minus a quantity means nothing. So we ignore those things. So these are only those entries which were observed.
+
+[Faculty (Olympus)] 19:08:14
+There's for which we had y with some value.
+
+[Faculty (Olympus)] 19:08:19
+Okay. Now.
+
+[Faculty (Olympus)] 19:08:20
+In one world. Suppose.
+
+[Faculty (Olympus)] 19:08:23
+This data was fully explained by Features Xi. And Yj.
+
+[Faculty (Olympus)] 19:08:28
+Then maybe this would be a noise.
+
+[Faculty (Olympus)] 19:08:33
+In which case there's nothing to fit.
+
+[Faculty (Olympus)] 19:08:36
+On the other end. Suppose.
+
+[Faculty (Olympus)] 19:08:37
+These x and y's have nothing to do with this. Then Alpha and Beta Star would turn out to be 0.
+
+[Faculty (Olympus)] 19:08:43
+And maybe there is a constant, or maybe there is not a constant.
+
+[Faculty (Olympus)] 19:08:46
+But.
+
+[Faculty (Olympus)] 19:08:47
+Alpha and Beta Star would turn out to be 0, in which case we know that these features have nothing to do with this.
+
+[Faculty (Olympus)] 19:08:54
+Again, those are 2 extremes.
+
+[Faculty (Olympus)] 19:08:56
+Okay.
+
+[Faculty (Olympus)] 19:08:58
+Now given this Delta Y. What we'll do is we'll try to. Now think of this as a.
+
+[Faculty (Olympus)] 19:09:03
+Oh!
+
+[Faculty (Olympus)] 19:09:05
+Delta V, matrix, right.
+
+[Faculty (Olympus)] 19:09:07
+With.
+
+[Faculty (Olympus)] 19:09:12
+And for this we are trying to compute AI transpose. Bj.
+
+[Faculty (Olympus)] 19:09:16
+And we can do this with our favorite.
+
+[Faculty (Olympus)] 19:09:19
+Matrix completion, method.
+
+[Faculty (Olympus)] 19:09:22
+For example.
+
+[Faculty (Olympus)] 19:09:24
+Singular value, thresholding or.
+
+[Faculty (Olympus)] 19:09:26
+Optimization based approach.
+
+[Faculty (Olympus)] 19:09:28
+And that will give us.
+
+[Faculty (Olympus)] 19:09:31
+AI! Star.
+
+[Faculty (Olympus)] 19:09:32
+The I star.
+
+[Faculty (Olympus)] 19:09:33
+And then step 3, which is final. Thing is.
+
+[Faculty (Olympus)] 19:09:38
+Final output.
+
+[Faculty (Olympus)] 19:09:42
+L. Hat ij. For every agent now.
+
+[Faculty (Olympus)] 19:09:45
+Alpha star XI.
+
+[Faculty (Olympus)] 19:09:47
+Just be test out YJ.
+
+[Faculty (Olympus)] 19:09:50
+Plus camera plus.
+
+[Faculty (Olympus)] 19:09:52
+EI.
+
+[Faculty (Olympus)] 19:09:53
+Start. Transpose BIBA, star.
+
+[Faculty (Olympus)] 19:09:57
+And that will be our final outcome.
+
+[Faculty (Olympus)] 19:10:00
+So there was a two-step approach.
+
+[Faculty (Olympus)] 19:10:03
+Pick the data first.st Try to understand how well can attributes explain it.
+
+[Faculty (Olympus)] 19:10:09
+Remove that explanation from that data. Whatever remains is that difference to that difference based approach.
+
+[Faculty (Olympus)] 19:10:17
+And.
+
+[Faculty (Olympus)] 19:10:18
+Then put those 2 things together as we did here. That is.
+
+[Faculty (Olympus)] 19:10:22
+One and 2 together to get the final answer.
+
+[Faculty (Olympus)] 19:10:26
+Okay, so this is our content rating, based approach.
+
+[Faculty (Olympus)] 19:10:32
+Right.
+
+[Faculty (Olympus)] 19:10:34
+Let's see if there are questions. We're going to move to the next topic.
+
+[Faculty (Olympus)] 19:10:38
+Bringing Time series in it.
+
+[Faculty (Olympus)] 19:10:40
+So Krista has a question when you say A and B are unknown.
+
+[Faculty (Olympus)] 19:10:44
+Do you mean? The values of them are not known.
+
+[Faculty (Olympus)] 19:10:48
+And we know that in B. Stanford, like.
+
+[Faculty (Olympus)] 19:10:52
+So actually, Christa, we don't know their value, and we don't know what they stand for, and we will never know what they stand for because these are all.
+
+[Faculty (Olympus)] 19:10:59
+Unknown.
+
+[Faculty (Olympus)] 19:11:01
+Lat.
+
+[Faculty (Olympus)] 19:11:03
+Characteristics.
+
+[Faculty (Olympus)] 19:11:06
+Actually, if you want to. If you want a bedtime reading around this kind of
+
+[Faculty (Olympus)] 19:11:13
+What do these latent character have to do with actual characteristic.
+
+[Faculty (Olympus)] 19:11:17
+Is kind of interesting. We did in the context of evaluating policy for Covid.
+
+[Faculty (Olympus)] 19:11:24
+This appeared in.
+
+[Faculty (Olympus)] 19:11:26
+Proceedings.
+
+[Faculty (Olympus)] 19:11:30
+Of.
+
+[Faculty (Olympus)] 19:11:31
+National.
+
+[Faculty (Olympus)] 19:11:34
+Academy of Sciences.
+
+[Faculty (Olympus)] 19:11:36
+But it's popularly known as pns.
+
+[Faculty (Olympus)] 19:11:40
+This was with the.
+
+[Faculty (Olympus)] 19:11:42
+Osi.
+
+[Faculty (Olympus)] 19:11:44
+Shin.
+
+[Faculty (Olympus)] 19:11:46
+Burleigh.
+
+[Faculty (Olympus)] 19:11:48
+I think, Bourley and myself, and this was, I think, in 2022 or 23.
+
+[Faculty (Olympus)] 19:11:56
+And it was about.
+
+[Faculty (Olympus)] 19:11:59
+Football.
+
+[Faculty (Olympus)] 19:12:01
+Covid.
+
+[Faculty (Olympus)] 19:12:03
+Wally, C.
+
+[Faculty (Olympus)] 19:12:05
+Basically, what was that interesting was that there was
+
+[Faculty (Olympus)] 19:12:14
+Okay. I think I have a time. Let me just.
+
+[Faculty (Olympus)] 19:12:16
+Tell you a story.
+
+[Faculty (Olympus)] 19:12:21
+At the time of Covid.
+
+[Faculty (Olympus)] 19:12:24
+See if you remember.
+
+[Faculty (Olympus)] 19:12:25
+I hope none of us remember. But of course.
+
+[Faculty (Olympus)] 19:12:31
+2,019, late 2019 is when things were detected early on, and then 20 march is when we went into the lockdown.
+
+[Faculty (Olympus)] 19:12:39
+2020 fall. We were still in Semi, Lockdown.
+
+[Faculty (Olympus)] 19:12:47
+Without.
+
+[Faculty (Olympus)] 19:12:49
+Vaccine.
+
+[Faculty (Olympus)] 19:12:51
+And that was a time when the football season started again.
+
+[Faculty (Olympus)] 19:12:56
+And some parts of the country had States, where they opened up the football stadium for people to go and watch.
+
+[Faculty (Olympus)] 19:13:06
+Is American football. I'm talking, not soccer.
+
+[Faculty (Olympus)] 19:13:09
+And then.
+
+[Faculty (Olympus)] 19:13:10
+Parts of the other country, where those things did not happen.
+
+[Faculty (Olympus)] 19:13:13
+So that provided a natural experiment, and of course.
+
+[Faculty (Olympus)] 19:13:19
+Natural reaction of everyone would be that well.
+
+[Faculty (Olympus)] 19:13:23
+Places where footballs have opened up that must lead to.
+
+[Faculty (Olympus)] 19:13:29
+Increase in covid infection spread.
+
+[Faculty (Olympus)] 19:13:31
+So in this study, and there was. There was a bunch of studies that were argued that.
+
+[Faculty (Olympus)] 19:13:36
+And we did a very careful study with methods type of methods. I've explained here, like since.
+
+[Faculty (Olympus)] 19:13:41
+Variations of synthetic control, and all that.
+
+[Faculty (Olympus)] 19:13:43
+And what we found.
+
+[Faculty (Olympus)] 19:13:46
+Surprisingly that.
+
+[Faculty (Olympus)] 19:13:51
+Either actually opening a football stadium.
+
+[Faculty (Olympus)] 19:13:53
+I'll reduce.
+
+[Faculty (Olympus)] 19:13:56
+Covid, Spread.
+
+[Faculty (Olympus)] 19:13:57
+But there was no.
+
+[Faculty (Olympus)] 19:13:59
+Evidence. Actually, there was enough reputation that you can do, based on data that there was.
+
+[Faculty (Olympus)] 19:14:03
+It did not hurt.
+
+[Faculty (Olympus)] 19:14:05
+Okay.
+
+[Faculty (Olympus)] 19:14:07
+So that was a little sort of surprising to all of us, especially the.
+
+[Faculty (Olympus)] 19:14:13
+The the academic sitting in Cambridge.
+
+[Faculty (Olympus)] 19:14:15
+And how can that happen?
+
+[Faculty (Olympus)] 19:14:17
+And my colleague Peko is brilliant thinker.
+
+[Faculty (Olympus)] 19:14:22
+She had a great explanation, saying that it might be that.
+
+[Faculty (Olympus)] 19:14:26
+Because places where football stadium people actually went there and.
+
+[Faculty (Olympus)] 19:14:30
+Set in their own, you know.
+
+[Faculty (Olympus)] 19:14:32
+Bubbles and watch the game.
+
+[Faculty (Olympus)] 19:14:35
+If they're not gone and done that, they would have set it home, or in some bar next to each other inside.
+
+[Faculty (Olympus)] 19:14:41
+Watching the game which would have led to more spreads in a sense.
+
+[Faculty (Olympus)] 19:14:46
+Opening up stadium.
+
+[Faculty (Olympus)] 19:14:48
+Provide. It's more safe space for people to go and watch rather than not, and hence, maybe it did not. It led to reduction in spread rather than increase.
+
+[Faculty (Olympus)] 19:14:58
+Now, as we did that study, we've identified.
+
+[Faculty (Olympus)] 19:15:02
+Certain latent characteristics related to the region, and so on.
+
+[Faculty (Olympus)] 19:15:07
+And those latent characteristics have very strong correlation.
+
+[Faculty (Olympus)] 19:15:14
+To the political alignment of the region. Okay? And we have a very detailed discussion there.
+
+[Faculty (Olympus)] 19:15:19
+Now you can see that those latent characteristics might have something to do with the political.
+
+[Faculty (Olympus)] 19:15:24
+But.
+
+[Faculty (Olympus)] 19:15:25
+That's a correlation, not causation.
+
+[Faculty (Olympus)] 19:15:29
+And coming back to Krista question, which means that these latent characteristic.
+
+[Faculty (Olympus)] 19:15:33
+Do not necessarily can be explained, but there might be related to something that you can explain.
+
+[Faculty (Olympus)] 19:15:40
+Right, so.
+
+[Faculty (Olympus)] 19:15:41
+With that long detour.
+
+[Faculty (Olympus)] 19:15:44
+Going to be back to.
+
+[Faculty (Olympus)] 19:15:46
+Back to business.
+
+[Faculty (Olympus)] 19:15:48
+Alright!
+
+[Faculty (Olympus)] 19:15:50
+So now we're going to do okay. These are all the.
+
+[Faculty (Olympus)] 19:15:54
+All the details of that.
+
+[Faculty (Olympus)] 19:15:56
+Can read it.
+
+[Faculty (Olympus)] 19:15:58
+Let's do.
+
+[Faculty (Olympus)] 19:16:02
+Matrix estimation over time before I get into that. See if there are questions.
+
+[Faculty (Olympus)] 19:16:20
+8.
+
+[Faculty (Olympus)] 19:16:22
+Excellent.
+
+[Faculty (Olympus)] 19:16:26
+Alright! So
+
+[Faculty (Olympus)] 19:16:28
+It's.
+
+[Faculty (Olympus)] 19:16:29
+Just because you got slides, and all the details are there. I'll use the notes, too.
+
+[Faculty (Olympus)] 19:16:34
+Explain it.
+
+[Faculty (Olympus)] 19:16:37
+So, so far we.
+
+[Faculty (Olympus)] 19:16:39
+Assumed right.
+
+[Faculty (Olympus)] 19:16:41
+That if.
+
+[Faculty (Olympus)] 19:16:43
+There's a matrix.
+
+[Faculty (Olympus)] 19:16:46
+It had attributes to.
+
+[Faculty (Olympus)] 19:16:48
+For the time being ignored the attributes.
+
+[Faculty (Olympus)] 19:16:50
+I want to come back to it. But let's do 2 things at a time. There is a.
+
+[Faculty (Olympus)] 19:16:53
+Matrix.
+
+[Faculty (Olympus)] 19:16:55
+There's attributes. There's things over time, and there are multiple measurements.
+
+[Faculty (Olympus)] 19:17:00
+We need matrix and attributes.
+
+[Faculty (Olympus)] 19:17:02
+Now let's do matrix over time, and then we will do multiple measurements.
+
+[Faculty (Olympus)] 19:17:08
+Over time with attribute altogether. Okay?
+
+[Faculty (Olympus)] 19:17:12
+So here's where what I'm looking at. So we've got sorry about that.
+
+[Faculty (Olympus)] 19:17:18
+So we got
+
+[Faculty (Olympus)] 19:17:20
+Matrix. This is changing over time.
+
+[Faculty (Olympus)] 19:17:24
+Okay.
+
+[Faculty (Olympus)] 19:17:25
+So imagine that here is some value.
+
+[Faculty (Olympus)] 19:17:29
+That's evolving over like time series like this.
+
+[Faculty (Olympus)] 19:17:32
+And of course that's true with every Ij.
+
+[Faculty (Olympus)] 19:17:36
+Okay.
+
+[Faculty (Olympus)] 19:17:38
+And if we assume that.
+
+[Faculty (Olympus)] 19:17:39
+We don't have any observed attribute. Then we are effectively saying that this entry.
+
+[Faculty (Olympus)] 19:17:45
+LIJ. At time t.
+
+[Faculty (Olympus)] 19:17:48
+Is some function of ui vj.
+
+[Faculty (Olympus)] 19:17:52
+And we'll assume that Ui is changing over time.
+
+[Faculty (Olympus)] 19:17:56
+Pj is changing over time.
+
+[Faculty (Olympus)] 19:17:58
+And I'm gonna take a simple function for the purpose of registrations of generic function. That is this kind of.
+
+[Faculty (Olympus)] 19:18:07
+Low, rank, assumption.
+
+[Faculty (Olympus)] 19:18:09
+So in a sense, I've got user characteristics.
+
+[Faculty (Olympus)] 19:18:12
+That are changing over time.
+
+[Faculty (Olympus)] 19:18:14
+Now got.
+
+[Faculty (Olympus)] 19:18:15
+Item characteristics that are also changing over time.
+
+[Faculty (Olympus)] 19:18:19
+And that together.
+
+[Faculty (Olympus)] 19:18:20
+Lead to the ratings, changing over time.
+
+[Faculty (Olympus)] 19:18:24
+I observe some ratings.
+
+[Faculty (Olympus)] 19:18:26
+At each time step, and based on that, I want to reconstruct everything.
+
+[Faculty (Olympus)] 19:18:30
+Guess it's a.
+
+[Faculty (Olympus)] 19:18:30
+Become a little bit complicated.
+
+[Faculty (Olympus)] 19:18:33
+Of course.
+
+[Faculty (Olympus)] 19:18:34
+There's no doubt of this type of data, because, remember, movie lens.
+
+[Faculty (Olympus)] 19:18:39
+Every user's preference was timestamp.
+
+[Faculty (Olympus)] 19:18:43
+Of course, is the same user does not come back right? You're sort of seeing very sparse.
+
+[Faculty (Olympus)] 19:18:48
+Snapshot for a given user item across time.
+
+[Faculty (Olympus)] 19:18:54
+If given user was coming back to the same restaurant.
+
+[Faculty (Olympus)] 19:18:57
+And rating multiple times. Then, of course, you will have multiple snapshot. But in the worst case you might have very limited snapshots.
+
+[Faculty (Olympus)] 19:19:06
+Now to solve this problem.
+
+[Faculty (Olympus)] 19:19:09
+I have to solve a special instance of this problem, which is N equals to M equals to one.
+
+[Faculty (Olympus)] 19:19:16
+Best think of any ultra m equals to one which is l. 1 of T.
+
+[Faculty (Olympus)] 19:19:21
+Which means that I've got one single time.
+
+[Faculty (Olympus)] 19:19:25
+With potentially lots of missing values, and I want to forecast it.
+
+[Faculty (Olympus)] 19:19:29
+And this is just a classical Time series problem.
+
+[Faculty (Olympus)] 19:19:33
+The first.st What I need to do is solve for Classical Time series problem.
+
+[Faculty (Olympus)] 19:19:36
+If I solve that.
+
+[Faculty (Olympus)] 19:19:39
+For smallest possible matrix. Then maybe I have a hope to solve it for biggest.
+
+[Faculty (Olympus)] 19:19:43
+Beatrix.
+
+[Faculty (Olympus)] 19:19:44
+And to remind us what is end.
+
+[Faculty (Olympus)] 19:19:48
+N. Equals to number of users. M. Equals to number of items.
+
+[Faculty (Olympus)] 19:19:52
+Okay.
+
+[Faculty (Olympus)] 19:19:54
+So.
+
+[Faculty (Olympus)] 19:19:56
+Let's talk about, how do we solve.
+
+[Faculty (Olympus)] 19:19:59
+Single time series. Problem. Okay? So we've got a single time series problem.
+
+[Faculty (Olympus)] 19:20:04
+Actually, you know, let you look at the slides for this.
+
+[Faculty (Olympus)] 19:20:08
+You got a problem like this.
+
+[Faculty (Olympus)] 19:20:10
+Okay.
+
+[Faculty (Olympus)] 19:20:11
+I've got.
+
+[Faculty (Olympus)] 19:20:14
+Some time series of interest.
+
+[Faculty (Olympus)] 19:20:18
+Some things I observe, maybe noisy versions.
+
+[Faculty (Olympus)] 19:20:22
+Some things I don't observe.
+
+[Faculty (Olympus)] 19:20:24
+And then I want to forecast.
+
+[Faculty (Olympus)] 19:20:28
+This is time series, forecasting and.
+
+[Faculty (Olympus)] 19:20:32
+And be noisy.
+
+[Faculty (Olympus)] 19:20:35
+It's a Classical Time Series problem. And if you are a Classical Time Series person, you will say, well, the way to solve Classical Time Series is.
+
+[Faculty (Olympus)] 19:20:42
+To think of time, cities.
+
+[Faculty (Olympus)] 19:20:44
+Having the patterns of the form.
+
+[Faculty (Olympus)] 19:20:47
+Like Seasonality.
+
+[Faculty (Olympus)] 19:20:49
+Long-term trends. And then the recency fact. Put these things together. You get.
+
+[Faculty (Olympus)] 19:20:55
+The time series.
+
+[Faculty (Olympus)] 19:20:56
+That's what a classical statistician would.
+
+[Faculty (Olympus)] 19:21:00
+And that's lot of work.
+
+[Faculty (Olympus)] 19:21:02
+And complicated.
+
+[Faculty (Olympus)] 19:21:05
+What?
+
+[Faculty (Olympus)] 19:21:06
+We will do is will not do so much work.
+
+[Faculty (Olympus)] 19:21:11
+Instead, we will take a single time series. Write that single time series as a.
+
+[Faculty (Olympus)] 19:21:17
+Matrix completion problem.
+
+[Faculty (Olympus)] 19:21:19
+And that's how we will solve the Time series problem. So in a sense.
+
+[Faculty (Olympus)] 19:21:23
+We take the Time series problem to matrix completion.
+
+[Faculty (Olympus)] 19:21:27
+Solve it that way, and then.
+
+[Faculty (Olympus)] 19:21:30
+You're done.
+
+[Faculty (Olympus)] 19:21:31
+And then sort of we'll.
+
+[Faculty (Olympus)] 19:21:34
+Do a little bit more. So how does that work.
+
+[Faculty (Olympus)] 19:21:35
+Okay, so let's do the.
+
+[Faculty (Olympus)] 19:21:39
+Solve the time, cities.
+
+[Faculty (Olympus)] 19:21:44
+Biz.
+
+[Faculty (Olympus)] 19:21:47
+Matrix completion, problem, time, series, becoming recommendation, system.
+
+[Faculty (Olympus)] 19:21:52
+So, how does that work.
+
+[Faculty (Olympus)] 19:21:54
+And let me give you an example.
+
+[Faculty (Olympus)] 19:21:57
+Suppose I got a time series, I'm observing for.
+
+[Faculty (Olympus)] 19:22:02
+T. Equals to 8 steps.
+
+[Faculty (Olympus)] 19:22:05
+And I want to forecast 9. Step.
+
+[Faculty (Olympus)] 19:22:08
+So let's say this is step one.
+
+[Faculty (Olympus)] 19:22:12
+4.2.
+
+[Faculty (Olympus)] 19:22:14
+Step 2 is missing.
+
+[Faculty (Olympus)] 19:22:16
+3.9.
+
+[Faculty (Olympus)] 19:22:18
+3.6 so time 2 3 4.
+
+[Faculty (Olympus)] 19:22:22
+5th is missing.
+
+[Faculty (Olympus)] 19:22:25
+6th is
+
+[Faculty (Olympus)] 19:22:28
+4.4.
+
+[Faculty (Olympus)] 19:22:30
+7th is missing.
+
+[Faculty (Olympus)] 19:22:32
+8 is 4.9, and 9th is what I'm gonna forecast. Okay.
+
+[Faculty (Olympus)] 19:22:36
+Okay.
+
+[Faculty (Olympus)] 19:22:37
+Step, one step, 2 step, 3, 4, 5, 6, 7, 8, 9.
+
+[Faculty (Olympus)] 19:22:41
+Okay.
+
+[Faculty (Olympus)] 19:22:42
+And what I will do is I will choose a parameter.
+
+[Faculty (Olympus)] 19:22:48
+Parameter, called small, and.
+
+[Faculty (Olympus)] 19:22:51
+Which is square root of t in this cosine square root of T plus one here.
+
+[Faculty (Olympus)] 19:22:56
+Which is equal to.
+
+[Faculty (Olympus)] 19:22:57
+3, because I've got.
+
+[Faculty (Olympus)] 19:22:59
+9 steps.
+
+[Faculty (Olympus)] 19:23:02
+Okay.
+
+[Faculty (Olympus)] 19:23:04
+And what I will do is I will.
+
+[Faculty (Olympus)] 19:23:06
+Club them together. So this is my 1st 3.
+
+[Faculty (Olympus)] 19:23:11
+Next 3, and then next 3.
+
+[Faculty (Olympus)] 19:23:14
+Okay.
+
+[Faculty (Olympus)] 19:23:15
+And yes. Ca, capital T is.
+
+[Faculty (Olympus)] 19:23:17
+Total time interval of data that I have. Okay.
+
+[Faculty (Olympus)] 19:23:20
+And thank you, Eric.
+
+[Faculty (Olympus)] 19:23:25
+So I got.
+
+[Faculty (Olympus)] 19:23:27
+8, 3 step data and 9th is what I want to forecast. Of course, things are missing in the middle, and things that I'm observing might be noisy version of the 2 time series of interest.
+
+[Faculty (Olympus)] 19:23:37
+Now, what I'll do is I will convert this into.
+
+[Faculty (Olympus)] 19:23:43
+Into a matrix.
+
+[Faculty (Olympus)] 19:23:44
+How would I convert it into a matrix.
+
+[Faculty (Olympus)] 19:23:49
+This is going to be my 1st column.
+
+[Faculty (Olympus)] 19:23:51
+Okay, so.
+
+[Faculty (Olympus)] 19:23:53
+4.2.
+
+[Faculty (Olympus)] 19:23:54
+Question, mark.
+
+[Faculty (Olympus)] 19:23:56
+8.9.
+
+[Faculty (Olympus)] 19:23:58
+This is going to be my second column.
+
+[Faculty (Olympus)] 19:24:01
+3.6.
+
+[Faculty (Olympus)] 19:24:03
+Question mark 4.4.
+
+[Faculty (Olympus)] 19:24:05
+And then my 3rd call.
+
+[Faculty (Olympus)] 19:24:06
+Call them.
+
+[Faculty (Olympus)] 19:24:10
+Good.
+
+[Faculty (Olympus)] 19:24:13
+So now I've got a matrix with some entries, observed some entries missing.
+
+[Faculty (Olympus)] 19:24:17
+And from there I will apply my favorite.
+
+[Faculty (Olympus)] 19:24:21
+Matrix completion algorithm, whether it's averaging collaborative filtering or whatnot.
+
+[Faculty (Olympus)] 19:24:26
+And that will lead.
+
+[Faculty (Olympus)] 19:24:28
+To denoised value. And now I'm making it up. Okay. So.
+
+[Faculty (Olympus)] 19:24:34
+Let's say this is 4.1 3.
+
+[Faculty (Olympus)] 19:24:40
+4.0 1.
+
+[Faculty (Olympus)] 19:24:42
+3.9 4.
+
+[Faculty (Olympus)] 19:24:45
+Get.
+
+[Faculty (Olympus)] 19:24:46
+3.7 2.
+
+[Faculty (Olympus)] 19:24:51
+4.1 8.
+
+[Faculty (Olympus)] 19:24:53
+4.
+
+[Faculty (Olympus)] 19:24:55
+2 9.
+
+[Faculty (Olympus)] 19:24:56
+Okay.
+
+[Faculty (Olympus)] 19:24:59
+Make some space here.
+
+[Faculty (Olympus)] 19:25:03
+I boxed myself a little too much here.
+
+[Faculty (Olympus)] 19:25:06
+Okay.
+
+[Faculty (Olympus)] 19:25:09
+And then
+
+[Faculty (Olympus)] 19:25:10
+Maybe.
+
+[Faculty (Olympus)] 19:25:12
+4 point.
+
+[Faculty (Olympus)] 19:25:13
+3, 8.
+
+[Faculty (Olympus)] 19:25:14
+4.8 7 and 5.2 1.
+
+[Faculty (Olympus)] 19:25:17
+Okay.
+
+[Faculty (Olympus)] 19:25:21
+So again. What have I done?
+
+[Faculty (Olympus)] 19:25:23
+I.
+
+[Faculty (Olympus)] 19:25:25
+This was my 8 time steps, and 9th is what I want to forecast.
+
+[Faculty (Olympus)] 19:25:29
+I took this time series and.
+
+[Faculty (Olympus)] 19:25:32
+Divided into 3 chunks.
+
+[Faculty (Olympus)] 19:25:34
+Of equal length, 3.
+
+[Faculty (Olympus)] 19:25:36
+Okay.
+
+[Faculty (Olympus)] 19:25:38
+1st chunk became a column of matrix, second, another column, 3rd chunk became another columns. Now I've got this nice 3 by 3 matrix.
+
+[Faculty (Olympus)] 19:25:47
+2 that I applied my favorite matrix completion algorithm. And let's assume for a second that that led.
+
+[Faculty (Olympus)] 19:25:52
+To this as a solution. Okay.
+
+[Faculty (Olympus)] 19:25:55
+Right. So I'm making it up. But let's assume.
+
+[Faculty (Olympus)] 19:25:58
+Then what I will do is that I will use this.
+
+[Faculty (Olympus)] 19:26:02
+Fill up.
+
+[Faculty (Olympus)] 19:26:04
+Values back.
+
+[Faculty (Olympus)] 19:26:05
+For example, to.
+
+[Faculty (Olympus)] 19:26:08
+Fill this up and say, this is the entry corresponds to that which means that it is.
+
+[Faculty (Olympus)] 19:26:12
+4.0 1.
+
+[Faculty (Olympus)] 19:26:14
+If I want to forecast.
+
+[Faculty (Olympus)] 19:26:16
+This is the value.
+
+[Faculty (Olympus)] 19:26:18
+It is.
+
+[Faculty (Olympus)] 19:26:19
+5.2 1.
+
+[Faculty (Olympus)] 19:26:21
+And so.
+
+[Faculty (Olympus)] 19:26:22
+Well.
+
+[Faculty (Olympus)] 19:26:25
+What about this? Well, this is a dean. It's saying that.
+
+[Faculty (Olympus)] 19:26:28
+If we believe that this is a noisy observation, then.
+
+[Faculty (Olympus)] 19:26:32
+Denoised version of this would be 4.1 3.
+
+[Faculty (Olympus)] 19:26:35
+And so on.
+
+[Faculty (Olympus)] 19:26:36
+Good.
+
+[Faculty (Olympus)] 19:26:38
+And that's it. So again.
+
+[Faculty (Olympus)] 19:26:41
+Take a time, series.
+
+[Faculty (Olympus)] 19:26:43
+Chop it off.
+
+[Faculty (Olympus)] 19:26:44
+Into equal length parts.
+
+[Faculty (Olympus)] 19:26:46
+Make a matrix, 2. Matrix completion.
+
+[Faculty (Olympus)] 19:26:49
+And then replace the values back in the right positions.
+
+[Faculty (Olympus)] 19:26:53
+And that's the.
+
+[Faculty (Olympus)] 19:26:55
+Time, cities.
+
+[Faculty (Olympus)] 19:26:57
+Okay.
+
+[Faculty (Olympus)] 19:27:01
+Again, Matthew, the numbers come from. I'm applying.
+
+[Faculty (Olympus)] 19:27:06
+Some matrix completion. Algorithm. Think of singular value thresholding.
+
+[Faculty (Olympus)] 19:27:13
+Alright, so it's as simple as that as an algorithm is that does it work? Well, actually, it does work. There's lots of interesting
+
+[Faculty (Olympus)] 19:27:25
+Interesting.
+
+[Faculty (Olympus)] 19:27:26
+Mathematical explanation for that.
+
+[Faculty (Olympus)] 19:27:29
+All questions it does matrix have to be square? No, for example, if.
+
+[Faculty (Olympus)] 19:27:34
+T.
+
+[Faculty (Olympus)] 19:27:35
+I did square root of T plus one. This may not always be square, so what you do is that.
+
+[Faculty (Olympus)] 19:27:39
+You find.
+
+[Faculty (Olympus)] 19:27:41
+The.
+
+[Faculty (Olympus)] 19:27:42
+Smallest.
+
+[Faculty (Olympus)] 19:27:44
+Perfect square that is smaller, largest, perfect square, that is smaller than T.
+
+[Faculty (Olympus)] 19:27:48
+And then use.
+
+[Faculty (Olympus)] 19:27:50
+Those last segment for that.
+
+[Faculty (Olympus)] 19:27:51
+So.
+
+[Faculty (Olympus)] 19:27:53
+Okay, it's a implementation detail.
+
+[Faculty (Olympus)] 19:27:57
+Okay.
+
+[Faculty (Olympus)] 19:27:59
+And crystal. Yes, in a sense, just by segmenting it this way. It.
+
+[Faculty (Olympus)] 19:28:06
+It.
+
+[Faculty (Olympus)] 19:28:08
+Reveals the pattern somehow.
+
+[Faculty (Olympus)] 19:28:10
+Okay. These are just the details.
+
+[Faculty (Olympus)] 19:28:13
+And turns out, these are some examples showing that this method actually does work really well.
+
+[Faculty (Olympus)] 19:28:21
+It's this example for electricity, those for retail.
+
+[Faculty (Olympus)] 19:28:25
+This is for financial data.
+
+[Faculty (Olympus)] 19:28:28
+Okay. There is a lot more.
+
+[Faculty (Olympus)] 19:28:32
+Academic style, benchmarks.
+
+[Faculty (Olympus)] 19:28:34
+If you really want. Now, this is for mean computation. If we do for distribution computation, then what you have to do is that instead of using just metrices, you have to use.
+
+[Faculty (Olympus)] 19:28:46
+Graphical models.
+
+[Faculty (Olympus)] 19:28:48
+Matrices, a special case of a class of graphical models.
+
+[Faculty (Olympus)] 19:28:53
+And when we do that, then you can get the distribution and all that, and.
+
+[Faculty (Olympus)] 19:28:56
+Then.
+
+[Faculty (Olympus)] 19:28:57
+Becomes a production system and bunch of interesting things that I've described here.
+
+[Faculty (Olympus)] 19:29:03
+That you might find useful for your bedtime reading.
+
+[Faculty (Olympus)] 19:29:07
+And if you find, and if you want to play around with it, you can just go here.
+
+[Faculty (Olympus)] 19:29:13
+Find a free access to the platform and play around within sandbox.
+
+[Faculty (Olympus)] 19:29:16
+Okay.
+
+[Faculty (Olympus)] 19:29:21
+Okay? So that's that's as much as I wanna talk about single time series.
+
+[Faculty (Olympus)] 19:29:28
+Coming back to the matrix, setting.
+
+[Faculty (Olympus)] 19:29:34
+If you remember, we have.
+
+[Faculty (Olympus)] 19:29:38
+A matrix. And what we have said is that if I look at a specific entry, we have solved problem for it. But remember, I've got.
+
+[Faculty (Olympus)] 19:29:46
+Lots of different entries altogether. And really, the fundamental Time series are latent things. So how do I deal with it?
+
+[Faculty (Olympus)] 19:29:55
+Well.
+
+[Faculty (Olympus)] 19:29:57
+You take the.
+
+[Faculty (Olympus)] 19:29:59
+Each entry. Let's say, Elijah, so this is one specific you got this time series.
+
+[Faculty (Olympus)] 19:30:04
+As we did, convert it into matrix.
+
+[Faculty (Olympus)] 19:30:06
+But this is the matrix corresponding to.
+
+[Faculty (Olympus)] 19:30:09
+Ij threes, time, series.
+
+[Faculty (Olympus)] 19:30:11
+You do this for every.
+
+[Faculty (Olympus)] 19:30:15
+And now you've got.
+
+[Faculty (Olympus)] 19:30:16
+Matrix for L, 1, 1, 1, 2, 1, 3.
+
+[Faculty (Olympus)] 19:30:20
+IJMN.
+
+[Faculty (Olympus)] 19:30:22
+So lots of these metrices. You stag them along their columns.
+
+[Faculty (Olympus)] 19:30:26
+You get a big fat matrix.
+
+[Faculty (Olympus)] 19:30:29
+And then you do matrix completion on top of it.
+
+[Faculty (Olympus)] 19:30:31
+And that's how you solve for.
+
+[Faculty (Olympus)] 19:30:35
+Time vetting matrix completion.
+
+[Faculty (Olympus)] 19:30:39
+Okay? So again, now, I'm putting a bunch of pieces together of the puzzle. Maybe eyes are getting blurry. So be it just hopefully, you're following the concept.
+
+[Faculty (Olympus)] 19:30:50
+I see that there are few questions before I transition to the next.
+
+[Faculty (Olympus)] 19:30:53
+Topic which is bringing everything together.
+
+[Faculty (Olympus)] 19:30:57
+Let me!
+
+[Faculty (Olympus)] 19:30:59
+Of questions? Or is this question? And Antoine's question.
+
+[Faculty (Olympus)] 19:31:04
+1st this question I didn't understand from okay. Let's go back to that.
+
+[Faculty (Olympus)] 19:31:12
+Duff.
+
+[Faculty (Olympus)] 19:31:15
+So.
+
+[Faculty (Olympus)] 19:31:16
+Question is that what does this mean? Right?
+
+[Faculty (Olympus)] 19:31:19
+I think this is what it means that.
+
+[Faculty (Olympus)] 19:31:22
+This was observed value.
+
+[Faculty (Olympus)] 19:31:24
+If you think this is a.
+
+[Faculty (Olympus)] 19:31:27
+Noisy observation of something true underlying ground. Truth.
+
+[Faculty (Olympus)] 19:31:31
+Then this is my Denoist version.
+
+[Faculty (Olympus)] 19:31:33
+That's what it means. Okay.
+
+[Faculty (Olympus)] 19:31:37
+End to one question. The observed values do not quite correspond. For instance, 4.2 is equal to 1.8.
+
+[Faculty (Olympus)] 19:31:43
+You can also feel much observed entries. Exactly. Well.
+
+[Faculty (Olympus)] 19:31:46
+Again, once one
+
+[Faculty (Olympus)] 19:31:49
+In the world.
+
+[Faculty (Olympus)] 19:31:50
+So there are 2 2 views of the world.
+
+[Faculty (Olympus)] 19:31:53
+The things that you observe are perfect, or things that you observe are.
+
+[Faculty (Olympus)] 19:31:57
+Noisy observation.
+
+[Faculty (Olympus)] 19:31:59
+I prescribe to the latter.
+
+[Faculty (Olympus)] 19:32:02
+And if you believe.
+
+[Faculty (Olympus)] 19:32:04
+That is the reality. Then what it says is that yes, you observe something that is not necessarily fully, precisely what the ground truth is.
+
+[Faculty (Olympus)] 19:32:13
+And.
+
+[Faculty (Olympus)] 19:32:14
+This is the Denoise version.
+
+[Faculty (Olympus)] 19:32:17
+Another way to look at it is to say that well.
+
+[Faculty (Olympus)] 19:32:21
+Observations, or whatever they are, and you're trying to learn the best.
+
+[Faculty (Olympus)] 19:32:26
+Let's call it the best minimal explainable model.
+
+[Faculty (Olympus)] 19:32:31
+And that that would lead to, not fitting things perfectly.
+
+[Faculty (Olympus)] 19:32:37
+And those are the 2 philosophical views of how we think about same thing applies to any.
+
+[Faculty (Olympus)] 19:32:44
+Prediction, machine learning, model.
+
+[Faculty (Olympus)] 19:32:47
+You never have a perfect training.
+
+[Faculty (Olympus)] 19:32:50
+Right. You always have training.
+
+[Faculty (Olympus)] 19:32:53
+Unless you're overfitting.
+
+[Faculty (Olympus)] 19:32:57
+Again, Chris. Good question. Size is always square root of the.
+
+[Faculty (Olympus)] 19:33:02
+Square root of the time interval, and if it's not perfect square, then.
+
+[Faculty (Olympus)] 19:33:06
+You find.
+
+[Faculty (Olympus)] 19:33:08
+And so this is T, you find the largest square, and then take square root, and then.
+
+[Faculty (Olympus)] 19:33:14
+Use that to chunk it up.
+
+[Faculty (Olympus)] 19:33:18
+Again.
+
+[Faculty (Olympus)] 19:33:19
+Implementation, detail.
+
+[Faculty (Olympus)] 19:33:22
+Alright
+
+[Faculty (Olympus)] 19:33:27
+All right. So last thing.
+
+[Faculty (Olympus)] 19:33:29
+Bringing everything together.
+
+[Faculty (Olympus)] 19:33:47
+Alright. So Jeff's question is, and how do we revert back to time series alright.
+
+[Faculty (Olympus)] 19:33:53
+Thing, let's say last once, and then I will move to the.
+
+[Faculty (Olympus)] 19:33:56
+So.
+
+[Faculty (Olympus)] 19:33:58
+Jeff
+
+[Faculty (Olympus)] 19:34:02
+This.
+
+[Faculty (Olympus)] 19:34:03
+Corresponding to this position.
+
+[Faculty (Olympus)] 19:34:06
+This corresponded to this position. There is a 1-to-one mapping between this line and the entries of matrix.
+
+[Faculty (Olympus)] 19:34:13
+And that's how you can reward things back.
+
+[Faculty (Olympus)] 19:34:18
+Okay.
+
+[Faculty (Olympus)] 19:34:23
+Excellent.
+
+[Faculty (Olympus)] 19:34:24
+Okay.
+
+[Faculty (Olympus)] 19:34:26
+Now we want to bring everything together. What does everything together mean?
+
+[Faculty (Olympus)] 19:34:30
+Well, the.
+
+[Faculty (Olympus)] 19:34:31
+We got.
+
+[Faculty (Olympus)] 19:34:32
+This was the.
+
+[Faculty (Olympus)] 19:34:35
+Okay. So the 1st model.
+
+[Faculty (Olympus)] 19:34:38
+Was.
+
+[Faculty (Olympus)] 19:34:38
+Okay. So the 1st model was.
+
+[Faculty (Olympus)] 19:34:41
+Only reference data.
+
+[Faculty (Olympus)] 19:34:44
+Then the content came into picture.
+
+[Faculty (Olympus)] 19:34:48
+Then.
+
+[Faculty (Olympus)] 19:34:49
+So there's a content.
+
+[Faculty (Olympus)] 19:34:51
+This is the model for just preference data.
+
+[Faculty (Olympus)] 19:35:13
+Together.
+
+[Faculty (Olympus)] 19:35:14
+Okay.
+
+[Faculty (Olympus)] 19:35:16
+And towards that, 1st you have a data, and then the model.
+
+[Faculty (Olympus)] 19:35:20
+Okay.
+
+[Faculty (Olympus)] 19:35:21
+So what is the data? Well.
+
+[Faculty (Olympus)] 19:35:27
+Have got.
+
+[Faculty (Olympus)] 19:35:29
+End users.
+
+[Faculty (Olympus)] 19:35:31
+And items.
+
+[Faculty (Olympus)] 19:35:32
+Time, horizon of length T.
+
+[Faculty (Olympus)] 19:35:35
+The key, different measurements.
+
+[Faculty (Olympus)] 19:35:39
+Then for every user, I and item J.
+
+[Faculty (Olympus)] 19:35:42
+This is the quantity of my interest.
+
+[Faculty (Olympus)] 19:35:46
+LIJK of t.
+
+[Faculty (Olympus)] 19:35:49
+But of course I don't observe anything.
+
+[Faculty (Olympus)] 19:35:51
+Only for small set of IJ.
+
+[Faculty (Olympus)] 19:35:55
+K. And T.
+
+[Faculty (Olympus)] 19:35:57
+I observed.
+
+[Faculty (Olympus)] 19:35:58
+Noisy version, YIJK. Of T.
+
+[Faculty (Olympus)] 19:36:01
+From there. I want to recover all of these, for all IJK.
+
+[Faculty (Olympus)] 19:36:07
+Now, what is K is a different number of measurements. For example, in the context of yelp.
+
+[Faculty (Olympus)] 19:36:12
+We had.
+
+[Faculty (Olympus)] 19:36:14
+Rating.
+
+[Faculty (Olympus)] 19:36:16
+We had things like tips.
+
+[Faculty (Olympus)] 19:36:18
+With things like check in.
+
+[Faculty (Olympus)] 19:36:21
+There are all different.
+
+[Faculty (Olympus)] 19:36:23
+Measurements.
+
+[Faculty (Olympus)] 19:36:24
+Related to user item.
+
+[Faculty (Olympus)] 19:36:28
+Ratings have something to do with the tip you provide, and this rating has something to do with hopefully check in, and all of them have something to do with each other.
+
+[Faculty (Olympus)] 19:36:36
+So hopefully they can help each other to predict things better.
+
+[Faculty (Olympus)] 19:36:38
+It's like.
+
+[Faculty (Olympus)] 19:36:41
+You going to an online website and browsing has something to do with your purchasing.
+
+[Faculty (Olympus)] 19:36:47
+Are you going to online website and browsing and purchasing and putting things into your.
+
+[Faculty (Olympus)] 19:37:10
+Related to I.
+
+[Faculty (Olympus)] 19:37:11
+And Yj. There is a content related to J.
+
+[Faculty (Olympus)] 19:37:14
+Similar to use that as well.
+
+[Faculty (Olympus)] 19:37:16
+Okay.
+
+[Faculty (Olympus)] 19:37:18
+And so now, what I want to do is I want to sort of bring one model together to explain.
+
+[Faculty (Olympus)] 19:37:23
+How these things come together.
+
+[Faculty (Olympus)] 19:37:26
+So here is that model.
+
+[Faculty (Olympus)] 19:37:29
+So we're going to say, LIJK. Of T.
+
+[Faculty (Olympus)] 19:37:34
+Okay.
+
+[Faculty (Olympus)] 19:37:35
+Is.
+
+[Faculty (Olympus)] 19:37:38
+Some function.
+
+[Faculty (Olympus)] 19:37:40
+Associated with.
+
+[Faculty (Olympus)] 19:37:42
+Kit measurement.
+
+[Faculty (Olympus)] 19:37:47
+Can everybody hear me.
+
+[Faculty (Olympus)] 19:37:51
+Looks like.
+
+[Faculty (Olympus)] 19:37:52
+Alright! Let's see.
+
+[Moderator - Ankit Agrawal] 19:37:57
+Yes, Professor, you're audible and visible. There was just a small lagging between, for, like a few seconds.
+
+[Faculty (Olympus)] 19:38:05
+Alright!
+
+[Faculty (Olympus)] 19:38:06
+Okay? Yeah. Anit feel free to keep me honest. Okay?
+
+[Faculty (Olympus)] 19:38:12
+Very good,
+
+[Faculty (Olympus)] 19:38:15
+Or either a tough audience here.
+
+[Faculty (Olympus)] 19:38:17
+Twice, froze.
+
+[Faculty (Olympus)] 19:38:21
+Okay. So LIJK, of.
+
+[Faculty (Olympus)] 19:38:24
+T is
+
+[Faculty (Olympus)] 19:38:29
+Alright! Let's see.
+
+[Faculty (Olympus)] 19:38:30
+Am I still freezing? If people are, gonna keep sort of typing that I'm freezing, then.
+
+[Moderator - Ankit Agrawal] 19:38:39
+No, Professor, the stream is fine now.
+
+[Faculty (Olympus)] 19:38:42
+Very good.
+
+[Faculty (Olympus)] 19:38:49
+Okay, so.
+
+[Faculty (Olympus)] 19:38:50
+Li. Jft, which is function of ui of T.
+
+[Faculty (Olympus)] 19:38:55
+And then we got feature associated with user.
+
+[Faculty (Olympus)] 19:38:59
+And.
+
+[Faculty (Olympus)] 19:39:01
+PJ. Of T. And feature associated with it.
+
+[Faculty (Olympus)] 19:39:04
+Okay.
+
+[Faculty (Olympus)] 19:39:07
+That means there is a separate function for each measurement.
+
+[Faculty (Olympus)] 19:39:11
+There are latent features of users and items that change over time.
+
+[Faculty (Olympus)] 19:39:15
+There are features or attributes of users. And, item, that don't change over time. And I'm doing that for simplicity. You can complicate it by adding things.
+
+[Faculty (Olympus)] 19:39:22
+For the time being. Let's keep it simple.
+
+[Faculty (Olympus)] 19:39:24
+Okay.
+
+[Faculty (Olympus)] 19:39:26
+And that's the model.
+
+[Faculty (Olympus)] 19:39:27
+Okay.
+
+[Faculty (Olympus)] 19:39:28
+Now, like before. We'll make it. We will.
+
+[Faculty (Olympus)] 19:39:31
+Make it edited. And we can linear model. And that would lead to the simplification.
+
+[Faculty (Olympus)] 19:39:37
+Which would effectively say, Well, I've got Alpha.
+
+[Faculty (Olympus)] 19:39:41
+Key.
+
+[Faculty (Olympus)] 19:39:42
+Of XI.
+
+[Faculty (Olympus)] 19:39:44
+Plus beta KYJ.
+
+[Faculty (Olympus)] 19:39:47
+Plus gamma k.
+
+[Faculty (Olympus)] 19:39:48
+So this is related to measurement. K.
+
+[Faculty (Olympus)] 19:39:52
+Impact of attributes.
+
+[Faculty (Olympus)] 19:39:54
+Plus.
+
+[Faculty (Olympus)] 19:39:58
+Ui.
+
+[Faculty (Olympus)] 19:40:01
+Transpose.
+
+[Faculty (Olympus)] 19:40:02
+VJ of t.
+
+[Faculty (Olympus)] 19:40:04
+Okay.
+
+[Faculty (Olympus)] 19:40:05
+Now there is.
+
+[Faculty (Olympus)] 19:40:06
+There's no real.
+
+[Faculty (Olympus)] 19:40:09
+Difference here.
+
+[Faculty (Olympus)] 19:40:11
+In this part.
+
+[Faculty (Olympus)] 19:40:13
+Because it has to have depends on K 2.
+
+[Faculty (Olympus)] 19:40:16
+So one way to do that is to say that well, actually, we make.
+
+[Faculty (Olympus)] 19:40:25
+A nice tensor representation.
+
+[Faculty (Olympus)] 19:40:26
+With something that depends on key.
+
+[Faculty (Olympus)] 19:40:33
+Okay. So there's this part that changes over time. But this is.
+
+[Faculty (Olympus)] 19:40:35
+Depends on measurement. K.
+
+[Faculty (Olympus)] 19:40:37
+And that sort of
+
+[Faculty (Olympus)] 19:40:39
+This, captured by the latent aspect.
+
+[Faculty (Olympus)] 19:40:41
+Changing over time.
+
+[Faculty (Olympus)] 19:40:43
+Now.
+
+[Faculty (Olympus)] 19:40:44
+If things were changing over time in terms of attributes, you could have just added that here, as well.
+
+[Faculty (Olympus)] 19:40:51
+But we are assuming functional effect is fixed.
+
+[Faculty (Olympus)] 19:40:55
+Okay.
+
+[Faculty (Olympus)] 19:40:55
+And similarly this is fixed.
+
+[Faculty (Olympus)] 19:41:01
+In one dimension.
+
+[Faculty (Olympus)] 19:41:03
+If I click, this tensor stuff would look something like.
+
+[Faculty (Olympus)] 19:41:07
+Uit multiplied by vjt.
+
+[Faculty (Olympus)] 19:41:11
+Multiplied by Wk.
+
+[Faculty (Olympus)] 19:41:14
+In K. Dimmo. In our dimension. It would be something like.
+
+[Faculty (Olympus)] 19:41:18
+Let's call it L. Equals 2 up to RUIL of T.
+
+[Faculty (Olympus)] 19:41:23
+VJL of.
+
+[Faculty (Olympus)] 19:41:25
+T.
+
+[Faculty (Olympus)] 19:41:26
+WKL.
+
+[Faculty (Olympus)] 19:41:29
+And a compact way to represent this is, this tensor.
+
+[Faculty (Olympus)] 19:41:35
+Okay.
+
+[Faculty (Olympus)] 19:41:36
+And this is for.
+
+[Faculty (Olympus)] 19:41:38
+Key different measurements. K. Equals to one up to capital. K.
+
+[Faculty (Olympus)] 19:41:41
+This is for specific index of small K.
+
+[Faculty (Olympus)] 19:41:45
+So indeed this is true.
+
+[Faculty (Olympus)] 19:41:48
+Jeffrey for.
+
+[Faculty (Olympus)] 19:41:50
+K equals to 1, 2 up to capital K.
+
+[Faculty (Olympus)] 19:41:54
+Okay.
+
+[Faculty (Olympus)] 19:41:55
+And this is a model.
+
+[Faculty (Olympus)] 19:41:59
+Now.
+
+[Faculty (Olympus)] 19:42:00
+What we're going to observe is, we're going to observe why I jk, of T.
+
+[Faculty (Olympus)] 19:42:06
+Let's do. LIJK. Of t.
+
+[Faculty (Olympus)] 19:42:09
+Plus.
+
+[Faculty (Olympus)] 19:42:11
+Noise.
+
+[Faculty (Olympus)] 19:42:13
+For some.
+
+[Faculty (Olympus)] 19:42:15
+Small set of IJK.
+
+[Faculty (Olympus)] 19:42:18
+Let's call them an observed.
+
+[Faculty (Olympus)] 19:42:20
+And from there we want to figure things out.
+
+[Faculty (Olympus)] 19:42:23
+So how would we do that?
+
+[Faculty (Olympus)] 19:42:25
+Will follow the same approach as before. That is, first, st we'll try to see.
+
+[Faculty (Olympus)] 19:42:30
+How well.
+
+[Faculty (Olympus)] 19:42:32
+Can the outcome be explained, using attributes first.st
+
+[Faculty (Olympus)] 19:42:37
+That is.
+
+[Faculty (Olympus)] 19:42:38
+Learn these things.
+
+[Faculty (Olympus)] 19:42:40
+Through linear regression.
+
+[Faculty (Olympus)] 19:42:41
+And subtract that effect. Then you're left with this.
+
+[Faculty (Olympus)] 19:42:45
+On that we'll try to fit cities.
+
+[Faculty (Olympus)] 19:42:48
+And this is where things get a little bit different.
+
+[Faculty (Olympus)] 19:42:51
+So I'll try to explain that in a second.
+
+[Faculty (Olympus)] 19:42:53
+But that in a nutshell is all we're trying to do. It's the same style of 2. Step. Approach.
+
+[Faculty (Olympus)] 19:43:01
+Where 1st we are going to try to understand the impact of.
+
+[Faculty (Olympus)] 19:43:05
+Attributes.
+
+[Faculty (Olympus)] 19:43:06
+Capture the route through regression, method.
+
+[Faculty (Olympus)] 19:43:09
+In this case, linear regression.
+
+[Faculty (Olympus)] 19:43:12
+Subtract it.
+
+[Faculty (Olympus)] 19:43:14
+Is, remove that effect.
+
+[Faculty (Olympus)] 19:43:15
+Whatever remains from there tried to learn the time series.
+
+[Faculty (Olympus)] 19:43:19
+K. Was only one.
+
+[Faculty (Olympus)] 19:43:22
+Then we're back to.
+
+[Faculty (Olympus)] 19:43:23
+Time wearing matrix.
+
+[Faculty (Olympus)] 19:43:25
+Case, not one. We'll have to do something about it.
+
+[Faculty (Olympus)] 19:43:29
+So that's in a nutshell is again 2. Step. Approach.
+
+[Faculty (Olympus)] 19:43:35
+So.
+
+[Faculty (Olympus)] 19:43:36
+That in mind.
+
+[Faculty (Olympus)] 19:43:38
+Let's try to do that 2 step coach. I'm gonna write it down.
+
+[Faculty (Olympus)] 19:43:40
+So step, one.
+
+[Faculty (Olympus)] 19:43:42
+Okay.
+
+[Faculty (Olympus)] 19:43:44
+Learn.
+
+[Faculty (Olympus)] 19:43:46
+Alpha k star.
+
+[Faculty (Olympus)] 19:43:49
+E tech k star.
+
+[Faculty (Olympus)] 19:43:52
+Chemical star.
+
+[Faculty (Olympus)] 19:43:55
+Using.
+
+[Faculty (Olympus)] 19:43:57
+Regression. And I'm gonna leave you with that regression.
+
+[Faculty (Olympus)] 19:44:00
+With.
+
+[Faculty (Olympus)] 19:44:03
+Labels, as.
+
+[Faculty (Olympus)] 19:44:06
+YIJ.
+
+[Faculty (Olympus)] 19:44:07
+Key of T.
+
+[Faculty (Olympus)] 19:44:08
+And attributes.
+
+[Faculty (Olympus)] 19:44:12
+His.
+
+[Faculty (Olympus)] 19:44:13
+Xi, and Yj, okay.
+
+[Faculty (Olympus)] 19:44:15
+And then we are done.
+
+[Faculty (Olympus)] 19:44:17
+So that's step one.
+
+[Faculty (Olympus)] 19:44:20
+Again. I know your eyes are getting blurry.
+
+[Faculty (Olympus)] 19:44:22
+I'm trying to just.
+
+[Faculty (Olympus)] 19:44:24
+Capture the key. Conceptual things at this stage.
+
+[Faculty (Olympus)] 19:44:30
+Step, 2.
+
+[Faculty (Olympus)] 19:44:32
+Is.
+
+[Faculty (Olympus)] 19:44:33
+So let's just after this step. Let's compute.
+
+[Faculty (Olympus)] 19:44:36
+Delta, YIJ. Of T. Equals 2.
+
+[Faculty (Olympus)] 19:44:41
+By IJK. Of t, minus.
+
+[Faculty (Olympus)] 19:44:44
+This linear regression model. Right? So I'll fast. I minus beta star K. Times YJ. Minus gamma star K.
+
+[Faculty (Olympus)] 19:44:55
+Okay.
+
+[Faculty (Olympus)] 19:45:02
+Alright. So the question, Jeffrey, you're asking again is that.
+
+[Faculty (Olympus)] 19:45:06
+Are measurements, 1, 2, up to K. All attending to the same quantity? Or are there measurements of K. Different features.
+
+[Faculty (Olympus)] 19:45:13
+I'm not sure what you mean by that.
+
+[Faculty (Olympus)] 19:45:18
+This, for example, for user, I.
+
+[Faculty (Olympus)] 19:45:20
+Okay, movie, lens. Sorry. Yeah.
+
+[Faculty (Olympus)] 19:45:23
+User. I restaurant. J.
+
+[Faculty (Olympus)] 19:45:25
+My rating.
+
+[Faculty (Olympus)] 19:45:27
+What K. Equals to one.
+
+[Faculty (Olympus)] 19:45:29
+User Ry restaurant. J, my tip for K equals to 2.
+
+[Faculty (Olympus)] 19:45:33
+User. And I.
+
+[Faculty (Olympus)] 19:45:34
+Restaurant J for my.
+
+[Faculty (Olympus)] 19:45:38
+Where was it?
+
+[Faculty (Olympus)] 19:45:39
+Check in for K equals to 3. So it's a different type of measurement for same pair of user interaction. Okay.
+
+[Faculty (Olympus)] 19:45:49
+Alright! So now we've got this.
+
+[Faculty (Olympus)] 19:45:51
+Difference.
+
+[Faculty (Olympus)] 19:45:52
+And on this difference time varying tensor.
+
+[Faculty (Olympus)] 19:45:56
+Is Delta YIJK. Of t.
+
+[Faculty (Olympus)] 19:46:02
+What I'll do is therefore.
+
+[Faculty (Olympus)] 19:46:03
+So if you fix K.
+
+[Faculty (Olympus)] 19:46:07
+Then you are back to that time, varying.
+
+[Faculty (Olympus)] 19:46:09
+And what we did for time matrix, we effectively.
+
+[Faculty (Olympus)] 19:46:14
+Took for every entry.
+
+[Faculty (Olympus)] 19:46:16
+That matrix representation of that time series.
+
+[Faculty (Olympus)] 19:46:20
+And build a giant matrix.
+
+[Faculty (Olympus)] 19:46:23
+Now, this giant matrix might be for K equals to one similar giant matrix we can build for K equals to 2.
+
+[Faculty (Olympus)] 19:46:31
+And so on. And then this giant matrix that we have.
+
+[Faculty (Olympus)] 19:46:35
+You'll apply one matrix completion on it.
+
+[Faculty (Olympus)] 19:46:37
+To learn across.
+
+[Faculty (Olympus)] 19:46:40
+Correlated quotes and quotes multiple Time series across time and space.
+
+[Faculty (Olympus)] 19:46:46
+Do the matrix completion on it, and then.
+
+[Faculty (Olympus)] 19:46:50
+Inverted back.
+
+[Faculty (Olympus)] 19:46:52
+Through that encoding. Okay, it's a very similar thing. It just little bit more complicated.
+
+[Faculty (Olympus)] 19:46:56
+Okay.
+
+[Faculty (Olympus)] 19:46:58
+And.
+
+[Faculty (Olympus)] 19:46:59
+After we are done with that.
+
+[Faculty (Olympus)] 19:47:01
+The output of the step. One.
+
+[Faculty (Olympus)] 19:47:05
+And step, 2.
+
+[Faculty (Olympus)] 19:47:08
+These 2, final answer.
+
+[Faculty (Olympus)] 19:47:11
+And that's all.
+
+[Faculty (Olympus)] 19:47:14
+Okay.
+
+[Faculty (Olympus)] 19:47:14
+You know this last.
+
+[Faculty (Olympus)] 19:47:17
+Part, as I had explained, and I anticipated. It's a lot. I've done a lot of things in short amount of time.
+
+[Faculty (Olympus)] 19:47:24
+There's a question that somebody had about my annotated notes. I think, ankit. One thing we should I should do is I should send.
+
+[Faculty (Olympus)] 19:47:33
+Somebody an email with my annotated notes from all the lectures. And maybe, if you can tell me.
+
+[Faculty (Olympus)] 19:47:40
+Whom should I send to? Then I can sort of send after the after the I'm done with the.
+
+[Faculty (Olympus)] 19:47:45
+This today's lecture.
+
+[Moderator - Ankit Agrawal] 19:47:48
+Professor, so I can request somebody from great learning team like a program manager to reach out to you regarding that. And then we can make it available through Olympus.
+
+[Faculty (Olympus)] 19:47:58
+Okay.
+
+[Faculty (Olympus)] 19:47:59
+Sounds good.
+
+[Faculty (Olympus)] 19:48:01
+Alright!
+
+[Faculty (Olympus)] 19:48:03
+Okay, so that's.
+
+[Faculty (Olympus)] 19:48:06
+Basically all that is
+
+[Faculty (Olympus)] 19:48:08
+So again, just to summarize part one was about introduction methods.
+
+[Faculty (Olympus)] 19:48:14
+Hattu was about.
+
+[Faculty (Olympus)] 19:48:15
+Hundreds of.
+
+[Faculty (Olympus)] 19:48:16
+Complicated.
+
+[Faculty (Olympus)] 19:48:17
+Matrix completion, estimation, algorithm and part 3 is bringing everything together again. I know it's a fire hose.
+
+[Faculty (Olympus)] 19:48:24
+My apologies.
+
+[Faculty (Olympus)] 19:48:25
+Lot of content. But my hope is that.
+
+[Faculty (Olympus)] 19:48:28
+This was a useful journey. Okay.
+
+[Faculty (Olympus)] 19:48:32
+There are few things that maybe I'll leave you with for bedtime reading. Okay?
+
+[Faculty (Olympus)] 19:48:37
+This is the type of conversations that come up.
+
+[Faculty (Olympus)] 19:48:40
+And there are multiple ways to learn. Aiml
+
+[Faculty (Olympus)] 19:48:45
+I spent some time writing a simple blog here.
+
+[Faculty (Olympus)] 19:48:49
+Few months ago. Hopefully, some of you would enjoy reading it.
+
+[Faculty (Olympus)] 19:48:53
+Again, this is the link.
+
+[Faculty (Olympus)] 19:48:56
+You know, if you are able to capture it, at least in the recording, it will be there.
+
+[Faculty (Olympus)] 19:49:01
+If you want to sort of do things by doing.
+
+[Faculty (Olympus)] 19:49:10
+There are a bunch of free content available here. Go around, play with the sandbox and all that.
+
+[Faculty (Olympus)] 19:49:11
+And with that.
+
+[Faculty (Olympus)] 19:49:14
+That's all. We still have few minutes.
+
+[Faculty (Olympus)] 19:49:17
+If you have questions of.
+
+[Faculty (Olympus)] 19:49:18
+Feel free to ask me any questions.
+
+[Faculty (Olympus)] 19:49:23
+And I'll be more than happy to answer.
+
+[Faculty (Olympus)] 19:49:27
+Okay.
+
+[Faculty (Olympus)] 19:49:28
+I got last page here.
+
+[Faculty (Olympus)] 19:49:31
+Harbin.
+
+[Faculty (Olympus)] 19:49:34
+Again feel free as a conversation for whatever 30 seconds or a minute remains.
+
+[Faculty (Olympus)] 19:49:44
+Okay. Jessica.
+
+[Faculty (Olympus)] 19:49:46
+Time cities reasonable to do it for different, possible? Yes, absolutely.
+
+[Faculty (Olympus)] 19:49:51
+It is reasonable to do and compare.
+
+[Faculty (Olympus)] 19:49:53
+What you might find is that if the Time series has a similar dynamics.
+
+[Faculty (Olympus)] 19:49:59
+Largest N is good. But if time series changing, actually doing what you are suggesting is excellent, then that's how you actually detect the change points.
+
+[Faculty (Olympus)] 19:50:09
+Lin's conceptual question is, why couldn't you use deep learning and other models to solve times? Absolutely fantastic question? All models are good.
+
+[Faculty (Olympus)] 19:50:21
+Some are better than others for a given setting. That will be my short answer.
+
+[Faculty (Olympus)] 19:50:25
+And maybe you should read this for a bedtime reading, and hopefully.
+
+[Faculty (Olympus)] 19:50:35
+You would have a comments for me.
+
+[Faculty (Olympus)] 19:50:35
+Oh, by the way, feel free to reach out to me on Linkedin, very happy to connect and keep in touch would love to know how your journeys have been.
+
+[Faculty (Olympus)] 19:50:43
+Impacted hopefully, positively, through participating. This courses like this.
+
+[Faculty (Olympus)] 19:50:49
+Hopefully. Our parts will cross at some point of time, and if there's any professional help I can provide, I'll be more than happy to do that. Okay.
+
+[Faculty (Olympus)] 19:50:57
+So with that, okay, I'll take one last question of
+
+[Faculty (Olympus)] 19:51:03
+And
+
+[Faculty (Olympus)] 19:51:05
+Case. Sorry. Yeah.
+
+[Faculty (Olympus)] 19:51:07
+Correct me if I'm wrong, but sounds like.
+
+[Faculty (Olympus)] 19:51:10
+But isn't sound like a black box. If we shift certain rows of the mid rights, we should still work.
+
+[Faculty (Olympus)] 19:51:16
+Yes, it should work, because these are.
+
+[Faculty (Olympus)] 19:51:49
+These are in.
+
+[Faculty (Olympus)] 19:51:50
+Order, independent methods.
+
+[Faculty (Olympus)] 19:51:50
+Alright, I think with that I'm going to end the lecture here.
+
+[Faculty (Olympus)] 19:51:50
+I will hand you over to ankit and team here.
+
+[Faculty (Olympus)] 19:51:50
+Again. You might have some questions. Please.
+
+[Faculty (Olympus)] 19:51:50
+Feel free to stick around. They're more than happy to answer some of your questions, and hopefully, that will help.
+
+[Faculty (Olympus)] 19:51:51
+And good morning. Good afternoon, good evening, and good night. And hopefully. This was.
+
+[Faculty (Olympus)] 19:51:51
+A useful journey for you.
+
+[Moderator - Ankit Agrawal] 19:51:52
+Thank you so much, Professor, for that wonderful weekend, wonderful set of lectures. I. I can see that a lot of people in the comments are mentioning that this was very interesting in a very deep topic, so I hope that.
+
+[Moderator - Ankit Agrawal] 19:52:06
+Some of you guys end up working on systems down the road and leverage some of the methods that we have actually talked about during this course.
+
+[Moderator - Ankit Agrawal] 19:52:15
+So with that. Thank you so much, Professor. Appreciate the lectures.
+
+[Faculty (Olympus)] 19:52:18
+You.
+
+[Moderator - Ankit Agrawal] 19:52:21
+With that. We will get started with the QA. Section here. We are still waiting on the mentor from great learning team to join today.
+
+[Moderator - Ankit Agrawal] 19:52:35
+Aren't she? Do you know what's happening with the mentor? Maybe you can reach out in the chat.
+
+[Moderator - Ankit Agrawal] 19:52:42
+I see Lynn mentioning a linear algebra class should have been a prerequisite. So then,
+
+[Moderator - Ankit Agrawal] 19:52:50
+A entire linear algebra class is not required. Right? I mean, yes, there are certain components of linear algebra and.
+
+[Moderator - Ankit Agrawal] 19:53:01
+Calculus and trigonometry that are required, and they are provided to you as prerequisites every week. So if you go into every week, and look at the lectures, and look at the prerequisites for them.
+
+[Moderator - Ankit Agrawal] 19:53:15
+You will see the necessary content over there like. So like the linear algebra concepts like matrix decomposition, I get values. I get vectors.
+
+[Moderator - Ankit Agrawal] 19:53:25
+Transpose of a matrix all of that is provided to you in a prerequisite depending on. If we are going to study them during that week or not. So.
+
+[Moderator - Ankit Agrawal] 19:53:35
+An entire course doesn't seem feasible over here, right? Because, most people don't have linear algebra like.
+
+[Moderator - Ankit Agrawal] 19:53:42
+So most of them understand basic matrix operations.
+
+[Moderator - Ankit Agrawal] 19:53:47
+And for the most part, that's all you need.
+
+[Moderator - Ankit Agrawal] 19:53:50
+But yeah,
+
+[Moderator - Ankit Agrawal] 19:53:53
+Of.
+
+[Moderator - Ankit Agrawal] 19:53:55
+I see for the 60% project.
+
+[Moderator - Ankit Agrawal] 19:53:58
+For recommendation systems working on the low code or the formula important I would say that you should say like I. I mentioned this at the beginning of the pro today's session as well. All the questions related to projects. Please wait for the session that will happen explicitly on that.
+
+[Moderator - Ankit Agrawal] 19:54:19
+I do not deal with the projects.
+
+[Moderator - Ankit Agrawal] 19:54:24
+So I don't have the exact answer for you. I don't want to give out wrong information here.
+
+[Moderator - Ankit Agrawal] 19:54:33
+But yes, there will be a separate mentor learning that will be hosted for projects. Right? So you you'll be given a description about.
+
+[Moderator - Ankit Agrawal] 19:54:44
+What your capstone project is going to look like, and what are going to be its requirements and and things like that.
+
+[Moderator - Ankit Agrawal] 19:54:52
+So yeah, I do not know if the topic is hard, but for me it seems.
+
+[Moderator - Ankit Agrawal] 19:54:58
+That what I was learning was far away from real life. Application.
+
+[Moderator - Ankit Agrawal] 19:55:05
+So that's not entirely true, and you will see that during your mental learning session over the weekend as well, like a lot of recommend, not
+
+[Moderator - Ankit Agrawal] 19:55:15
+A lot of recommendation systems in practice are hybrid systems, right? A hybrid systems in the sense that they they apply multiple techniques that we have learned.
+
+[Moderator - Ankit Agrawal] 19:55:27
+Simultaneously or in parallel. Because evaluating systems is really difficult most of the time.
+
+[Moderator - Ankit Agrawal] 19:55:37
+Even if you use like a metric like precision, or recall, or something like that it, it is very hard to prove that higher recall or higher precision means it works really well for all the users.
+
+[Moderator - Ankit Agrawal] 19:55:49
+Right? So we perform a lot of like Ab testing with different architectures of recommendation systems. And most of these recommendation systems are hybrid systems.
+
+[Moderator - Ankit Agrawal] 19:55:59
+Where you'd.
+
+[Moderator - Ankit Agrawal] 19:56:01
+Don't apply just one method, but you apply multiple methods. So if you think about Netflix.
+
+[Moderator - Ankit Agrawal] 19:56:07
+You will see recommendations made on like today's top. 10 you will see. Popular most watch content recommendations based on your watch history.
+
+[Moderator - Ankit Agrawal] 19:56:18
+Then you will see different categories and top content in each category, like scary movies and in horror and in comedy and in action. And you know, spy universe, and so on, so forth. So they are using different types of recommendations and.
+
+[Moderator - Ankit Agrawal] 19:56:34
+Recommendation systems also comes down to how do you optimize the screen space? Right? Like, how? Because you want your users to spend less time scrolling and less time for the content, because that increases the likelihood of them. Staying on the platform, or and actually watching something.
+
+[Moderator - Ankit Agrawal] 19:56:50
+So.
+
+[Moderator - Ankit Agrawal] 19:56:51
+So recommendation systems in practical applications together. And the goal is to maximize your screen space in.
+
+[Moderator - Ankit Agrawal] 19:57:02
+In the effect of showing you enough recommendations for you to pick something from it, but not get overwhelmed.
+
+[Moderator - Ankit Agrawal] 19:57:10
+So we do tend to use a lot of these methods that we have studied during these last 3 lectures in practice, including averaging methods, right? Like all the trending stuff that you see, like Youtube trending or twitter, trending or Linkedin, trending.
+
+[Moderator - Ankit Agrawal] 19:57:24
+They are all like averaging methods. So we do. Use these methods for different
+
+[Moderator - Ankit Agrawal] 19:57:30
+Types of recommendations that the users witness.
+
+[Moderator - Ankit Agrawal] 19:57:35
+But yeah.
+
+[Moderator - Ankit Agrawal] 19:57:38
+I, Charles is asking. I feel like this. Lecture was supposed to be the grand unified theory, for aiming systems could be used to solve a variety of problems we saw before. If this is true, can you point us to a more consumable resource for this.
+
+[Moderator - Ankit Agrawal] 19:57:54
+So Charles
+
+[Moderator - Ankit Agrawal] 19:57:57
+Let me think about this question. So
+
+[Moderator - Ankit Agrawal] 19:58:01
+You can think of it that way. But again it comes down to how you formulate the problem. Right
+
+[Moderator - Ankit Agrawal] 19:58:10
+Recommendation problem can be formulated into a classification problem by as somebody earlier had mentioned that, do we compute precision or recall right.
+
+[Moderator - Ankit Agrawal] 19:58:20
+So you can compute, or you can convert a.
+
+[Moderator - Ankit Agrawal] 19:58:25
+Recommendation system problem into a classification problem and then apply classification algorithms on it.
+
+[Moderator - Ankit Agrawal] 19:58:32
+Right? So it's it's.
+
+[Moderator - Ankit Agrawal] 19:58:35
+It's not necessary to use recommendation systems to solve other types of problems.
+
+[Moderator - Ankit Agrawal] 19:58:41
+We have already spent so much time learning different algorithms. And most of the time you use all those different algorithms than recommendation system approach.
+
+[Moderator - Ankit Agrawal] 19:58:52
+To solve business applications.
+
+[Moderator - Ankit Agrawal] 19:58:55
+I think that for resources I would recommend reaching out to the support staff. I think they might have better resources. I don't.
+
+[Moderator - Ankit Agrawal] 19:59:05
+Personally, I don't work a lot with recommendation systems in my line of work. So I would. I don't have any resources at hand right now.
+
+[Moderator - Ankit Agrawal] 19:59:17
+But yeah, the support staff should have it, because
+
+[Moderator - Ankit Agrawal] 19:59:20
+Support staff. There are data scientists back there as well, who work with great learning team, and then they can reach out to their extended network of mentors to collect resources for you.
+
+[Moderator - Ankit Agrawal] 19:59:31
+So you can use the need assistance button to ask that question.
+
+[Moderator - Ankit Agrawal] 19:59:39
+Lena is saying. It's funny, because all these complex are just executed with one line of code in Python.
+
+[Moderator - Ankit Agrawal] 19:59:45
+So, Lynn. That might be true. For most of the stuff that we have learned here.
+
+[Moderator - Ankit Agrawal] 19:59:52
+But in practical sense.
+
+[Moderator - Ankit Agrawal] 19:59:56
+Most of these algorithms will not work directly out of the box.
+
+[Moderator - Ankit Agrawal] 20:00:01
+Meaning that if you just apply one line of code and in a practical sense there's a chance that your performance you will get is going to be terrible.
+
+[Moderator - Ankit Agrawal] 20:00:11
+So there is a art to data science that art could be in designing customs, and then the other type of the art could be. How do you tune hyper parameters?
+
+[Moderator - Ankit Agrawal] 20:00:23
+Right, so.
+
+[Moderator - Ankit Agrawal] 20:00:24
+Depending on your problem, you might have to actually go into the algorithm and change its implementation, because your problem requires that.
+
+[Moderator - Ankit Agrawal] 20:00:32
+And if that happens, you have to basically write the algorithm from scratch.
+
+[Moderator - Ankit Agrawal] 20:00:38
+You can take the base architecture of it as it is. But you might have to make changes to it, like I have worked on problems in finance and in time series.
+
+[Moderator - Ankit Agrawal] 20:00:47
+Where cost functions like mean, square and stuff did not work, and I had to come up with like custom optimization function.
+
+[Moderator - Ankit Agrawal] 20:00:56
+So I took the algorithms as it is, but I changed the optimizations in there sometimes. I had to do a lot of hyper tuning with respect to neural networks, and so on, to come up with correct architecture to get appropriate results.
+
+[Moderator - Ankit Agrawal] 20:01:11
+So so, yeah, even if even if you can apply a lot of this with one line of code or a couple of lines of code. Sometimes you don't even need to write code because there are so many automated tools out there right now.
+
+[Moderator - Ankit Agrawal] 20:01:28
+A lot of engineering work goes into hyper parameter tuning of these models for specific problems as well or for specific use cases.
+
+[Moderator - Ankit Agrawal] 20:01:37
+So yeah,
+
+[Moderator - Ankit Agrawal] 20:01:40
+Python, Java, Scala, and are are the top 4 languages where all of this is available in great detail, like, I mean
+
+[Moderator - Ankit Agrawal] 20:01:50
+These libraries. In these 4 programming languages are very updated with respect to machine learning applications.
+
+[Moderator - Ankit Agrawal] 20:01:57
+Python is still the most preferred one, then our then scalar, and then Java. But there are libraries available in all these 4 languages to apply algorithms in.
+
+[Moderator - Ankit Agrawal] 20:02:09
+Few lines of code.
+
+[Moderator - Ankit Agrawal] 20:02:15
+Recommendation systems seems like it takes a classification problem, then turn it into a regression. Is that accurate.
+
+[Moderator - Ankit Agrawal] 20:02:26
+I don't necessarily think that that is.
+
+[Moderator - Ankit Agrawal] 20:02:30
+True right. If your original classification, if your original problem is classification.
+
+[Moderator - Ankit Agrawal] 20:02:37
+Then.
+
+[Moderator - Ankit Agrawal] 20:02:41
+Your final outcome has to be classification right? You have to compare apples to apples and oranges to oranges. You can't really criss them. So.
+
+[Moderator - Ankit Agrawal] 20:02:49
+One way to think about recommendations could be that it takes your classification problem makes prediction on regression.
+
+[Moderator - Ankit Agrawal] 20:02:57
+And then you have to find a way to convert that regression again to classification like how logistic regression does right, like logistic regression takes a classification, outputs the probability, and then we learn a threshold of that probability to convert it into a classification again. Right? So you would have to do.
+
+[Moderator - Ankit Agrawal] 20:03:17
+Something similar with a recommendation system as well like, if you're making prediction only on integer rating like one star, 2, star, 3, star 4 star 5 Star, and you're predicting 4.2. You have to still convert it, either into 4, or you will have to convert it into 5 like. How do you decide to do that? You have to learn a threshold.
+
+[Moderator - Ankit Agrawal] 20:03:36
+Right. So if you say for anything less than 4 is going to get rounded off to 4, and anything greater than 4.3 gets rounded off to 5.
+
+[Moderator - Ankit Agrawal] 20:03:44
+Then you build classification predictions from there.
+
+[Moderator - Ankit Agrawal] 20:03:46
+Right.
+
+[Moderator - Ankit Agrawal] 20:03:48
+So, Tasha, I don't necessarily think it turns a problem into a regression. I think it's just a regression approach to solve the problem.
+
+[Moderator - Ankit Agrawal] 20:03:58
+And then you take the predictions and then interpret them as classification.
+
+[Moderator - Ankit Agrawal] 20:04:03
+But through some statistical process or mathematical process.
+
+[Moderator - Ankit Agrawal] 20:04:10
+Yeah, a lot of data science applications are application specific. So you do require domain knowledge. Like so even if there are like hundreds of thousands of data science jobs out there. It is very hard to get into it, because, 1st of all, there is an algorithmic barrier like you need to have a background in.
+
+[Moderator - Ankit Agrawal] 20:04:33
+Statistics, linear algebra calculus,
+
+[Moderator - Ankit Agrawal] 20:04:37
+A trigonometry programming and then understanding data sense.
+
+[Moderator - Ankit Agrawal] 20:04:42
+But most data scientists or most data science professionals are specialized in one domain or the other, like my specializations, lie in computer vision and time series forecasting.
+
+[Moderator - Ankit Agrawal] 20:04:54
+So if you ask me to do natural language processing, it will take me longer than it would take me to do computer vision or time series, like, I know enough about it. But I'm not considered an expert in Nlp, or like generative AI or recommendation systems in this context.
+
+[Moderator - Ankit Agrawal] 20:05:10
+So.
+
+[Moderator - Ankit Agrawal] 20:05:11
+Yeah, you need 2 types of domain knowledge. One is the business aspect. Like, if you have a lot of experience working in finance, it's easier to stick to finance than to, let's say, go into e-commerce.
+
+[Moderator - Ankit Agrawal] 20:05:25
+And second of all is the data sense domain knowledge, where you only have a bandwidth to learn so many algorithms. Right? You cannot like. There are hundreds and hundreds of algorithms and architectures out there. It's it's not possible for.
+
+[Moderator - Ankit Agrawal] 20:05:40
+Any one person to know everything that happens in data, science.
+
+[Moderator - Ankit Agrawal] 20:05:43
+So you pick your specializations.
+
+[Moderator - Ankit Agrawal] 20:05:46
+You pick your industry so like for me, with time series forecasting.
+
+[Moderator - Ankit Agrawal] 20:05:53
+Lot of like e-commerce and finance are the 2 industries that I can target. And so that's where I would be usually applying for jobs, or that's the industry that I would be working with.
+
+[Moderator - Ankit Agrawal] 20:06:04
+So you would pick your domain expertise. You would pick your industry where those domain expertise are used a lot, and then you would work with respect to that.
+
+[Moderator - Ankit Agrawal] 20:06:13
+So that would be like my.
+
+[Moderator - Ankit Agrawal] 20:06:16
+Suggestion on it.
+
+[Moderator - Ankit Agrawal] 20:06:19
+What are your thoughts regarding what we learned today in relation to parameter of time, comparing to traditional methods.
+
+[Moderator - Ankit Agrawal] 20:06:26
+That's an interesting question. Actually, with respect to time series. Lstm.
+
+[Moderator - Ankit Agrawal] 20:06:32
+I think both methods are feasible.
+
+[Moderator - Ankit Agrawal] 20:06:40
+I think that you.
+
+[Moderator - Ankit Agrawal] 20:06:43
+So for recommend neural networks and stuff, your data is only one dimensional right like, you are passing single one dimensional vectors to your models like Rnns, Lstms, other methods like Areima models that we have studied. But here, in in the context of what we have talked about today.
+
+[Moderator - Ankit Agrawal] 20:07:03
+Our data is 3 dimensional right? We have the users, the items, and the 3rd dimension is time.
+
+[Moderator - Ankit Agrawal] 20:07:10
+So traditional methods usually.
+
+[Moderator - Ankit Agrawal] 20:07:14
+Will not work on this if you wanted to use, let's say, a deep learning framework.
+
+[Moderator - Ankit Agrawal] 20:07:20
+Then you could apply Cnn and wrap it in a time time series right like a time series wrapper.
+
+[Moderator - Ankit Agrawal] 20:07:28
+And that could work. You can train a Cnn over time, and that that would be like one way of thinking about it.
+
+[Moderator - Ankit Agrawal] 20:07:35
+But the traditional methods, like simple Rnns or Lstms, are usually work with one dimensional data, not with 3 dimensional data.
+
+[Moderator - Ankit Agrawal] 20:07:44
+So you would have to change how you structure your problem to accommodate that
+
+[Moderator - Ankit Agrawal] 20:07:50
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:07:50
+So you might take like one user or like one row at a time.
+
+[Moderator - Ankit Agrawal] 20:07:56
+Or or you might only be able to work with users who have provided reading over time. Right? So if I have, let's say, gone on. Netflix and I provided 5 different ratings.
+
+[Moderator - Ankit Agrawal] 20:08:08
+That could become one. Vector, and you can train a Rnn on it. Like, if I were to watch this movie again, what would be my next predicted reading for this particular movie.
+
+[Moderator - Ankit Agrawal] 20:08:17
+So you could do on a user basis or on an item basis. But you'll have to choose an access on which you can do.
+
+[Moderator - Ankit Agrawal] 20:08:25
+Traditional time series methods.
+
+[Moderator - Ankit Agrawal] 20:08:27
+So so that would be one suggestion.
+
+[Moderator - Ankit Agrawal] 20:08:31
+The Mit way is to show one what the basics and fundamental, so that an appropriate model solution can be determined. Hence, trying to get us to understand what is under the hood. Not, in short, course we are doing. Hence references.
+
+[Moderator - Ankit Agrawal] 20:08:43
+Yes, so I completely agree with you.
+
+[Moderator - Ankit Agrawal] 20:08:47
+Like most people usually would require a Phd just to understand one topic. Like, people have Phds in computer vision, or people have Phds in Nlp. Or people have
+
+[Moderator - Ankit Agrawal] 20:08:59
+Phds in robotics, or something like that, right? So.
+
+[Moderator - Ankit Agrawal] 20:09:03
+It's it's a very detailed process of getting good good in these topics. Us a 12 week. Course
+
+[Moderator - Ankit Agrawal] 20:09:10
+It's it's good for us to introduce you to the terminology and all the different methods that exist. But but it is. It is impossible to cover the entire scope of it in in 12 weeks.
+
+[Moderator - Ankit Agrawal] 20:09:23
+So yes, lot of references and lot of self study has to be done right. This is a very.
+
+[Moderator - Ankit Agrawal] 20:09:29
+Growing feel like.
+
+[Moderator - Ankit Agrawal] 20:09:30
+I think, in 2023 there were 48,000 research papers that were published in the field of data, science.
+
+[Moderator - Ankit Agrawal] 20:09:39
+I think.
+
+[Moderator - Ankit Agrawal] 20:09:40
+January, February, March, I think, by Mo. In 3 months this year we have had.
+
+[Moderator - Ankit Agrawal] 20:09:47
+I think like 32,000 research papers already that have been accepted in conferences.
+
+[Moderator - Ankit Agrawal] 20:09:52
+Incentive, AI computer vision. And so on. So there's a lot of research happening out there.
+
+[Moderator - Ankit Agrawal] 20:09:58
+A lot of tools that are coming out like there are over 2,000 tools now in generative AI to generate text from images, text to text, image to image, to video, and like, so on, so forth. There are over 2,000 tools already out there. So the the amount of work that's being done in this area is so high.
+
+[Moderator - Ankit Agrawal] 20:10:16
+That.
+
+[Moderator - Ankit Agrawal] 20:10:18
+A single course cannot cover it, like even people who have Phds and specializations don't fully understand that one field all the way through.
+
+[Moderator - Ankit Agrawal] 20:10:27
+So so, yeah, it is a continuous learning process. And like a lot of self, learning is required in this as well.
+
+[Moderator - Ankit Agrawal] 20:10:36
+Yeah, but yes, with the knowledge that you have from this program, you should be able to go and read research papers, or you should be able to read blog articles or look at somebody's code and be able to infer what's happening in in those.
+
+[Moderator - Ankit Agrawal] 20:10:50
+Scenarios.
+
+[Moderator - Ankit Agrawal] 20:10:53
+Sc. Library used along with Cnn or Cnn is replacement of Cv. No. So open Cv is a way to Pre. Process the data open. Cv is to read image based data or computer vision based data.
+
+[Moderator - Ankit Agrawal] 20:11:08
+It is not a replacement for Cnn. Or Cnn is not a replacement for open Cv. They usually are used together.
+
+[Moderator - Ankit Agrawal] 20:11:15
+But yeah, they are not replacements of each other.
+
+[Moderator - Ankit Agrawal] 20:11:19
+In relation to previous question, couldn models work with? I don't know what your previous question was. Oh, okay, I see about the Lsdms graph neural networks. I don't know how so.
+
+[Moderator - Ankit Agrawal] 20:11:36
+You might. If you are doing graph neural networks, you might have to use something called as a state space model.
+
+[Moderator - Ankit Agrawal] 20:11:42
+So state space model is having a graph at time. T. And then, when the time changes, you have a separate graph.
+
+[Moderator - Ankit Agrawal] 20:11:49
+And a state space model is understanding the relation between. How did we go from one graph to another graph with respect to time.
+
+[Moderator - Ankit Agrawal] 20:11:58
+And capturing that relationship.
+
+[Moderator - Ankit Agrawal] 20:12:00
+It is a very evolved process, and usually not used a lot in practice, because storing multiple copies of graphs is very, very.
+
+[Moderator - Ankit Agrawal] 20:12:08
+Like memory inefficient, right? Storing a full graph like, imagine a Facebook who has billions of users.
+
+[Moderator - Ankit Agrawal] 20:12:15
+If it creates multiple copies of these graphs, the computational cost and the storage cost is very high, for it.
+
+[Moderator - Ankit Agrawal] 20:12:21
+So it can be done in that context.
+
+[Moderator - Ankit Agrawal] 20:12:25
+I think that one of the use cases for that could be thinking of like contact tracing in.
+
+[Moderator - Ankit Agrawal] 20:12:32
+In disease, tracking right like during Covid was trying to do contact tracing. So how many people got infected in state? One versus? How did the infection spread in state? 2. Like, what is the transition between these 2 graphs?
+
+[Moderator - Ankit Agrawal] 20:12:44
+You could do stuff like that. It is. It is not very.
+
+[Moderator - Ankit Agrawal] 20:12:50
+Cost effective. In some cases we have better methods to do that, though.
+
+[Moderator - Ankit Agrawal] 20:12:54
+So so yeah, that's that's 1 way to think about it. But graphs will not be used for that purpose. from what I understand.
+
+[Moderator - Ankit Agrawal] 20:13:06
+Okay.
+
+[Moderator - Ankit Agrawal] 20:13:10
+Purely to the party. I think there isn't a better time to be in the field of data, especially with so many companies wanting to create skill solutions. So, Olga, that is actually true.
+
+[Moderator - Ankit Agrawal] 20:13:22
+But the requirement of being in this field is also changing drastically, like it is getting harder and harder to get into this area, because there are so many people who are learning data science now. So what we call like a there is a bubble. Now, with everybody wanting to do this. It's it's getting harder for companies to sort through good data. Scientists.
+
+[Moderator - Ankit Agrawal] 20:13:43
+The interview process is getting complicated. And and yeah, things like, I.
+
+[Moderator - Ankit Agrawal] 20:13:48
+I had my own company. So I hire for a lot of data scientists and devops and Ml. OP.
+
+[Moderator - Ankit Agrawal] 20:13:54
+Kind of positions. I also work for a bank separately as a full time job. So I'm on the hiring committee of that as well.
+
+[Moderator - Ankit Agrawal] 20:14:02
+We have seen an influx of lot of people claiming to be data science experts. But they can't explain simple algorithms like linear regression or logistic regression. Most of the time.
+
+[Moderator - Ankit Agrawal] 20:14:12
+So.
+
+[Moderator - Ankit Agrawal] 20:14:13
+So. Yes, it is a great time to want to learn these concepts, but you have to understand that.
+
+[Moderator - Ankit Agrawal] 20:14:20
+There's a very big.
+
+[Moderator - Ankit Agrawal] 20:14:24
+Requirement cut off to get into the area. My recommendation would be to start as an intern and convert that into full time. If you can.
+
+[Moderator - Ankit Agrawal] 20:14:32
+You get to learn a lot of skills on the job, and that will help you transition a little bit better than trying to like, get into full time positions directly after taking one course.
+
+[Moderator - Ankit Agrawal] 20:14:47
+I'm interested in deep learning and medical field learning offers special programs. I'm not familiar with that. You can reach out to your program manager to ask more about it.
+
+[Moderator - Ankit Agrawal] 20:15:00
+General topics I have to admit. I struggle to see the immediate application for me. So, Herbin I I don't.
+
+[Moderator - Ankit Agrawal] 20:15:09
+No. About specific applications like, what area do you work in and stuff for me to comment on? That would not be fair.
+
+[Moderator - Ankit Agrawal] 20:15:20
+Theoretical physics. Phd. Better or machine learning. Phd, better for this machine learning field. I think Phd is better. I don't. It doesn't matter what Phd you have. Because Phd. Is a way of thinking right? It is about having that nagging thing in your head about solving that problem. It is about diving deep into understanding the problem and finding the solution. Phd teaches you the skills on how to do effective research.
+
+[Moderator - Ankit Agrawal] 20:15:44
+How to find appropriate answers or solutions to problems that may or may not have any solutions. So any Phd is fine. You can have a Phd. In economics. You can have a Phd. In language like. Usually just having a Phd. Is better.
+
+[Moderator - Ankit Agrawal] 20:15:59
+Phd in physics, or Phd, in Ml, I would say, Phd. In physics is slightly better. Probably, if you're a student.
+
+[Moderator - Ankit Agrawal] 20:16:08
+With the physics background. Because.
+
+[Moderator - Ankit Agrawal] 20:16:10
+Physics by default, will build strong mathematical foundation for you.
+
+[Moderator - Ankit Agrawal] 20:16:15
+A Phd in machine learning might be more focused on the coding aspect of machine learning less about the mathematical understanding.
+
+[Moderator - Ankit Agrawal] 20:16:24
+But a Phd. In physics will.
+
+[Moderator - Ankit Agrawal] 20:16:27
+Force you to think about.
+
+[Moderator - Ankit Agrawal] 20:16:28
+Problems in a mathematical context and in an application concept.
+
+[Moderator - Ankit Agrawal] 20:16:33
+Right? Because, like a lot of data that we collect, we talk about noise. But what does that noise can mean? Let's say you have radar readings, or you have.
+
+[Moderator - Ankit Agrawal] 20:16:41
+Sensor readings, then air, resistance and stuff like that could be your noise in the data.
+
+[Moderator - Ankit Agrawal] 20:16:46
+Having that understanding of what kind of noises you can have in the data, and if there are patterns to those noises can help you make models better.
+
+[Moderator - Ankit Agrawal] 20:16:55
+There is a Youtube channel. Let me see what it is the guy's name. I forgot.
+
+[Moderator - Ankit Agrawal] 20:17:03
+His name is Steve Burnton. So Steve.
+
+[Moderator - Ankit Agrawal] 20:17:08
+Runtime.
+
+[Moderator - Ankit Agrawal] 20:17:10
+And he's like a physics professor. But he's also an expert in data science. And he talks about a lot of applications of how to use data, science with physics.
+
+[Moderator - Ankit Agrawal] 20:17:20
+Based thinking or physics mindset. I follow this guys channel quite a bit. It helps me understand problems.
+
+[Moderator - Ankit Agrawal] 20:17:27
+With an application specific solution.
+
+[Moderator - Ankit Agrawal] 20:17:30
+So, so, yeah,
+
+[Moderator - Ankit Agrawal] 20:17:32
+If you are interested in that, I do think.
+
+[Moderator - Ankit Agrawal] 20:17:35
+Phd. In physics might be a slightly better, but.
+
+[Moderator - Ankit Agrawal] 20:17:39
+But any kind of Phd. In general is preferred, and is considered better to have.
+
+[Moderator - Ankit Agrawal] 20:17:45
+I am head of an Id department wasn't really looking for a data science position. More of a layer in AI to be able to implement it in my department. Yeah, so in
+
+[Moderator - Ankit Agrawal] 20:17:56
+You might not be interested in this, but we do have a program called Aiml.
+
+[Moderator - Ankit Agrawal] 20:18:02
+Or nci mls.
+
+[Moderator - Ankit Agrawal] 20:18:05
+Call it within within the group that might be interesting to you, more so in a how to that that course, or something called as Aifl AI for leaders.
+
+[Moderator - Ankit Agrawal] 20:18:17
+Those courses would maybe be better because they.
+
+[Moderator - Ankit Agrawal] 20:18:21
+Don't really focus on implementing these methods. They think about. Given a business.
+
+[Moderator - Ankit Agrawal] 20:18:28
+How would you convert a problem into a data science problem? So this course focuses on given that you can apply machine learning, how do you apply machine learning.
+
+[Moderator - Ankit Agrawal] 20:18:39
+But then there are other courses where you can.
+
+[Moderator - Ankit Agrawal] 20:18:42
+Given a business. How do you actually convert a business problem into a data science problem?
+
+[Moderator - Ankit Agrawal] 20:18:47
+So there are other courses like that that are offered, and and that process is definitely different than what we have studied in this course.
+
+[Moderator - Ankit Agrawal] 20:18:54
+So that is more like a research science or applied scientist kind of a position.
+
+[Moderator - Ankit Agrawal] 20:19:00
+We're given a business. How do you convert.
+
+[Moderator - Ankit Agrawal] 20:19:03
+A given business problem into a data science problem like Meta can come and be like, Hey, I want to build oculus devices. And that's that's like, let's say, Mark Succumber said, that I want to build 3D headsets where we can do like this tasks in 3D. Now, it's the job of an applied scientist or somebody to can take that as an application and try to formulate that as a data science problem.
+
+[Moderator - Ankit Agrawal] 20:19:27
+So we can actually apply algorithms on top of it.
+
+[Moderator - Ankit Agrawal] 20:19:30
+So that might be something you might be interested in.
+
+[Moderator - Ankit Agrawal] 20:19:36
+What is the future of reinforcement learning? I think the future of reinforcement. Learning is very bright, because the number of applicate so reinforcement learning actually is more realistic to how humans learn as well. Right like growing up. If you did something, your parents probably said, Hey, that's a bad thing. Don't do it again, or they would reward you if you score good marks good score in exams.
+
+[Moderator - Ankit Agrawal] 20:19:59
+They maybe buy you a bike. They maybe take you to a trip. So human behavior is very involved with, like a penalty versus reward system, right? Like humans, tend to learn a lot that way.
+
+[Moderator - Ankit Agrawal] 20:20:09
+And reinforcement. Learning reinforces that idea of training systems through penalizing them versus.
+
+[Moderator - Ankit Agrawal] 20:20:16
+Rewarding them.
+
+[Moderator - Ankit Agrawal] 20:20:19
+So when you don't have a lot of data like when you don't have a lot of data.
+
+[Moderator - Ankit Agrawal] 20:20:24
+Then reinforcement. Learning really steps in.
+
+[Moderator - Ankit Agrawal] 20:20:27
+Because it will get better over time through defining what your penalty looks like and what your reward looks like. And so I think, reinforcement learning.
+
+[Moderator - Ankit Agrawal] 20:20:36
+We are moving towards a concept of Agi like a very generous.
+
+[Moderator - Ankit Agrawal] 20:20:43
+Generative AI, something like a robot which can do a lot of tasks which will be a more generalized part.
+
+[Moderator - Ankit Agrawal] 20:20:50
+I think reinforcement learning is critical to approaching Agi. So for the next.
+
+[Moderator - Ankit Agrawal] 20:20:56
+1020 years, I think, reinforcement learning will be the primary topic in data, science.
+
+[Moderator - Ankit Agrawal] 20:21:03
+For research.
+
+[Moderator - Ankit Agrawal] 20:21:06
+When will we schedule sessions about elective projects? So we can question about them. So I think that's a better question for your program manager. I, as I said, I don't have any idea about project related information.
+
+[Moderator - Ankit Agrawal] 20:21:22
+Yeah, all questions related to projects. Please reach out to your program manager about scheduling and information about that. For now, are there any styles of programming that can replace python in real life. Does analysts often use them? So Gui style, I mean, we have a lot of auto completion programs like, Get up copilot anthropics, Claude. There are a lot of tools like that where.
+
+[Moderator - Ankit Agrawal] 20:21:46
+We do? Oh, so oh, you are saying, click and drop where it programs in the background. I see.
+
+[Moderator - Ankit Agrawal] 20:21:52
+I don't know.
+
+[Moderator - Ankit Agrawal] 20:21:54
+I know that awsure these companies offer models.
+
+[Moderator - Ankit Agrawal] 20:22:00
+That are constructed within their framework, and you can go in there, and you can like play around with it on the dashboard, and it will change the code accordingly.
+
+[Moderator - Ankit Agrawal] 20:22:08
+But I don't think that's a generalized implementation available. When you have to build custom models, you have to do it on your own.
+
+[Moderator - Ankit Agrawal] 20:22:16
+I don't think there will be like a Gui style to generate the code for you.
+
+[Moderator - Ankit Agrawal] 20:22:22
+But there are some stuff something called as no code tools. Professor today, mentioned Iki Labs Iki Labs is one of the tools where you don't have to code.
+
+[Moderator - Ankit Agrawal] 20:22:33
+Everything is built in, and you just do drag and drop, and you connect like wires between them, so to speak, or like draw arrows between them, and it will run the model according to that flow. So those kind of tools exist. They are called no code AI tools.
+
+[Moderator - Ankit Agrawal] 20:22:49
+So we have a rapid minor. We have. Iki labs.
+
+[Moderator - Ankit Agrawal] 20:22:55
+We have.
+
+[Moderator - Ankit Agrawal] 20:22:59
+I'm forgetting other names of the tools.
+
+[Moderator - Ankit Agrawal] 20:23:03
+There are couple of them, though. Yes, there are some style yeah. Data robot, as Charles has mentioned over here. That is also another one.
+
+[Moderator - Ankit Agrawal] 20:23:13
+What is this? So we are out of time right now. So data queue. That's the name I was trying to think about. Yes, data. Queue is also one of those tools we are out of time. So if you are, if you don't have any questions, you're free to go.
+
+[Moderator - Ankit Agrawal] 20:23:28
+I see 2 questions, I will try to answer them quickly. What is statistical profile of this code? How many and what kind of completion percentages? Are you seeing.
+
+[Moderator - Ankit Agrawal] 20:23:37
+I don't have any of that information. My goal is to moderate these sessions. I don't have access to any of these statistical data related to this program.
+
+[Moderator - Ankit Agrawal] 20:23:49
+Because I'm not. I'm not in a management like, know how many people are in this entire.
+
+[Moderator - Ankit Agrawal] 20:23:56
+Program and stuff
+
+[Moderator - Ankit Agrawal] 20:23:58
+What do you think about AI agent? Did you see? Very good AI agent.
+
+[Moderator - Ankit Agrawal] 20:24:02
+I think currently, Claude, 3.5 is the best AI agent that we have right now.
+
+[Moderator - Ankit Agrawal] 20:24:09
+Second best one would be maybe.
+
+[Moderator - Ankit Agrawal] 20:24:12
+Open. AI 4. 0, although I think open AI, Gp, 4 is not as good anymore.
+
+[Moderator - Ankit Agrawal] 20:24:20
+But yeah, I think anthropics clot 3 is currently the best AI agent that we have.
+
+[Moderator - Ankit Agrawal] 20:24:33
+I like how you explain the concept based on your experience. Did you get a Phd. In physics, too? So no, my background is bachelors in math.
+
+[Moderator - Ankit Agrawal] 20:24:43
+Master's degree in theoretical science. So a lot of like finding the upper bounds, lower bounds, local minima's global minimas.
+
+[Moderator - Ankit Agrawal] 20:24:51
+A lot of like theoretical computer science. And my Phd, that I was working on was in compilers.
+
+[Moderator - Ankit Agrawal] 20:24:59
+So trying to optimize programming language using AI so I don't have a background in physics.
+
+[Moderator - Ankit Agrawal] 20:25:07
+But I did spend a lot of time trying to build these models on my own. So I do a lot of like open source projects. I contribute to python as well. In helping develop python language as well through open source.
+
+[Moderator - Ankit Agrawal] 20:25:21
+So I like coding. I like math so I read a lot about that.
+
+[Moderator - Ankit Agrawal] 20:25:27
+But no, I don't have a background in physics.
+
+[Moderator - Ankit Agrawal] 20:25:31
+I would like to talk to you about my business and your side business. So, Robert, feel free to reach out to me on Linkedin. I will put my linkedin on chat.
+
+[Moderator - Ankit Agrawal] 20:25:42
+Feel free to ping me over there. I usually respond within 24 h. So yeah, we can have a conversation over there. Please mention what you are from, because I.
+
+[Moderator - Ankit Agrawal] 20:25:54
+I do a lot of courses, and I have done a lot of here. So I suggest to get some context.
+
+[Moderator - Ankit Agrawal] 20:26:05
+Totally agree on Claude. Yeah, it was awesome for generating python code doesn't get confused over time. Yeah. So if you're trying to do python code. I think Microsoft Github is also very good in that. But yes, I do think co-pilot. Sorry, Claude. Ai. A cloud 3.5 is currently the best.
+
+[Moderator - Ankit Agrawal] 20:26:24
+Ai agent that we have, like a general purpose. AI agent.
+
+[Moderator - Ankit Agrawal] 20:26:29
+Germany and Chad. Gpt, I would say I would give the edge to jiminy over chat. Gpt, just because I know people at Google are extremely smart. And they have had a tool like Gemini for a very long time in for internal users like for code reviews and stuff.
+
+[Moderator - Ankit Agrawal] 20:26:46
+I think like 2014, 15, when I did some work for them as a contractor. They already had something like Gemini's like a child version available back in the day.
+
+[Moderator - Ankit Agrawal] 20:26:58
+It was just not available for commercial use. Chat Gpt made all of this technology come out for like general purpose general population.
+
+[Moderator - Ankit Agrawal] 20:27:07
+But Google has had something like this for code
+
+[Moderator - Ankit Agrawal] 20:27:12
+For a very long time.
+
+[Moderator - Ankit Agrawal] 20:27:13
+So I would give Jeremy a little bit of an edge over cat for coding based framework. For for other stuff, maybe chat. Gpd, I would prefer.
+
+[Moderator - Ankit Agrawal] 20:27:26
+So for Q. And a style of things I think I prefer AI a lot more than chat gpt.
+
+[Moderator - Ankit Agrawal] 20:27:33
+And for coding I prefer
+
+[Moderator - Ankit Agrawal] 20:27:38
+Co-pilot, or Claude, 3.5 for coding.
+
+[Moderator - Ankit Agrawal] 20:27:42
+So that would be like my 2 recommendations. Gpt is fine, but I definitely don't trust.
+
+[Moderator - Ankit Agrawal] 20:27:49
+The answers. Most of the time I get from Chat Gpt Gemini is embedded into Google. So I mean, if you're using Google Collab, you can work over there.
+
+[Moderator - Ankit Agrawal] 20:27:59
+Alright. So with that being said, I will end the session over here. Some of you might see me over the weekend as your Mls moderator or something. But apart from that, I wish everybody all the best for rest of this program, with your capstone project and elective project.
+
+[Moderator - Ankit Agrawal] 20:28:17
+And hopefully, I'll get to hear about you guys. Success in this field down the road. Feel free to connect with me on Linkedin. If you're interested.
+
+[Moderator - Ankit Agrawal] 20:28:26
+And yeah,
+
+[Moderator - Ankit Agrawal] 20:28:27
+Enjoy the rest of the program. Take care!
+

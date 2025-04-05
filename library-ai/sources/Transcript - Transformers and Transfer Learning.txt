@@ -1,0 +1,5145 @@
+[Moderator - Ankit Agrawal] 18:50:42
+Good um. Good morning. Good afternoon. Good evening. Depending on where you're located. Uh. Welcome to the final lecture on neural networks.
+
+[Moderator - Ankit Agrawal] 18:50:52
+Um.
+
+[Moderator - Ankit Agrawal] 18:50:54
+Please again a couple of quick reminders. Uh, do not put anything in the QA. Box.
+
+[Moderator - Ankit Agrawal] 18:51:00
+Make sure that every comment and questions that you're posting are being posted for everyone, and not just hosts and panelists.
+
+[Moderator - Ankit Agrawal] 18:51:09
+Uh, please do not try to raise your hand during the during the session. Uh, this is a listen. Only mode session.
+
+[Moderator - Ankit Agrawal] 18:51:18
+Um. I see some people talking about.
+
+[Moderator - Ankit Agrawal] 18:51:23
+Side being slow, there might be some maintenance going on. Uh. Please be patient with it.
+
+[Moderator - Ankit Agrawal] 18:51:28
+Um.
+
+[Moderator - Ankit Agrawal] 18:51:30
+The slides are available online, the website might be running a little bit slow, just because many people try to access the website uh around uh. Just before the lecture.
+
+[Moderator - Ankit Agrawal] 18:51:42
+Do. We have mentor sessions this week? Yes, we do have mentoring sessions this week, both on Saturday and Sunday.
+
+[Moderator - Ankit Agrawal] 18:51:50
+Uh, where we'll talk about uh neural networks and configuration uh on Saturday and Sunday.
+
+[Moderator - Ankit Agrawal] 18:51:57
+So with that being said, Uh, good morning, Professor.
+
+[Faculty (Olympus)] 18:52:03
+Morning.
+
+[Moderator - Ankit Agrawal] 18:52:05
+Ah!
+
+[Moderator - Ankit Agrawal] 18:52:07
+Uh um. I'll head over the session to you, Professor. Uh! And I'll keep track of all the questions that are being posted in the chat.
+
+[Faculty (Olympus)] 18:52:16
+Okay. Thank you.
+
+[Faculty (Olympus)] 18:52:17
+And yeah, welcome back everyone to this.
+
+[Faculty (Olympus)] 18:52:22
+Last lecture.
+
+[Faculty (Olympus)] 18:52:26
+And today we'll talk about.
+
+[Faculty (Olympus)] 18:52:28
+Another neural network architecture. And these are um transformers.
+
+[Faculty (Olympus)] 18:52:33
+Which have been super popular in the recent past. Um! So they underlie all their large language models.
+
+[Faculty (Olympus)] 18:52:40
+And they can actually do more things, too.
+
+[Faculty (Olympus)] 18:52:42
+So we'll try to understand them today, and then we'll talk a little bit also about how to train such huge models.
+
+[Faculty (Olympus)] 18:52:47
+And I hope it'll give you a bit of an understanding what all you can do with transformers, and even what you can do beyond language.
+
+[Faculty (Olympus)] 18:52:56
+So this is the outline of the lecture today.
+
+[Faculty (Olympus)] 18:52:59
+Um. So the transformer architecture really has.
+
+[Faculty (Olympus)] 18:53:03
+3 different main ingredients.
+
+[Faculty (Olympus)] 18:53:06
+And we'll go through them one by one. So the 1st one is that it works on tokens.
+
+[Faculty (Olympus)] 18:53:11
+So basically, instead of a single vector it gets a set of vectors as input.
+
+[Faculty (Olympus)] 18:53:16
+The second one is the attention, mechanism.
+
+[Faculty (Olympus)] 18:53:19
+And the 3rd one is the positional encodings.
+
+[Faculty (Olympus)] 18:53:22
+So those are the 3 things we'll go through one by one.
+
+[Faculty (Olympus)] 18:53:28
+Alright! So here is my.
+
+[Faculty (Olympus)] 18:53:30
+A good old slide again that you've seen throughout this week.
+
+[Faculty (Olympus)] 18:53:34
+Um. So I said, well, we may want to have specialized methods to encode different types of data. So in fact, the transformer architecture can encode a lot of different types of data. You have to modify it a bit and adjust. So that's where the adjustment to the different data types comes from.
+
+[Faculty (Olympus)] 18:53:51
+It has become popular with text, but it can actually also do other things like images or.
+
+[Faculty (Olympus)] 18:53:57
+Molecules or graphs.
+
+[Faculty (Olympus)] 18:53:59
+So I'll show you that, and I give you an intuition on how you can adjust that um.
+
+[Faculty (Olympus)] 18:54:05
+Somewhere in the middle or towards the end of the lecture.
+
+[Faculty (Olympus)] 18:54:08
+But for the moment, basically, what we'll be looking at today is.
+
+[Faculty (Olympus)] 18:54:13
+Again, like.
+
+[Faculty (Olympus)] 18:54:14
+One way to do this encoding. So it's mostly the encoding part, and then you'll make a prediction which could be something like a classifier.
+
+[Faculty (Olympus)] 18:54:24
+Or um something else.
+
+[Faculty (Olympus)] 18:54:29
+Okay, so what is a transformer?
+
+[Faculty (Olympus)] 18:54:36
+And it kind of all started with a paper which appeared at the new Reps Conference in 2,017, which was called attention as all you need.
+
+[Faculty (Olympus)] 18:54:46
+And this paper.
+
+[Faculty (Olympus)] 18:54:48
+Introduce the transformer architecture, and and it was popularized. Then.
+
+[Faculty (Olympus)] 18:54:52
+And this is, I mean, this is taken from this paper. This is an overview of this architecture. It looks super confusing, so don't worry about it. Essentially, it has these.
+
+[Faculty (Olympus)] 18:55:03
+Parts of the attention and the feed forward networks. That's what we'll be talking about. And once, after this lecture, you hopefully understand this picture a little bit better.
+
+[Faculty (Olympus)] 18:55:14
+So I don't wanna go by this picture because I didn't find it.
+
+[Faculty (Olympus)] 18:55:19
+So conclusive the 1st time I saw it, either.
+
+[Faculty (Olympus)] 18:55:23
+So.
+
+[Faculty (Olympus)] 18:55:26
+Okay. Uh, let's try again.
+
+[Faculty (Olympus)] 18:55:30
+Um. Okay, uh, that is not good.
+
+[Faculty (Olympus)] 18:55:34
+Let me see why it says, not transferring properly.
+
+[Faculty (Olympus)] 18:55:39
+Um.
+
+[Faculty (Olympus)] 18:55:50
+Okay, this is not working. I'm sorry about that. Um.
+
+[Faculty (Olympus)] 18:55:53
+So I'll have to do it slightly, differently.
+
+[Faculty (Olympus)] 18:55:57
+Oh!
+
+[Faculty (Olympus)] 18:56:00
+Alright! Give me.
+
+[Faculty (Olympus)] 18:56:01
+1 min, and I'll try to something else, because this is somehow not.
+
+[Faculty (Olympus)] 18:56:06
+Working properly as I wanted to work. Um!
+
+[Faculty (Olympus)] 18:56:09
+Okay. So the zoom sharing is not working correctly. That.
+
+[Faculty (Olympus)] 18:56:13
+It's not good.
+
+[Faculty (Olympus)] 18:56:17
+Um.
+
+[Faculty (Olympus)] 18:56:27
+Let's try it once more. Just like that. If that doesn't work.
+
+[Faculty (Olympus)] 18:56:52
+I'll try something else. I'm sorry about that.
+
+[Faculty (Olympus)] 18:56:56
+Give me 1 min.
+
+[Moderator - Ankit Agrawal] 18:59:44
+Hello! Everyone! Um!
+
+[Moderator - Ankit Agrawal] 18:59:45
+Uh, professor is trying to see why the slides are not being transmitted properly. So we are currently pausing for everything. Um, so yeah, I see a lot of comments about people saying no sound or video uh. We are trying to reconnect everything so that the slides can work. So please be patient with us.
+
+[Faculty (Olympus)] 19:00:13
+Thank you. Yes, I'm about to.
+
+[Faculty (Olympus)] 19:00:16
+Try it again. Um!
+
+[Faculty (Olympus)] 19:00:17
+Okay. Let me see.
+
+[Faculty (Olympus)] 19:00:29
+Pay, good no.
+
+[Faculty (Olympus)] 19:00:41
+Okay.
+
+[Faculty (Olympus)] 19:00:43
+Now we'll try it again.
+
+[Faculty (Olympus)] 19:00:51
+And a different way.
+
+[Faculty (Olympus)] 19:00:55
+And hopefully, that works better.
+
+[Faculty (Olympus)] 19:01:01
+Okay. So you can see my desktop. And then hopefully.
+
+[Faculty (Olympus)] 19:01:09
+Okay, this should hopefully work better. Now, you can actually see my picture.
+
+[Faculty (Olympus)] 19:01:13
+And let's pray that this now is stable. I'm sorry about all that.
+
+[Faculty (Olympus)] 19:01:20
+Somehow new laptop, different connections, whatever alright.
+
+[Faculty (Olympus)] 19:01:24
+So, okay.
+
+[Faculty (Olympus)] 19:01:27
+So here is the overview of a transformer.
+
+[Faculty (Olympus)] 19:01:30
+And what we said was.
+
+[Faculty (Olympus)] 19:01:32
+That the transformer is a bit different from other architectures. And let me explain to you.
+
+[Faculty (Olympus)] 19:01:37
+In what ways.
+
+[Faculty (Olympus)] 19:01:38
+So the 1st thing is, let's.
+
+[Faculty (Olympus)] 19:01:40
+Think of the transformer as a model for text.
+
+[Faculty (Olympus)] 19:01:44
+And what we do with text is, the 1st thing is okay, how do we actually input a sentence into a neural network.
+
+[Faculty (Olympus)] 19:01:50
+So a sentence is a bunch of words. So what we'll do is we'll build so-called tokens.
+
+[Faculty (Olympus)] 19:01:55
+And just think of each token as essentially a word.
+
+[Faculty (Olympus)] 19:01:59
+It's slightly more involved, but for our purposes this is good enough. So each token.
+
+[Faculty (Olympus)] 19:02:05
+Is a word, and what we'll do is.
+
+[Faculty (Olympus)] 19:02:07
+Real.
+
+[Faculty (Olympus)] 19:02:09
+Basically make a vector for each word.
+
+[Faculty (Olympus)] 19:02:12
+And thou, this vector could be something like containing just essentially an Id, or it could be containing.
+
+[Faculty (Olympus)] 19:02:20
+Some prior embedding of that word that comes from a different model that basically.
+
+[Faculty (Olympus)] 19:02:26
+Represents words as vectors in a way that words that have a similar meaning are closer together.
+
+[Faculty (Olympus)] 19:02:34
+There will be also some other information in this, and I will talk about this later, which is related to the.
+
+[Faculty (Olympus)] 19:02:40
+Um position.
+
+[Faculty (Olympus)] 19:02:42
+So now.
+
+[Faculty (Olympus)] 19:02:44
+Okay. So now we have a set of vectors going in. So so far, what we had. If you think about the 1st lecture, we had a single vector that goes into the neural network.
+
+[Faculty (Olympus)] 19:02:54
+And then we had an image. Okay, that was kind of a bunch of patches.
+
+[Faculty (Olympus)] 19:02:58
+That's a little bit closer to this framework here. So we have a set of vectors going in.
+
+[Faculty (Olympus)] 19:03:04
+And they are being processed through that network. And then, you see, we have a set of vectors going out also.
+
+[Faculty (Olympus)] 19:03:11
+And these are exactly in correspondence. So you see the encoding, for I kind of goes through. There gets processed some encoding of I comes out, and so on.
+
+[Faculty (Olympus)] 19:03:22
+This is the new representation.
+
+[Faculty (Olympus)] 19:03:24
+So now, what happens in this? Um.
+
+[Faculty (Olympus)] 19:03:27
+So 1st of all, okay, it looks like all of these tokens are processed kind of independently.
+
+[Faculty (Olympus)] 19:03:33
+Um so partially they are processed independently and partially. They are processed.
+
+[Faculty (Olympus)] 19:03:40
+With interaction where they actually connect, because otherwise we don't even need this big thing. We can just do it one by one.
+
+[Faculty (Olympus)] 19:03:46
+So.
+
+[Faculty (Olympus)] 19:03:48
+This these purple boxes, the these are essentially.
+
+[Faculty (Olympus)] 19:03:52
+The neural networks from Monday.
+
+[Faculty (Olympus)] 19:03:54
+So what we also have as kind of a part of this big model is.
+
+[Faculty (Olympus)] 19:04:00
+A small, so called, also Mlp. So the fully connected network we talked about on Monday.
+
+[Faculty (Olympus)] 19:04:06
+Which takes the vector in and gives a vector out.
+
+[Faculty (Olympus)] 19:04:08
+And this one is the same box.
+
+[Faculty (Olympus)] 19:04:11
+For all of the token. So we learned that once, and we just replicated, it's the same type of way sharing that we had for the filters.
+
+[Faculty (Olympus)] 19:04:19
+In the convolutional network that you alert once, and you apply it to the different patches. So here we learn this.
+
+[Faculty (Olympus)] 19:04:25
+Fully connected what network once, and we apply it to all the tokens.
+
+[Faculty (Olympus)] 19:04:30
+Now again, if we do this.
+
+[Faculty (Olympus)] 19:04:32
+We get some transformation of the tokens, but.
+
+[Faculty (Olympus)] 19:04:36
+We still have encoded each token by itself. They actually have.
+
+[Faculty (Olympus)] 19:04:40
+Essentially no information about context. Now, this is language and actually averts. Meaning really comes out when you look at the context.
+
+[Faculty (Olympus)] 19:04:49
+So we definitely need to have.
+
+[Faculty (Olympus)] 19:04:52
+Some way of relating the words to each other, and this is going to happen in this red box.
+
+[Faculty (Olympus)] 19:04:58
+And this red box is really the heart of the transformer. In a way.
+
+[Faculty (Olympus)] 19:05:03
+So what happens in this red box in this red box, the tokens can actually interact. That's where I include context.
+
+[Faculty (Olympus)] 19:05:12
+In the encoding of a token. And this is very important, as I said, because.
+
+[Faculty (Olympus)] 19:05:17
+A word is much easier to understand in its meaning by looking at the context.
+
+[Faculty (Olympus)] 19:05:26
+So.
+
+[Faculty (Olympus)] 19:05:28
+This. This leads us to 2 of those 3 important concepts, the 3, rd the 1st one is the token, wise processing that I just described, so each word essentially is a token, and the tokens are sent through this.
+
+[Faculty (Olympus)] 19:05:42
+Neural network.
+
+[Faculty (Olympus)] 19:05:45
+Is. Basically, there's like these streams of tokens.
+
+[Faculty (Olympus)] 19:05:47
+And.
+
+[Faculty (Olympus)] 19:05:48
+When there is the self attention, part.
+
+[Faculty (Olympus)] 19:05:52
+There, they can interact.
+
+[Faculty (Olympus)] 19:05:53
+And it's called self attention, because it's kind of that's.
+
+[Faculty (Olympus)] 19:05:58
+Sequence of tokens interact with parts of itself essentially.
+
+[Faculty (Olympus)] 19:06:03
+Okay, so this is the attention. And I think the token wise processing you kind of saw. Okay, this is like a set of tokens in, and then they are processed, and a set of tokens out.
+
+[Faculty (Olympus)] 19:06:13
+So what we really have to talk about is this attention mechanism? What does it do? And how does it work.
+
+[Faculty (Olympus)] 19:06:19
+Um.
+
+[Faculty (Olympus)] 19:06:21
+So let me first.st
+
+[Faculty (Olympus)] 19:06:23
+Give you an intuition of what this may look like.
+
+[Faculty (Olympus)] 19:06:26
+So essentially what the attention does is for each word.
+
+[Faculty (Olympus)] 19:06:30
+It looks at what other words may be important.
+
+[Faculty (Olympus)] 19:06:34
+For the meaning of this word, for instance, or to understand this word. So the neural network learns.
+
+[Faculty (Olympus)] 19:06:41
+Where to look at, and what kinds of words to look at, to understand the meaning of a word.
+
+[Faculty (Olympus)] 19:06:47
+And so here is an illustration of such an attention. So this is for the encoding of the word. It in this sentence.
+
+[Faculty (Olympus)] 19:06:55
+And now, of course, to understand what it means. We have to know what it refers to.
+
+[Faculty (Olympus)] 19:07:00
+And you see that actually, by looking at the attention, you get large rates to the 1st part of the sentence where they're talking about the animal.
+
+[Faculty (Olympus)] 19:07:12
+So this it refers to the animal, and then you have a little bit of an attention to the verb. What is it doing? And then uh some other things.
+
+[Faculty (Olympus)] 19:07:22
+So there's like multiple possibilities of where I could be looking at.
+
+[Faculty (Olympus)] 19:07:26
+Um, and that's what the attention will be doing. And that's what actually, we'll have, like, multiple attention, so called, attention heads doing it.
+
+[Faculty (Olympus)] 19:07:34
+But this is to give you a bit of an illustration. Okay, if I.
+
+[Faculty (Olympus)] 19:07:38
+I'm encoding the word it I will be attending to, maybe.
+
+[Faculty (Olympus)] 19:07:42
+The words it refers to.
+
+[Faculty (Olympus)] 19:07:47
+So, okay, so this is for a bit of intuition. Now, the question is.
+
+[Faculty (Olympus)] 19:07:52
+How do I actually do this? So how does the neural network do this? This was kind of pictorially so, how do I actually include the information from the other tokens.
+
+[Faculty (Olympus)] 19:08:02
+In the representation of this word, it.
+
+[Faculty (Olympus)] 19:08:10
+Okay, so.
+
+[Faculty (Olympus)] 19:08:13
+Here is my my sentence again.
+
+[Faculty (Olympus)] 19:08:15
+And now let's look at encoding one of these words. Let's maybe look at learning.
+
+[Faculty (Olympus)] 19:08:23
+So what the transformer actually will do is.
+
+[Faculty (Olympus)] 19:08:27
+In, when it.
+
+[Faculty (Olympus)] 19:08:29
+Computes a new representation of learning.
+
+[Faculty (Olympus)] 19:08:31
+It'll include all the other words, but with different weights.
+
+[Faculty (Olympus)] 19:08:36
+And so the words that are more relevant, they will get higher rate.
+
+[Faculty (Olympus)] 19:08:38
+Um, that's what we saw in the previous slide. So this one, these are the weights essentially, and the words that are not so relevant. They will get smaller rates.
+
+[Faculty (Olympus)] 19:08:50
+So the actual new representation of this token looks as follows, so J. Is now the J's word. So this is word J.
+
+[Faculty (Olympus)] 19:09:00
+Let's say this is token, Jay that comes in.
+
+[Faculty (Olympus)] 19:09:03
+And now it gets a new representation. Representation. Zj.
+
+[Faculty (Olympus)] 19:09:09
+This is basically.
+
+[Faculty (Olympus)] 19:09:10
+The zj.
+
+[Faculty (Olympus)] 19:09:13
+And now, how do I compute this? I actually take a weighted combination.
+
+[Faculty (Olympus)] 19:09:18
+Of representations of these other words. So these values, these are actually.
+
+[Faculty (Olympus)] 19:09:25
+Derived from the other words for the moment. Just think of them as representations of the other words.
+
+[Faculty (Olympus)] 19:09:30
+So what I'll do is I'll find the relevance. Wait! That tells me how relevant is the word M. For understanding, learning how relevant is the word about for understanding how relevant is the word deep for understanding, and each of these will give me a weight.
+
+[Faculty (Olympus)] 19:09:47
+And that weight I'll use.
+
+[Faculty (Olympus)] 19:09:49
+To wait. Basically.
+
+[Faculty (Olympus)] 19:09:51
+That other word. So actually, my new representation is just the weighted combination.
+
+[Faculty (Olympus)] 19:09:57
+Of the other words.
+
+[Faculty (Olympus)] 19:09:58
+And that encodes the context. And of course, as I said, not every word is as relevant as each. Any other word.
+
+[Faculty (Olympus)] 19:10:05
+Um. So the neural network actually learns.
+
+[Faculty (Olympus)] 19:10:10
+Which words.
+
+[Faculty (Olympus)] 19:10:11
+Are the useful ones for that particular word. So you see, the weight has actually.
+
+[Faculty (Olympus)] 19:10:16
+The I. That's like the name of it, and the J. Refers to the word. I'm encoding.
+
+[Faculty (Olympus)] 19:10:23
+So.
+
+[Faculty (Olympus)] 19:10:24
+It actually takes into account both the word I want to encode and.
+
+[Faculty (Olympus)] 19:10:28
+The word that I may be including in my thumb.
+
+[Faculty (Olympus)] 19:10:33
+I see a question.
+
+[Faculty (Olympus)] 19:10:35
+Um is WIJA. Number. Yes. So this one is just a number.
+
+[Faculty (Olympus)] 19:10:41
+A scaler.
+
+[Faculty (Olympus)] 19:10:42
+And this one is a vector.
+
+[Faculty (Olympus)] 19:10:45
+So the overall thing is the sum of vectors.
+
+[Faculty (Olympus)] 19:10:47
+So you'll get out of Hector.
+
+[Faculty (Olympus)] 19:10:53
+Um.
+
+[Faculty (Olympus)] 19:10:56
+Okay? So there's a few questions about is this, does it actually do a dictionary lookup? No, it doesn't. It learns this. Um. But of course it sees words over and over again.
+
+[Faculty (Olympus)] 19:11:06
+And I will explain to you how it actually gets those weights a little bit, and what these weights may be doing.
+
+[Faculty (Olympus)] 19:11:15
+Um.
+
+[Faculty (Olympus)] 19:11:16
+Thor.
+
+[Faculty (Olympus)] 19:11:17
+That. Yeah, that is basically what it's learning.
+
+[Faculty (Olympus)] 19:11:20
+So the weights is what it's learning.
+
+[Faculty (Olympus)] 19:11:22
+And then it's also learning kind of like, how? What exactly is this.
+
+[Faculty (Olympus)] 19:11:27
+Representation.
+
+[Faculty (Olympus)] 19:11:28
+Let's adjust like transformations of your data.
+
+[Faculty (Olympus)] 19:11:35
+So, okay, so what is this? V, this value.
+
+[Faculty (Olympus)] 19:11:40
+Um. So this is actually called.
+
+[Faculty (Olympus)] 19:11:42
+A value this all this language comes from databases. So we'll be sending out essentially a query.
+
+[Faculty (Olympus)] 19:11:47
+And this is the value like we'll be having keys that we're looking at. And this is basically the value you're getting.
+
+[Faculty (Olympus)] 19:11:53
+But this value is just a vector.
+
+[Faculty (Olympus)] 19:11:56
+And okay. So this actually a typo in my slides, I just see. So this should be, I.
+
+[Faculty (Olympus)] 19:12:03
+So the value I is just a linear transformation of token. I. So these are the token. The inputs are the tokens.
+
+[Faculty (Olympus)] 19:12:14
+Florent.
+
+[Faculty (Olympus)] 19:12:15
+T. 5. So this is just a linear transformation of the token.
+
+[Faculty (Olympus)] 19:12:19
+And this matrix W is learned. So whenever there's like a W matrix that's usually a parameter. And this is something we are learning.
+
+[Faculty (Olympus)] 19:12:31
+Okay. So now we are just summing up those, basically, it's transformed versions of the other tokens. That's essentially what we're.
+
+[Faculty (Olympus)] 19:12:40
+Um! We are doing.
+
+[Faculty (Olympus)] 19:12:43
+Okay, there's a question, is this kind of like clustering meaning? It could be clustering. But it's not necessarily a clustering in the sense. Maybe the subject attempts to the verb, or vice versa, so they are not exactly like clustering in the sense of.
+
+[Faculty (Olympus)] 19:13:00
+Clustering similar items. It's more about like, it depends a bit on the task you want to do. But it can be a lot like, okay, they have some relation to each other, or something like that that's relevant for your task.
+
+[Faculty (Olympus)] 19:13:16
+Okay. Um.
+
+[Faculty (Olympus)] 19:13:21
+Okay. So we have this. And now, what I want to show you is, how do we get those weights.
+
+[Faculty (Olympus)] 19:13:26
+So we have the weights that tells me how relevant is the word deep for understanding. The word learning. For instance.
+
+[Faculty (Olympus)] 19:13:34
+So how do I get these relationships? And how do I.
+
+[Faculty (Olympus)] 19:13:38
+Judge how important is one word for understanding another one.
+
+[Faculty (Olympus)] 19:13:43
+So that's actually the main part of the attention.
+
+[Faculty (Olympus)] 19:13:50
+And in some sense you can think of it as some sort of similarity.
+
+[Faculty (Olympus)] 19:13:54
+In the sense that this weight will be computed.
+
+[Faculty (Olympus)] 19:13:57
+Buy an inner product.
+
+[Faculty (Olympus)] 19:13:58
+And very often when we have inner products of.
+
+[Faculty (Olympus)] 19:14:03
+Vectors. It's something like a similarity of these vectors.
+
+[Faculty (Olympus)] 19:14:08
+Um. But it's not exactly the token vector so you're not like. So this intuition of clustering goes in this direction. But it's not exactly the similarity of the token vectors.
+
+[Faculty (Olympus)] 19:14:18
+But you can extract parts of those token vectors that are particularly important for determining.
+
+[Faculty (Olympus)] 19:14:25
+The relevance.
+
+[Faculty (Olympus)] 19:14:27
+Let's see.
+
+[Faculty (Olympus)] 19:14:28
+So this quote, for instance, be the position.
+
+[Faculty (Olympus)] 19:14:30
+Like, maybe the word right in front of you are right behind you is very important, or it could be related to like.
+
+[Faculty (Olympus)] 19:14:37
+The role of the verb in the 10 and the the um.
+
+[Faculty (Olympus)] 19:14:43
+Word in the sentence, or the type of the word, or something like that.
+
+[Faculty (Olympus)] 19:14:46
+So in the end this wait from I to J is.
+
+[Faculty (Olympus)] 19:14:52
+Uh.
+
+[Faculty (Olympus)] 19:14:54
+Lean in a product between 2 vectors, and these vectors.
+
+[Faculty (Olympus)] 19:14:57
+So you see the I and the J in there. So let's say I is. The token is.
+
+[Faculty (Olympus)] 19:15:03
+Learning and Jsdp, so this, these I and J refer to exactly these words, learning and deep.
+
+[Faculty (Olympus)] 19:15:11
+And.
+
+[Faculty (Olympus)] 19:15:13
+These Q and K are just 2 vectors that they derive from the tokens.
+
+[Faculty (Olympus)] 19:15:17
+For learning and for deep. So here are the tokens.
+
+[Faculty (Olympus)] 19:15:20
+And then we just do some transformation.
+
+[Faculty (Olympus)] 19:15:24
+And that's then we do the inner product of the transformation. So how should I.
+
+[Faculty (Olympus)] 19:15:30
+Understand this.
+
+[Faculty (Olympus)] 19:15:31
+So.
+
+[Faculty (Olympus)] 19:15:33
+The word that I want to encode like. Say, learning, that gives me the query. So this is again a bit like database lookup.
+
+[Faculty (Olympus)] 19:15:41
+I.
+
+[Faculty (Olympus)] 19:15:43
+Have a query. And now I want to match this query, some. I want some keys that match this query. There are like basically the answers to that query.
+
+[Faculty (Olympus)] 19:15:53
+So there's the query encoding, that's the word I want to encode. And then there's the keys. So the keys are derived from the other words.
+
+[Faculty (Olympus)] 19:16:02
+Like the. For instance, in this case.
+
+[Faculty (Olympus)] 19:16:04
+And then I look at, okay, how relevant is the.
+
+[Faculty (Olympus)] 19:16:07
+For learning. And now there are these 2.
+
+[Faculty (Olympus)] 19:16:11
+Matrices in here. They are the other matrices that are learned. So the matrices that actually kind of parameterize this attention mechanism.
+
+[Faculty (Olympus)] 19:16:20
+If.
+
+[Faculty (Olympus)] 19:16:21
+How do I determine the query? How do I determine the.
+
+[Faculty (Olympus)] 19:16:25
+And how do I determine the value from those respective tokens.
+
+[Faculty (Olympus)] 19:16:30
+Um. But essentially you can think of this query. J is just a transformation of token. J.
+
+[Faculty (Olympus)] 19:16:37
+PI. Is just a transformation of.
+
+[Faculty (Olympus)] 19:16:40
+Token, I and I'll show you a concrete example later of what this mechanism could do. For instance.
+
+[Faculty (Olympus)] 19:16:46
+So what could the query and key actually pick out? And so on.
+
+[Faculty (Olympus)] 19:16:53
+Um.
+
+[Faculty (Olympus)] 19:16:55
+So alright. So this is the query. So, for instance, think about like you want to attempt to the word that comes right before you, because maybe.
+
+[Faculty (Olympus)] 19:17:04
+Um your verb, and the verb usually like wants to know kind of who does the action, or something like that.
+
+[Faculty (Olympus)] 19:17:11
+So what the query would do is the query would kind of.
+
+[Faculty (Olympus)] 19:17:15
+Pull out.
+
+[Faculty (Olympus)] 19:17:17
+Some part of the token that tells me about the position of the token.
+
+[Faculty (Olympus)] 19:17:21
+And the key would kind of be matching that.
+
+[Faculty (Olympus)] 19:17:25
+So, or maybe it would say, Okay, I am in position 3. Now, I want to look at Position 2. So this guy would say what position it is in, and then we can basically match them. Something like that could be there.
+
+[Faculty (Olympus)] 19:17:39
+Or this guy could be saying, I'm the word it. So I want something.
+
+[Faculty (Olympus)] 19:17:43
+That is like a noun or a subject of the verb.
+
+[Faculty (Olympus)] 19:17:47
+Of the sentence, sorry. And then the key would be pulling out. Basically, okay, all the keys would be saying, Hey, I am a noun. I'm a verb or something like that.
+
+[Faculty (Olympus)] 19:17:55
+So just figuratively, um, so this is basically the information so that could be basically pulling out or transforming parts of this token, the token vector has that information.
+
+[Faculty (Olympus)] 19:18:08
+Okay, so this is kind of.
+
+[Faculty (Olympus)] 19:18:10
+What's happening. So again to encode the word, learning.
+
+[Faculty (Olympus)] 19:18:16
+We are taking a weeded sum over all the other words.
+
+[Faculty (Olympus)] 19:18:19
+And the weights are determined.
+
+[Faculty (Olympus)] 19:18:22
+By some kind of score, which goes with a query for learning.
+
+[Faculty (Olympus)] 19:18:26
+And the key for all the other words. And then we see basically, which keys.
+
+[Faculty (Olympus)] 19:18:31
+Are good keys for the query that we're asking so for learning.
+
+[Faculty (Olympus)] 19:18:34
+And this way we can actually adjust these weights.
+
+[Faculty (Olympus)] 19:18:38
+To any target work we want to encode, because the weights for learning will be different from the weights for the word M, or for whatever some other I am.
+
+[Faculty (Olympus)] 19:18:49
+Uh, or the word I, or something like that.
+
+[Faculty (Olympus)] 19:18:55
+Okay, um. So we have these.
+
+[Faculty (Olympus)] 19:18:58
+And.
+
+[Faculty (Olympus)] 19:19:00
+Now I know this looks like a lot in the beginning, but this thing is really important. So remember this. And remember, these weights are somehow computed by computing a score between I and J.
+
+[Faculty (Olympus)] 19:19:12
+And that will tell me how much I should wait.
+
+[Faculty (Olympus)] 19:19:16
+The highest word to represent the Js word. That's essentially what it's doing. That's it.
+
+[Faculty (Olympus)] 19:19:21
+So if you just remember that, um, that's basically the story.
+
+[Faculty (Olympus)] 19:19:28
+And.
+
+[Faculty (Olympus)] 19:19:29
+Now I just want to show you kind of the.
+
+[Faculty (Olympus)] 19:19:33
+Process. How this, what kinds of factors we are computing.
+
+[Faculty (Olympus)] 19:19:37
+And after that I'll actually show you.
+
+[Faculty (Olympus)] 19:19:40
+And illustrative example of what, like.
+
+[Faculty (Olympus)] 19:19:44
+This attention. Mechanism, for instance, could do so. It can actually do quite a lot.
+
+[Faculty (Olympus)] 19:19:48
+In terms of like.
+
+[Faculty (Olympus)] 19:19:50
+Algorithmic procedures it can encode. So I'll show you some basic thing that actually happens in real transformers.
+
+[Faculty (Olympus)] 19:19:57
+Um. But before that I want to just go through that computation again.
+
+[Faculty (Olympus)] 19:20:01
+Um to show you the details of that computation, and then we'll go to that example.
+
+[Faculty (Olympus)] 19:20:08
+So let's say, Okay, now we are encoding the word about. So we'll make a query.
+
+[Faculty (Olympus)] 19:20:15
+For the word about. So it's just this is the token. And so we just transform the token. This is the query version of this word.
+
+[Faculty (Olympus)] 19:20:23
+Now, what we'll need is we'll need the keys for all the other words, because we'll take a weighted combination.
+
+[Faculty (Olympus)] 19:20:30
+Of all the other words.
+
+[Faculty (Olympus)] 19:20:31
+Including the word itself. Of course.
+
+[Faculty (Olympus)] 19:20:35
+So we compute those keys again. The keys are just the transformation.
+
+[Faculty (Olympus)] 19:20:39
+Of those words.
+
+[Faculty (Olympus)] 19:20:40
+And then.
+
+[Faculty (Olympus)] 19:20:42
+Ha! If we have to query and the key, we can get the scores. How relevant is each word.
+
+[Faculty (Olympus)] 19:20:48
+For understanding the meaning of this word.
+
+[Faculty (Olympus)] 19:20:53
+And so these look like this. So basically, we just take in a product between these 2 vectors.
+
+[Faculty (Olympus)] 19:20:59
+And those inner products tell us how relevant is.
+
+[Faculty (Olympus)] 19:21:04
+The orange word for encoding the purple word.
+
+[Faculty (Olympus)] 19:21:07
+So once we have all these scores. What we actually do is we don't take these as raw scores.
+
+[Faculty (Olympus)] 19:21:13
+Um. We normalize them.
+
+[Faculty (Olympus)] 19:21:16
+Because me in our products are a little bit uncontrolled. They could be very large, they could be very small, they could be negative or so.
+
+[Faculty (Olympus)] 19:21:23
+So to kind of bring them on the right scale. What we'll do is we'll normalize them, and we'll use a soft max so that it's kind of.
+
+[Faculty (Olympus)] 19:21:30
+They basically sum to one, it's actually what's called a convex combination.
+
+[Faculty (Olympus)] 19:21:36
+So we just.
+
+[Faculty (Olympus)] 19:21:38
+Normalize them by dividing by their dimension the dimension of those vectors. That's just some constant.
+
+[Faculty (Olympus)] 19:21:43
+And then we apply a soft Max to all of these scores, and once we have applied the soft Max.
+
+[Faculty (Olympus)] 19:21:51
+That gives us our weight.
+
+[Faculty (Olympus)] 19:21:55
+So again, the weights are really just the relevance of the orange words for the purple word.
+
+[Faculty (Olympus)] 19:22:01
+And we just now we kind of bring them on the same scale.
+
+[Faculty (Olympus)] 19:22:05
+And make them sum up to one. That's what the soft Max operation does.
+
+[Faculty (Olympus)] 19:22:09
+And then they give us the wait for summing up. Basically.
+
+[Faculty (Olympus)] 19:22:13
+The those other words, tokens.
+
+[Faculty (Olympus)] 19:22:18
+So, just as an illustration, I want to remind you what the softmax does.
+
+[Faculty (Olympus)] 19:22:23
+We talked about it already in the 1st lecture. But here's just a reminder of what the soft Max does.
+
+[Faculty (Olympus)] 19:22:29
+So soft, Max of.
+
+[Faculty (Olympus)] 19:22:32
+3.
+
+[Faculty (Olympus)] 19:22:33
+Numbers here basically means you exponentiate each of the numbers.
+
+[Faculty (Olympus)] 19:22:37
+And then you divide each of these single numbers by their sum.
+
+[Faculty (Olympus)] 19:22:41
+So this is what this is.
+
+[Faculty (Olympus)] 19:22:43
+So now, what does this do first? st
+
+[Faculty (Olympus)] 19:22:46
+It makes all of them positive.
+
+[Faculty (Olympus)] 19:22:49
+And it makes all of them sum to one. But second. If a number is fairly large, it makes.
+
+[Faculty (Olympus)] 19:22:55
+It relatively, really much larger than the other numbers.
+
+[Faculty (Olympus)] 19:23:00
+And the small number. It makes it really smaller. So it's really as if you're picking out the maximum number.
+
+[Faculty (Olympus)] 19:23:05
+But kind of a smooth version of this. So, for instance, if I had a soft Max of point 5 and 5 and minus 3. These are my inner products.
+
+[Faculty (Olympus)] 19:23:13
+Then this is these numbers. And you see the 5. Basically, if one is the Max, you can be 5 gets all the weight, and then the other ones are pretty small.
+
+[Faculty (Olympus)] 19:23:23
+So here you would really be putting a lot of weight on whatever token got the file.
+
+[Faculty (Olympus)] 19:23:37
+Okay.
+
+[Faculty (Olympus)] 19:23:42
+So.
+
+[Faculty (Olympus)] 19:23:44
+Just as a recap before we do an example.
+
+[Faculty (Olympus)] 19:23:48
+To under, to encode.
+
+[Faculty (Olympus)] 19:23:51
+The J is word, we take a weighted combination of the other words.
+
+[Faculty (Olympus)] 19:23:55
+And the weight is some kind of relevant score.
+
+[Faculty (Olympus)] 19:23:58
+Off the ice word for the J's word, and it depends on the target J, and on the.
+
+[Faculty (Olympus)] 19:24:04
+Oh, the word! I.
+
+[Faculty (Olympus)] 19:24:05
+And we get it by making a query from the Js. Word.
+
+[Faculty (Olympus)] 19:24:11
+And matching it to the keys that we get. For the other words.
+
+[Faculty (Olympus)] 19:24:18
+Okay. Um.
+
+[Faculty (Olympus)] 19:24:20
+So let me um look for some more questions. I will give you an example, and if it's still confusing, then.
+
+[Faculty (Olympus)] 19:24:27
+Um. We can talk about it more. Um!
+
+[Faculty (Olympus)] 19:24:33
+Okay, so.
+
+[Faculty (Olympus)] 19:24:36
+This matrix. W related to weight. W, ij, okay.
+
+[Faculty (Olympus)] 19:24:40
+Yeah, the the capital matrices. These 2 matrices are related to the weights Wij, because they are used to compute them.
+
+[Faculty (Olympus)] 19:24:50
+Um, this matrix is just used to make.
+
+[Faculty (Olympus)] 19:24:54
+The vectors that we are actually summing over.
+
+[Faculty (Olympus)] 19:24:59
+And.
+
+[Faculty (Olympus)] 19:25:00
+Now, maybe what I forgot to say is to make we do this procedure for each of these words, because we.
+
+[Faculty (Olympus)] 19:25:06
+Encode each of these words.
+
+[Faculty (Olympus)] 19:25:08
+So we compute basically a key, a query, and a value for each word. And then we use them like for each word we once use the query and use everyone else's key.
+
+[Faculty (Olympus)] 19:25:17
+And so on.
+
+[Faculty (Olympus)] 19:25:21
+Um.
+
+[Faculty (Olympus)] 19:25:23
+Can you give an example of the query? I'll give you that in a.
+
+[Faculty (Olympus)] 19:25:27
+Minute.
+
+[Faculty (Olympus)] 19:25:28
+Um.
+
+[Faculty (Olympus)] 19:25:31
+The the neurons do. So does neural network do this for every word. So we don't do it for each letter. We do it for every word. Yes, so we encode every word. If you.
+
+[Faculty (Olympus)] 19:25:41
+Um! Look at my 1st initial.
+
+[Faculty (Olympus)] 19:25:44
+Picture here. So we encode each word.
+
+[Faculty (Olympus)] 19:25:47
+So here is where we do this, some. So basically here, you could draw in the arrows to encode M, I'm actually getting inputs.
+
+[Faculty (Olympus)] 19:25:57
+From all the other.
+
+[Faculty (Olympus)] 19:25:59
+Tokens.
+
+[Faculty (Olympus)] 19:26:00
+This is the attention mechanism, and I'm actually doing it for all of them.
+
+[Faculty (Olympus)] 19:26:05
+So this guy would be getting input from, like everyone else, etc.
+
+[Faculty (Olympus)] 19:26:12
+So yes.
+
+[Faculty (Olympus)] 19:26:14
+Um.
+
+[Faculty (Olympus)] 19:26:16
+Okay.
+
+[Faculty (Olympus)] 19:26:19
+What does the database look like? So the database is just kind of the language that people use.
+
+[Faculty (Olympus)] 19:26:26
+It's essentially.
+
+[Faculty (Olympus)] 19:26:29
+Um.
+
+[Faculty (Olympus)] 19:26:33
+These words that you get.
+
+[Faculty (Olympus)] 19:26:35
+So the words that kind of fit in one.
+
+[Faculty (Olympus)] 19:26:38
+Window.
+
+[Faculty (Olympus)] 19:26:39
+That's kind of you can view it as your database.
+
+[Faculty (Olympus)] 19:26:42
+And you'll be querying basically, all the other words that are there in your um.
+
+[Faculty (Olympus)] 19:26:48
+But yeah, in that sequence that you input.
+
+[Faculty (Olympus)] 19:27:00
+So, okay, so is the for some.
+
+[Faculty (Olympus)] 19:27:04
+Over. WIJ. Times v. 4.
+
+[Faculty (Olympus)] 19:27:07
+Ah, so z 4. No, it doesn't sum over.
+
+[Faculty (Olympus)] 19:27:11
+So v. 4 would be derived from itself. Um, so it's.
+
+[Faculty (Olympus)] 19:27:16
+Summing over the other ones, so to make it concrete, so z. 4 would be the sum over.
+
+[Faculty (Olympus)] 19:27:24
+I equals one to here we have, let's say, 5.
+
+[Faculty (Olympus)] 19:27:30
+WI. 4.
+
+[Faculty (Olympus)] 19:27:33
+Times. Vi.
+
+[Faculty (Olympus)] 19:27:34
+So it would be looking at each other, word.
+
+[Faculty (Olympus)] 19:27:38
+And looking at the weight for each.
+
+[Faculty (Olympus)] 19:27:40
+Between 4 and uh each other, and then it would be summing up that.
+
+[Faculty (Olympus)] 19:27:46
+So it would be attending basically.
+
+[Faculty (Olympus)] 19:27:50
+To all the other words.
+
+[Faculty (Olympus)] 19:27:51
+That's essentially what it's doing.
+
+[Faculty (Olympus)] 19:28:00
+Why would the query also have weights.
+
+[Faculty (Olympus)] 19:28:04
+Um.
+
+[Faculty (Olympus)] 19:28:04
+Right. So it's basically.
+
+[Faculty (Olympus)] 19:28:08
+You could do it without weights. But the reason we have weights is that you have this input token vector and that input token vector could have different types of information in it.
+
+[Faculty (Olympus)] 19:28:17
+And now you can basically pull out.
+
+[Faculty (Olympus)] 19:28:20
+Different types of information, so you could maybe pull out some information about the position of the word in the sentence. You could pull out something about.
+
+[Faculty (Olympus)] 19:28:28
+The type of word. Something about the semantics of this word.
+
+[Faculty (Olympus)] 19:28:33
+And this is something like the it's all maybe in that token. Vector. But you don't want to use all of it, because you maybe you want to.
+
+[Faculty (Olympus)] 19:28:41
+Do a specific.
+
+[Faculty (Olympus)] 19:28:43
+Like.
+
+[Faculty (Olympus)] 19:28:44
+Type of attention in the sense that you're looking for a specific thing. So maybe you're just looking for the word next to you or so, then you would just look at basically the position, for instance.
+
+[Faculty (Olympus)] 19:28:55
+Um. So it depends what you want to use for your attention, because, indeed.
+
+[Faculty (Olympus)] 19:29:01
+There. There's a question relevance in relation to what? So what kind of relevance? So what is is it that you actually want to capture here, and there's many things you may want to capture.
+
+[Faculty (Olympus)] 19:29:11
+Um. And usually this attention mechanism does one of them.
+
+[Faculty (Olympus)] 19:29:14
+So. And that's why.
+
+[Faculty (Olympus)] 19:29:16
+It uses basically this.
+
+[Faculty (Olympus)] 19:29:18
+Transformation.
+
+[Faculty (Olympus)] 19:29:21
+In the like.
+
+[Faculty (Olympus)] 19:29:23
+Queries and keys here.
+
+[Faculty (Olympus)] 19:29:25
+To pull out the relevant parts.
+
+[Faculty (Olympus)] 19:29:27
+From.
+
+[Faculty (Olympus)] 19:29:28
+The query, token, and from the.
+
+[Faculty (Olympus)] 19:29:31
+Key tokens.
+
+[Faculty (Olympus)] 19:29:38
+Okay, so.
+
+[Faculty (Olympus)] 19:29:41
+Are the how are the weight matrices updated? So the learnable parts are updated just like.
+
+[Faculty (Olympus)] 19:29:47
+We would update.
+
+[Faculty (Olympus)] 19:29:50
+In any other neural network. So those are parameters that will be updated by gradient descent.
+
+[Faculty (Olympus)] 19:29:56
+And I'll say a little bit more about the loss function later.
+
+[Faculty (Olympus)] 19:29:59
+Um, because usually these are trained.
+
+[Faculty (Olympus)] 19:30:03
+Well say to predict the next word, or something like that which is essentially a classification problem. But we'll get to it later. So there will be a specific loss. And then you can basically back, propagate, as always.
+
+[Faculty (Olympus)] 19:30:20
+Hmm, okay, can we see what the encoding of a specific word looks like.
+
+[Faculty (Olympus)] 19:30:25
+Uh, usually, this is not interpretable in the sense that's gonna be a big vector.
+
+[Faculty (Olympus)] 19:30:30
+Of numbers, and it's not so easy to understand what this.
+
+[Faculty (Olympus)] 19:30:34
+Big factor of numbers actually means.
+
+[Faculty (Olympus)] 19:30:39
+Um.
+
+[Faculty (Olympus)] 19:30:42
+Is that what a chat box does to understand our inquiry? Yes, essentially.
+
+[Faculty (Olympus)] 19:30:46
+Yes, it applies this attention. Mechanism.
+
+[Faculty (Olympus)] 19:30:50
+Um, and then it replies to it.
+
+[Faculty (Olympus)] 19:30:56
+Okay, so isn't the language database really a dictionary? So.
+
+[Faculty (Olympus)] 19:31:02
+The thing is what your model learns is correlations between words. For instance.
+
+[Faculty (Olympus)] 19:31:07
+If this word is there which word is likely to come next.
+
+[Faculty (Olympus)] 19:31:12
+This is something that.
+
+[Faculty (Olympus)] 19:31:14
+Um.
+
+[Faculty (Olympus)] 19:31:17
+That is something that they often do. That's essentially what the model is trained for is that if I have this word, what would be the typical next word. After this.
+
+[Faculty (Olympus)] 19:31:25
+So it predicts the next word, and that that way it learns correlations. It learns the structure of the language in like which words typically come in succession. It doesn't.
+
+[Faculty (Olympus)] 19:31:34
+It's not really a dictionary in that sense, but of course it know. I mean.
+
+[Faculty (Olympus)] 19:31:40
+It can basically predict all the words in your dictionary. That's kind of the output classes. I have it have in that sense.
+
+[Faculty (Olympus)] 19:31:49
+Okay. Um.
+
+[Faculty (Olympus)] 19:31:54
+All right. So can you explain what self attention means? So attention is just this idea that I encode.
+
+[Faculty (Olympus)] 19:32:04
+A word.
+
+[Faculty (Olympus)] 19:32:05
+As a function of its context.
+
+[Faculty (Olympus)] 19:32:08
+This is what attention means.
+
+[Faculty (Olympus)] 19:32:09
+And so there's this attention scores which are these ones here that tells me how relevant is a word to encoding the other word.
+
+[Faculty (Olympus)] 19:32:17
+And now you could also do tension between like this word.
+
+[Faculty (Olympus)] 19:32:22
+And something else that's not in my input string.
+
+[Faculty (Olympus)] 19:32:25
+Um. So this would also be attention. But self attention means it's all like.
+
+[Faculty (Olympus)] 19:32:30
+You're attending to other words in your input string. That's why it's called self attention.
+
+[Faculty (Olympus)] 19:32:37
+Okay is the token, a number or a word. So the token corresponds to a word. But it's a, vector it's a vector encoding of your word.
+
+[Faculty (Olympus)] 19:32:46
+In the very simplest case. You could just take a dictionary and do a 1 hot encoding.
+
+[Faculty (Olympus)] 19:32:51
+That you say.
+
+[Faculty (Olympus)] 19:32:51
+Okay, this word is like the whatever.
+
+[Faculty (Olympus)] 19:32:55
+100th word in my dictionary, or something like that.
+
+[Faculty (Olympus)] 19:32:58
+Usually you do something a bit smarter than that. But that would be a way to encode a word as a vector.
+
+[Faculty (Olympus)] 19:33:15
+Um. If I have 2 sentences, I'm learning about deep learning. And the other one, how about you?
+
+[Faculty (Olympus)] 19:33:21
+Does the about here have different weights. So, yeah, here the about looks at the context, and it sees in one case.
+
+[Faculty (Olympus)] 19:33:29
+Okay, there's like the word learning. And then there's this deep learning in the end.
+
+[Faculty (Olympus)] 19:33:33
+And then for the other one, there's the how and the you. So with how about it? Typically ends differently or so.
+
+[Faculty (Olympus)] 19:33:40
+So it would basically, because so the rates only depend on the 2 words.
+
+[Faculty (Olympus)] 19:33:46
+Like the.
+
+[Faculty (Olympus)] 19:33:48
+Query, word, and the keyword.
+
+[Faculty (Olympus)] 19:33:50
+Um, so it would have different rates in those context, and it would get a differentiation in either context.
+
+[Faculty (Olympus)] 19:34:07
+Okay, what is the what does the shared waitresses.
+
+[Faculty (Olympus)] 19:34:11
+Weight matrices mean? Um. So this means that.
+
+[Faculty (Olympus)] 19:34:17
+For each token we have to compute.
+
+[Faculty (Olympus)] 19:34:22
+Um embedding.
+
+[Faculty (Olympus)] 19:34:25
+Um. And now to get this embedding, we get the.
+
+[Faculty (Olympus)] 19:34:28
+Queries and the keys. And now, to compute the keys for the different tokens, we always use the same key matrix.
+
+[Faculty (Olympus)] 19:34:35
+So this is always the same matrix.
+
+[Faculty (Olympus)] 19:34:37
+So this is the same when we talked about the Cnn. And we said, we apply the filter to each patch.
+
+[Faculty (Olympus)] 19:34:43
+So here we apply the key matrix to each token, and we apply the query matrix to each token and the value matrix also. So these are the same matrix.
+
+[Faculty (Olympus)] 19:34:53
+For all of the tokens, and that's what I meant by shared. We don't learn a different matrix for different position. It's all the same. It's always the same.
+
+[Faculty (Olympus)] 19:35:05
+Um, okay, so.
+
+[Faculty (Olympus)] 19:35:10
+There's a few more questions about training, so they are also in randomly initialized, and then we train it with gradient descent.
+
+[Faculty (Olympus)] 19:35:18
+Um same procedure for all neural networks pretty much.
+
+[Faculty (Olympus)] 19:35:23
+It's only that the gradients will look slightly different because of this like product structure in there. But it's the same.
+
+[Faculty (Olympus)] 19:35:30
+It's always the same.
+
+[Faculty (Olympus)] 19:35:33
+Oh, okay.
+
+[Faculty (Olympus)] 19:35:35
+And then, okay, that was it.
+
+[Faculty (Olympus)] 19:35:39
+Um.
+
+[Faculty (Olympus)] 19:35:40
+Can you explain the steps on key query and value? And Z again.
+
+[Faculty (Olympus)] 19:35:45
+So the Z.
+
+[Faculty (Olympus)] 19:35:47
+Oh, let me briefly summarize this again. So the Z is basically the new embedding.
+
+[Faculty (Olympus)] 19:35:53
+Off my token. So I said, if I.
+
+[Faculty (Olympus)] 19:35:57
+In cold, the word learning, then, this thing.
+
+[Faculty (Olympus)] 19:36:00
+Will be the new representation of learning. So this will be the new representation.
+
+[Faculty (Olympus)] 19:36:06
+Of learning. So it's another.
+
+[Faculty (Olympus)] 19:36:09
+Vector another token that comes like out of the layer. Essentially.
+
+[Faculty (Olympus)] 19:36:12
+And for each like token a new representation comes out of the layer. So this is this is what I call Z.
+
+[Faculty (Olympus)] 19:36:19
+Z is just no. So this would be z 3. Maybe.
+
+[Faculty (Olympus)] 19:36:23
+So this would be then. Z. 3 is like this, the one that does the encoding for learning, and then we would have one for each of them.
+
+[Faculty (Olympus)] 19:36:30
+Um, so you'll see that like.
+
+[Faculty (Olympus)] 19:36:33
+Here, basically essentially, disease would be coming out. Actually, okay, disease would be coming out of here. And then you do another.
+
+[Faculty (Olympus)] 19:36:43
+Uh, then you send those single vectors through another neural network, and that is what comes out of the layer. But that other neural network is just sort of an transformation that you add on.
+
+[Faculty (Olympus)] 19:36:54
+So disease is just the new representation of that um token.
+
+[Faculty (Olympus)] 19:36:58
+So now, what's the role of the queries? And the V's, so the V's.
+
+[Faculty (Olympus)] 19:37:02
+And so what I said is for.
+
+[Faculty (Olympus)] 19:37:05
+Computing the new representation, we just do a weighted some of the other tokens.
+
+[Faculty (Olympus)] 19:37:10
+And that's essentially the intuition. Now, the thing is so. Other token means other vector. Representation of the other words.
+
+[Faculty (Olympus)] 19:37:18
+Um. What we actually do is we don't take the token directly we allow the neural network to pull out some partial information from this. Maybe there's some part of it that's super relevant. So we use that only.
+
+[Faculty (Olympus)] 19:37:32
+So this, that's why this V is actually.
+
+[Faculty (Olympus)] 19:37:36
+Just uh linear transformation of this token. So if you think of this token vector as having, like a part.
+
+[Faculty (Olympus)] 19:37:41
+That is, maybe.
+
+[Faculty (Olympus)] 19:37:44
+Related to that position. And then there's something about the.
+
+[Faculty (Olympus)] 19:37:49
+Word type and whatnot in the semantics.
+
+[Faculty (Olympus)] 19:37:52
+Etc. So then, what this Wv. Can do is it can say, Hi, I'm really important. This thing is really important to me. So I just pull out this.
+
+[Faculty (Olympus)] 19:38:01
+And copy it over, and I forget about the rest. For instance, something like that.
+
+[Faculty (Olympus)] 19:38:06
+So you could actually pull out like a part of this vector that is specifically important to you.
+
+[Faculty (Olympus)] 19:38:12
+So here, this would be the vector like the token vector.
+
+[Faculty (Olympus)] 19:38:17
+And the same happens for the query and the key.
+
+[Faculty (Olympus)] 19:38:21
+So the query and the key determine the weights, and then.
+
+[Faculty (Olympus)] 19:38:26
+The query and the key also could be saying, Hey, I'm looking at the position, or maybe I'm looking at whatever what this word means, or something like that.
+
+[Faculty (Olympus)] 19:38:34
+And hence I'm pulling out basically that part of information in the vector.
+
+[Faculty (Olympus)] 19:38:39
+Now, in reality they may be not as well separated. Maybe they're more like different subspaces or so, and a bit more muddled. But essentially it. It is something like that it can do if it wants.
+
+[Faculty (Olympus)] 19:38:51
+Um. It can also.
+
+[Faculty (Olympus)] 19:38:53
+Determined that wants to use the full vector but it could also do like something more specific.
+
+[Faculty (Olympus)] 19:39:00
+Okay. Um.
+
+[Faculty (Olympus)] 19:39:03
+Alright!
+
+[Faculty (Olympus)] 19:39:05
+So.
+
+[Faculty (Olympus)] 19:39:11
+That we'll talk more about training later. So save all your questions for the training later.
+
+[Faculty (Olympus)] 19:39:16
+Um.
+
+[Faculty (Olympus)] 19:39:22
+Where our response is stored. So this comes, let's get back to this question later, when we've talked about how to train it.
+
+[Faculty (Olympus)] 19:39:28
+Um.
+
+[Faculty (Olympus)] 19:39:29
+And um. Then we'll go on. So next I want to show you.
+
+[Faculty (Olympus)] 19:39:34
+Um as an example. So this example.
+
+[Faculty (Olympus)] 19:39:38
+If.
+
+[Faculty (Olympus)] 19:39:39
+Actually doing something a little bit more involved. Um, but this is something that transformers have to do a lot.
+
+[Faculty (Olympus)] 19:39:46
+And so here is the example task in this case.
+
+[Faculty (Olympus)] 19:39:51
+So what the transformer gets.
+
+[Faculty (Olympus)] 19:39:53
+And here I just put instead of a word. I just put like letters.
+
+[Faculty (Olympus)] 19:39:58
+So it gets a sequence of words. So these words are, Ca, B. Dv, something.
+
+[Faculty (Olympus)] 19:40:04
+And then it gets essentially.
+
+[Faculty (Olympus)] 19:40:09
+Yeah. A query word.
+
+[Faculty (Olympus)] 19:40:11
+Or a prompt word, a.
+
+[Faculty (Olympus)] 19:40:13
+And so what we want is that it looks up in the previous sequence a. And which word came after a.
+
+[Faculty (Olympus)] 19:40:22
+So this is something that we often train them to do is to say, Okay, here is like the beginning of a sentence.
+
+[Faculty (Olympus)] 19:40:31
+Complete the sentence for me. So what would come here.
+
+[Faculty (Olympus)] 19:40:34
+So in this particular case, it can essentially just look up that.
+
+[Faculty (Olympus)] 19:40:39
+Okay, after A comes. B, so I have to fill in B here.
+
+[Faculty (Olympus)] 19:40:43
+So this is the.
+
+[Faculty (Olympus)] 19:40:46
+Um.
+
+[Faculty (Olympus)] 19:40:48
+It basically learns that I, I have to look up.
+
+[Faculty (Olympus)] 19:40:53
+Where is this word in my sequence? And then I copy over whichever word comes next. So in the here again my words are letters.
+
+[Faculty (Olympus)] 19:41:00
+To make it a bit shorter.
+
+[Faculty (Olympus)] 19:41:02
+So this would be the output of the.
+
+[Faculty (Olympus)] 19:41:06
+Network. In this case.
+
+[Faculty (Olympus)] 19:41:08
+So now, okay, how could we encode this mechanism to take this query word and look up? Basically, where does it occur in the input, sequence.
+
+[Faculty (Olympus)] 19:41:19
+And copy over.
+
+[Faculty (Olympus)] 19:41:22
+The next word.
+
+[Faculty (Olympus)] 19:41:24
+To the output. How could we do this.
+
+[Faculty (Olympus)] 19:41:26
+And this is something you can actually implement.
+
+[Faculty (Olympus)] 19:41:30
+With attention.
+
+[Faculty (Olympus)] 19:41:32
+And.
+
+[Faculty (Olympus)] 19:41:33
+Let me show you how you could do this.
+
+[Faculty (Olympus)] 19:41:37
+Okay. So I'm now gonna erase these.
+
+[Faculty (Olympus)] 19:41:40
+Arrows to make it not too confusing.
+
+[Faculty (Olympus)] 19:41:42
+But I hope you remember this task. Just look up where your query or prompt.
+
+[Faculty (Olympus)] 19:41:48
+Thing is. So this is basically the last one. So the last one is the the prompting essentially here like that, the last part. And so it has to look up. Where's that last.
+
+[Faculty (Olympus)] 19:41:59
+Word and copy over the next word to basically, it would copy over that sequence again.
+
+[Faculty (Olympus)] 19:42:07
+Okay, so how could we do this? Um? So 1st of all, when we do our.
+
+[Faculty (Olympus)] 19:42:13
+Sequence, we import it into the transformer.
+
+[Faculty (Olympus)] 19:42:17
+Each.
+
+[Faculty (Olympus)] 19:42:18
+Word.
+
+[Faculty (Olympus)] 19:42:19
+Comes as a token. Vector, so this is what we learned. So each word has its token vector.
+
+[Faculty (Olympus)] 19:42:29
+This guy also. So this is the output that doesn't have anything.
+
+[Faculty (Olympus)] 19:42:33
+Okay. So now let's say, what this token vector contains is a part.
+
+[Faculty (Olympus)] 19:42:38
+That tells me about the position.
+
+[Faculty (Olympus)] 19:42:41
+And the part that actually tells me, what is that word sets? Let's say that some encoding of the word itself.
+
+[Faculty (Olympus)] 19:42:47
+So we have the position. So this is.
+
+[Faculty (Olympus)] 19:42:51
+Maybe position tool. This is position 3, and so on, and the B and.
+
+[Faculty (Olympus)] 19:42:55
+And so on. So each of them contains basically the position.
+
+[Faculty (Olympus)] 19:42:59
+And the word.
+
+[Faculty (Olympus)] 19:43:03
+This is a simplified version. So this is some version of the word that it has.
+
+[Faculty (Olympus)] 19:43:09
+Okay. So now, there's actually 2 steps in which you can do this.
+
+[Faculty (Olympus)] 19:43:14
+So there's actually 2 things to this. The 1st thing is, I have to find my a.
+
+[Faculty (Olympus)] 19:43:19
+I have to basically match.
+
+[Faculty (Olympus)] 19:43:22
+This guy over into my input sequence. I have to find the position.
+
+[Faculty (Olympus)] 19:43:26
+And then I have to find the next word and copy it over.
+
+[Faculty (Olympus)] 19:43:33
+So the way we are going to do this. And this is actually what the transformers, that's how they do it in reality, too. So this kind of thing is called an induction head. And this is what people have found a lot in.
+
+[Faculty (Olympus)] 19:43:45
+Transformers.
+
+[Faculty (Olympus)] 19:43:47
+So what do they do? Let's make it a different color. Maybe.
+
+[Faculty (Olympus)] 19:43:51
+Alright! So the first.st
+
+[Faculty (Olympus)] 19:43:54
+Time they do the attention.
+
+[Faculty (Olympus)] 19:43:57
+In the 1st step each word just looks at its previous word.
+
+[Faculty (Olympus)] 19:44:02
+So, for instance, the word b.
+
+[Faculty (Olympus)] 19:44:06
+Basically looks at its previous word in its attention.
+
+[Faculty (Olympus)] 19:44:09
+And what it does is it copies over.
+
+[Faculty (Olympus)] 19:44:15
+The content of the previous word.
+
+[Faculty (Olympus)] 19:44:17
+So now you can see, okay, what would be the query in this case? The query.
+
+[Faculty (Olympus)] 19:44:23
+Would be the position.
+
+[Faculty (Olympus)] 19:44:26
+And here the key would actually also be the position.
+
+[Faculty (Olympus)] 19:44:33
+Because the query and the key match. So this guy says, I'm looking for position number 2 and Position 4 says, I'm looking for position number 3.
+
+[Faculty (Olympus)] 19:44:41
+Um.
+
+[Faculty (Olympus)] 19:44:44
+So you're you're basically.
+
+[Faculty (Olympus)] 19:44:47
+Attending by position.
+
+[Faculty (Olympus)] 19:44:48
+And then the value part. The value part is the thing that you're actually summing. That's the representations you'll be using.
+
+[Faculty (Olympus)] 19:44:56
+The value part will be actually the A.
+
+[Faculty (Olympus)] 19:45:00
+So the a.
+
+[Faculty (Olympus)] 19:45:04
+Will essentially be the a.
+
+[Faculty (Olympus)] 19:45:06
+So now, if you remember, let me write down the formula again.
+
+[Faculty (Olympus)] 19:45:10
+The Z of b.
+
+[Faculty (Olympus)] 19:45:14
+Will be some overall. Tokens.
+
+[Faculty (Olympus)] 19:45:16
+Let's say we have, like 5 or 6 tokens.
+
+[Faculty (Olympus)] 19:45:19
+And then the.
+
+[Faculty (Olympus)] 19:45:22
+Uh.
+
+[Faculty (Olympus)] 19:45:23
+IE.
+
+[Faculty (Olympus)] 19:45:25
+Times the value I.
+
+[Faculty (Olympus)] 19:45:27
+So now the weight would be very high, for the.
+
+[Faculty (Olympus)] 19:45:30
+Token right before it, because the key and query, look at the position, and it says I'm looking for the position that's like one position. Lower.
+
+[Faculty (Olympus)] 19:45:40
+And then.
+
+[Faculty (Olympus)] 19:45:43
+We have the value.
+
+[Faculty (Olympus)] 19:45:45
+And a value is what we are actually adding. So the value.
+
+[Faculty (Olympus)] 19:45:51
+Is.
+
+[Faculty (Olympus)] 19:45:53
+A value matrix.
+
+[Faculty (Olympus)] 19:45:55
+Times, the.
+
+[Faculty (Olympus)] 19:45:57
+Okay, the.
+
+[Faculty (Olympus)] 19:45:59
+Like, say, the position and the actual. A, let's say.
+
+[Faculty (Olympus)] 19:46:03
+That's my, vector so what this gives, let's say, is just a.
+
+[Faculty (Olympus)] 19:46:09
+Or something like that. Um, so it basically.
+
+[Faculty (Olympus)] 19:46:12
+Just pulls out the A and it forgets about their position. So what we do now. So again, what we did was.
+
+[Faculty (Olympus)] 19:46:19
+We figured out which word we are looking for by looking at position, but then we actually took the content.
+
+[Faculty (Olympus)] 19:46:25
+And to separate these 2, we need the value and the key and the query matrices, so that key and query can look maybe for position, and then the value can look for the actual content.
+
+[Faculty (Olympus)] 19:46:36
+So what we have done now is as an output we actually have. Now a representation, was B, and the word before me was a.
+
+[Faculty (Olympus)] 19:46:47
+This is the new representation. So this is.
+
+[Faculty (Olympus)] 19:46:50
+Now.
+
+[Faculty (Olympus)] 19:46:53
+Zb in the let's say after layer, one.
+
+[Faculty (Olympus)] 19:46:57
+So now, what we do is now the same thing. We did also like something for this, a here. So this A still remembers that it was a here, and it has something in here.
+
+[Faculty (Olympus)] 19:47:06
+So now what we'll do is now for the output.
+
+[Faculty (Olympus)] 19:47:10
+Now we know that for each word we know what's the previous word.
+
+[Faculty (Olympus)] 19:47:14
+Because that's what we figured out.
+
+[Faculty (Olympus)] 19:47:17
+So now what we'll do is.
+
+[Faculty (Olympus)] 19:47:21
+We'll say, Okay, now find me. Someone whose previous word was a.
+
+[Faculty (Olympus)] 19:47:27
+And that someone is what I'm looking for, because that someone is what I want to copy over.
+
+[Faculty (Olympus)] 19:47:33
+So now in the next layer, what I'll do is.
+
+[Faculty (Olympus)] 19:47:37
+Um.
+
+[Faculty (Olympus)] 19:47:38
+Okay, different color. So in the next layer, I look at this guy.
+
+[Faculty (Olympus)] 19:47:43
+And this guy's attention.
+
+[Faculty (Olympus)] 19:47:47
+Now.
+
+[Faculty (Olympus)] 19:47:48
+Looks at the A.
+
+[Faculty (Olympus)] 19:47:51
+It matches the A. So now the query.
+
+[Faculty (Olympus)] 19:47:54
+If you look at it, the query pulls out the second part of my, vector the query pulls out this part and says.
+
+[Faculty (Olympus)] 19:48:00
+Who has the same part.
+
+[Faculty (Olympus)] 19:48:02
+And then the key pulls out the 1st part.
+
+[Faculty (Olympus)] 19:48:06
+So the query and the key are doing different things. The key pulls out the 1st part, the query pulls out the second, and the query says, Hey, where's the a.
+
+[Faculty (Olympus)] 19:48:14
+Who has seen the as his previous letter. And so it finds this guy.
+
+[Faculty (Olympus)] 19:48:18
+And now the value.
+
+[Faculty (Olympus)] 19:48:22
+Will pull out the.
+
+[Faculty (Olympus)] 19:48:24
+So again in the Red case.
+
+[Faculty (Olympus)] 19:48:26
+The query.
+
+[Faculty (Olympus)] 19:48:30
+Will essentially be the a.
+
+[Faculty (Olympus)] 19:48:33
+I saw the second.
+
+[Faculty (Olympus)] 19:48:36
+Part of the vector, if you wish.
+
+[Faculty (Olympus)] 19:48:38
+The key.
+
+[Faculty (Olympus)] 19:48:40
+Will be the 1st part of the vector so this would also be the A in this case.
+
+[Faculty (Olympus)] 19:48:44
+Um. So here the key is a, and the query is also a. So they match something like that.
+
+[Faculty (Olympus)] 19:48:51
+And then the value.
+
+[Faculty (Olympus)] 19:48:55
+Would be.
+
+[Faculty (Olympus)] 19:48:57
+That part.
+
+[Faculty (Olympus)] 19:48:59
+So the second part.
+
+[Faculty (Olympus)] 19:49:02
+The b.
+
+[Faculty (Olympus)] 19:49:03
+And now, what happens then is that basically.
+
+[Faculty (Olympus)] 19:49:07
+I'll be getting my bee in there.
+
+[Faculty (Olympus)] 19:49:09
+To copy it over. So in the by summing up like with attention, I'm only say, attending.
+
+[Faculty (Olympus)] 19:49:16
+To.
+
+[Faculty (Olympus)] 19:49:17
+This one here, I'll be.
+
+[Faculty (Olympus)] 19:49:20
+Picking out the beat and sending it over.
+
+[Faculty (Olympus)] 19:49:23
+And this mechanism. Basically, it takes it always again. 1st step, you copy over your previous word. Second step.
+
+[Faculty (Olympus)] 19:49:32
+You're figuring out who matches.
+
+[Faculty (Olympus)] 19:49:35
+Your prompt, a.
+
+[Faculty (Olympus)] 19:49:38
+And this is uh, and that is what you can do. So step one.
+
+[Faculty (Olympus)] 19:49:44
+Um.
+
+[Faculty (Olympus)] 19:49:46
+Find, your.
+
+[Faculty (Olympus)] 19:49:48
+Previous Word.
+
+[Faculty (Olympus)] 19:49:50
+Because then I know that's basically how it knows I'm the one you want that it wants to copy.
+
+[Faculty (Olympus)] 19:49:56
+And step 2 is.
+
+[Faculty (Olympus)] 19:49:59
+Um.
+
+[Faculty (Olympus)] 19:50:02
+Match the previous word.
+
+[Faculty (Olympus)] 19:50:09
+To the query and copy.
+
+[Faculty (Olympus)] 19:50:13
+Let's say the content or original word.
+
+[Faculty (Olympus)] 19:50:18
+That's what it does.
+
+[Faculty (Olympus)] 19:50:19
+So this way, you get like.
+
+[Faculty (Olympus)] 19:50:22
+Yeah, that is, uh you get this mechanism that you say, oh, where have I seen a before? And what came after? A in what I've seen before. So I'm gonna just output that.
+
+[Faculty (Olympus)] 19:50:34
+That is essentially what this mechanism is doing.
+
+[Faculty (Olympus)] 19:50:38
+So.
+
+[Faculty (Olympus)] 19:50:40
+This mechanism is something that the neural network learns. And this is something that many real world transformers actually.
+
+[Faculty (Olympus)] 19:50:47
+Used.
+
+[Faculty (Olympus)] 19:50:48
+And then that way, they can do something like a lookup. Essentially. So you give them a sequence. And you say, Okay, here's the a complete. And that's like that's how they look up. And many other tasks relate to that kind of look up task.
+
+[Faculty (Olympus)] 19:51:03
+Um, so I hope this made it a bit clearer. Why, you maybe want the.
+
+[Faculty (Olympus)] 19:51:08
+Weary, and the key to be looking at different parts of your vectors.
+
+[Faculty (Olympus)] 19:51:12
+Because that way you can tease out different types of information.
+
+[Faculty (Olympus)] 19:51:17
+Um.
+
+[Faculty (Olympus)] 19:51:18
+That with the like by to determine what you attend to, and then what you actually want to copy over.
+
+[Faculty (Olympus)] 19:51:27
+Okay. Um.
+
+[Faculty (Olympus)] 19:51:32
+So the okay, um.
+
+[Faculty (Olympus)] 19:51:38
+Alright, so I hope this illustrated it a bit. So there was a question. The green in query, key pairs.
+
+[Faculty (Olympus)] 19:51:44
+Come from your training data.
+
+[Faculty (Olympus)] 19:51:46
+So what? Okay, so this entire thing.
+
+[Faculty (Olympus)] 19:51:50
+Is the input sequence.
+
+[Faculty (Olympus)] 19:51:54
+And.
+
+[Faculty (Olympus)] 19:51:55
+This particular mechanism is very important for what is called in context learning.
+
+[Faculty (Olympus)] 19:52:01
+In there. You give basically the neural network a task just as a prompt and it can solve it.
+
+[Faculty (Olympus)] 19:52:06
+Um. So this entire thing is the input sequence.
+
+[Faculty (Olympus)] 19:52:09
+But during training it has essentially seen.
+
+[Faculty (Olympus)] 19:52:14
+Something like that. Um, but it's not like that. It actually remembers that it has to do the bee from the training. It actually just knows.
+
+[Faculty (Olympus)] 19:52:22
+It has to match the A from somewhere in the Pre in the sequence. And then look what comes after a.
+
+[Faculty (Olympus)] 19:52:29
+What it has learned from the training data is.
+
+[Faculty (Olympus)] 19:52:33
+The matrices, the value, the key, and the query matrices that determine which parts of the vectors you pull out.
+
+[Faculty (Olympus)] 19:52:39
+So that is something it has learned from the training data. So it has basically learned the mechanism.
+
+[Faculty (Olympus)] 19:52:45
+From the training data. And then it just applies this mechanism.
+
+[Faculty (Olympus)] 19:52:49
+So. Yeah, in some sense, yes, it has learned here that it should look in the 1st step at position.
+
+[Faculty (Olympus)] 19:52:56
+And.
+
+[Faculty (Olympus)] 19:52:58
+Yeah, and that is.
+
+[Faculty (Olympus)] 19:53:01
+What it has learned, and then it just applies this. So it matches these positions essentially.
+
+[Faculty (Olympus)] 19:53:08
+Okay, um. So here is um, an example. Um from a real transformer. So this is essentially the same thing. It takes maybe a little bit of time.
+
+[Faculty (Olympus)] 19:53:19
+Uh to look into it. So basically here this is, if you have the token pot, which is the 1st syllable of potters. So they separated the word potters here.
+
+[Faculty (Olympus)] 19:53:30
+Um, this is the query. So this is my a essentially, and this is the sequence. So a appears here also.
+
+[Faculty (Olympus)] 19:53:38
+And so in the 1st step, you basically just copy over the A.
+
+[Faculty (Olympus)] 19:53:42
+To your next, say sequence to be.
+
+[Faculty (Olympus)] 19:53:45
+This is the copy over, like or basically attend to the previous token. Copy this over.
+
+[Faculty (Olympus)] 19:53:51
+And so now we have a combination of pot and terse.
+
+[Faculty (Olympus)] 19:53:55
+And then the next step we see. Okay, which word has copied over pot.
+
+[Faculty (Olympus)] 19:54:00
+And that'll be this guy, and then we'll copy this over.
+
+[Faculty (Olympus)] 19:54:05
+And so it'll output actually.
+
+[Faculty (Olympus)] 19:54:07
+Being prompted by pot, it'll basically outputs. And then, like whatever next.
+
+[Faculty (Olympus)] 19:54:13
+Um.
+
+[Faculty (Olympus)] 19:54:14
+So. Yes, I see in the chat you don't have those 2 slides. I just added this example.
+
+[Faculty (Olympus)] 19:54:19
+Like a few hours ago, because I thought, maybe it's good to do an actual example. I will give you those slides, too.
+
+[Faculty (Olympus)] 19:54:25
+So you'll have my writing. It's really just this picture that you don't have the rest. I just wrote by hand, so I'll give you this um, and you, Ca, you'll have, like all the annotated slides as well.
+
+[Faculty (Olympus)] 19:54:36
+Okay. So the rest of the slides you should actually have.
+
+[Faculty (Olympus)] 19:54:41
+All right. So this is what you can do with the attention. Um, so you see, basically, you can selectively pull out other words, and you can use them to build your contacts.
+
+[Faculty (Olympus)] 19:54:51
+And you can implement things like that.
+
+[Faculty (Olympus)] 19:54:55
+So now, okay, we already talked about self attention.
+
+[Faculty (Olympus)] 19:55:00
+Um. Attention can also be not only between.
+
+[Faculty (Olympus)] 19:55:03
+The tokens in your input sequence.
+
+[Faculty (Olympus)] 19:55:06
+Um. So the self attention you would be using when you're encoding a sequence like, for instance, you're encoding this English sentence.
+
+[Faculty (Olympus)] 19:55:15
+And you, this encoders basically are all blocks of the self attention. That's all like that. What is it? Is.
+
+[Faculty (Olympus)] 19:55:22
+Um. But then, let's say you wanted to translate it.
+
+[Faculty (Olympus)] 19:55:27
+To do translation, you get the output sequence. And in the output sequence you basically attend. Now.
+
+[Faculty (Olympus)] 19:55:33
+To multiple parts of this input sequence. And this is also called cross attention. So you're basically from here tend to like encoded versions of my sentence.
+
+[Faculty (Olympus)] 19:55:44
+And this is.
+
+[Faculty (Olympus)] 19:55:46
+Something you may need, because in some languages, when you translate, maybe one word translates into 2 or vice versa, and you may actually again, need the context to determine how exactly to translate certain words.
+
+[Faculty (Olympus)] 19:56:04
+Okay, so.
+
+[Faculty (Olympus)] 19:56:07
+What I um, I just have a small add on to the attention.
+
+[Faculty (Olympus)] 19:56:11
+And as you saw.
+
+[Faculty (Olympus)] 19:56:13
+There's actually many different criteria we may have about deciding what we want to attend to. So we had the 10 we had maybe matching tokens.
+
+[Faculty (Olympus)] 19:56:30
+Um. There could be other things as well.
+
+[Faculty (Olympus)] 19:56:30
+Um, so there could be many different.
+
+[Faculty (Olympus)] 19:56:30
+Ways. We could determine what we want to attend to.
+
+[Faculty (Olympus)] 19:56:36
+And now we have, this is really difficult, if we only have one attention, that this is called attention, head.
+
+[Faculty (Olympus)] 19:56:44
+Um, because it can essentially only implement one criteria and not multiple ones. Otherwise it all gets muddled up because maybe you want to treat.
+
+[Faculty (Olympus)] 19:56:53
+The adjacent tokens differently from like something that relates to correspondence or same board, etc. You saw that.
+
+[Faculty (Olympus)] 19:57:00
+When we actually attended to position. Then maybe we wanted to copy over a different part of the vector and so on.
+
+[Faculty (Olympus)] 19:57:09
+So.
+
+[Faculty (Olympus)] 19:57:13
+What we hence do is we don't only have one attention. We do multiple of them in parallel.
+
+[Faculty (Olympus)] 19:57:20
+So what in reality you actually have is these different.
+
+[Faculty (Olympus)] 19:57:25
+Attention, heads.
+
+[Faculty (Olympus)] 19:57:27
+They are called, and they can now use different criteria.
+
+[Faculty (Olympus)] 19:57:29
+And they run in parallel by different criteria, by which they pull out like the attentions.
+
+[Faculty (Olympus)] 19:57:36
+They determine the attentions and pull out the other words.
+
+[Faculty (Olympus)] 19:57:39
+Um. So this means each of them has their own.
+
+[Faculty (Olympus)] 19:57:44
+Matrices, their own parameters.
+
+[Faculty (Olympus)] 19:57:47
+And so for each of them we get an output for each token. So if we want to encode learning, we actually here get 3 different encodings of learning that maybe um relate to different kinds of relations of learning.
+
+[Faculty (Olympus)] 19:58:04
+Then.
+
+[Faculty (Olympus)] 19:58:05
+And here's an example of this. So now the different colors are the different attention heads, and the strength of the line.
+
+[Faculty (Olympus)] 19:58:15
+Is illustrating, like, how strong is the weight between them.
+
+[Faculty (Olympus)] 19:58:19
+Um. You also see that it's relatively sparse. It doesn't attend to a huge lot of other words, it attends usually to a few other words.
+
+[Faculty (Olympus)] 19:58:27
+So you see, okay, making a tends to making. That's just really the matching.
+
+[Faculty (Olympus)] 19:58:32
+The word essentially.
+
+[Faculty (Olympus)] 19:58:33
+Um. Then there's the word right before.
+
+[Faculty (Olympus)] 19:58:36
+And then there's some. Okay, there's some real semantic or syntactic relationships. It's like making more difficult.
+
+[Faculty (Olympus)] 19:58:44
+So there's um.
+
+[Faculty (Olympus)] 19:58:46
+Some other heads encode that kind of relationship.
+
+[Faculty (Olympus)] 19:58:49
+And then there's also some that always attend to this end of sequence, token, etc. This is just the meaning. There was a full stop. That's the end of the sequence.
+
+[Faculty (Olympus)] 19:58:58
+Um. But you see, like different mechanisms implemented by these different.
+
+[Faculty (Olympus)] 19:59:03
+Attention, heads.
+
+[Faculty (Olympus)] 19:59:09
+Okay. Um.
+
+[Faculty (Olympus)] 19:59:11
+So this is what these 3 are, and then.
+
+[Faculty (Olympus)] 19:59:15
+What we do is we just combine them, and then.
+
+[Faculty (Olympus)] 19:59:19
+Well, we basically do a weighted combination of them with some matrix.
+
+[Faculty (Olympus)] 19:59:23
+And so here we can learn, basically for some tasks which ones of these we actually want to use, or how we could maybe want to combine them.
+
+[Faculty (Olympus)] 19:59:32
+So again. This is a little bit like the parts, and now we're putting them together.
+
+[Faculty (Olympus)] 19:59:39
+Okay. Um.
+
+[Faculty (Olympus)] 19:59:43
+Alright. So maybe okay, I'll make a small um.
+
+[Faculty (Olympus)] 19:59:47
+Comment about the attention.
+
+[Faculty (Olympus)] 19:59:49
+So what we allowed here was, we said that to encode the word, learning.
+
+[Faculty (Olympus)] 19:59:55
+We can actually use all the other words in the sequence.
+
+[Faculty (Olympus)] 20:00:00
+What is often happening in practice is that I'm actually not exactly doing that.
+
+[Faculty (Olympus)] 20:00:06
+And this relates to the way we are training these models.
+
+[Faculty (Olympus)] 20:00:10
+Um, because often the way we are actually training them. And I'll talk a little bit more about that later is that we are just asking them to predict the next word.
+
+[Faculty (Olympus)] 20:00:19
+So here we are telling it. Okay, start the sentence. And then the sentence started with, I.
+
+[Faculty (Olympus)] 20:00:25
+What's the next work? And it predicts the next work, and then it predicts the next word, etc.
+
+[Faculty (Olympus)] 20:00:30
+Um.
+
+[Faculty (Olympus)] 20:00:32
+So to a and now this we can do actually, but it's a little bit expensive to replicate like the sequence over and over again.
+
+[Faculty (Olympus)] 20:00:41
+Um.
+
+[Faculty (Olympus)] 20:00:46
+Now the idea is, can we do all of this at once?
+
+[Faculty (Olympus)] 20:00:49
+So we have basically one sequence. And we say, Okay, if they.
+
+[Faculty (Olympus)] 20:00:54
+Info is beginning of sequence. That's what this pos means.
+
+[Faculty (Olympus)] 20:00:57
+I should output the 1st word.
+
+[Faculty (Olympus)] 20:01:00
+And then, if this is I, then I should output M. If then this is I am, then I should output learning, etc.
+
+[Faculty (Olympus)] 20:01:08
+So now, this we can actually do. So we can just tell it like, if this is the input, this should be the output.
+
+[Faculty (Olympus)] 20:01:15
+Um. The only problem is, if I do attention, this guy can look at everything so it can basically look at the future so it can say learning is here. I should just output learning.
+
+[Faculty (Olympus)] 20:01:27
+So.
+
+[Faculty (Olympus)] 20:01:28
+That it doesn't happen.
+
+[Faculty (Olympus)] 20:01:30
+What we do, what is called masked attention.
+
+[Faculty (Olympus)] 20:01:33
+So each word is only allowed.
+
+[Faculty (Olympus)] 20:01:36
+To attend to the previous words, but not the future words.
+
+[Faculty (Olympus)] 20:01:42
+Um. So each word can only attend to the words that come before it, but not to the words that come after it.
+
+[Faculty (Olympus)] 20:01:48
+Um, so we basically have some restriction on.
+
+[Faculty (Olympus)] 20:01:51
+We are, the rates can be non 0.
+
+[Faculty (Olympus)] 20:01:54
+This is something that is very frequently used.
+
+[Faculty (Olympus)] 20:01:58
+In um, in language, models.
+
+[Faculty (Olympus)] 20:02:05
+Okay, so.
+
+[Faculty (Olympus)] 20:02:06
+Hopefully. We have a bit of a better understanding now about the concept of attention.
+
+[Faculty (Olympus)] 20:02:12
+And the token, wise processing.
+
+[Faculty (Olympus)] 20:02:17
+Now, there's 1 concept that we haven't talked about.
+
+[Faculty (Olympus)] 20:02:20
+And that is the following.
+
+[Faculty (Olympus)] 20:02:23
+If I say.
+
+[Faculty (Olympus)] 20:02:24
+I'm inputting these words, the sequence of words into my transformer.
+
+[Faculty (Olympus)] 20:02:30
+And.
+
+[Faculty (Olympus)] 20:02:33
+Then I just have it process each word, and there's some interaction between all of the words.
+
+[Faculty (Olympus)] 20:02:39
+In this case, let's say, without any kind of restriction on the attention, you can attend to any word.
+
+[Faculty (Olympus)] 20:02:45
+Then, okay, basically, what I'm doing is I'm encoding the word learning as a function of my context.
+
+[Faculty (Olympus)] 20:02:54
+But.
+
+[Faculty (Olympus)] 20:02:57
+If I had had swapped my words around, I had permuted them.
+
+[Faculty (Olympus)] 20:03:02
+I would actually be doing the same thing, because for each word I'm doing the same thing, and the attention.
+
+[Faculty (Olympus)] 20:03:09
+Only looks at the tokens.
+
+[Faculty (Olympus)] 20:03:12
+It just looks at the relation between 2 tokens.
+
+[Faculty (Olympus)] 20:03:15
+It doesn't look at anything else.
+
+[Faculty (Olympus)] 20:03:17
+Now you know that sometimes I can actually.
+
+[Faculty (Olympus)] 20:03:21
+Swap words around, and the meaning of the sentence changes a lot.
+
+[Faculty (Olympus)] 20:03:25
+So we don't necessarily do this. So if the meaning of the sentence changes or not, we also want.
+
+[Faculty (Olympus)] 20:03:30
+The neural network output, or at least this network should understand that this is something different.
+
+[Faculty (Olympus)] 20:03:38
+So.
+
+[Faculty (Olympus)] 20:03:41
+The way we do this is that we actually add encodings to the tokens.
+
+[Faculty (Olympus)] 20:03:47
+That. Tell me what is the position of the token in this? In the sentence.
+
+[Faculty (Olympus)] 20:03:52
+And then this I am learning about deep is different from.
+
+[Faculty (Olympus)] 20:03:57
+MI. Deep about learning.
+
+[Faculty (Olympus)] 20:04:00
+And otherwise it would be exactly the same.
+
+[Faculty (Olympus)] 20:04:03
+So this position is actually very important. Otherwise.
+
+[Faculty (Olympus)] 20:04:07
+You could scramble your words around, and it would actually be exactly the same to the neural network.
+
+[Faculty (Olympus)] 20:04:13
+So the question is, how exactly are we doing this?
+
+[Faculty (Olympus)] 20:04:17
+How are we encoding the position of each word.
+
+[Faculty (Olympus)] 20:04:22
+And.
+
+[Faculty (Olympus)] 20:04:24
+The way we're going to do this is well, in principle. We could just say, maybe we just.
+
+[Faculty (Olympus)] 20:04:30
+Make it the raw position.
+
+[Faculty (Olympus)] 20:04:33
+And put one number, and we appended to the vectors, or something.
+
+[Faculty (Olympus)] 20:04:37
+What is typically done is something that is a bit more flexible with the sequence length.
+
+[Faculty (Olympus)] 20:04:41
+Um. So we'll actually encode the position also as a vector.
+
+[Faculty (Olympus)] 20:04:47
+Um, for instance, as a vector that has the same length as my token vectors.
+
+[Faculty (Olympus)] 20:04:52
+And then we added to the token vector, concatenated. So you get longer vectors.
+
+[Faculty (Olympus)] 20:04:58
+So how do I encode a position as a vector.
+
+[Faculty (Olympus)] 20:05:02
+And one way to do this is via this formula. So essentially what this is saying.
+
+[Faculty (Olympus)] 20:05:09
+Is, you have assigns, and cosign.
+
+[Faculty (Olympus)] 20:05:12
+So these are just science and cosine. You know, there are like these wave functions.
+
+[Faculty (Olympus)] 20:05:17
+And you're basically taking them at different frequencies.
+
+[Faculty (Olympus)] 20:05:21
+And you're looking at like.
+
+[Faculty (Olympus)] 20:05:24
+Then evaluating them at different points.
+
+[Faculty (Olympus)] 20:05:26
+So essentially what this gives you is, it gives you a unique vector encoding of each position.
+
+[Faculty (Olympus)] 20:05:32
+Um. So you see, this is one vector like one positional encoding.
+
+[Faculty (Olympus)] 20:05:38
+And the yellows are the signs, and then the blue ones are the cosigns.
+
+[Faculty (Olympus)] 20:05:44
+Um. But okay. But you see, basically that each of these rows is a bit different from the other ones.
+
+[Faculty (Olympus)] 20:05:51
+They are not saying exactly. 0 1, 2, 3. Of course you could decode that from it.
+
+[Faculty (Olympus)] 20:05:55
+Um, but those essentially give.
+
+[Faculty (Olympus)] 20:05:57
+Um. You don't need to fully remember the exact formula doesn't matter, but it's just a way.
+
+[Faculty (Olympus)] 20:06:02
+That you can get a unique vectoring of each position in your input.
+
+[Faculty (Olympus)] 20:06:12
+Okay. Um.
+
+[Faculty (Olympus)] 20:06:15
+Okay, someone asked, why? 2, I and I. So this is basically even and odd.
+
+[Faculty (Olympus)] 20:06:21
+Um. So this is just even at the odd. Um.
+
+[Faculty (Olympus)] 20:06:25
+Coordinates.
+
+[Faculty (Olympus)] 20:06:31
+Okay, um. So that's that's what we add. And.
+
+[Faculty (Olympus)] 20:06:38
+Okay, let me see. Okay, maybe we'll um.
+
+[Faculty (Olympus)] 20:06:41
+And then there's other things you do to make it actually run better. And this is.
+
+[Faculty (Olympus)] 20:06:45
+You add these, um.
+
+[Faculty (Olympus)] 20:06:48
+Residual connections that we talked about last lecture that you add the input to a layer.
+
+[Faculty (Olympus)] 20:06:54
+To its output.
+
+[Faculty (Olympus)] 20:06:55
+This is a residual connection. That's the same you do in a Cnn in a large Cnn. You do this in a transformer as well.
+
+[Faculty (Olympus)] 20:07:01
+And we do a kind of normalization tool. So this stabilizes the training and.
+
+[Faculty (Olympus)] 20:07:07
+Residual connections are actually very important.
+
+[Faculty (Olympus)] 20:07:10
+Um for the transformer.
+
+[Faculty (Olympus)] 20:07:13
+So that's just for completeness.
+
+[Faculty (Olympus)] 20:07:16
+Now, finally, how does the what's the output of a transformer, like of a language model.
+
+[Faculty (Olympus)] 20:07:21
+So the output is depends, of course, what task you're solving. But the way these language models are often trained.
+
+[Faculty (Olympus)] 20:07:29
+Is to predict the next word.
+
+[Faculty (Olympus)] 20:07:31
+So let's say we had, like a sentence, a sequence. And then you say, Okay, what should come here?
+
+[Faculty (Olympus)] 20:07:37
+And what the transformer outputs is a probability for every possible word in your dictionary.
+
+[Faculty (Olympus)] 20:07:45
+These are the token Ids, by the way, and these are the tokens.
+
+[Faculty (Olympus)] 20:07:49
+Um.
+
+[Faculty (Olympus)] 20:07:50
+And here are the probabilities that it predicted.
+
+[Faculty (Olympus)] 20:07:54
+So you see, okay, there's like something about said and saw, and so on, and smiled. So it knows a verb should come here.
+
+[Faculty (Olympus)] 20:08:02
+And then.
+
+[Faculty (Olympus)] 20:08:03
+Yeah.
+
+[Faculty (Olympus)] 20:08:04
+That's like one of some of the words it could uh pick.
+
+[Faculty (Olympus)] 20:08:08
+So what is this? Actually, this is essentially just the classification problem.
+
+[Faculty (Olympus)] 20:08:13
+Where you have a lot of classes. The classes are all the words in your dictionary.
+
+[Faculty (Olympus)] 20:08:18
+And you're predicting.
+
+[Faculty (Olympus)] 20:08:21
+The class of the like. The next word is basically that particular class.
+
+[Faculty (Olympus)] 20:08:24
+So you can actually output that by using a soft max now over basically your entire dictionary, that's where the probabilities are mostly pretty small. So this is pretty large, and the rent it quickly gets very small, because, like you have a lot of words.
+
+[Faculty (Olympus)] 20:08:40
+And most of them are not likely to come.
+
+[Faculty (Olympus)] 20:08:42
+And then you can pick from this. So in fact, if you want to generate a sequence, you can just take, basically use these probabilities to pick.
+
+[Faculty (Olympus)] 20:08:51
+Something at random.
+
+[Faculty (Olympus)] 20:08:53
+And it will be likelihood.
+
+[Faculty (Olympus)] 20:08:56
+So maybe taking a step back, what has it actually learned here?
+
+[Faculty (Olympus)] 20:09:00
+It has learned. Basically, okay, what is the structure of the language? What word should come here? And that's what it basically.
+
+[Faculty (Olympus)] 20:09:09
+Thus with this attack with its attention heads, it basically learns.
+
+[Faculty (Olympus)] 20:09:12
+Okay, how to use those correlations, how to pick out like different parts.
+
+[Faculty (Olympus)] 20:09:18
+To know. Okay, usually like, uh, this is kind of a sentence. And and there's the subject. Okay, maybe I need another word here or something like that.
+
+[Faculty (Olympus)] 20:09:27
+Um. It has actually learned essentially grammar.
+
+[Faculty (Olympus)] 20:09:31
+And it can implement the grammar rules via its attention.
+
+[Faculty (Olympus)] 20:09:35
+And then it, it learns basically, okay, also correlations between words and context.
+
+[Faculty (Olympus)] 20:09:41
+So there's some magician, maybe somewhere, it'll predict like.
+
+[Faculty (Olympus)] 20:09:45
+Some magician uh cauldron, or something like that.
+
+[Faculty (Olympus)] 20:09:51
+Okay. Um.
+
+[Faculty (Olympus)] 20:09:54
+So, to summarize.
+
+[Faculty (Olympus)] 20:09:56
+The important parts of a transformer.
+
+[Faculty (Olympus)] 20:09:59
+Are the token, wise processing, the self attention.
+
+[Faculty (Olympus)] 20:10:02
+And the positional encodings.
+
+[Faculty (Olympus)] 20:10:04
+These are the key parts of a transformer, and they basically make it work, and they make it pretty powerful.
+
+[Faculty (Olympus)] 20:10:16
+Now I want to take one step back. So mostly we talked right now about language. So we had sequences of text.
+
+[Faculty (Olympus)] 20:10:23
+There each token was a word.
+
+[Faculty (Olympus)] 20:10:24
+And we know that transformers work pretty well. Um for language. You probably have all dried out.
+
+[Faculty (Olympus)] 20:10:34
+Um. But the question is, are they actually specific to language?
+
+[Faculty (Olympus)] 20:10:39
+Can I maybe do even more with transformers.
+
+[Faculty (Olympus)] 20:10:43
+And so let us think about this a little bit.
+
+[Faculty (Olympus)] 20:10:45
+So.
+
+[Faculty (Olympus)] 20:10:46
+Okay, so what is the input to a transformer?
+
+[Faculty (Olympus)] 20:10:51
+The input to a transformer is.
+
+[Faculty (Olympus)] 20:10:54
+A set of vectors, a set of tokens. So some kinds of parts of my input.
+
+[Faculty (Olympus)] 20:11:00
+And then the main components are this attention and the token wise processing.
+
+[Faculty (Olympus)] 20:11:06
+They are not actually language specific. It just says, encoded token. As a function of context, however, you would define context, that depends on the task.
+
+[Faculty (Olympus)] 20:11:15
+And then we have this positional encoding that tells me kind of.
+
+[Faculty (Olympus)] 20:11:20
+This token, which is some.
+
+[Faculty (Olympus)] 20:11:22
+Part of my import. Where in the input does it come from?
+
+[Faculty (Olympus)] 20:11:27
+So if I look at it in this generality, maybe.
+
+[Faculty (Olympus)] 20:11:32
+I could even process other things with a transformer other than language.
+
+[Faculty (Olympus)] 20:11:40
+And in fact, if I just.
+
+[Faculty (Olympus)] 20:11:43
+Define what exactly should be my set of tokens. And how do I encode the position of a token in my.
+
+[Faculty (Olympus)] 20:11:51
+Entire input.
+
+[Faculty (Olympus)] 20:11:52
+We can actually use transformers also on other data types.
+
+[Faculty (Olympus)] 20:11:57
+And I want to show you this at the example of images.
+
+[Faculty (Olympus)] 20:12:01
+So here is an image. And now what would be the tokens in an image.
+
+[Faculty (Olympus)] 20:12:06
+If you think about the Cnn. A Cnn. Looked at patches in an image that was pretty good.
+
+[Faculty (Olympus)] 20:12:12
+So why not just use patches in an image as tokens.
+
+[Faculty (Olympus)] 20:12:17
+So now we break up our image into patches, and each patch is a token.
+
+[Faculty (Olympus)] 20:12:23
+So that's valid tokens, and they just come from different parts of my image here.
+
+[Faculty (Olympus)] 20:12:29
+So the tokens we have defined, and I will encode them in some way. Maybe I use some Cnn to encode it, or maybe I just use the raw pixels in the beginning. People use Cnn's to do it, I think. Now you can also do the raw pixels.
+
+[Faculty (Olympus)] 20:12:45
+Um.
+
+[Faculty (Olympus)] 20:12:47
+Now the other question is, how do I encode position.
+
+[Faculty (Olympus)] 20:12:50
+This is no longer a sequence. Okay, this is like, maybe a sequence of tokens. But then I have the next row, and the next row.
+
+[Faculty (Olympus)] 20:12:57
+So here my position is not one dimensional. My position is 2 dimensional.
+
+[Faculty (Olympus)] 20:13:04
+But that's.
+
+[Faculty (Olympus)] 20:13:05
+Not so bad in the sense that if we can do a 1 d position encoding, maybe we can also do a 2D. 1.
+
+[Faculty (Olympus)] 20:13:13
+And we do it exactly the same way. So now we just have a position X and a position. Y, vector.
+
+[Faculty (Olympus)] 20:13:21
+And I use the same trigonometric embeddings. If this is this is corresponding, the same as the sequence. The only thing you're saying now is that you have a sequence in this direction.
+
+[Faculty (Olympus)] 20:13:31
+So now in the image, we have a sequence in this direction of the image and the sequence from top down. So these are my 2 sequences.
+
+[Faculty (Olympus)] 20:13:39
+This way and this way. And now I am in quoting position, basically in these 2 directions.
+
+[Faculty (Olympus)] 20:13:44
+But I can do it in the same way.
+
+[Faculty (Olympus)] 20:13:48
+And this way.
+
+[Faculty (Olympus)] 20:13:49
+I can use a transformer on images.
+
+[Faculty (Olympus)] 20:13:52
+And this is something that actually people have done. Vision transformers have become quite popular.
+
+[Faculty (Olympus)] 20:13:57
+And you see the actual like model. It looks very similar to this block I showed you in the beginning.
+
+[Faculty (Olympus)] 20:14:05
+Um.
+
+[Faculty (Olympus)] 20:14:06
+So what does it do? It takes this image. You break it up into patches.
+
+[Faculty (Olympus)] 20:14:11
+Then you encode the pro patches in some way, and you add the position. So this is the positional encoding here. That is the purple part.
+
+[Faculty (Olympus)] 20:14:19
+And then you just input these tokens into a transformer.
+
+[Faculty (Olympus)] 20:14:24
+The same thing. It has the attention in all of these things.
+
+[Faculty (Olympus)] 20:14:28
+So now the attention may be doing.
+
+[Faculty (Olympus)] 20:14:31
+Something, maybe actually something related in the sense that okay, to understand one patch, maybe I look at the neighboring patches.
+
+[Faculty (Olympus)] 20:14:38
+I can understand which are the neighboring patches by looking at their positions.
+
+[Faculty (Olympus)] 20:14:43
+And maybe I look at patches that look similar in my image.
+
+[Faculty (Olympus)] 20:14:47
+So. For instance, if I have this image, there will be many patches that look similar, because there's many different birds in here.
+
+[Faculty (Olympus)] 20:14:55
+And you can directly basically relate.
+
+[Faculty (Olympus)] 20:14:59
+To the other patches that look like you.
+
+[Faculty (Olympus)] 20:15:01
+For instance. So you can understand the bird in a context that there's essentially a flock of birds or so.
+
+[Faculty (Olympus)] 20:15:12
+Okay. Um.
+
+[Faculty (Olympus)] 20:15:14
+So.
+
+[Faculty (Olympus)] 20:15:15
+This is for the vision, transformer.
+
+[Faculty (Olympus)] 20:15:19
+And.
+
+[Faculty (Olympus)] 20:15:21
+Let me see. So there's a few questions, I think, about the.
+
+[Faculty (Olympus)] 20:15:25
+Vision, transformer.
+
+[Faculty (Olympus)] 20:15:29
+Um.
+
+[Faculty (Olympus)] 20:15:38
+Okay.
+
+[Faculty (Olympus)] 20:15:41
+Okay, there's 1 question, how does token wise processing differ from.
+
+[Faculty (Olympus)] 20:15:46
+Positional encoding so token. Wise processing really just means.
+
+[Faculty (Olympus)] 20:15:50
+Each token is input as its own vector.
+
+[Faculty (Olympus)] 20:15:55
+And this vector goes through the network and out the network outputs a vector and then afterwards, maybe it does like some prediction that looks at all of those vectors.
+
+[Faculty (Olympus)] 20:16:05
+Um.
+
+[Faculty (Olympus)] 20:16:06
+So, but basically each token as.
+
+[Faculty (Olympus)] 20:16:09
+Kept as its token with its token. Id. So, if I have.
+
+[Faculty (Olympus)] 20:16:14
+10 tokens in. I'll have 10 tokens out, and in each layer I'll have 10 tokens.
+
+[Faculty (Olympus)] 20:16:19
+Um. The positional encoding is really just an add-on to my tokens. It's a part of the token that tells me.
+
+[Faculty (Olympus)] 20:16:28
+Where that token comes from.
+
+[Faculty (Olympus)] 20:16:31
+What position it comes from in your input image or sequence or so, what is the position of this thing.
+
+[Faculty (Olympus)] 20:16:39
+Okay. So the other question is, how do relationships.
+
+[Faculty (Olympus)] 20:16:43
+How can I encode relationships for visual objects like.
+
+[Faculty (Olympus)] 20:16:47
+Words that tend to come together. How can we encode visual elements that tend to come together.
+
+[Faculty (Olympus)] 20:16:54
+Um, so essentially, there would be some part. Maybe this is the pattern.
+
+[Faculty (Olympus)] 20:17:00
+Um, or maybe I do the same as the copy over. I.
+
+[Faculty (Olympus)] 20:17:04
+Okay, if my token looks like this.
+
+[Faculty (Olympus)] 20:17:08
+What are typical tokens around me. And now I.
+
+[Faculty (Olympus)] 20:17:12
+In the 1st layer. Maybe I look at this. And I look like I basically do the same thing that we did with a copy over. I look, I kind of.
+
+[Faculty (Olympus)] 20:17:20
+Remember, what do typical tokens look like that are sitting around me?
+
+[Faculty (Olympus)] 20:17:25
+And then.
+
+[Faculty (Olympus)] 20:17:27
+After that I can actually use that. I can maybe say, Ah, if I have another token like this.
+
+[Faculty (Olympus)] 20:17:34
+Um. Maybe I want, like, say, I had to fill in a patch. I could basically look at. Okay, what is the typical patch around such a thing?
+
+[Faculty (Olympus)] 20:17:42
+Or maybe I could learn that typically if these 2 things come together, then this class is a bird or so.
+
+[Faculty (Olympus)] 20:17:50
+Like if maybe there's a head, and there's wings or so in the next token, if these 2 come together, then there's a bird.
+
+[Faculty (Olympus)] 20:17:56
+So I could. Actually, if I have a head token, I could look okay. Is there maybe a wing token somewhere close by.
+
+[Faculty (Olympus)] 20:18:04
+So this is similar to what the Cnn does in the sense that the Cnn says, okay, I have encoded these parts.
+
+[Faculty (Olympus)] 20:18:11
+Now I'm looking to put together parts. So this is the way you could actually put together parts.
+
+[Faculty (Olympus)] 20:18:17
+And you just do this by pattern matching or so, or copying over patterns.
+
+[Faculty (Olympus)] 20:18:22
+And looking for patterns, and so on.
+
+[Faculty (Olympus)] 20:18:29
+Okay. Um, codavision transformer be used to solve a jigsaw puzzle.
+
+[Faculty (Olympus)] 20:18:33
+Um. Maybe.
+
+[Faculty (Olympus)] 20:18:35
+So it can definitely fill in the gaps. So it may be able to fully. Yeah, I think.
+
+[Faculty (Olympus)] 20:18:41
+It may actually like these models, may be able to do it. If you train them to do it, they may.
+
+[Faculty (Olympus)] 20:18:46
+Be able to do it to some extent.
+
+[Faculty (Olympus)] 20:18:50
+Um.
+
+[Faculty (Olympus)] 20:18:51
+Okay.
+
+[Faculty (Olympus)] 20:18:54
+So. The other example I wanted to show you is that you can also use this for graphs.
+
+[Faculty (Olympus)] 20:18:59
+So what is the graph?
+
+[Faculty (Olympus)] 20:19:01
+A graph is something that has notes.
+
+[Faculty (Olympus)] 20:19:03
+Like, think of a social network, or this is a recommender system where we have.
+
+[Faculty (Olympus)] 20:19:07
+These are notes.
+
+[Faculty (Olympus)] 20:19:09
+And these are notes here. So the users and the items you can pick.
+
+[Faculty (Olympus)] 20:19:14
+And then there's connections between those.
+
+[Faculty (Olympus)] 20:19:17
+Um entities. So these are the edges.
+
+[Faculty (Olympus)] 20:19:20
+And then usually each node comes with some feature, vector and maybe the edge as well.
+
+[Faculty (Olympus)] 20:19:25
+So, for instance, I could encode a recommender system as a graph.
+
+[Faculty (Olympus)] 20:19:29
+Where I have user tokens. And I have.
+
+[Faculty (Olympus)] 20:19:33
+Um item tokens. And I connect the user when they say to an item when they select that item.
+
+[Faculty (Olympus)] 20:19:40
+And now I wanted to predict, like what other items this user may pick so that I'm trying to predict more links in this network.
+
+[Faculty (Olympus)] 20:19:47
+So how could I encode a graph.
+
+[Faculty (Olympus)] 20:19:51
+With.
+
+[Faculty (Olympus)] 20:19:53
+Um tokens.
+
+[Faculty (Olympus)] 20:19:54
+So typically what people do is, they say each token corresponds to a note.
+
+[Faculty (Olympus)] 20:20:00
+In some cases you could also have tokens corresponding to edges. But let's for the moment say they correspond to notes.
+
+[Faculty (Olympus)] 20:20:08
+And.
+
+[Faculty (Olympus)] 20:20:10
+Then you can just process the notes, and then you pay making predictions about pairs of tokens to do like the links.
+
+[Faculty (Olympus)] 20:20:17
+And then you just have to figure out what is. How do I encode position in a graph.
+
+[Faculty (Olympus)] 20:20:22
+So this is a bit more involved, but it's essentially the correspondent.
+
+[Faculty (Olympus)] 20:20:28
+Of these Fourier features, and like meaning the sign and cosign features we have for sequences. You can do something like that for graphs.
+
+[Faculty (Olympus)] 20:20:36
+Which relates to linear algebra and eigenvectors, and you can do this as well.
+
+[Faculty (Olympus)] 20:20:42
+So.
+
+[Faculty (Olympus)] 20:20:43
+This way, you can process graphs. Um, you can also process.
+
+[Faculty (Olympus)] 20:20:48
+Molecules this way, which are also graphs.
+
+[Faculty (Olympus)] 20:20:50
+Um where you may want to make a prediction about properties of this molecule, like.
+
+[Faculty (Olympus)] 20:20:55
+Are they toxic? Would they work as a drug, etc? Um.
+
+[Faculty (Olympus)] 20:21:00
+So here you're predicting essentially.
+
+[Faculty (Olympus)] 20:21:04
+A label for like a pair of these notes, and here you would be predicting something for the entire graph.
+
+[Faculty (Olympus)] 20:21:10
+So both of these you can do.
+
+[Faculty (Olympus)] 20:21:12
+And so what I wanted to show you with this.
+
+[Faculty (Olympus)] 20:21:17
+Basically that.
+
+[Faculty (Olympus)] 20:21:19
+Transformers are very flexible models. You can use them on a lot of data.
+
+[Faculty (Olympus)] 20:21:23
+And then it's basically up to you that you have to define what is a token. And how do you exactly encode the position.
+
+[Faculty (Olympus)] 20:21:32
+Off a token in your.
+
+[Faculty (Olympus)] 20:21:35
+And so for graphs. If you are interested in details, this paper tested a lot of different variations. You can for graph transformers, like different ways of encoding positions, etc.
+
+[Faculty (Olympus)] 20:21:46
+And.
+
+[Faculty (Olympus)] 20:21:49
+How they've worked, etc. So you can just use this paper kind of as an overview of what kinds of variations you could do here.
+
+[Faculty (Olympus)] 20:21:56
+Um. So with that um, I want to summarize the part of.
+
+[Faculty (Olympus)] 20:22:01
+On transformers. Um, so these are really the neural networks that underlie all these large language model.
+
+[Faculty (Olympus)] 20:22:08
+Um, and this self attention mechanism is really the key here. Um, to make.
+
+[Faculty (Olympus)] 20:22:15
+Then get the capabilities that they have. It seems.
+
+[Faculty (Olympus)] 20:22:18
+Um and the key ingredients of the transformer are this token wise processing. So, word by word.
+
+[Faculty (Olympus)] 20:22:26
+Or whatever.
+
+[Faculty (Olympus)] 20:22:28
+Per image patch, by image, patch.
+
+[Faculty (Olympus)] 20:22:30
+Um the self attention, mechanism that you can encode, a token by its context.
+
+[Faculty (Olympus)] 20:22:35
+But different definitions of context.
+
+[Faculty (Olympus)] 20:22:37
+And you can do this mechanisms like I'm copying over something. I do a lookup and things like that.
+
+[Faculty (Olympus)] 20:22:43
+And then finally, I can. I have to encode the position of the token.
+
+[Faculty (Olympus)] 20:22:47
+In the input, because otherwise, the neural network doesn't know where in the input this.
+
+[Faculty (Olympus)] 20:22:52
+Token comes from, and then it could have.
+
+[Faculty (Olympus)] 20:22:55
+Like a sentence will have different meaning if you scramble around the words.
+
+[Faculty (Olympus)] 20:23:01
+And finally, transformers are very powerful. They can actually mimic a lot of other neural networks.
+
+[Faculty (Olympus)] 20:23:07
+So a transformer can mimic a convolutional network.
+
+[Faculty (Olympus)] 20:23:11
+A transformer can mimic other graph neural networks. For instance.
+
+[Faculty (Olympus)] 20:23:16
+But it has a lot more flexibility. So to kind of.
+
+[Faculty (Olympus)] 20:23:20
+Put that flexibility in the right direction. It needs a lot of data to train.
+
+[Faculty (Olympus)] 20:23:26
+And so if you want to have a lot of data, it actually is a pretty good model.
+
+[Faculty (Olympus)] 20:23:35
+Alright um, so let me see.
+
+[Faculty (Olympus)] 20:23:39
+Um, if there's any other questions, and then I see uh, I'll talk a little bit more about how you actually.
+
+[Faculty (Olympus)] 20:23:45
+Train these very big models.
+
+[Faculty (Olympus)] 20:23:54
+How could we pick one token? If we have multiple options.
+
+[Faculty (Olympus)] 20:23:57
+So usually you select the token.
+
+[Faculty (Olympus)] 20:24:01
+By some selection criterion and the selection criterion you learn so essentially the.
+
+[Faculty (Olympus)] 20:24:07
+Attention. Mechanism is one way to learn a criterion, to select certain tokens.
+
+[Faculty (Olympus)] 20:24:12
+And that basically there will be some learned.
+
+[Faculty (Olympus)] 20:24:15
+Criterion, which is usually some kind of.
+
+[Faculty (Olympus)] 20:24:18
+Um in our product type thing that tells me which one I want to.
+
+[Faculty (Olympus)] 20:24:23
+Select, and maybe some soft Max, combined with that.
+
+[Faculty (Olympus)] 20:24:29
+Um. Can you do audio transformers as well.
+
+[Faculty (Olympus)] 20:24:31
+So. Yes, audio is essentially a sequence. Um, so you could.
+
+[Faculty (Olympus)] 20:24:36
+Now, your tokens basically correspond to snippets.
+
+[Faculty (Olympus)] 20:24:39
+Um of your audio sequence.
+
+[Faculty (Olympus)] 20:24:45
+Um.
+
+[Faculty (Olympus)] 20:24:46
+Our graph transformers, the foundation.
+
+[Faculty (Olympus)] 20:24:49
+For recommender systems.
+
+[Faculty (Olympus)] 20:24:51
+So.
+
+[Faculty (Olympus)] 20:24:52
+The actually the recommender system picture I showed you comes from a time. And people were using also message passing your networks.
+
+[Faculty (Olympus)] 20:25:01
+Um. But you could also build those with graph transformers. I don't know how exactly they perform. Um.
+
+[Faculty (Olympus)] 20:25:08
+To be honest. Um, I don't remember which one works better. I think it's a little bit probably the.
+
+[Faculty (Olympus)] 20:25:13
+Data dependent, like, how much data you have.
+
+[Faculty (Olympus)] 20:25:16
+What exactly is the application. But you basically can use some kind of graph neural network message passing or transformer.
+
+[Faculty (Olympus)] 20:25:23
+To to recommender systems.
+
+[Faculty (Olympus)] 20:25:25
+And this has been done. So the actual picture I have this is from Pinterest. So they used, for instance, they actually implemented that.
+
+[Faculty (Olympus)] 20:25:33
+Um.
+
+[Faculty (Olympus)] 20:25:36
+How can they be used for molecular modeling applications.
+
+[Faculty (Olympus)] 20:25:39
+So in those cases when you have molecules.
+
+[Faculty (Olympus)] 20:25:42
+You take your your molecule is the graph.
+
+[Faculty (Olympus)] 20:25:45
+And now you have nodes which are atoms, so you would have some atom features like maybe the weight.
+
+[Faculty (Olympus)] 20:25:52
+Of the atom, the type of the atom, and things like that. These are the node features.
+
+[Faculty (Olympus)] 20:25:56
+And.
+
+[Faculty (Olympus)] 20:25:57
+Come in. If you do a transformer, they will be part of your token. Your input token.
+
+[Faculty (Olympus)] 20:26:02
+And then you have some edge information as well.
+
+[Faculty (Olympus)] 20:26:06
+Which is, maybe this is a single bond. This is a double bond, etc.
+
+[Faculty (Olympus)] 20:26:10
+So this also goes in um, usually into the information.
+
+[Faculty (Olympus)] 20:26:15
+Um.
+
+[Faculty (Olympus)] 20:26:16
+That is processed by the neural network. So this.
+
+[Faculty (Olympus)] 20:26:19
+Not directly in what I told you about transformers. What you can do with you can put the edges as tokens as well.
+
+[Faculty (Olympus)] 20:26:26
+And you can do that as well.
+
+[Faculty (Olympus)] 20:26:29
+Um. So usually the graph is encoded. Something like that.
+
+[Faculty (Olympus)] 20:26:33
+Um with some positional encodings. You can look at this paper, and they, I think, also use the link data set the Imc, which is a molecular benchmark.
+
+[Faculty (Olympus)] 20:26:43
+Um. But a lot of the graph models are tested on molecules as well.
+
+[Faculty (Olympus)] 20:26:48
+What would I want to predict with this.
+
+[Faculty (Olympus)] 20:26:51
+There's many different things. So the 1st things that people were doing was really properties of molecules to predict them.
+
+[Faculty (Olympus)] 20:26:58
+Like solubility, um.
+
+[Faculty (Olympus)] 20:27:01
+Certain other. I'm not a chemist, but like, are they toxic.
+
+[Faculty (Olympus)] 20:27:06
+Maybe, would they be reacting with a certain other molecule and things like that? Would they be useful as a drug? And like essentially such kinds of things.
+
+[Faculty (Olympus)] 20:27:16
+Um. Nowadays people also do more with molecules. So, for instance, in addition to just.
+
+[Faculty (Olympus)] 20:27:24
+Predicting their properties. Maybe they want to predict.
+
+[Faculty (Olympus)] 20:27:28
+How molecules really bind to each other. So this is usually then done with some kind of.
+
+[Faculty (Olympus)] 20:27:33
+Generative model, a diffusion model where a graph network sits sort of in there inside.
+
+[Faculty (Olympus)] 20:27:38
+Um. So there's many other um things that you can do when you make predictions for molecules. It depends a bit on the task.
+
+[Faculty (Olympus)] 20:27:46
+Another task we've been working on is.
+
+[Faculty (Olympus)] 20:27:48
+Mass spectrometry. So basically trying to identify molecules from.
+
+[Faculty (Olympus)] 20:27:53
+A measurement that canvas.
+
+[Faculty (Olympus)] 20:28:02
+Okay. Um.
+
+[Faculty (Olympus)] 20:28:06
+Alright. Um! Can you use transformers for medical diagnosis?
+
+[Faculty (Olympus)] 20:28:13
+Right. You could use a language model to help a doctor, for sure, because a lot of the medical data is actually text or mixed text with numbers, etc.
+
+[Faculty (Olympus)] 20:28:24
+So you can, teacher like you can use a language model to help you process that.
+
+[Faculty (Olympus)] 20:28:28
+Um, which is usually very difficult data.
+
+[Faculty (Olympus)] 20:28:31
+And you could try to have the neural network.
+
+[Faculty (Olympus)] 20:28:36
+Essentially give recommendations to a doctor.
+
+[Faculty (Olympus)] 20:28:39
+I would say um, I wouldn't fully trust it, but it could maybe give recommendations to a doctor, or pull up similar cases, or something like that.
+
+[Faculty (Olympus)] 20:28:47
+Um. So this is something you could definitely do with a language model. For instance.
+
+[Faculty (Olympus)] 20:28:55
+Okay. Um.
+
+[Faculty (Olympus)] 20:28:59
+Right, so.
+
+[Faculty (Olympus)] 20:29:02
+Let me go on and talk a little bit more about training, because many people asked about.
+
+[Faculty (Olympus)] 20:29:08
+Training. In the beginning.
+
+[Faculty (Olympus)] 20:29:12
+So for once, as I said.
+
+[Faculty (Olympus)] 20:29:15
+Um, mostly. How like the large language models are trained. It's actually a classification problem.
+
+[Faculty (Olympus)] 20:29:21
+But.
+
+[Faculty (Olympus)] 20:29:23
+The main difficulty, and why? Actually, they are trained like this is.
+
+[Faculty (Olympus)] 20:29:29
+That they need a lot of data. So a transformer, and especially such a huge transformer, needs a lot of data to be trained.
+
+[Faculty (Olympus)] 20:29:38
+And.
+
+[Faculty (Olympus)] 20:29:39
+This can potentially be a problem. If I have applications where I have very little data that has good labels.
+
+[Faculty (Olympus)] 20:29:47
+So maybe basically anything where I need a human expert to label something.
+
+[Faculty (Olympus)] 20:29:52
+That's expensive, and I cannot have too much data.
+
+[Faculty (Olympus)] 20:29:57
+And this is a problem because these are often applications where we have complex types of data. So we have image data or text data or something like that.
+
+[Faculty (Olympus)] 20:30:06
+And we would really like to use the power of the neural network to make sense of that.
+
+[Faculty (Olympus)] 20:30:13
+And.
+
+[Faculty (Olympus)] 20:30:14
+How, what could we do about it? And to understand this, I want to go back to my picture again, that the neural network is really doing a 2 stage process.
+
+[Faculty (Olympus)] 20:30:25
+It 1st takes my data and it said, it basically encodes it in a meaningful way.
+
+[Faculty (Olympus)] 20:30:32
+And such that essentially a linear, simple classifier, or a very.
+
+[Faculty (Olympus)] 20:30:38
+Simple, say few layer fully connected network can give a good output prediction.
+
+[Faculty (Olympus)] 20:30:43
+Something like this. So this is the full network, but it has the encoder part and the classifier part that we also talked about in the past 2 lectures.
+
+[Faculty (Olympus)] 20:30:52
+So now the thing is that the part that actually needs a lot of data to figure out is the 1st one.
+
+[Faculty (Olympus)] 20:31:00
+Because the 1st part knows. If I have this type of data, these are the things, the characteristics of this data that I should really remember.
+
+[Faculty (Olympus)] 20:31:09
+This is how I should encode an image meaningfully, maybe by pulling out those patterns. Maybe we're pulling out whatever these lines.
+
+[Faculty (Olympus)] 20:31:16
+This is how I should encode a sentence meaningfully, maybe, by looking at specific types of relations between the words.
+
+[Faculty (Olympus)] 20:31:23
+But to figure out what exactly to look at. I need a lot of data to actually tease this out.
+
+[Faculty (Olympus)] 20:31:28
+So this part is the part that's heavy.
+
+[Faculty (Olympus)] 20:31:32
+Once I have a put in coding.
+
+[Faculty (Olympus)] 20:31:34
+That part is actually just.
+
+[Faculty (Olympus)] 20:31:37
+Very simple. Sso. Simple classifier. I can actually learn this with very little data. If I would do this in a 2 stage process.
+
+[Faculty (Olympus)] 20:31:45
+So usually, as I said, it is done altogether.
+
+[Faculty (Olympus)] 20:31:49
+But if I would do it in a 2 stage process, this one needs little data. This needs a lot of data.
+
+[Faculty (Olympus)] 20:31:57
+So.
+
+[Faculty (Olympus)] 20:31:59
+Basically that brought up the idea. What if I actually do it? Essentially in 2 steps?
+
+[Faculty (Olympus)] 20:32:05
+I 1st learn a good encoding from a large data set, and then.
+
+[Faculty (Olympus)] 20:32:10
+I learned my simple classifier for the actual task I ha like, maybe the medical image diagnosis. Maybe.
+
+[Faculty (Olympus)] 20:32:19
+The sentiment, analysis, and text, and so on.
+
+[Faculty (Olympus)] 20:32:22
+So then maybe want to have the good encoding.
+
+[Faculty (Olympus)] 20:32:25
+I can actually learn the rest with a little well label data that I have.
+
+[Faculty (Olympus)] 20:32:31
+Now the tricky thing, of course, is well, how do I actually do this? How do I learn just the encoding? How do I judge that this is a good encoding, like. I have to give it some feedback to learn it. What is the task.
+
+[Faculty (Olympus)] 20:32:43
+How do I do this? And.
+
+[Faculty (Olympus)] 20:32:45
+Okay. So I need some way to learn this encoding.
+
+[Faculty (Olympus)] 20:32:49
+And the way this is typically done. Instead, I have some kind of auxiliary task or pretext.
+
+[Faculty (Olympus)] 20:32:55
+So it's essentially more or less a junk task.
+
+[Faculty (Olympus)] 20:32:59
+Um. It can be.
+
+[Faculty (Olympus)] 20:33:02
+It's may not necessarily be the actual task I care about.
+
+[Faculty (Olympus)] 20:33:06
+But that way I have something that has a loss function. So I can do the back propagation.
+
+[Faculty (Olympus)] 20:33:11
+So I.
+
+[Faculty (Olympus)] 20:33:13
+Build my big neural network. This is the encoding part, and I have some simple.
+
+[Faculty (Olympus)] 20:33:18
+Prediction part here, and I train it on some large data set.
+
+[Faculty (Olympus)] 20:33:22
+And a large data set for which either I have labels or I don't have labels, and I.
+
+[Faculty (Olympus)] 20:33:29
+And essentially make up the task. I'd say a bit more about that.
+
+[Faculty (Olympus)] 20:33:32
+Then, once I have trained it. What I do is I just copy over those layers so I can freeze these layers. For instance.
+
+[Faculty (Olympus)] 20:33:41
+Just chop off basically the top part, the classifier part. And I just take the encoding part.
+
+[Faculty (Olympus)] 20:33:46
+So when you think of the Cnn. Think of just those convolutional layers, etc.
+
+[Faculty (Olympus)] 20:33:52
+And I take this, and I give it a different.
+
+[Faculty (Olympus)] 20:33:55
+Basically.
+
+[Faculty (Olympus)] 20:33:56
+Last few layers.
+
+[Faculty (Olympus)] 20:33:58
+And now. So I just copy this over.
+
+[Faculty (Olympus)] 20:34:01
+And then I add on.
+
+[Faculty (Olympus)] 20:34:04
+Another.
+
+[Faculty (Olympus)] 20:34:05
+Final part. And this final part. Now I train to predict for my target task.
+
+[Faculty (Olympus)] 20:34:10
+And there I can have many fewer data points.
+
+[Faculty (Olympus)] 20:34:14
+So this is the main intuition behind pre training and self. Supervised learning.
+
+[Faculty (Olympus)] 20:34:22
+And the cool thing is actually that.
+
+[Faculty (Olympus)] 20:34:25
+Okay, this may work for one task, but in principle, if this thing is a good encoding, I can actually use it for many tasks.
+
+[Faculty (Olympus)] 20:34:32
+And this is really what we are doing these days. We have.
+
+[Faculty (Olympus)] 20:34:37
+Basically very good encodings that you can download. So it's basically a neural network with.
+
+[Faculty (Olympus)] 20:34:43
+Weights with trained weights, and you can just use it, or do some so-called fine tuning, and say a bit more about this in a minute.
+
+[Faculty (Olympus)] 20:34:51
+Um, and you don't have to train it from scratch. So you can basically just do this part where you can have.
+
+[Faculty (Olympus)] 20:34:56
+A small data set.
+
+[Faculty (Olympus)] 20:34:58
+Maybe just even train this.
+
+[Faculty (Olympus)] 20:35:00
+Classification part, and that's much cheaper.
+
+[Faculty (Olympus)] 20:35:03
+Then training this big, bulky uh thing with, like a huge number of training.
+
+[Faculty (Olympus)] 20:35:08
+The training data.
+
+[Faculty (Olympus)] 20:35:12
+So now, how exactly do I do this tars? And there's basically 2 versions I can do.
+
+[Faculty (Olympus)] 20:35:18
+The 1st one is what's called linear adaptation. So here, this is the same as what I showed you in the previous slide. This is my encoder.
+
+[Faculty (Olympus)] 20:35:27
+This is the classifier, and this is the output.
+
+[Faculty (Olympus)] 20:35:29
+So I copy over my encoder. I discard this part.
+
+[Faculty (Olympus)] 20:35:35
+And so this is discarded. Let's cross it out.
+
+[Faculty (Olympus)] 20:35:38
+So just I'm gonna discard. And then I'll just copy this over.
+
+[Faculty (Olympus)] 20:35:42
+And then in the like simplest version, I would just keep that F as is so. This is the encoder part of manual network.
+
+[Faculty (Olympus)] 20:35:51
+And I just learn a linear classifier that takes as input.
+
+[Faculty (Olympus)] 20:35:57
+Whatever the encoder outputs. So now from here to here, this is just a linear classification.
+
+[Faculty (Olympus)] 20:36:02
+And I know how to learn. A linear classifier just takes like my transform data as input.
+
+[Faculty (Olympus)] 20:36:08
+So this is very.
+
+[Faculty (Olympus)] 20:36:10
+Simple. This is called linear adaptation.
+
+[Faculty (Olympus)] 20:36:13
+Then you could actually go a little bit further and say, Okay, I have a bit more compute. Maybe I also want to update the weights in this model a bit.
+
+[Faculty (Olympus)] 20:36:23
+I don't initialize them randomly from scratch. I update them a little bit.
+
+[Faculty (Olympus)] 20:36:28
+Um. But I already have a really good initialization, because this is a training.
+
+[Faculty (Olympus)] 20:36:33
+So what you do is you update this a little bit, so you train them together.
+
+[Faculty (Olympus)] 20:36:37
+But the idea is.
+
+[Faculty (Olympus)] 20:36:40
+This guy's already has a really good initialization. So you don't need that much data.
+
+[Faculty (Olympus)] 20:36:45
+And this is called Fine-tuning.
+
+[Faculty (Olympus)] 20:36:51
+Okay, so this is kind of what you do for the.
+
+[Faculty (Olympus)] 20:36:54
+Second, part.
+
+[Faculty (Olympus)] 20:36:56
+Here, oops, here we are. So now let's look at what would be the pretext. How can you learn a good encoding.
+
+[Faculty (Olympus)] 20:37:04
+Without using the small amount of label data that you have.
+
+[Faculty (Olympus)] 20:37:09
+So now you'll of course, have to use some other data, some bigger data set.
+
+[Faculty (Olympus)] 20:37:13
+And so initially, what people were doing is, they said, Okay.
+
+[Faculty (Olympus)] 20:37:17
+The.
+
+[Faculty (Olympus)] 20:37:19
+Pretext, task.
+
+[Faculty (Olympus)] 20:37:21
+Is.
+
+[Faculty (Olympus)] 20:37:22
+Um a supervised that. So I just take.
+
+[Faculty (Olympus)] 20:37:25
+A huge label data set, and one of those.
+
+[Faculty (Olympus)] 20:37:29
+Prototypical ones in the image net data set.
+
+[Faculty (Olympus)] 20:37:33
+It has like a thousand classes or so, and you train your network on that.
+
+[Faculty (Olympus)] 20:37:37
+And then that gives you a quote.
+
+[Faculty (Olympus)] 20:37:41
+Encoder, because it has seen so many images, and then you can fine tune it to work with whatever image you have, and whichever classes you have in your data set. They don't have to be the same as these ones. They can be completely different, or it can be some other image.
+
+[Faculty (Olympus)] 20:37:56
+So this was actually kind of the state of the art. For a while.
+
+[Faculty (Olympus)] 20:37:59
+And then people recognize that actually, we have even more data.
+
+[Faculty (Olympus)] 20:38:05
+Without Labels.
+
+[Faculty (Olympus)] 20:38:06
+And in fact, the Lms are trained pretty much on all the Internet.
+
+[Faculty (Olympus)] 20:38:11
+So.
+
+[Faculty (Olympus)] 20:38:13
+Well, in that case I cannot really use.
+
+[Faculty (Olympus)] 20:38:16
+Label, Hand, Label, Hand, Created Labels.
+
+[Faculty (Olympus)] 20:38:19
+So I'd have to somehow create a task automatically.
+
+[Faculty (Olympus)] 20:38:23
+And this is essentially what I'll do. I'll.
+
+[Faculty (Olympus)] 20:38:27
+Create a task automatically. I'll train it like on a humongous data set.
+
+[Faculty (Olympus)] 20:38:31
+I have trained this encoder once, and then I'll just reuse it. I'll not.
+
+[Faculty (Olympus)] 20:38:36
+And for any other task I have, I'll just reuse it.
+
+[Faculty (Olympus)] 20:38:41
+Okay, so what could this task look like? So there's multiple versions of this but one version that is very.
+
+[Faculty (Olympus)] 20:38:49
+Um popular is.
+
+[Faculty (Olympus)] 20:38:50
+So called, masking.
+
+[Faculty (Olympus)] 20:38:53
+So what it's masking. So masking basically says, let's say, we look at images for the moment.
+
+[Faculty (Olympus)] 20:38:58
+I have an image. I, I basically have.
+
+[Faculty (Olympus)] 20:39:01
+Like sourced images from all over the place. So I have my image.
+
+[Faculty (Olympus)] 20:39:06
+And I know what this image looks like, and what I do is I just.
+
+[Faculty (Olympus)] 20:39:10
+Mask our parts of this image.
+
+[Faculty (Olympus)] 20:39:12
+And I asked, the neural network fill in the gap. So basically fill in what should be here.
+
+[Faculty (Olympus)] 20:39:18
+And then the neural network has to basically create the second part of the image.
+
+[Faculty (Olympus)] 20:39:23
+So now, if you remember our vision transformer, where you said, okay, what you could maybe attend to like the nearby tokens.
+
+[Faculty (Olympus)] 20:39:29
+Yes, maybe it could learn that.
+
+[Faculty (Olympus)] 20:39:32
+Whatever. Next to half a bird usually comes another half bird, and I just have to modify it to look like this bird, or something like that.
+
+[Faculty (Olympus)] 20:39:40
+So I have to still learn like typical patterns and colors and whatnot. And then maybe I have to even recognize that this is a bird.
+
+[Faculty (Olympus)] 20:39:48
+Then only then I know how to actually complete it.
+
+[Faculty (Olympus)] 20:39:52
+And now there's just different masks. I could do.
+
+[Faculty (Olympus)] 20:39:55
+So you see, this is basically the same thing. It's just different parts that I've masked out.
+
+[Faculty (Olympus)] 20:40:01
+The other thing I could do is I could do it. Channel. We talked yesterday about the red, green, and blue channel, so I could do like distinct channel right?
+
+[Faculty (Olympus)] 20:40:13
+And predict, like the rep channel from a great scale image, or something like that.
+
+[Faculty (Olympus)] 20:40:19
+For language, we usually do the same thing. So we just parts of the sentence.
+
+[Faculty (Olympus)] 20:40:25
+And often it's the last part so Gpt, for instance, was just trained, as I said.
+
+[Faculty (Olympus)] 20:40:31
+To predict the next token. So you have, like some.
+
+[Faculty (Olympus)] 20:40:35
+Prompt sequence, and then it has to like, predict what comes here.
+
+[Faculty (Olympus)] 20:40:40
+A trump sequence, and it has to predict what comes here.
+
+[Faculty (Olympus)] 20:40:45
+Um. So this is what Gpt does.
+
+[Faculty (Olympus)] 20:40:49
+So.
+
+[Faculty (Olympus)] 20:40:50
+What does it learn when we do this? I know we already talked about it. Well, if you look at my examples here, it learned actually some facts, it learns that. Okay, if there's some capital in France.
+
+[Faculty (Olympus)] 20:41:00
+Maybe I should say Paris.
+
+[Faculty (Olympus)] 20:41:03
+And then it says, Okay, dog, jump to the ball. Okay, what does a dog typically do when it jumps to the ball versus? Maybe. What does the kid do when they jump to the ball, or something like that?
+
+[Faculty (Olympus)] 20:41:15
+Um some other sequence completion. So this one is a little bit more tricky.
+
+[Faculty (Olympus)] 20:41:21
+Um.
+
+[Faculty (Olympus)] 20:41:22
+So it learns, okay, what type of token should come here.
+
+[Faculty (Olympus)] 20:41:28
+Then what type of word like should it be a verb? Should it be a noun or something like that? And then it learns also.
+
+[Faculty (Olympus)] 20:41:35
+Fact, like, where does a car typically stop.
+
+[Faculty (Olympus)] 20:41:38
+What do you typically do with a ball.
+
+[Faculty (Olympus)] 20:41:41
+What do you typically watch? And so on and so forth. So it learns actually content. It learns grammar, and so on.
+
+[Faculty (Olympus)] 20:41:50
+And that's essentially.
+
+[Faculty (Olympus)] 20:41:52
+Um what Gpt learned. And now it has just seen a lot of these.
+
+[Faculty (Olympus)] 20:41:58
+And.
+
+[Faculty (Olympus)] 20:41:59
+Hence it can do an amazing set of things just from learning to predict the next token.
+
+[Faculty (Olympus)] 20:42:05
+This is really all it can. It was trained on. And now the good thing is, with the next token.
+
+[Faculty (Olympus)] 20:42:09
+I don't need human supervision for that. I have text. I have the sentence. I just.
+
+[Faculty (Olympus)] 20:42:15
+Always give it like the part of the sentence, and let it predict the next word.
+
+[Faculty (Olympus)] 20:42:19
+I don't need any human to do any kind of labeling.
+
+[Faculty (Olympus)] 20:42:22
+In this case it's still a classification problem, because I know what the word should be. And this is basically my classification problem.
+
+[Faculty (Olympus)] 20:42:30
+I just didn't have to hand label it. I do have those sentences around. So when you're like.
+
+[Faculty (Olympus)] 20:42:35
+Scrape the Internet, you get all of these text documents. So you have all of these sentences.
+
+[Faculty (Olympus)] 20:42:43
+Okay. Um.
+
+[Faculty (Olympus)] 20:42:46
+So with this um, let me maybe.
+
+[Faculty (Olympus)] 20:42:50
+Stop here! Um.
+
+[Faculty (Olympus)] 20:42:51
+So the other part I have you can essentially also mask like words intermediately.
+
+[Faculty (Olympus)] 20:42:57
+Um. This is how the bird model, for instance, is trained um by Gpt is really just trained, like by next token, prediction.
+
+[Faculty (Olympus)] 20:43:06
+Um. So this was a very brief summary on how you train.
+
+[Faculty (Olympus)] 20:43:11
+These very, very large models.
+
+[Faculty (Olympus)] 20:43:12
+And the models that you train on a large data set and then reuse for different types of tasks. They are called foundation models.
+
+[Faculty (Olympus)] 20:43:21
+So we have them for vision and for language. And we also have them cross modality. So vision language models, for instance, that can match basically vision and language, and then help you generate, like.
+
+[Faculty (Olympus)] 20:43:33
+Um.
+
+[Faculty (Olympus)] 20:43:34
+Uh an image from a.
+
+[Faculty (Olympus)] 20:43:36
+Language prompt, or vice versa. It can describe, like what's in the image.
+
+[Faculty (Olympus)] 20:43:42
+Um.
+
+[Faculty (Olympus)] 20:43:44
+You can download those.
+
+[Faculty (Olympus)] 20:43:46
+Models, as well.
+
+[Faculty (Olympus)] 20:43:48
+And this is what I would recommend. If you actually want to use a larger model, you don't train from scratch you use like what other people have engineered, and what works? Well.
+
+[Faculty (Olympus)] 20:43:57
+For that data modality.
+
+[Faculty (Olympus)] 20:44:01
+Okay. Um.
+
+[Faculty (Olympus)] 20:44:03
+Thought.
+
+[Faculty (Olympus)] 20:44:04
+To summarize like.
+
+[Faculty (Olympus)] 20:44:05
+Answering your questions about how do you train the language model.
+
+[Faculty (Olympus)] 20:44:10
+So first, st you do this free training on a large data set. And this pre training is typically predict the next token.
+
+[Faculty (Olympus)] 20:44:18
+Predicting the next token as a classification problem, with a very large number of classes.
+
+[Faculty (Olympus)] 20:44:23
+So you could use a cross entropy loss, for instance.
+
+[Faculty (Olympus)] 20:44:26
+And then you can just.
+
+[Faculty (Olympus)] 20:44:28
+You have your loss, you can just back, propagate, and you do the back propagation and stochastic gradient descent that we talked about in the 1st lecture that's still gonna be the same.
+
+[Faculty (Olympus)] 20:44:39
+What are you learning? You're learning the weight matrices. So when you look at a transformer.
+
+[Faculty (Olympus)] 20:44:44
+Um, you're basically learning the parameters in your attention.
+
+[Faculty (Olympus)] 20:44:49
+So the query, the key, and the value matrix.
+
+[Faculty (Olympus)] 20:44:52
+And you're learning the parameters of these.
+
+[Faculty (Olympus)] 20:44:55
+Small neural networks that are coming there to just transform your tokens a bit and teeth out some other things that may be relevant.
+
+[Faculty (Olympus)] 20:45:04
+Okay? So I hope this answers the question on, how do you train these models?
+
+[Faculty (Olympus)] 20:45:10
+Now let me look at your other questions.
+
+[Faculty (Olympus)] 20:45:13
+Um.
+
+[Faculty (Olympus)] 20:45:15
+And see.
+
+[Faculty (Olympus)] 20:45:16
+Um what they are.
+
+[Faculty (Olympus)] 20:45:19
+All right. There's some comment on the graph networks, Google making new materials.
+
+[Faculty (Olympus)] 20:45:26
+Our new molecules.
+
+[Faculty (Olympus)] 20:45:27
+Yes. So in, indeed, that like material signs and drug design is one like our big application areas of these.
+
+[Faculty (Olympus)] 20:45:35
+Graph neural networks.
+
+[Faculty (Olympus)] 20:45:44
+Okay.
+
+[Faculty (Olympus)] 20:45:54
+Wouldn't the neural networks end up getting trained on AI generated content that they're pulling unlabeled data from the Internet.
+
+[Faculty (Olympus)] 20:46:04
+Um, so, yeah, this is actually a point. So right now, I think. Still, a lot of the content on the Internet is human, generated.
+
+[Faculty (Olympus)] 20:46:11
+Maybe that will change in the near future.
+
+[Faculty (Olympus)] 20:46:13
+Um. There are actually, though also attempts of really training your networks with.
+
+[Faculty (Olympus)] 20:46:20
+Generated content, like generated images, for instance.
+
+[Faculty (Olympus)] 20:46:24
+It seems to work quite well, even though yes, there could be the concern that it reinforced a certain biases that the model has.
+
+[Faculty (Olympus)] 20:46:31
+And things like that. Um, so or like.
+
+[Faculty (Olympus)] 20:46:33
+Okay, we talked about the biases in data in the last lecture a bit. So if your generation model has certain biases, you would be copying them over.
+
+[Faculty (Olympus)] 20:46:42
+On the other end. Maybe you could remove some biases from your generation model. Then.
+
+[Faculty (Olympus)] 20:46:49
+From a generative model. So then, maybe this would actually be.
+
+[Faculty (Olympus)] 20:46:54
+Better than some of the natural data.
+
+[Faculty (Olympus)] 20:46:56
+The second thing is that maybe there are some artifacts in the generated data.
+
+[Faculty (Olympus)] 20:47:02
+Compared to the real data that maybe you would be learning. And then it's a little bit like going from real data.
+
+[Faculty (Olympus)] 20:47:07
+And seeing how well that goes. Um! But sometimes this apparently can actually work.
+
+[Faculty (Olympus)] 20:47:17
+Okay, if the language model is learning of the Internet, how does it parse through bad and false information?
+
+[Faculty (Olympus)] 20:47:24
+Um.
+
+[Faculty (Olympus)] 20:47:26
+So in general, I think the data is just taken, as is.
+
+[Faculty (Olympus)] 20:47:31
+And it would be more of a majority vote in the sense that maybe.
+
+[Faculty (Olympus)] 20:47:35
+The capital of Paris.
+
+[Faculty (Olympus)] 20:47:38
+Prompt, is more of an associate. The capital of France prompt, is more often associated with Paris.
+
+[Faculty (Olympus)] 20:47:43
+Then with any any other city.
+
+[Faculty (Olympus)] 20:47:46
+And hence it would just learn, like a much higher probability for Paris than for these others.
+
+[Faculty (Olympus)] 20:47:52
+Maybe it would learn a non 0 probability for these others. But, like some of this, I think just goes by majority vote.
+
+[Faculty (Olympus)] 20:47:58
+Um. You could, of course. Yes, mislead as well. If it gets a lot of training data that is actually false, it would.
+
+[Faculty (Olympus)] 20:48:05
+Learn it.
+
+[Faculty (Olympus)] 20:48:05
+The other thing it may do is, it may make false associations.
+
+[Faculty (Olympus)] 20:48:10
+Um.
+
+[Faculty (Olympus)] 20:48:12
+By whatever like um relating things to things that I've seen, and then maybe that may be not exactly correct.
+
+[Faculty (Olympus)] 20:48:19
+Um. So I usually the training data is not filtered just because it. I mean, not like.
+
+[Faculty (Olympus)] 20:48:25
+Checked in that respect. I believe. Um, however, what people are controlling for is.
+
+[Faculty (Olympus)] 20:48:33
+Um content. That is abusive, for instance. So there's like.
+
+[Faculty (Olympus)] 20:48:38
+Uh mechanisms and filters to make the model like to restrict what the model outputs, for instance.
+
+[Faculty (Olympus)] 20:48:44
+Um, so that it won't be insulting, and things like that.
+
+[Faculty (Olympus)] 20:48:52
+Um is the benefit of masking just an easier and faster way to self train.
+
+[Faculty (Olympus)] 20:48:57
+Yeah, so essentially, that's the way you can.
+
+[Faculty (Olympus)] 20:49:00
+To what's called self supervision. So it's still a task. It's a made up task.
+
+[Faculty (Olympus)] 20:49:07
+Um, but it basically has the benefit that it teaches. The model relevant.
+
+[Faculty (Olympus)] 20:49:12
+Characteristics of your data. So this is what you really wanted to learn. So in vision, it would still have to learn.
+
+[Faculty (Olympus)] 20:49:19
+Patterns and shapes and things like that, to predict what, how to fill in the gaps. Essentially in language, it would have to learn some grammar and context and content, and so on.
+
+[Faculty (Olympus)] 20:49:29
+Uh to complete the sentence.
+
+[Faculty (Olympus)] 20:49:32
+And it's yeah. And it's just an easy way to do it. It's a cheap way to generate a lot of data.
+
+[Faculty (Olympus)] 20:49:38
+Is it the best one?
+
+[Faculty (Olympus)] 20:49:40
+Maybe not always, but it's cheap, and it works pretty well right now. Maybe you can come up with a better mechanism.
+
+[Faculty (Olympus)] 20:50:08
+Vision transformers used in generative models like gans and diffusion.
+
+[Faculty (Olympus)] 20:50:13
+So. Yes, they are used in generative models as well, because they usually also have, like encoder parts.
+
+[Faculty (Olympus)] 20:50:20
+Where you use um.
+
+[Faculty (Olympus)] 20:50:22
+Like, say, specific models for vision or specific models for graphs and, like molecules and things like that.
+
+[Faculty (Olympus)] 20:50:35
+Um.
+
+[Faculty (Olympus)] 20:50:40
+Okay, so.
+
+[Faculty (Olympus)] 20:50:46
+Okay. I think we have reached like the half hour.
+
+[Faculty (Olympus)] 20:50:50
+And I see Mk does come.
+
+[Faculty (Olympus)] 20:50:52
+Become visible again. So maybe we'll just.
+
+[Faculty (Olympus)] 20:50:55
+Answer the remaining questions in the general. QA. Whichever I haven't answered yet, because a lot of the other questions also pretty general.
+
+[Faculty (Olympus)] 20:51:05
+Um.
+
+[Faculty (Olympus)] 20:51:05
+And hopefully, we can answer all the open questions that people still have.
+
+[Moderator - Ankit Agrawal] 20:51:14
+Oh, thank you so much, Professor, for that wonderful lecture uh this week was pretty intense for a lot of learners because of uh the topics around neural network. A lot of questions around it.
+
+[Moderator - Ankit Agrawal] 20:51:25
+Um. I see that we have Christian available with us to answer some questions. Uh, Hello, Christiana!
+
+[[GL-Mentor] Cristiano Aguiar] 20:51:35
+Hi! Good morning!
+
+[Faculty (Olympus)] 20:51:36
+Right.
+
+[Moderator - Ankit Agrawal] 20:51:37
+Uh! We'll we'll get started with some of the general questions that we had throughout.
+
+[Moderator - Ankit Agrawal] 20:51:44
+Uh.
+
+[Moderator - Ankit Agrawal] 20:51:45
+The session.
+
+[Moderator - Ankit Agrawal] 20:51:46
+Uh. One of the initial questions we had is, what's 1 of the more popular encoding algorithms right now, I'm aware of word to work and close, but that's about it.
+
+[[GL-Mentor] Cristiano Aguiar] 20:51:59
+Those are the most popular have. Ah!
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:02
+They'll have and go from Santa and and have water back. Those are popular that.
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:07
+Prior to what we have nowadays, that all those encoders, all those.
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:11
+Uh.
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:12
+Extractor of embeddings from text nowadays are.
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:16
+Transformers based, and they are usually people load those models from from open source like birth. One of the the models of our mission through. The lecture is one of the most popular ones, for is to extract.
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:27
+Uh, vectors from tax, from from a particular sentence, for example, one to to do some uh build the vector, representation of centers of words.
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:36
+Those are most popular nowadays rather than use back global. I think nowadays people tend to use uh more.
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:43
+Transformer based model. To these these tasks.
+
+[Moderator - Ankit Agrawal] 20:52:47
+Yeah. Um, I agree with you like Burt, Robert, these types of word embedding methods are more popular right now, where you are learning some sort of like an auto encoder or transfer transformer encoding to learn word embeddings. From there.
+
+[[GL-Mentor] Cristiano Aguiar] 20:52:51
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:53:00
+Um. There are other methods like uh we have, as somebody mentioned word to Tf. Idf, all of those methods where popular, I think, during Rnn. Or Lstm. Frameworks.
+
+[Moderator - Ankit Agrawal] 20:53:13
+But yeah, now we rely heavily on board embedding methods.
+
+[Moderator - Ankit Agrawal] 20:53:19
+Um.
+
+[Moderator - Ankit Agrawal] 20:53:22
+Is it possible to see what the encoding of one of the particular word looks like?
+
+[Moderator - Ankit Agrawal] 20:53:28
+Uh.
+
+[[GL-Mentor] Cristiano Aguiar] 20:53:31
+Uh, yes, so.
+
+[Moderator - Ankit Agrawal] 20:53:31
+So was there like an example or something.
+
+[[GL-Mentor] Cristiano Aguiar] 20:53:35
+Uh, yes, uh, if you if you look, because usually the the encoding like what you're trying to extract from from a sentence.
+
+[[GL-Mentor] Cristiano Aguiar] 20:53:44
+That's the output of.
+
+[[GL-Mentor] Cristiano Aguiar] 20:53:45
+A part of the transform model. When you have 2 parts like encoding decoder, when you encode. The output of this encoder is that representation.
+
+[[GL-Mentor] Cristiano Aguiar] 20:53:53
+The same approach that you do on on the later part of the talking about the transformer. Oh, sorry the transfer learning part in which you're going to.
+
+[[GL-Mentor] Cristiano Aguiar] 20:54:01
+Yeah.
+
+[[GL-Mentor] Cristiano Aguiar] 20:54:02
+Another network and get an output from that and train another linear adaptation after that similar approach that we're gonna do to extract uh the encoding parts. You're gonna essentially take part of the network.
+
+[[GL-Mentor] Cristiano Aguiar] 20:54:13
+That was learned before the same process of the language model, and the output of that layer is your encoding, is.
+
+[[GL-Mentor] Cristiano Aguiar] 20:54:21
+Was, let's say, is what your model understands about that sentence. It's it's a vector is a number setup numbers.
+
+[Moderator - Ankit Agrawal] 20:54:31
+Hmm.
+
+[Moderator - Ankit Agrawal] 20:54:34
+Um.
+
+[Moderator - Ankit Agrawal] 20:54:36
+Still trying to get my understanding on transformers. It would be helpful to walk through some examples. Can you share some documents to grasp the concept. So I guess the question is more about references to.
+
+[Moderator - Ankit Agrawal] 20:54:48
+Uh, understand Transformers concept, better.
+
+[[GL-Mentor] Cristiano Aguiar] 20:54:55
+Yeah, I think other than the ones that I think I took the paper, that the original paper is a good source, right? I think that it's very well explained. The conditions are need, and some of the other.
+
+[Faculty (Olympus)] 20:54:56
+8, count.
+
+[[GL-Mentor] Cristiano Aguiar] 20:55:06
+Sources here are good as well.
+
+[Moderator - Ankit Agrawal] 20:55:09
+Yeah. Uh, I also see John.
+
+[Faculty (Olympus)] 20:55:09
+Yeah, another thing. If you want.
+
+[Faculty (Olympus)] 20:55:12
+Yeah, we'll call. We're gone.
+
+[Moderator - Ankit Agrawal] 20:55:14
+No no please. Go ahead, professor.
+
+[Faculty (Olympus)] 20:55:16
+Yeah, if you want a lot of details on like interpreting some of what the transformer is doing.
+
+[Faculty (Olympus)] 20:55:24
+Anthropic had like. So anthropic AI is doing a lot of this like interpretability of transformers these days. They have a lot of descriptions and examples, and so on. But that's like pretty detailed. If you want some of that.
+
+[Moderator - Ankit Agrawal] 20:55:40
+Yeah, I was gonna recommend that topic as well. And I see John has put a blog article by Jalamur, the illustrated transformer in the chat as well, which is very popular. I think the last I checked it had, like 50 million views, or something.
+
+[Moderator - Ankit Agrawal] 20:55:55
+That block blog post um, somebody earlier had also posted a link to a video series by 3 blue, one brown.
+
+[Moderator - Ankit Agrawal] 20:56:03
+But Youtube, which also has very good videos on just the basic understanding of self retention and uh, basic architecture of transformers.
+
+[Moderator - Ankit Agrawal] 20:56:13
+Um. Another video I saw in the chat posted was by Andrea. He was the head of Uh self driving for Tesla. He was also one of the board members for Chat Gpt during the initial parts. Um, he has, like a lot of videos on understanding transformers on Youtube, available.
+
+[Moderator - Ankit Agrawal] 20:56:33
+I think Stanford online has, like a video by underscore party on transformers as well, like a basic understanding of what transformers is.
+
+[Moderator - Ankit Agrawal] 20:56:42
+Um, so those are like very good resources uh.
+
+[Moderator - Ankit Agrawal] 20:56:46
+Uh. To understand this in detail.
+
+[Moderator - Ankit Agrawal] 20:56:50
+Um.
+
+[Moderator - Ankit Agrawal] 20:56:55
+So uh related to the con uh the part of the lecture where we were talking about transfer model. Somebody asked, Are these what open source Llms enabled.
+
+[Moderator - Ankit Agrawal] 20:57:05
+So.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:08
+The.
+
+[Moderator - Ankit Agrawal] 20:57:08
+Are the pre-training and stuff available through open source Lls.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:13
+Yeah, that that's that's correct. So the the process explained here how to the the language models uh train, the same one that those.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:23
+Uh open source element that are also trained as well.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:26
+And the one example exactly is here. The hugging face uh web page.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:31
+Uh it's a it's a very.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:33
+Results for you to to get uh some of those models as well. So it does. The process.
+
+[Moderator - Ankit Agrawal] 20:57:41
+Um.
+
+[Moderator - Ankit Agrawal] 20:57:44
+Somebody asked, if the language um, if the language model is learning off the Internet, how does it force through bad or false information? Is it based on probability? There will be a lot more true information than false information.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:00
+I think that the proposal also that gave some some explanation. That was it during the process, like, there's some some ways for you to to pass through the probabilities, the output.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:10
+And those models also, they have another step that when you train these uh approach, which is, there's a reinforcement learning about after this, which is kind of.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:21
+Ah, let's say, just refining a little bit the output of your your large language model in such a way that can follow some particular uh rules that the rules are. You understand? Now, there's the rules of.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:34
+The world like the the the large language model shouldn't uh output something that's uh harmful, or should put something that's very uh damaging, depending on the the large language models doing so. There's a post processing another step after the the fine tuning approach uh, to kind of.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:52
+Align your your language, model to.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:55
+To answer question properly.
+
+[Moderator - Ankit Agrawal] 20:59:03
+Um.
+
+[Moderator - Ankit Agrawal] 20:59:03
+I know yesterday, you guys said that we can use transformers to create generative AI models. I'm still confused on how to do this. Does it start with a prediction, and then keep making predictions based off the model to generate content.
+
+[[GL-Mentor] Cristiano Aguiar] 20:59:20
+Yes, uh. So that's the direction. So the the.
+
+[[GL-Mentor] Cristiano Aguiar] 20:59:24
+The Gpt, the like, the the how Gdp works are gonna take just the.
+
+[[GL-Mentor] Cristiano Aguiar] 20:59:29
+They call the party. I can go into.
+
+[[GL-Mentor] Cristiano Aguiar] 20:59:31
+Uh give them a sentence and try to put what's the next.
+
+[[GL-Mentor] Cristiano Aguiar] 20:59:35
+Word.
+
+[[GL-Mentor] Cristiano Aguiar] 20:59:35
+And with this the awards that are generated, you you input that again and generate. The next one is, it's a is an ongoing process. Right? It's almost like recursion type of pro process. Right? You're going to give the the next prediction. I'm going to predict the next one next one, something similar that when you type in your phone like, you have your own and kind of telling you what's the most probable word. So that you're gonna say, next.
+
+[[GL-Mentor] Cristiano Aguiar] 20:59:57
+And that's something similar I could type in according what you you typed it before. They're trying to predict what's going to be the next.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:04
+Or they're gonna type. So the those models working in similar way, you're gonna always predict the next one.
+
+[Moderator - Ankit Agrawal] 21:00:10
+Yeah. Um, just to add to that, this is also called as context window. Right? I mean, we can predict a certain amount of we can take a certain amount of context as an input and also produce a certain amount of context uh based output. So it just keeps predicting the next word, but it knows when to end the response, or when to continue to a predict the next word.
+
+[Moderator - Ankit Agrawal] 21:00:34
+Uh, this is called context in general.
+
+[Moderator - Ankit Agrawal] 21:00:39
+Um.
+
+[Moderator - Ankit Agrawal] 21:00:42
+Another question we have is, How does one isolate text from metadata and formatting that can vary from page to page.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:52
+There's a bit of a taxi processor that comes before building those sentences to to try, like the self supervise, approach.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:00
+As a heavy taxi processing that comes before that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:02
+Ha! Kind of clean up the text to be ready in terms of, you know, having a clean sentence for the model to be learned, so there might be some things that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:11
+Involves the writing code writing some types of functions that are gonna do this.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:17
+Is tax cleaning as well.
+
+[Moderator - Ankit Agrawal] 21:01:23
+Another question that I see is, are there any rule of thumb on how much data is needed to do a good job of training.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:33
+I think I mean.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:36
+I I think it doesn't have an actual rule like the number. Maybe the professor has a as a better.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:42
+Uh answer to that, but I think.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:45
+I think it's all related to one. The quality of the data, the better the the data. I think people nowadays tend to to pay more attention to know how good their sentence are. And also, you know, all the things that we mentioned about bias, about.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:58
+Uh harmful content, and things like that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:02:00
+So I think a a better quality data is gonna play a.
+
+[[GL-Mentor] Cristiano Aguiar] 21:02:04
+Role, and also, of course, those models that are begs huge order of billions of parameters that needs to be learned.
+
+[[GL-Mentor] Cristiano Aguiar] 21:02:11
+So in that case, gonna need like, let's say.
+
+[[GL-Mentor] Cristiano Aguiar] 21:02:14
+Billions, and so our trillions of sentences to be trained on. So that's a if you train all those from scratch, of course. But if you're going to apply another technique which involved transfer learning, you might need, of course, a less data to do that.
+
+[Moderator - Ankit Agrawal] 21:02:32
+Uh. Maybe Professor has comment on that as well. Um like, how much data do we require to build uh a good uh to do a good job in training of Lms.
+
+[Faculty (Olympus)] 21:02:46
+Yeah, I think that. So in general, I think um.
+
+[Faculty (Olympus)] 21:02:49
+I I agree it depends on the task.
+
+[Faculty (Olympus)] 21:02:53
+That you have. It depends on the quality of the data.
+
+[Faculty (Olympus)] 21:02:56
+Um.
+
+[Faculty (Olympus)] 21:02:58
+The variation you have in the data, etc.
+
+[Faculty (Olympus)] 21:03:01
+Um. So for Lms, it tends to be a lot of data. I forgot the exact numbers.
+
+[Faculty (Olympus)] 21:03:06
+Um. But what people basically also do is for Lms. When you train before they train on Llm.
+
+[Faculty (Olympus)] 21:03:14
+This is a very expensive process.
+
+[Faculty (Olympus)] 21:03:16
+So. What they do is they try to estimate. Would it be better.
+
+[Faculty (Olympus)] 21:03:20
+To make our model larger, and have more parameters of. Would it be better.
+
+[Faculty (Olympus)] 21:03:25
+To do more iterations, and hence see more training data.
+
+[Faculty (Olympus)] 21:03:29
+And they are these so called scaling laws that would tell you so that basically with a given budget like, Okay, like you.
+
+[Faculty (Olympus)] 21:03:37
+You would like.
+
+[Faculty (Olympus)] 21:03:38
+Whatever. If you make your model bigger, you would double the training data, or like and triple the number of parameters, or something like that.
+
+[Faculty (Olympus)] 21:03:46
+Um.
+
+[Faculty (Olympus)] 21:03:47
+That. Then you get like a bit more out. So usually you still get more out the more data you have. So we haven't kind of reached the plateau, yet.
+
+[Faculty (Olympus)] 21:03:55
+If you also make your model a bit bigger.
+
+[Faculty (Olympus)] 21:03:58
+Um. I forgot now the exact numbers that these were actually um.
+
+[Faculty (Olympus)] 21:04:03
+Trained on.
+
+[Faculty (Olympus)] 21:04:04
+Um, maybe until you and all that, but.
+
+[Faculty (Olympus)] 21:04:08
+Um, yeah, it's a, it's a lot. It's really a lot like the model itself is humongous. And then the amount of data that you have is really huge, for the language models.
+
+[Moderator - Ankit Agrawal] 21:04:18
+Uh! I don't know the exact.
+
+[Faculty (Olympus)] 21:04:19
+For the image models.
+
+[Faculty (Olympus)] 21:04:21
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:04:22
+Sorry. Please. Go ahead.
+
+[Faculty (Olympus)] 21:04:24
+Yeah. So for the image models, they are smaller. So, for instance, this.
+
+[Faculty (Olympus)] 21:04:28
+Image net data has about like.
+
+[Faculty (Olympus)] 21:04:31
+A bit more than a million, 1.2 or so. I think 1 million data points.
+
+[Faculty (Olympus)] 21:04:35
+And this is the supervised version. This is like the small one. So you like, unsupervised, you would be able to use more images.
+
+[Faculty (Olympus)] 21:04:43
+So this is just as a ballpark, and language models are like way beyond that.
+
+[Moderator - Ankit Agrawal] 21:04:50
+Yeah, uh, I don't know the exact numbers, but I know when Chad Gdp, the 1st version of it came it was trained on almost all of Internet till 2,016.
+
+[Moderator - Ankit Agrawal] 21:05:01
+Uh, and the most recent Chat Gp version was trained to all the data up to 2,022, I think, somewhere in September of 2,022. So they are updating their database. And the data size is increasing rapidly because of how quickly.
+
+[Moderator - Ankit Agrawal] 21:05:17
+They are adding more and more data to these updated versions. But but I don't have specific numbers on how much data was used for any of this either.
+
+[Moderator - Ankit Agrawal] 21:05:28
+Um.
+
+[[GL-Mentor] Cristiano Aguiar] 21:05:30
+Yeah, there's some things on on Yama, too, which is one open source, alum, they said. Like.
+
+[[GL-Mentor] Cristiano Aguiar] 21:05:36
+2 trillion tokens that was trained on.
+
+[Moderator - Ankit Agrawal] 21:05:37
+Better.
+
+[Moderator - Ankit Agrawal] 21:05:39
+Yeah. Uh, I mean, the tokens are just the number of uh words or the the the tokens.
+
+[[GL-Mentor] Cristiano Aguiar] 21:05:44
+Yeah. George, wise.
+
+[Moderator - Ankit Agrawal] 21:05:47
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:05:48
+I also heard that the to the context window size uh, for the token says, reached almost up to a million.
+
+[Moderator - Ankit Agrawal] 21:05:55
+Meaning that we can learn the attention, mechanism, or relationship between a million words in a sent uh in a sequence. And we can understand relationships between them.
+
+[Moderator - Ankit Agrawal] 21:06:05
+So one of the ways that people were trying to explain. It is, if you can take all of the game of thrones, books, or Harry Potter books.
+
+[Moderator - Ankit Agrawal] 21:06:14
+And it will understand relationship of every character to every other character and entire story plot lines. And you can ask any questions.
+
+[Moderator - Ankit Agrawal] 21:06:21
+Along these, and it will answer uh any and all questions related to that.
+
+[Moderator - Ankit Agrawal] 21:06:26
+So, yeah, the number of tokens are.
+
+[[GL-Mentor] Cristiano Aguiar] 21:06:27
+Yeah, Google, Google has one. Yeah.
+
+[Moderator - Ankit Agrawal] 21:06:30
+Yeah, the number of tokens are, I think, close to like a trillion, and the context window is close to a million. Right now.
+
+[Moderator - Ankit Agrawal] 21:06:37
+That we are dealing with.
+
+[[GL-Mentor] Cristiano Aguiar] 21:06:37
+Yeah, it's Google has one model. That's.
+
+[[GL-Mentor] Cristiano Aguiar] 21:06:40
+1.5. I guess 1.5 million to the context. It's a pretty big ask questions about the book.
+
+[Moderator - Ankit Agrawal] 21:06:44
+Yeah, they're they're increasing it.
+
+[Moderator - Ankit Agrawal] 21:06:48
+Yeah, I think it. Yeah, they are increasing the context window. But I don't even know if we really need.
+
+[Moderator - Ankit Agrawal] 21:06:55
+That level of context window in most cases. But.
+
+[Moderator - Ankit Agrawal] 21:06:59
+Um, okay. Uh. Another question we have is with transfer learning in mind, can we use chat, Gpt Api to create a more specific model that we wish to create for ourselves.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:12
+Yes, I I believe opinion has also. Uh.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:16
+Let's say a service or something that you can fine tune for your particular task. It costs money, of course, how to pay them and use their Api and provide your data. And they're going to fine tune your model for your.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:28
+Particular task as well. There's 1 approach uh approach that you can do. You can extract.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:34
+Those embodies which is the the vector representation of of sentences or tokens.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:38
+And can can call. Open your Api and pull these vectors back.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:44
+From there and then use that as your data to train. I don't know what caused fire or whatever type of task that you want to do.
+
+[Moderator - Ankit Agrawal] 21:07:52
+Yeah, that is one way. There are open source models as well. Right? Like, I have a llama, 3 running on my local machine that I am doing this call from, so that llama 3 trains on every query I make on my laptop. So it's it's tied to my keystrokes.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:56
+You know.
+
+[Moderator - Ankit Agrawal] 21:08:07
+So every time I type anything on my keyboard, my lama 3 runs locally on my uh own data set, and.
+
+[Moderator - Ankit Agrawal] 21:08:14
+And tries to update itself on my own data set. So I I downloaded the tokens from online like the embedding tokens. And then I built a llama 3 uh in on my own system.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:28
+Nice.
+
+[Moderator - Ankit Agrawal] 21:08:29
+So yeah. Uh, you can do that. You can also use Apis for Chat Gp, I think, also has a Api service. Now, right from anthropic uh the clock. 3 recently started doing that as well. So there are different tools that are available for Api service as well.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:39
+Yes, yes, I do.
+
+[Moderator - Ankit Agrawal] 21:08:47
+Um. But yeah, you can train specific models.
+
+[Moderator - Ankit Agrawal] 21:08:52
+Um.
+
+[Moderator - Ankit Agrawal] 21:08:53
+Can generative models create synthetic images associated with labels? Uh, we could then use synthetic label data to train supervised classification on real images.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:07
+So I just understood. Like to.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:09
+To use a genitive model to generate the labels of not only generate the name much, but also to generate the labels as well. Right.
+
+[Moderator - Ankit Agrawal] 21:09:18
+Yeah.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:19
+I'm I'm not aware of that. Does that uh like.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:22
+One single thing like in in terms of.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:26
+One thing that I can think of. Maybe in some I don't think so. That's generating like.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:32
+Caption of the image, and also the image. I'm not sure I'm not aware of a certain thing.
+
+[Moderator - Ankit Agrawal] 21:09:38
+I think the question more propagates towards, can we create synthetic data uh and their lab.
+
+[Moderator - Ankit Agrawal] 21:09:46
+So that we can make supervised tasks a little bit better.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:52
+Oh, I think so. Oh, okay, maybe you can. Can. That that could be embedded in the way that you're gonna prompt your your model to do it right. You can generate.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:00
+Uh images according to a certain label, and they generate images for that label and try to use that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:06
+Your supervised.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:07
+Uh. But at the same time there are all these issues that the uh the professional is increasing. The bias, like exhaustibility to buy is, let's say of uh.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:16
+Of the alternative model to use that for your.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:20
+Your task. That could be a problem as well.
+
+[Moderator - Ankit Agrawal] 21:10:21
+No.
+
+[Moderator - Ankit Agrawal] 21:10:25
+Maybe professor is aware of any uh use case of this. Uh, have we seen any applications where we are generating synthetic data to update a supervised learning model.
+
+[Faculty (Olympus)] 21:10:37
+Um, so I know people are using synthetic images for training models as well.
+
+[Faculty (Olympus)] 21:10:43
+Um. I forgot what exactly they were generating, though.
+
+[Faculty (Olympus)] 21:10:48
+Um. But in principle you could do this, you could prompt the model like, give me an image of something, and it would generate it, like daily or so like any of these, can do it. Stable diffusion.
+
+[Faculty (Olympus)] 21:10:59
+Um.
+
+[Faculty (Olympus)] 21:11:01
+But people have used, like, basically something like this to train vision models in this webing, the Internet. So, for instance, the clip model.
+
+[Faculty (Olympus)] 21:11:10
+Which is basically a language vision model, that alliance.
+
+[Faculty (Olympus)] 21:11:15
+Language and images.
+
+[Faculty (Olympus)] 21:11:16
+They trained it like the training data for that was that they had basically.
+
+[Faculty (Olympus)] 21:11:22
+I think they used image captions. Actually, okay, they used image captions from the Internet and the images. The other thing you could do is that people have done to create data sets is to query like, put in Google image search, you put like a prompt.
+
+[Faculty (Olympus)] 21:11:36
+And then you take the images that it shows you, and then you have a.
+
+[Faculty (Olympus)] 21:11:40
+A pretty, noisy.
+
+[Faculty (Olympus)] 21:11:42
+Training set um.
+
+[Faculty (Olympus)] 21:11:43
+That I have seen, and apparently that.
+
+[Faculty (Olympus)] 21:11:48
+Works. Also, if you have enough data that works.
+
+[Faculty (Olympus)] 21:11:51
+Um, you can use that as well. Um. It's, of course, noisier. So in principle you could use the prompting as well. It may have exactly this thing, that.
+
+[Faculty (Olympus)] 21:11:59
+All of these generative models are not free of biases either, in the sense, if you ask it, maybe.
+
+[Faculty (Olympus)] 21:12:05
+Create whatever a picture of a teacher, then it'll create a female teacher, and things like that that uh will also happen.
+
+[Moderator - Ankit Agrawal] 21:12:16
+Yeah, uh, we are currently on, uh, in one of the startup projects for my own. We are struggling with it because there are Api limitations on how many images you can pull from Google search as well.
+
+[Moderator - Ankit Agrawal] 21:12:27
+Um every time we hit a threshold, and we have to create a new account or something to extract more images.
+
+[Moderator - Ankit Agrawal] 21:12:33
+Uh, and the images are very noisy as well. I think Google is doing that intentionally. Uh. So people can avoid doing this. But yeah.
+
+[Moderator - Ankit Agrawal] 21:12:43
+Um.
+
+[Moderator - Ankit Agrawal] 21:12:46
+And I see Professor has put in the chat saying, Gpt, 3, use 300 billion tokens and 175 billion uh parameters. So yeah.
+
+[Moderator - Ankit Agrawal] 21:12:57
+Uh, we are definitely up too close to it.
+
+[Faculty (Olympus)] 21:12:58
+Yeah, I don't.
+
+[Moderator - Ankit Agrawal] 21:13:00
+Yeah, we are close to a trillion tokens, and up to 400 billion. Now, I think, cloud 3.
+
+[Moderator - Ankit Agrawal] 21:13:08
+Is the biggest model we have right now, with close to 400 billion.
+
+[Moderator - Ankit Agrawal] 21:13:16
+Rupon is asking. I assume, everything we learned today on Llm. Applies also to slms for small language models. How is data collected for slms?
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:29
+Did similar. Right? You're gonna train a language model.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:33
+Uh the differences, the the language going to be smaller, right.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:38
+I think it's more in terms nowadays. Kind of parameters like 1. 2 parameters, people call it small.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:44
+But in fact, like this is, this is about the because usually what they do in training those small models to fit that in devices like.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:52
+Things. They've been on Apple recently.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:53
+Talked about their voice, intelligence, they have.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:56
+They're going to run a language model.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:59
+In, the.
+
+[[GL-Mentor] Cristiano Aguiar] 21:14:00
+And they're going to have.
+
+[[GL-Mentor] Cristiano Aguiar] 21:14:02
+Fine tune, the models for a particular task that are gonna the device the iphones gonna do.
+
+[[GL-Mentor] Cristiano Aguiar] 21:14:07
+And that that needs to be small, because that need to fit this thing in the the device memory, right? And from a complex thing they mean. They are going to call something. Use an Api that has, like those.
+
+[[GL-Mentor] Cristiano Aguiar] 21:14:17
+300 human parameters, 100 like, at very large number of parameters, so that that the the.
+
+[[GL-Mentor] Cristiano Aguiar] 21:14:24
+Usage of those models, mostly for fitting those into the device. So maybe your own computer to answer question. But the process of training is the same.
+
+[Moderator - Ankit Agrawal] 21:14:35
+Yeah.
+
+[Faculty (Olympus)] 21:14:35
+Actually, the small model reminds me of another way. You can actually use a model to train another model.
+
+[Faculty (Olympus)] 21:14:41
+Sometimes to compress models.
+
+[Faculty (Olympus)] 21:14:43
+People basically trained a small model by using the outputs of the big model. So the small model really learns to imitate the big model.
+
+[Moderator - Ankit Agrawal] 21:14:54
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:14:56
+I've seen, like Nvidia doing something like that where they are doing data compressions or model compressions on their um on their hardware. Uh, by doing something like floating point terminations and stuff like that to train smaller models that are extracted from large.
+
+[Moderator - Ankit Agrawal] 21:15:14
+Um.
+
+[Moderator - Ankit Agrawal] 21:15:17
+Okay? Diana asked earlier. Um, where are the possible responses stored? For example, the question, how about you? Where or how does the algorithm find the answer.
+
+[Moderator - Ankit Agrawal] 21:15:27
+So I think the this dates back to the lecture where, uh, professor was mentioning that the algorithm goes back and looks into your training data.
+
+[Moderator - Ankit Agrawal] 21:15:37
+To find the answer for a search. Query.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:43
+But those those models are kind of probably uh approach right? They are going to just uh search. And through the ways that they learned uh in the training process.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:52
+They're going to be able to provide what's going to be the next token and so forth. Gonna build.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:58
+The sentence based on that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:16:00
+And based on.
+
+[[GL-Mentor] Cristiano Aguiar] 21:16:01
+What the combinations of words is within that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:16:05
+Contacts through the sequence that we've put into those models, and that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:16:08
+It's basically probably risk. In a sense, like language models are probably the least approach to to learn language, right to learn how.
+
+[[GL-Mentor] Cristiano Aguiar] 21:16:17
+Words fit together, and the audio, once you output.
+
+[[GL-Mentor] Cristiano Aguiar] 21:16:20
+Uh the next token.
+
+[Moderator - Ankit Agrawal] 21:16:28
+Um.
+
+[Moderator - Ankit Agrawal] 21:16:31
+Trying to. I think those are all the questions that I have on my end. Uh, I think those are all the questions that I see on the chat as well.
+
+[Moderator - Ankit Agrawal] 21:16:41
+Um.
+
+[Moderator - Ankit Agrawal] 21:16:42
+So I think we can end.
+
+[Moderator - Ankit Agrawal] 21:16:45
+The session here, unless there are follow up on that question. So it's stored in some database.
+
+[Moderator - Ankit Agrawal] 21:16:51
+So that's the question. To Christiana's answer.
+
+[Moderator - Ankit Agrawal] 21:16:54
+This one.
+
+[[GL-Mentor] Cristiano Aguiar] 21:16:56
+No, not really so. The the model doesn't learn like ah! Like a database to search for. Those are.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:02
+Weights, that the model works.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:04
+Uh through those rates. They are going to.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:06
+To know what is going to be the relationship between wars. They don't uh start exactly the same combination of sentences inside that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:15
+They store weights. That's what the model the same thing that you have with your.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:20
+Fully connect the network. Cnn's. They they all wait. There are all.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:24
+Matrix of numbers.
+
+[Moderator - Ankit Agrawal] 21:17:27
+No.
+
+[Moderator - Ankit Agrawal] 21:17:29
+So follow up. Questions are coming in. So where is the learned model stored like, where are the weights stored and stuff.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:37
+Yeah, the rates are. Uh. When when you train those models, they they.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:42
+You know, they they learned those ways. They have updated matrices with the the numbers to minimize.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:48
+All those things, like all the grades, find the minimum of the the problem that they're trying to solve. And those rates are saved to save that to a file like they just files gonna store all the weights. And you can load that. After that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:00
+Get in!
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:02
+To to learn those.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:04
+To to use that inference. Sorry.
+
+[Moderator - Ankit Agrawal] 21:18:08
+Yeah, um, and and, by by George, we have something called model, save where it stores the architecture of the model and the weights of the models and stuff where you can like, load that model again, and reuse those models whenever necessary.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:17
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:18:23
+Um.
+
+[Moderator - Ankit Agrawal] 21:18:25
+So, yeah, you can store that.
+
+[Moderator - Ankit Agrawal] 21:18:27
+Okay? So I think those are all the questions we have. Um, I think this is a good place to stop.
+
+[Moderator - Ankit Agrawal] 21:18:33
+Uh, just a quick reminder to everybody that we do have mental learning sessions this weekend uh, where on Saturday we'll talk about artificial neural networks, and Sunday will talk about convolutional neural networks.
+
+[Moderator - Ankit Agrawal] 21:18:45
+And next week with Professor David, we will talk about recommendation system. So we'll start from very uh beginning.
+
+[Moderator - Ankit Agrawal] 21:18:54
+Like averaging based recommendation systems and talk about more advanced methods like matrix completion methods. Uh, towards the end of next week.
+
+[Moderator - Ankit Agrawal] 21:19:03
+So with that. Uh, thank you, Professor Stephanie. So much for the wonderful week uh for explaining these topics in such great detail.
+
+[Moderator - Ankit Agrawal] 21:19:11
+And thank you, Christina, for being with us uh this week, and answering all the questions that were caused by the by the learners.
+
+[[GL-Mentor] Cristiano Aguiar] 21:19:21
+Thank you. Thank you. Excellent lecture today as well.
+
+[Faculty (Olympus)] 21:19:22
+Yeah, thank you. Christiano. And.
+
+[[GL-Mentor] Cristiano Aguiar] 21:19:24
+Thank you very much.
+
+[Faculty (Olympus)] 21:19:26
+Yeah, thank you all, and thank you all. Um, for attending, and for all your wonderful questions.
+
+[Moderator - Ankit Agrawal] 21:19:34
+Uh! Take care of everybody, and we'll see you next week. Then.
+
+[Moderator - Ankit Agrawal] 21:19:38
+Right.
+
+[[GL-Mentor] Cristiano Aguiar] 21:19:39
+Thank you.
+
+[Faculty (Olympus)] 21:19:40
+By all, the best to everyone.
+

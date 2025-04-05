@@ -1,0 +1,2976 @@
+[Moderator - Ankit Agrawal] 19:00:10
+Good morning, good afternoon and good evening depending on where you are joining. A couple of, reminders just like last session.
+
+[Moderator - Ankit Agrawal] 19:00:20
+So welcome to your second live virtual class. Today we'll be talking about network analysis.
+
+[Moderator - Ankit Agrawal] 19:00:28
+Make sure that you're interacting with the staff in the chat section. We will not be, we will not be able to enable your microphone.
+
+[Moderator - Ankit Agrawal] 19:00:38
+So please do not try to raise your hand during the class. Please do not interact via QA box either.
+
+[Moderator - Ankit Agrawal] 19:00:47
+We will be monitoring the chat box. Please make sure that all your questions and comments are being sent to everyone.
+
+[Moderator - Ankit Agrawal] 19:00:53
+I do see some comments coming in for hosts and panelists alone. Make sure that you are sending them all to everyone.
+
+[Moderator - Ankit Agrawal] 19:01:03
+And just like last time there will be a 30 min Q&A session at the end of the class so please if you can stick around and ask your questions during then as well.
+
+[Moderator - Ankit Agrawal] 19:01:16
+And that with that being said, I will hand over the session to professor today. Good morning professor.
+
+[Faculty (Olympus)] 19:01:22
+Good morning and hello everyone. Welcome back. I'm excited to be back and to be teaching the second lecture here.
+
+[Faculty (Olympus)] 19:01:31
+We'll be looking at a completely new data modality that we haven't talked about yet. Namely networks and we'll see that really networks appear.
+
+[Faculty (Olympus)] 19:01:42
+And so it is important that we also, actually use them when we're doing, data analysis.
+
+[Faculty (Olympus)] 19:01:48
+So I like to start off with a little bit of a recap of where we are. What we've done so far so that we're all on the same page.
+
+[Faculty (Olympus)] 19:01:57
+And then from there move on to giving an overview on what we're actually going to do today and then actually start the material.
+
+[Faculty (Olympus)] 19:02:06
+So what have we done on Monday? So on Monday we started talking about the setting where, you know, if you're in this lucky situation where you can actually be part of the data collection process, what is important when you do that, right?
+
+[Prof. Uhler] 19:02:21
+How do you start thinking like how how important it is to 1st think about the right question that you want to ask.
+
+[Prof. Uhler] 19:02:29
+We looked at this in the example of the mammography exam of the mammography, 1st clinical trial that was set up.
+
+[Prof. Uhler] 19:02:36
+But then we also talked about it in any other setting, right? If you also do online advertising, it's exactly the same that it's really critical that you 1st think about what is exactly the question that you want to.
+
+[Prof. Uhler] 19:02:47
+That you're actually interested in. And in the mammography example, it was whether offering mammography, would reduce the number of deaths enough to matter and not whether taking a mammogram would reduce the number of deaths enough to matter because that was because that was really the policy that people wanted to introduce.
+
+[Prof. Uhler] 19:03:09
+And so then from there we went on to, talking about hypothesis testing, right?
+
+[Prof. Uhler] 19:03:14
+So now you have a data set. It looks like there is a trend that actually offering mammography does reduce the number of deaths enough does reduce the number of deaths.
+
+[Prof. Uhler] 19:03:23
+Now you need to know whether the reduction is actually significant. Right, whether, you know, this reduction that you would expect that if you were to repeat the study that then you would find the same results.
+
+[Prof. Uhler] 19:03:32
+And so that's where we talked about hypothesis testing and the p-value, which is the probability of seeing, you know, the data under the treatment if there was no change, if it was actually the model was coming from the control group.
+
+[Prof. Uhler] 19:03:45
+And so, if that probability is very small and we discussed the significance level that, you know, depending on which you know, which industry you're in, you may want to choose a different significance level.
+
+[Prof. Uhler] 19:03:58
+And then that if that probability is small enough, you would reject and say like, you know, I just don't believe it.
+
+[Prof. Uhler] 19:04:04
+It's so improbable. That I really believe that something has changed with treatment. And that it has become better in terms of the number of deaths.
+
+[Prof. Uhler] 19:04:13
+And from there, like this course, as I mentioned, it's a lot about, you know, telling you, giving you the intuition for how to do these kinds of analysis and then also always telling you about, well, what do you have to be careful about?
+
+[Prof. Uhler] 19:04:23
+And we talked about these multiple testing issues, right? That what the significance level means is that you're okay with making a mistake.
+
+[Prof. Uhler] 19:04:30
+Percent of the time if it chooses to significant level at 5% and of course that means if you do 100 tests that you should expect that 5 come back to be to be positive although they shouldn't be positive.
+
+[Prof. Uhler] 19:04:41
+So that we have to actually, always be on the watch out for that and that there are ways of correcting for it if you already know that you're going to do a lot of hypothesis tests.
+
+[Prof. Uhler] 19:04:50
+And then after that we started, already thinking about data analysis, which is really most of this course here.
+
+[Prof. Uhler] 19:04:56
+And we started thinking about what is one of the 1st analysis that you do when you actually get a large-scale data set.
+
+[Prof. Uhler] 19:05:02
+And there we talked about 2 visualization methods which will actually come up a lot also now you know during in particular on Friday's lecture again we're all going to do a much more of a recap of principal component analysis and stochastic neighbor embedding, which are the 2 methods that we talked about where we talked about one was a linear method and one is a nonlinear method so principal component analysis being a linear.
+
+[Prof. Uhler] 19:05:26
+For visualizing the data. Which just tries to find a projection projection that spreads out the data the most and then you know we also talked about a nonlinear method which was stochastic neighbor embedding which tries to make space right because if you're going from a high dimensional space to a two-dimensional space the problem is that you usually the data looks very crowded because there's much less space.
+
+[Prof. Uhler] 19:05:50
+So how it tries to do it in an nonlinear way is keep, samples, which couldn't be individuals, it could be cells in this biological data sets, it could be stocks, it tries to keep the ones that are close, they're more similar to each other close and then like is okay with moving away.
+
+[Prof. Uhler] 19:06:06
+Similar to each other. And so that like can really give you a nice visualization of what should what are actually maybe clusters in your data set.
+
+[Prof. Uhler] 19:06:14
+And since in. Friday's a lecture we're going to talk about a lot about clustering.
+
+[Prof. Uhler] 19:06:20
+We will of course come back to PCA and stochastic neighbor embedding. Okay, so that was a little bit of a recap of where we currently are.
+
+[Prof. Uhler] 19:06:29
+Now what we're going to do today is talk about network analysis. So when we talked, on Monday about, you know, exploreatory data analysis.
+
+[Prof. Uhler] 19:06:38
+It was all in the setting where we have access to one large, you know, a, like just one large, say, Excel table of data where you have whatever your samples are, right?
+
+[Prof. Uhler] 19:06:49
+Be it stocks, be it individuals as the rows, and then as the columns you have all of the different features or covariates that you're actually measuring.
+
+[Prof. Uhler] 19:06:58
+Okay, so for stocks that could be the price at different days or for individuals if you have like a customer database that could be all kinds of say demographic information but also a kinds of information of how these individuals have interacted.
+
+[Prof. Uhler] 19:07:12
+With your say company, and what are the things that maybe how much did they spend on each day, etc.
+
+[Prof. Uhler] 19:07:19
+So those would be all of the different things that you're measuring across these different customers. Okay, so that's how we're thinking about these large scale data sets and then we talked about how to actually do you know what what you do as a 1st thing when you actually get such a large-scale data set.
+
+[Prof. Uhler] 19:07:33
+Now in networks, we have additional information. We don't just have for every sample, we have some, you know, features or covariates, but we may also have information about how these samples are linked to each other.
+
+[Prof. Uhler] 19:07:46
+So for example, think of a social network, right, where you don't only have information on every individual, but you might also know who is following whom or who is a friend with whom.
+
+[Prof. Uhler] 19:07:57
+And so we should be using that type of information in order to make more informed data analysis. And so that's exactly what we're going to talk about today.
+
+[Prof. Uhler] 19:08:06
+When you have this additional information, we'll see that this actually is really not just social networks but it's you know you have network information in many many different types of applications.
+
+[Prof. Uhler] 19:08:16
+And so that's what we're going to talk about today. So you have a just additional information that may make them, not independent.
+
+[Prof. Uhler] 19:08:24
+So, so what exactly are we going to do today in terms of networks? Well, 1st we'll talk about, you know, where do networks actually appear?
+
+[Prof. Uhler] 19:08:33
+What are different applications? And then how do we even represent the network on a computer? And how do we work with it?
+
+[Prof. Uhler] 19:08:40
+And then like what we did on Monday where you know we talked about if I give you a large data set that is just like one big large Excel table, then what is the 1st thing you do with it?
+
+[Prof. Uhler] 19:08:52
+Well, the same will do now for networks. What is the 1st thing you do when you actually get a large scale network data set?
+
+[Prof. Uhler] 19:08:57
+How do you get a 1st impression of what is actually in that data set? How do we summarize that network?
+
+[Prof. Uhler] 19:09:04
+And get a 1st impression of it. And finally, one of the most, you know, one of the top applications in networks or the main question or one of the top questions and when you're working with networks is identifying important nodes or identifying important links in Hi, Identifying important links, in the network.
+
+[Prof. Uhler] 19:09:25
+And so we'll definitely also talk about that, in this lecture on how to actually do that.
+
+[Prof. Uhler] 19:09:30
+Okay, so that's a little bit of an overview and then on Friday we'll go into clustering.
+
+[Prof. Uhler] 19:09:35
+And we'll do clustering for, these, you know, just a more standard data sets, but also clustering in networks, which corresponds to the same as community detection.
+
+[Prof. Uhler] 19:09:47
+So that's where we are. And where we're going. So with that, I will, get started.
+
+[Prof. Uhler] 19:09:56
+So, what is a network? I'm so sure we all have, you know, a network in mind.
+
+[Prof. Uhler] 19:10:04
+We all know what a network is, but mathematically, so I will use terms like network and graph interchangeably.
+
+[Prof. Uhler] 19:10:11
+Okay, so we have network or graph is used interchangeably and what is a network? Well, we have a collection of nodes and sometimes they're also called vertices.
+
+[Prof. Uhler] 19:10:22
+Just the same. And these nodes are connected by links or other word as edges okay And, you know, usually my networks I will write them as a G.
+
+[Prof. Uhler] 19:10:34
+And the vertices are me or the notes and then the edges or the links part E. So, that's, So that's, how, what we're going to talk about today.
+
+[Prof. Uhler] 19:10:47
+Right. Networks. Now you know where so network research has actually and that's why maybe it's you know it's it's only in the coming although we have networks all over the place.
+
+[Prof. Uhler] 19:10:59
+It's actually not so old because You know, it was also, it was really only possible to do large scale network research once we had the compute in order to do that.
+
+[Prof. Uhler] 19:11:11
+So for a very long time, you know, the networks that could be studied like with paper and pen, right, had like 10 nodes or maybe 20 nodes.
+
+[Prof. Uhler] 19:11:22
+So they were really not that interesting, but that was all one could do. It's actually look at these networks on 10 or 20 nodes and then try to figure out things on paper and pen But nowadays, right, with the compute that we actually have, you can look at large scale networks on millions of nodes.
+
+[Prof. Uhler] 19:11:41
+And so that's and that's now where it is actually becoming interesting. And so we'll do a lot of, you know, different kinds of case studies that we're going to look at also today on real data where we actually do have millions of notes and try to see patterns in these very very large scale network data sets.
+
+[Prof. Uhler] 19:12:00
+And so some of the things that what is like, I mean, what can one do with network? So think of, for example, in the pandemic, course network research was very clearly very important and was also represented often as you know as that this is a network research right where you want to understand when 2 individuals actually came close together and, dependent on how this network structure looks like of like how many individuals came close together at what time.
+
+[Prof. Uhler] 19:12:27
+That carried different types of risks of how the virus is spreading. It's a there it becomes very clear that dependent on you want to really characterize the structure of the underlying network and dependent on what the structure is of the underlying network, that will tell you how quickly a process on the network can actually spread.
+
+[Prof. Uhler] 19:12:47
+In that case, it was a virus that was spreading. But similarly, you know, you have, these types of questions when you have news spreading, or any type of thing spreading inside the network.
+
+[Prof. Uhler] 19:13:02
+So the structure of the network really tells you how quickly something can spread. Process can travel inside such a network.
+
+[Prof. Uhler] 19:13:11
+So it's really critical to understand these properties of different networks. And, and in addition, like if we're thinking about social networks, right, different types of questions are like what Facebook does all the time is like it is suggesting that maybe this person might be a friend.
+
+[Prof. Uhler] 19:13:29
+So that means that it is trying to identify missing links in a network. And we'll talk a lot about those important notes and that what is important, of course, depends on the application.
+
+[Prof. Uhler] 19:13:40
+Now, before we go into this, as, people are already asking, I would really love you to provide examples of, you know, what are networks that you haven't encountered and let's do it in a very systematic way where you put in 1st the application and then what is the node? What are the notes and then what are the edges?
+
+[Prof. Uhler] 19:14:03
+So for example, for a social network, that would be one example. Nodes are people and the edges are say follow following a person or friendship.
+
+[Prof. Uhler] 19:14:15
+So that would be one example of like what is how a social network actually looks and what the nodes are and what the edges are.
+
+[Prof. Uhler] 19:14:23
+But let's look so for example linked in right people are the nodes and the connections are in fact the edges.
+
+[Prof. Uhler] 19:14:31
+Let's do some some examples like this where you really put in not just like neurons for example but what are actually the nodes and what are for example the edges or also human biology it's not clear what are the notes and what are actually the edges.
+
+[Prof. Uhler] 19:14:49
+Same for neural network. So here is a nice one of a transportation network where we have the subway station as nodes and then the train lines as edges. Right?
+
+[Prof. Uhler] 19:15:01
+That's like those types of transportation networks, and there are many, many such examples. For example, airports could be nodes and then the edges could be which like just the travel routes for a particular airline or for all airlines.
+
+[Prof. Uhler] 19:15:17
+Dependent on what you're studying, you would take different, you know, you would have different nodes or edges for somehow the same like, you know, where you have nodes as airports and routes as, as the edges between them.
+
+[Prof. Uhler] 19:15:33
+Similarly for road networks, right? You could have cities as nodes and then wherever there is a road, you would actually add a, you would add an edge between them.
+
+[Prof. Uhler] 19:15:44
+So neurons and then synapse, so neurons would be denotes and then synapses would be the edges between them.
+
+[Prof. Uhler] 19:15:51
+That's another, really nice application. So here is another one that really, has actually again is a very large class of different networks that will also talk a lot about where we have for example Amazon.
+
+[Prof. Uhler] 19:16:05
+So those are recommended systems where we have 2 different types of nodes. Right, so we actually have.
+
+[Prof. Uhler] 19:16:12
+We can have individuals as nodes and then we also have the products as notes. And then we have edges when a particular individual has bought a particular product that maybe even rates that particular protein.
+
+[Prof. Uhler] 19:16:27
+Okay, so that's how you would have. Something known as and we will introduce all these languages that's known as a bipartite network where we have 2 different types of nodes, individuals and then also products and then only edges between individuals and products.
+
+[Prof. Uhler] 19:16:45
+So, So power plants is another like completely different. Application right where again the power plants are the nodes and then lines between these are for example edges.
+
+[Prof. Uhler] 19:16:58
+We have phone networks, for example, right? That's another completely different one, where we have again phones as notes and then at the lines between them as, edges between them.
+
+[Prof. Uhler] 19:17:13
+So here is an interesting one that is actually based on a learned network, which is the stock market. Where the stocks are nodes and now the edges are not actually real entities that you can observe but you could learn edges, namely edges could be how correlated to stocks are and depending on the correlation you would add an edge and you would say that there is no edge if you know they're close to
+
+[Prof. Uhler] 19:17:38
+0. So that can also be networks that we can study. Where we have to infer the network. So the net the edges.
+
+[Prof. Uhler] 19:17:45
+So the edges are not actually observed. It's not like you know say in a transportation network right with airlines where we can actually observe whether there is a plane flying between these 2 airports or not in a stock market these edges have to actually be learned.
+
+[Prof. Uhler] 19:18:03
+Another completely different one is sports, right? Where you have all of the teams being notes and then, if there is a game played between 2 teams, then you would have an edge between them.
+
+[Prof. Uhler] 19:18:14
+A very nice one. That is also again completely different.
+
+[Prof. Uhler] 19:18:20
+So a lot of really, really great examples in here. So there is also another one that comes from a completely different area.
+
+[Prof. Uhler] 19:18:28
+From biology or molecules from from chemistry where you have for example 2 proteins that so proteins are all nodes and then whether they combine they better they can build protein complexes that would be actually an edge between these.
+
+[Prof. Uhler] 19:18:44
+So a lot of really, really great examples here. So I think we, will just go through it very briefly to see whether there is, so there are so many here.
+
+[Prof. Uhler] 19:18:53
+So also family, trees, for example, where individuals or nodes, right, and then, whether, you know, if they come, if they have from mom and dad, there would be an edge pointing, to a particular individual.
+
+[Prof. Uhler] 19:19:06
+So those are all, another Airbnb is another one, which is a recommended system, where you have the tenants and then the people who are staying in these places and you know if they have stayed in a particular place and give a rating then there would be an edge between them.
+
+[Prof. Uhler] 19:19:25
+So, okay, so I think, with that, we went through a lot of different, examples.
+
+[Prof. Uhler] 19:19:31
+So I hope all of you have in mind your favorite network. And you can just have that in mind as we're going through the lecture and try to see how everything we're doing here, how that could actually be applied in that particular set.
+
+[Prof. Uhler] 19:19:46
+So, what I just put down here just so that we're summarizing, but you of course gave many, many much better examples in the chat and we already went through them just so that you have something on the slides where you have some examples of what could be a network and then what are the nodes and then what are the edges.
+
+[Prof. Uhler] 19:20:06
+Okay. So, with that, let's now go in and try to develop a little bit of language and I already saw that a lot of people were asking questions about, you know, if I have a directed loops, is that still okay, etc.
+
+[Prof. Uhler] 19:20:23
+So let's set up a little bit of language of networks. So first, st we have a simple network.
+
+[Prof. Uhler] 19:20:29
+That's just, you know, something that when you're thinking of a network, that's probably what you're thinking of.
+
+[Prof. Uhler] 19:20:35
+So let me try to draw here. So I would have notes. These are my notes and then I would just have edges between them and I can have them anywhere.
+
+[Prof. Uhler] 19:20:45
+So say for example, something like this. So that's a standard network. Now what we're not allowing in these networks or, you know, any directions between edges or, you know, we cannot have things like self loops.
+
+[Prof. Uhler] 19:21:00
+So what is a self loop is a note that is connected to itself. Okay, so that we're not allowed.
+
+[Prof. Uhler] 19:21:07
+Okay, so I will remove it again. So that's not allowed. So it's really just the most simple networks that you can think of.
+
+[Prof. Uhler] 19:21:13
+So think of say a phone network. That's kind of how it would look like or a power grid or the internet.
+
+[Prof. Uhler] 19:21:19
+Those are all undirected networks have nodes and have like, you know, just very simple edges.
+
+[Prof. Uhler] 19:21:25
+They usually don't have an edge to themselves. Okay, so then, if we move on, now, of course, sometimes you can also have multiple edges between 2 notes.
+
+[Prof. Uhler] 19:21:35
+So for example, think of neurons. They can have actually between 2 neurons. You can have multiple synapses or road networks.
+
+[Prof. Uhler] 19:21:43
+Well, between 2 cities I can have many different roads that go between them. So those would now be networks that can actually have.
+
+[Prof. Uhler] 19:21:53
+That are allowed to have. So that are allowed to have like different connections between 2 nodes.
+
+[Prof. Uhler] 19:22:02
+And I'm also allowed to have like some kinds of self
+
+[Prof. Uhler] 19:22:08
+So that's another example of multi graphs. So all of these will be multi graphs, and other people are asking for simple networks.
+
+[Prof. Uhler] 19:22:16
+Mobile phone networks, etc. Okay, so, let's go on to direct and work now.
+
+[Prof. Uhler] 19:22:24
+Sometimes you actually have directions in a network. So think of, for example, websites. So one website can point to another website, but the other website might not point back.
+
+[Prof. Uhler] 19:22:35
+And it's super important to keep track of directions in that particular application, right? Because if we're thinking about importance of a website, then what And it makes a website important?
+
+[Prof. Uhler] 19:22:47
+Well, if a lot of websites point into it, but not so much of a website just points out to all kinds of stuff.
+
+[Prof. Uhler] 19:22:51
+Right? So, so that would be like an example of a directed network. So here we also now have directions.
+
+[Prof. Uhler] 19:23:00
+So something, you know, maybe something like this could be a direct network. And of course, when you have directions, you can even do things like bi directions.
+
+[Prof. Uhler] 19:23:09
+So right, there could be 2 websites that are in fact pointing to each other. That's totally okay to do as well.
+
+[Prof. Uhler] 19:23:14
+So those are examples where you actually the direction matters and so there are many applications where you do want to take into account connection.
+
+[Prof. Uhler] 19:23:22
+Now sometimes you even have weights on the edges. So, for example, in a transportation network, right, where, we have, you know, some, network like this, but also can also be directed, whichever you want to look at.
+
+[Prof. Uhler] 19:23:38
+And then we have weights on it where the weights depend on the application. So the weights could be hours.
+
+[Prof. Uhler] 19:23:46
+So how long does it take you to get from one place to the other? Or in an airplane network, maybe the application is how many people can travel, like how large is the airplane that is actually going from one place to another?
+
+[Prof. Uhler] 19:23:59
+Like how many people are generally traveling from one place to another. That is really important, right, for the airports to know what they should be expecting.
+
+[Prof. Uhler] 19:24:05
+In terms of how many people are arriving at which times. So really what the weights are that you're putting on to the network depends very, very much on the application.
+
+[Prof. Uhler] 19:24:16
+Okay. So that's, another setting. So when we say a way to network, it means that we have edge weights and those of course depend on the application.
+
+[Prof. Uhler] 19:24:27
+Now, Bipartite Network is something else that I already, mentioned before, when I was talking about it, right?
+
+[Prof. Uhler] 19:24:35
+So bipartite network, when we were talking about recommender systems, I talked about the setting where we have 2 different types of nodes, where say one type of node and Amazon are people and the other types of nodes are products.
+
+[Prof. Uhler] 19:24:52
+And then we can only have edges between people. And products, but we can't have edges between.
+
+[Prof. Uhler] 19:25:00
+Products and we can also not have edges. Between Just people. Okay, so that's a bipartite network.
+
+[Prof. Uhler] 19:25:13
+Because, you have 2 different types of notes. So then there is a question about tender, so that I think wouldn't be a by that would not be a by per tight network because you have only all of them are people and anyone can be connected.
+
+[Prof. Uhler] 19:25:27
+I think with anyone. So or there are special versions and maybe you could say it as a as a biotech networks and a vipertite network.
+
+[Prof. Uhler] 19:25:37
+The main thing is that you have 2 types of nodes and you can have no edges within one class.
+
+[Prof. Uhler] 19:25:42
+And no edges within the other class, you can only have edges between.
+
+[Prof. Uhler] 19:25:48
+So, and again, in a bipartite network, you can again have weights of course, right?
+
+[Prof. Uhler] 19:25:53
+Let's think of Amazon, for example, again, then these edges, they could have weights and that could be really important because that could, for example, be the ranking.
+
+[Prof. Uhler] 19:26:01
+As sorry, did the, yeah, so the rating of what a person gives to a particular to a particular product.
+
+[Prof. Uhler] 19:26:10
+And, for example, is another special case where you would also say that it's actually a bipartite network, although, you know, a particular individual can also appear, of course, as a driver.
+
+[Prof. Uhler] 19:26:22
+So a person can be a driver and make use of Uber, but there you would, so they have 2 different profiles.
+
+[Prof. Uhler] 19:26:32
+And so you would see the same person listed here as a driver and then another, you know, has in a different profile as the same person listed also as a person who actually who is taking rights and so you could represent it there as a bypartite network or you otherwise if you want to always.
+
+[Prof. Uhler] 19:26:50
+Merge the 2 people, that, that if the person is a driver and, a person who, takes drives, then you would not have a by protect networking.
+
+[Prof. Uhler] 19:27:01
+Okay, so now comes the last one, which actually became is the hardest one in terms of, computation time and how to deal with it.
+
+[Prof. Uhler] 19:27:10
+It's a hyper graph and I saw there were many different questions about hyper graphs and some facial complex, etc.
+
+[Prof. Uhler] 19:27:17
+For the people who know what's in Fisher complexes are so they're, they're the same.
+
+[Prof. Uhler] 19:27:22
+So, but yeah, yeah. So, in a hyper graph, so let's just go with that vocabulary without introducing, too much of the mathematics.
+
+[Prof. Uhler] 19:27:31
+So why were they, why were they become so important, during the pandemic, in fact. So a hypergraph.
+
+[Prof. Uhler] 19:27:40
+So as you see here in networks, networks can only capture you know, whether 2 particular nodes have a connection or not.
+
+[Prof. Uhler] 19:27:48
+It cannot distinguish, so let me do an example of this.
+
+[Prof. Uhler] 19:27:53
+So let's say.
+
+[Prof. Uhler] 19:27:56
+Not sure.
+
+[Prof. Uhler] 19:28:00
+Okay, so let's say you have 3 different notes and let's say those are 3 different proteins like to start off with.
+
+[Prof. Uhler] 19:28:07
+Okay. So maybe these are 3 different proteins. Now we cannot make a difference whether all 3 proteins can build one protein complex.
+
+[Prof. Uhler] 19:28:16
+Or if you see this kind of network, right, where we just have edges among all 2 proteins, whether it's just that these 2 proteins can bind to a complex and these 2 proteins can bind to a complex and these 2 proteins can bind to into a complex.
+
+[Prof. Uhler] 19:28:31
+So we really cannot distinguish whether it's all 3 of them that can come together. And build one complex or whether we can just build 3 different complexes among all 2 individuals, all 2 proteins.
+
+[Prof. Uhler] 19:28:43
+And so in a hyper graph, you can actually represent also higher order interactions. So not just 2 interactions by kind of filling in the tryin.
+
+[Prof. Uhler] 19:28:52
+And similarly, if you have 4 notes, you can fill in, you know, in that case you would have.
+
+[Prof. Uhler] 19:28:57
+You know, higher order simplex. And so you could also fill that one. So now why did this become important when, when during the pandemic?
+
+[Prof. Uhler] 19:29:07
+Well, during the pandemic, right? So for example in Boston, we had one super spreader event, which was one conference.
+
+[Prof. Uhler] 19:29:12
+So it is very different. So the behavior of the of how the virus spreads is very different if you have many times 2 people coming together over a long period of time.
+
+[Prof. Uhler] 19:29:22
+Or if like a thousand people come together in one place at the same time. So Okay, so you see that it is actually important to be able to tell whether we are in the situation like this where you know we have a complex of like a thousand people that all came together at the same time.
+
+[Prof. Uhler] 19:29:39
+Or whether among these 1,000 people over a long time frame we just had always 2 and 2 and 2 people come together.
+
+[Prof. Uhler] 19:29:45
+Where of course in that setting the virus would spread slower if there is anyone who was infected in that particular chain.
+
+[Prof. Uhler] 19:29:53
+So that's where hypergraphs come in as a generalization of networks. Okay, so they can also capture higher order interactions, so not just two-way interaction.
+
+[Prof. Uhler] 19:30:03
+So that's, so this is just to set up a little bit of language. Now, there were a lot of questions still about, you know, about these networks and what the weights are, etc.
+
+[Prof. Uhler] 19:30:15
+So let's actually go through now really drawing the out and doing that on so we still have to think about you know how to actually represent the network and so then I will get back to all kinds of these questions on on how to actually set up these networks and and how to draw them.
+
+[Prof. Uhler] 19:30:32
+So I promise that. So, and we will get there, in a slide, but now, that we have some language, now, You know, how do we represent a network in a computer, right?
+
+[Prof. Uhler] 19:30:46
+So we are thinking, I, I mean, I'm definitely always when I'm thinking of a network, I'm thinking literally as a picture of a network, if I have many nodes, you know, like if you're flying, right?
+
+[Prof. Uhler] 19:30:58
+And sometimes they still have like these nice pictures for every airline where you have all of the cities and then you have edges between which cities this particular airline is flying between.
+
+[Prof. Uhler] 19:31:08
+So, so those are really nice pictures, right? And usually that's just a nice picture because, you know, but sometimes actually looks very, very messy for some big airlines, right?
+
+[Prof. Uhler] 19:31:17
+They have like so many edges all over the place. And so, generally a network, even if it's actually pretty small, so this just has like a couple of 100 nodes.
+
+[Prof. Uhler] 19:31:29
+And it's actually very few edges. It always looks like just one big huge hair bowl.
+
+[Prof. Uhler] 19:31:36
+Okay. So, you know, just so like in Monday's class, we said like, oh, let's visualize to get a 1st impression of the data.
+
+[Prof. Uhler] 19:31:42
+While a networks that just doesn't work. Okay, and networks even for very small networks like here what you see you just have a hundred or 200 notes it actually doesn't work.
+
+[Prof. Uhler] 19:31:53
+You no matter whether it's in threed etc. like you cannot like it always looks like one huge big so again, please put all of, I still see a lot of, questions come in to host and panelists.
+
+[Prof. Uhler] 19:32:06
+And please put, all of your comments, to everyone. Okay, so what do we do, right?
+
+[Prof. Uhler] 19:32:13
+So this way of visualizing is definitely not something that we can use. So we need other ways of summarizing the network.
+
+[Prof. Uhler] 19:32:21
+We need to be able to 1st of all represent it in a computer so that we can then work with it.
+
+[Prof. Uhler] 19:32:25
+And so that's what we want to do. So, so how do we, how would you represent a network on a computer?
+
+[Prof. Uhler] 19:32:32
+So what are ways to represent a network on a computer? So we somehow need to say, what the nodes are and then where do we have edges, etc.
+
+[Prof. Uhler] 19:32:42
+So lead up puts in that we have a matrix and many others also now put in that we have matrix.
+
+[Prof. Uhler] 19:32:51
+And so that's that's 1 way of representing it and we will talk about a matrix form of representing it.
+
+[Prof. Uhler] 19:32:56
+It's known as an adjacency matrix. Okay, so let us talk about what an adjacency matrix is.
+
+[Prof. Uhler] 19:33:03
+So here it's mathematical and I will get back to it. What I want to do is 1st actually show you an example.
+
+[Prof. Uhler] 19:33:10
+Okay, so let's do that together. Of writing down how do we actually write down a network in terms of a matrix and adjacency matrix?
+
+[Prof. Uhler] 19:33:20
+And we'll then also talk about what an adjacency list is. But let's 1st do an adjacency matrix.
+
+[Prof. Uhler] 19:33:24
+So let me do an example. So say we have 3 nodes. So 1, 2, 3.
+
+[Prof. Uhler] 19:33:33
+And I just have a very, this is a simple. Network as as we have set up the language.
+
+[Prof. Uhler] 19:33:37
+Okay, so what is an adjacency matrix?
+
+[Prof. Uhler] 19:33:42
+I can draw a little bit. So what is an adjacency matrix? So an adjacency matrix always has the same number of rows as it has columns.
+
+[Prof. Uhler] 19:33:54
+And it has as many rows and columns as there are notes.
+
+[Prof. Uhler] 19:33:59
+So that's an adjacency matrix and now in adjacency matrix you will put in a 0 or a 1 whenever there is an edge between them.
+
+[Prof. Uhler] 19:34:09
+So one is not connected to one, so I'll put in a 0. Then one is connected to 2, so I'll put in a 1.
+
+[Prof. Uhler] 19:34:16
+One is not connected to 3, so put in a 0. Then 2 is connected to one. It's symmetric, right?
+
+[Prof. Uhler] 19:34:23
+It's an undirected graph. 2 is not connected to 2, so put in a 0 and then 2 is connected to 3, so put in a 1, then 3 is not connected to one output in a 0 3 is connected to 2 output in a 1 and then 3 is not connected to 3.
+
+[Prof. Uhler] 19:34:40
+So this is, how a simple network looks like and how the adjacency matrix of this network looks.
+
+[Prof. Uhler] 19:34:48
+Now we can make this more complicated and add self loops. So for example, I can add a little self loop here.
+
+[Prof. Uhler] 19:34:55
+Okay, so this and so what we have is still an example of an undirected network. We'll do directed networks afterwards.
+
+[Prof. Uhler] 19:35:03
+So now I added the self loop. So now I would have a 1 in this position 3 3. Okay, so now here I would have a 1 instant.
+
+[Prof. Uhler] 19:35:12
+Because now I added a little self loop, now 3 is connected to itself. So this is now an example of not a simple network anymore.
+
+[Prof. Uhler] 19:35:22
+It's just an on directed network. Okay, because now I added a cell. Now I can make this network be weighted.
+
+[Prof. Uhler] 19:35:29
+So I can have edge weights on it so I can have here a 1 and maybe here I have a 2 and maybe here I have a minus.
+
+[Prof. Uhler] 19:35:37
+Well, so then what I have to do is at the edge between one and 2 is remaining a 1.
+
+[Prof. Uhler] 19:35:44
+However, I need to make some changes because the edge between 2 and 3. This here now becomes a weight of 2, right?
+
+[Prof. Uhler] 19:35:52
+So this here becomes a weight of 2. And then we have another one which changed namely the self loop.
+
+[Prof. Uhler] 19:36:00
+It became a minus one. So I just have a minus one here so I can add a little minus.
+
+[Prof. Uhler] 19:36:07
+Okay, so now it's a weighted undirected graph. So now let's do the same for a direct.
+
+[Prof. Uhler] 19:36:14
+So I have, let's say a direct, let me do that. This is this that.
+
+[Prof. Uhler] 19:36:19
+So 1, 2, 3. So here I have a direct graph. So again, I have as many.
+
+[Prof. Uhler] 19:36:28
+Rows as I have columns, namely 3 of them because I have 3 nodes.
+
+[Prof. Uhler] 19:36:33
+So now again, one is not connected to one. So I have a 0 here, then one is connected to 2.
+
+[Prof. Uhler] 19:36:41
+So again, if I don't have weights, then I just have 0 ones. If I have weights, then I represent the instead of having 0 ones I can add the weights into the matrix.
+
+[Prof. Uhler] 19:36:50
+Okay, so then you get a weighted adjacency matrix. So, one is, so now we have to make an a decision.
+
+[Prof. Uhler] 19:36:58
+And I will always have the decision that my roles are pointing to the columns. Okay. So in this case, one is pointing to 2.
+
+[Prof. Uhler] 19:37:06
+So I'll have a 1 here. But 2 is not pointing to one, so I'll have a 0.
+
+[Prof. Uhler] 19:37:11
+And then similarly here I have a 0. Then one is not pointing to 3, so I'll have a 0, 1 3 is also not pointing to one, so I'll have a 0.
+
+[Prof. Uhler] 19:37:21
+And 2 is not pointing to 3, so have a 0 here. However, 3 is pointing to 2, so I'll have a 1 here.
+
+[Prof. Uhler] 19:37:28
+And then 3 again is not pointing to 3 so I'll have a zoom.
+
+[Prof. Uhler] 19:37:33
+So here I'm always representing it a new can make the decision and you just have to be consistent.
+
+[Prof. Uhler] 19:37:39
+So here I representing it as the rows pointing to the and so great question so I can for example make this network have a bye directed edge and so then what do I do?
+
+[Prof. Uhler] 19:37:53
+So now I have 2 pointing to 3 and 3 pointing to 2. So I will remove this little 0 here and instead I will add a 1.
+
+[Prof. Uhler] 19:38:04
+So let me add a 1.
+
+[Prof. Uhler] 19:38:07
+So, so that can all be done in all of these networks. And again, I could add edges, edge weights to them.
+
+[Prof. Uhler] 19:38:14
+And so then the ones would become some numbers. So, so that's how we can represent.
+
+[Prof. Uhler] 19:38:21
+Networks as matrices. Okay. So, this is older risk to actually representing these networks as matrices.
+
+[Prof. Uhler] 19:38:30
+Now let me go a little bit back again and tell you about why we also have Ds adjacency lists.
+
+[Prof. Uhler] 19:38:38
+Okay, so, what is an adjacency list? Well, in an adjacency list, so, okay, so what is the issue with these matrices?
+
+[Prof. Uhler] 19:38:46
+Okay, so what is the issue with these matrices? Well, you can imagine that if we have a network, a huge, huge network, most of the entries are actually 0 because generally we don't have a person connected to every morning.
+
+[Prof. Uhler] 19:38:58
+Okay, so, so many of the entries are 0, so you don't really want to keep track of the zeros.
+
+[Prof. Uhler] 19:39:04
+It would be kind of nice to only keep track of the entries that are not 0. Okay, and that's exactly what the list does.
+
+[Prof. Uhler] 19:39:10
+So the list, all it does is it just keeps track of what are the entries that are not zeros.
+
+[Prof. Uhler] 19:39:17
+So for example, if I have this undirected graph here, one is connected to 2, 2 is connected to 3.
+
+[Prof. Uhler] 19:39:22
+And it only keeps track of the edges. So here there is an edge between one and 2. And an edge between 2 and 3.
+
+[Prof. Uhler] 19:39:29
+We put it into these curly brackets because we're saying that the direction doesn't matter.
+
+[Prof. Uhler] 19:39:33
+So it could be 1 2 or 2 1. We just put it into these curly brackets.
+
+[Prof. Uhler] 19:39:38
+So here we have a directed graph where one points to 2 and 3 points to 2. So again, the directions do matter here.
+
+[Prof. Uhler] 19:39:45
+That's why we're putting it into these outer brackets. So one points to 2 and then 3 points to 2 again.
+
+[Prof. Uhler] 19:39:49
+We have to make a decision of like the 1st number is pointing to the second number.
+
+[Prof. Uhler] 19:39:55
+So, so that's, so that's these, how we actually represent network.
+
+[Prof. Uhler] 19:40:02
+So the advantage of these adjacency lists is that you don't keep track of all of the many zeros.
+
+[Prof. Uhler] 19:40:05
+And in fact, whenever you work with networks, so you can still write it down as an adjacency matrix, but you all, you should always tell the, you know, the software you're working with that this is in fact a sparse matrix and then internally instead of saving it as a full matrix it will already save it as a list.
+
+[Prof. Uhler] 19:40:25
+So it will represent it as a matrix, but it will in all of the places where there is a 0 it will just have a dot because it just doesn't want to keep that in memory.
+
+[Prof. Uhler] 19:40:34
+So this is really important when you're working with large, networks that you always save it as a sparse adjacency matrix.
+
+[Prof. Uhler] 19:40:43
+So you tell the program that it's a sparse matrix that it should forget about all of the zeros and that it should only keep track of the entries that are actually not 0.
+
+[Prof. Uhler] 19:40:51
+Okay, so that's, that's what you should do, whenever you're working on anything, like whether it is Python or, etc.
+
+[Prof. Uhler] 19:41:01
+Okay, so that's how we're representing a network now. Let me and oh, and yes, and so great question about the weights.
+
+[Prof. Uhler] 19:41:10
+So in terms of the weights you would just have an elder, so you could, for example, here just have 3 entries always.
+
+[Prof. Uhler] 19:41:16
+So the 1st 2 representing, you know, where what what is the edge that you have and then you would add another entry that corresponds to the weight.
+
+[Prof. Uhler] 19:41:24
+So that's how you would do it, when you have edge points.
+
+[Prof. Uhler] 19:41:29
+And that's in fact, so in adjacency matrix, again, when you save it as a sparse matrix, it would save, what is the position that is not 0 and then what is the weight that is in?
+
+[Prof. Uhler] 19:41:39
+Okay, so, and here are examples as, how the system. So, let's go back to our examples and let me actually do another example of, just to see like, whether the types of things that you can do with adjacency matrices.
+
+[Prof. Uhler] 19:41:55
+And so in this whole lecture, the whole, I mean, so because all, so we can never look at a network, right?
+
+[Prof. Uhler] 19:42:02
+As we saw, like whenever you want to visualize a network, it will always look like a huge parable.
+
+[Prof. Uhler] 19:42:07
+So the whole trick of everything in network when we're working with networks is we always have to have an intuition of what we want to do.
+
+[Prof. Uhler] 19:42:14
+Say for example, we're Facebook, we want to try to figure out, you know, we have a big network.
+
+[Prof. Uhler] 19:42:20
+Now we need to figure out who should we propose as a friend with whom. So this, problem of identifying missing links.
+
+[Prof. Uhler] 19:42:26
+Well, now we have to translate that particular problem. So maybe we can come up with a strategy, but then we have to, translate that particular problem into a problem that we can solve using the adjacency.
+
+[Prof. Uhler] 19:42:38
+Matrix because again, that's the only form we have to represent the network. Right? We cannot look at the network.
+
+[Prof. Uhler] 19:42:44
+It's just always a big Okay, so let's try to do that. So, say you have a big network, based on just the network itself, how, how would you go about finding missing links?
+
+[Prof. Uhler] 19:42:55
+So when would you propose that actually a person should be friends with another person. What in the network would suggest that 2 people are actually friends with each other?
+
+[Prof. Uhler] 19:43:09
+What would suggest the 2 people shared connections as many people are putting in. Okay, so say I have a network and I have these 2 individuals here.
+
+[Prof. Uhler] 19:43:18
+And they have a whole lot of common friends, right? So they have a whole lot of common friends.
+
+[Prof. Uhler] 19:43:25
+But maybe just person has like a couple of other friends. That they're not shared, but they have a whole lot of common friends.
+
+[Prof. Uhler] 19:43:33
+That's probably a setting where you would say that, well, maybe I would propose that they are actually friends.
+
+[Prof. Uhler] 19:43:39
+So, so that's that setting in addition and you know, this is also brought up, right?
+
+[Prof. Uhler] 19:43:45
+The notes can have values themselves. This is just additional data that we have on the links and of course like you would also look at the node values do they live in the same city?
+
+[Prof. Uhler] 19:43:55
+Do they have similar hobbies, etc, etc, in order to predict whether 2 people are friends.
+
+[Prof. Uhler] 19:43:58
+But now for now, since we already looked at those kinds of data sets in the in Monday's lecture, right, where you have all kinds of features on individuals.
+
+[Prof. Uhler] 19:44:08
+And now we're concentrating on the network side of things. And so we'll not look at the node values, but of course every node can have values and you can use.
+
+[Prof. Uhler] 19:44:14
+That in order to predict, whether 2 people are friends in addition to looking at the network. And or whether they work in the same place as it's also just Okay, so based on the network, how do we, how do we actually figure out whether the 2 people are friends?
+
+[Prof. Uhler] 19:44:30
+So first, st so as we just said, we need to count how many common friends they have, right?
+
+[Prof. Uhler] 19:44:35
+But again, we cannot like, again, I give you this network. There is no way for you in a network like this.
+
+[Prof. Uhler] 19:44:42
+And although this only has, right, I mean Facebook will have millions of nodes. This one only has a couple of 100 nodes and already it is impossible to look at this.
+
+[Prof. Uhler] 19:44:50
+Network and figure out which 2 nodes have a lot of common friends. Okay, so there needs to be a way to do this.
+
+[Prof. Uhler] 19:44:58
+Using the adjacency matrix. We cannot do it. Using by looking at the network itself.
+
+[Prof. Uhler] 19:45:02
+So how do we do it using GCC matrix? So first, st let me write it out. So maybe I pull this node one, this node 2, and then I have, you know, all kinds of all the other nodes are called, something maybe.
+
+[Prof. Uhler] 19:45:16
+So I have node one and no 2. And then I have many other notes, right?
+
+[Prof. Uhler] 19:45:22
+That's etc, etc. So let's so node one is definitely not friends with one and no one is also not friends with no 2.
+
+[Prof. Uhler] 19:45:29
+So I have zeros here. But let's say node one is friends with no 3 and also no 2 as friends with no 3 so maybe this is no 3.
+
+[Prof. Uhler] 19:45:38
+Maybe this one here is node 4 where you know one is friends with 4 but 2 is not friends with 4.
+
+[Prof. Uhler] 19:45:44
+Maybe this is note 5 where you know no 2 as friends with 5 but one is not friends with 5 etc.
+
+[Prof. Uhler] 19:45:50
+I will just fill in some data here. Maybe. This is how it looks.
+
+[Prof. Uhler] 19:45:54
+So maybe this is how the adjacency matrix looks. So now the question is based on the adjacency matrix.
+
+[Prof. Uhler] 19:46:01
+So adjacency matrices are usually denoted by a big matrix A. So adjacency matrices are usually denoted by a big matrix A for adjacent.
+
+[Prof. Uhler] 19:46:06
+So how do we figure out based on the adjacency matrix, how many common friends notes one and 2 have?
+
+[Prof. Uhler] 19:46:14
+So what do you do, Okay, so, so now come over ready some suggestions of, say for example the dot product between the 1st row and the second row.
+
+[Prof. Uhler] 19:46:27
+So really what we have to do, right, is we need to figure out how many common ones there are, right?
+
+[Prof. Uhler] 19:46:34
+So we, and that's exactly what we will do, right? If we, if we take actually this inner product between the 1st or one to second rope.
+
+[Prof. Uhler] 19:46:42
+Where you know we want to figure out so this is a common friend so whenever you have 2 ones here that's a common friend whenever you have 2 ones here that's another common friend then here is another common friend.
+
+[Prof. Uhler] 19:46:53
+But whenever you have 2 zeros or one or a 0, that's not a common friend.
+
+[Prof. Uhler] 19:46:57
+So we want to exactly add up how many common ones we have and that's exactly what you get when you take this inner product with of the 1st throw at the second.
+
+[Prof. Uhler] 19:47:04
+Okay, because that exactly does like this entry times this entry plus this entry times this entry plus the century times this entry, Okay, so as, was put into the chat, right?
+
+[Prof. Uhler] 19:47:18
+So if I do it this matrix A times its transpose but because we're in an undirected graph, they're actually just the same.
+
+[Prof. Uhler] 19:47:27
+If I just do A times A. Right? What I get out for every entry and you should check this, you should just do these examples, is exactly the number of common friends.
+
+[Prof. Uhler] 19:47:36
+So if you do the adjacency matrix times itself or times its transpose because it's the same, then what you get in every entry is the number of common friends that you have.
+
+[Prof. Uhler] 19:47:48
+Okay, so, so that's, what, what, how you could actually find out the number of common friends.
+
+[Prof. Uhler] 19:47:56
+So just multiply the adjacency matrix A with the adjacency matrix A. And that's exactly what the definition of what you would do inside is some inner product between 2 victims.
+
+[Prof. Uhler] 19:48:09
+So let's, actually again, and, you know, in this course again, what I want to concentrate on is, for you to see how many things you can actually do with the adjacency matrix to get.
+
+[Prof. Uhler] 19:48:21
+To get the intuition for it. So A times A is the same as A times A transpose because those are symmetric matrices exactly as it's put into the.
+
+[Prof. Uhler] 19:48:29
+Chat. So now let's try to figure out the following. So let's try to find out how many paths of link 3, there are between 2 notes.
+
+[Prof. Uhler] 19:48:40
+Okay, so what we just did is we figured out how many paths of length between 2 notes, right?
+
+[Prof. Uhler] 19:48:47
+Because we wanted to find out how can I get from node one to note through 2 through a common friend.
+
+[Prof. Uhler] 19:48:53
+So that's a path of length 2. And so we just wanted to figure out literally how many of these paths of length twitter are.
+
+[Prof. Uhler] 19:49:00
+So how would we figure out how many paths of And 3 there are. What do you think? What would you do there if you have to figure out the number of paths of length 3 between 2 notes.
+
+[Prof. Uhler] 19:49:15
+And try to generalize from what we actually did over here.
+
+[Prof. Uhler] 19:49:23
+So in order to figure out all the paths of length 2, we did A times A. So in order to figure out the paths of length 3, as many people are putting into the chat, we would do 8 times 8 times 8.
+
+[Prof. Uhler] 19:49:39
+Okay. And if you want to figure out the pass of length 4 as others are putting into the chat, you would do A times A times A times 8.
+
+[Prof. Uhler] 19:49:45
+So if we want the length 3 paths, we would do A to the power 3. Okay, so this is really nice that this all generalizes.
+
+[Prof. Uhler] 19:49:55
+Okay, so these are this is how what all of network science is about is that we have the intuition of something we want to do in a network, right?
+
+[Prof. Uhler] 19:50:02
+Like figure out all of the paths of length to between 2 nodes in order to figure out how many common friends we have.
+
+[Prof. Uhler] 19:50:09
+And so then we figured out, oh, that's the same like how I have to get that in terms of the adjacency matrix is I take A times A.
+
+[Prof. Uhler] 19:50:17
+And then you're like, oh, but maybe I can even do half of length 3. Then I do A times A times A. Okay.
+
+[Prof. Uhler] 19:50:25
+And this is literally just matrix multiplication. So please just try it out on a computer if you've never done a matrix multiplication.
+
+[Prof. Uhler] 19:50:33
+Okay. So, A times A will be another matrix of size N by N. And 8 to the power of 3 will again be another matrix of size and by then where it just tells you for every entry between 2 individuals how many paths of length 3 there are to get from one individual to DFT.
+
+[Prof. Uhler] 19:50:52
+So that's how these things work. And there is great questions about how costly these, these computations are.
+
+[Prof. Uhler] 19:51:00
+Again, if you save it as a sparse matrix, it will never do right. So whenever it has like a zeros in it, it already knows that all of these entries don't matter.
+
+[Prof. Uhler] 19:51:08
+So we can cut down a whole lot in terms of, the number of computations.
+
+[Prof. Uhler] 19:51:14
+Okay, so that's, so that's the whole, you know, the magic between behind everything that we have to do when we're working with networks is always the main difficulty is always to try to figure out what the thing is that we want to do like figuring out who are common, like how many common friends we have, right, which we can conceptually very easily.
+
+[Prof. Uhler] 19:51:33
+Right down in the network itself, but then we cannot look at the network. So we need to somehow translate that into what it would mean, in terms of, computation in that just based on the adjacency matrix.
+
+[Prof. Uhler] 19:51:47
+And of course this generalizes, so if you need paths of length 4, then this is Okay.
+
+[Prof. Uhler] 19:51:53
+So that's now we know how to represent a network. Now let's get started with a case study.
+
+[Prof. Uhler] 19:51:59
+Okay, so now, what I would like to do is really a look at how do we summarize a network when you are getting a large-scale network and we're actually going to look at the network on Facebook.
+
+[Prof. Uhler] 19:52:10
+So we're going to look at the Facebook network and we would like to know how do we, you know, you're getting this huge adjacency matrix, right?
+
+[Prof. Uhler] 19:52:17
+Millions of notes. Now what do you do with it? What are some of the 1st things you do in order to get a good overview of how the network looks like?
+
+[Prof. Uhler] 19:52:26
+Let's try that. So let's see how that works. And so here are 4 things that I always like to do.
+
+[Prof. Uhler] 19:52:32
+So again, we cannot visualize as we saw, right? So, you see here that the 1st 4 things that I do with a network is not to visualize because nothing useful comes out of it.
+
+[Prof. Uhler] 19:52:43
+So we'll talk about 4 different ways of summarizing a network. 1st one is looking at connected components, then degree distribution diameter home often.
+
+[Prof. Uhler] 19:52:52
+Okay, so these are the 4 things that I'm going to talk about now. So let's start with connected components.
+
+[Prof. Uhler] 19:52:56
+So what does connect the components mean? And now again, this is important to do this carefully. Okay.
+
+[Prof. Uhler] 19:53:03
+So connect the components is not the same as clusters, etc. So let's do this carefully.
+
+[Prof. Uhler] 19:53:07
+So what is it connect the component? So say this is my network. So maybe I have to.
+
+[Prof. Uhler] 19:53:15
+And maybe I have something. Like this and. Maybe I have this. Okay, so maybe this is my full network.
+
+[Prof. Uhler] 19:53:26
+So what are connected components? So connect the components or any nodes that are connected to each other but not connected to anyone else.
+
+[Prof. Uhler] 19:53:33
+Okay, so for these 2 notes I can just reach them but I cannot reach any other notes. So this is a connected component of size 2.
+
+[Prof. Uhler] 19:53:41
+This is another connected component. It is of size one. There is only one node in it. This one is a connected component of size 3.
+
+[Prof. Uhler] 19:53:49
+There are 3 nodes in it. This one is a connected component of size 2. And this one is a connected component of size.
+
+[Prof. Uhler] 19:53:56
+So in this case I have for this graph, the whole thing is called a graph. I have one connected component of size one.
+
+[Prof. Uhler] 19:54:03
+Who connect the components of size 2? One connector component of size 3 and one connected component of size 4.
+
+[Prof. Uhler] 19:54:11
+Okay, so that's what connected components are. So a set of notes that are reachable from one another but not reachable between themselves.
+
+[Prof. Uhler] 19:54:20
+So now let's look at this. For, you know, in this case that we're looking at the Facebook network and this is going to be our case study.
+
+[Prof. Uhler] 19:54:30
+So this is the Facebook network. It's actually it is available for the 2011 and then of course, a lot of the different versions are private.
+
+[Prof. Uhler] 19:54:39
+But this one here is a really nice one that you can actually, play around with it.
+
+[Prof. Uhler] 19:54:43
+So the number of connected components, so let's go through this plot because this plot is really, really important on how to be able to read it.
+
+[Prof. Uhler] 19:54:50
+So what do we see here? So this is the component size and this is the number of connected components of that size.
+
+[Prof. Uhler] 19:55:02
+Okay. So this means that here, what do we have here? So here we have connected components of size one.
+
+[Prof. Uhler] 19:55:07
+So there are many, many connected components of size one. So namely there are 10 to the 5 many connected components of size one.
+
+[Prof. Uhler] 19:55:17
+Then there are a few connected components of size 2, 3, 4, 5. Namely there are like, you know, 10,000 or so connected components of size 2, 3, 4, 5, up to, you know, about a hundred or so.
+
+[Prof. Uhler] 19:55:34
+Okay. So there are very few, there's like one connected component of size a hundred, there is another couple of connected components of size, you know, a thousand, etc.
+
+[Prof. Uhler] 19:55:43
+That's how you read this. And now what is this node out here? Because this one is the most important one that we have to understand.
+
+[Prof. Uhler] 19:55:50
+So what is this node out here? So in fact, it is not an anomaly and it is not a person.
+
+[Prof. Uhler] 19:55:57
+So it is not someone like Zuckerberg, etc. So what is this one out here?
+
+[Prof. Uhler] 19:56:03
+Let's try to read the plot. Okay, so let's try to read the plot. So what do we have here?
+
+[Prof. Uhler] 19:56:08
+So, Northern, Admin, it's, it's, as, just puts in, it's actually basically you, me, everyone.
+
+[Prof. Uhler] 19:56:13
+Okay, so this is the connected component that basically contains everyone. Namely contains 99.9 1% of all people in Facebook.
+
+[Prof. Uhler] 19:56:24
+Okay, so this one here is a connected component of size 10 to the 9. Which basically contains everyone on Facebook other than, you know, these very few people out here.
+
+[Prof. Uhler] 19:56:34
+And this is one connected component. Okay, so in the big connected component, basically everyone is somehow connected to everyone.
+
+[Prof. Uhler] 19:56:43
+And then there are all these very small connected components up here. So this is not an anomaly.
+
+[Prof. Uhler] 19:56:48
+This is actually the one that we want to concentrate on. Now often these plots look like this.
+
+[Prof. Uhler] 19:56:53
+This is critical, right? Because it tells us which one of the networks, like you have many, many connected component.
+
+[Prof. Uhler] 19:57:00
+There is one huge connected component which basically includes nearly everyone. And then there are very few connected components here that could that are for example ghost accounts right so many in here are probably ghost accounts there are some and vaults etc. right and there are some in here that are actually possibly interesting like there are maybe some you know probably some of them correspond to maybe in a school like people made a second account just for all of the people that went to
+
+[Prof. Uhler] 19:57:28
+the same school and now they are very tightly connected but are not connected to anyone else because they're only using it for that school.
+
+[Prof. Uhler] 19:57:35
+That's for example, what you would may be able to find and these connected components here. Or there could, sorry, there could literally be some connected components that are like very tightly net people, that are really not connected to anyone outside.
+
+[Prof. Uhler] 19:57:49
+So there could be some interesting things in here, but really, you know, not many interesting things in here.
+
+[Prof. Uhler] 19:57:57
+So you would really try to concentrate on big this one big connected component. Okay. So, so this is critical.
+
+[Prof. Uhler] 19:58:06
+So we have one connected component that is not connected to anyone else and it is of a very very big size.
+
+[Prof. Uhler] 19:58:13
+So this is the big network that you may want to take into account. Okay, this is always the 1st plot I do, right?
+
+[Prof. Uhler] 19:58:19
+Because now I know that I'm going to concentrate on this one big connector component that contains basically everyone.
+
+[Prof. Uhler] 19:58:26
+It's 99.9 1% of all people. And I will not spend my time looking at, you know, all of these, which is like very, it's like 0 point 0 9% of people and you know, it contains a lot of bots and it contains a lot of ghost accounts, etc.
+
+[Prof. Uhler] 19:58:40
+So let's not worry about, anything that is in here. Okay, there's always the 1st plot that you should, you know, start doing.
+
+[Prof. Uhler] 19:58:47
+When you're trying to, look at and then.
+
+[Prof. Uhler] 19:58:51
+Okay, so now let's start to look at. And how do I know that it's so large?
+
+[Prof. Uhler] 19:58:57
+We actually can just look at how many so you can count how many notes are in that, connected component.
+
+[Prof. Uhler] 19:59:03
+So that's an important, question and that was actually. Okay, so, so how do we, so now let's start looking at like what people put in, right?
+
+[Prof. Uhler] 19:59:13
+Oh, maybe I want to find people celebrities in the network. Like Zuckerberg for example.
+
+[Prof. Uhler] 19:59:18
+How would I find celebrities in the network? Well those are probably individuals who are connected to a lot of people.
+
+[Prof. Uhler] 19:59:26
+Alright, so that's exactly what the degree does. So, at degree is the number of edges connected to a note.
+
+[Prof. Uhler] 19:59:35
+So I look. Got it particular note, how many people are connected to this particular person? In this case, the degree would be 5.
+
+[Prof. Uhler] 19:59:43
+Okay, so that's what degree is. So that's probably what we're thinking of when we're thinking of finding celebrities, right?
+
+[Prof. Uhler] 19:59:50
+Or finding influencers, etc. So that's what, so that's what we're looking for when we're thinking about the.
+
+[Prof. Uhler] 19:59:57
+So let me show you another example just to, you know, then go back to the Facebook network on the next page.
+
+[Prof. Uhler] 20:00:03
+So what is, so we look at degree distribution. So how do we read these plots now?
+
+[Prof. Uhler] 20:00:09
+So, we have here the degree itself. And here we have the proportion or the fraction of nodes of that degree.
+
+[Prof. Uhler] 20:00:19
+So here is 1st we have degree 0 and we look at what is the proportion or percentage or fraction.
+
+[Prof. Uhler] 20:00:27
+That's all the same of nodes of that degree. So in this case, we would have 35, 32 or 33% of all notes have degree 0.
+
+[Prof. Uhler] 20:00:38
+That's how one would use and read this. Then here we're looking at degree one. We find that about 45% of all notes have to degree one.
+
+[Prof. Uhler] 20:00:47
+We look at degree 2, we find that about 10% of all notes have degree. Then degree 3, about 5% of all nodes at etc.
+
+[Prof. Uhler] 20:00:56
+So that's how we would read this at this plot. You see here that in fact we cannot see it but there is still some notes that actually have degree 20, etc.
+
+[Prof. Uhler] 20:01:08
+Okay, so, so that's how you would read this. And so, in this case, so it's important to know the 0 is here and then the one is here, etc.
+
+[Prof. Uhler] 20:01:16
+This is just, how we would read this. So now, what you can often do with these clocks, right?
+
+[Prof. Uhler] 20:01:22
+So here we have like a whole long tail of things that we can actually not see anymore just because of the scale.
+
+[Prof. Uhler] 20:01:28
+So we transform this particular picture into another picture over here. And all we did is, that we have here the degree as a log log plot.
+
+[Prof. Uhler] 20:01:40
+So I'm taking a logarithm on the x-axis and I'm also taking a logarithm on the y-axis.
+
+[Prof. Uhler] 20:01:45
+So this is known as a log log, where we can now, we see much more, right? You see here that there are in fact some edges, some nodes that have degree a hundred and even higher we just couldn't see them here anymore I mean it looks like it's at 0 but it is actually not at 0 and now we can see it because we spaced out also the y-axis.
+
+[Prof. Uhler] 20:02:04
+That's what a log log plot is. I'm taking the logarithm over here and I'm also taking the logarithm over here.
+
+[Prof. Uhler] 20:02:09
+So you see now that the distance from one to 10 is the same as the distance from 10 to a hundred.
+
+[Prof. Uhler] 20:02:15
+It's the same as the distance from a hundred to a thousand. And similar here the distance from one to 0 point 1 is the same as the distance from 0 point 1 to 0 point 0 1 is the same as the distance from 0 point 0 1 to 0 point 0 0.
+
+[Prof. Uhler] 20:02:29
+So that's what the log log clock does. And so now you see how the same plot over here actually looks like on a log log club.
+
+[Prof. Uhler] 20:02:37
+So now we see that it has this and this is what is called the power law degree distribution. It suddenly became linear in this log log plot and we see that there were actually a lot of these.
+
+[Prof. Uhler] 20:02:46
+And nodes out here that actually do have very high degrees, but it's just very, very few of them that have very high degrees.
+
+[Prof. Uhler] 20:02:53
+Okay, so that's, so that's what, we're, looking at here.
+
+[Prof. Uhler] 20:02:59
+So these nodes out here would be, I mean in this case this is the distribution of the internet, right?
+
+[Prof. Uhler] 20:03:07
+But these are the notes that you would like to concentrate on and we will actually look at this also for Facebook.
+
+[Prof. Uhler] 20:03:12
+Okay, so we'll look at this for Facebook on what are the notes that have the most friends.
+
+[Prof. Uhler] 20:03:17
+Those are the notes that will end up out here. And so now what we're going to do is do a log log plot exactly also on the Facebook network.
+
+[Prof. Uhler] 20:03:25
+And so this is how it looks like on the Facebook. Okay, so now what we're taking is just this one largest connected component after, you know, removing all these small connected component that probably, course, consists of a lot of duplicates, etc.
+
+[Prof. Uhler] 20:03:42
+Even though it might be, you know, say, a hundred thousands of nodes or a million nodes, you definitely don't want to spend your largest amount of time just, just analyzing those.
+
+[Prof. Uhler] 20:03:52
+It's nice to look at them if there are particular questions that you want to ask, but then you really want to concentrate on the large connected component.
+
+[Prof. Uhler] 20:03:58
+And so this is how this log log plot looks like and again explaining what this is so this is the degree so for example if we have here degree one this means all of the people who only have one friend And then what is the fraction of people that only have one friend?
+
+[Prof. Uhler] 20:04:17
+That's up here. Okay. So, so those are the fraction of people that only have one friend.
+
+[Prof. Uhler] 20:04:25
+And those are the fraction of people that only have 5 friends, etc. And so that's how this plot looks like that's exactly the same as what we had on the previous slide and so And so, okay, so now what you see here is actually not the same nice trend like what we had here in terms of the power law, the degree distribution, you see kind of 2 trends.
+
+[Prof. Uhler] 20:04:46
+You see one trend for all the people who have something like up to a hundred friends and then you see a completely different trend for people who have many more friends.
+
+[Prof. Uhler] 20:04:55
+And then you see a completely different trend for people who have many more friends. And you know that's actually you often see this in these social networks that are 2 types of people like the people who have a lot of friends are very different from the people who have like, you know, the more standard.
+
+[Prof. Uhler] 20:05:08
+Number of friends, whether it says something like up to a hundred friends or so. So, so let's talk here about, can someone suggest what is actually happening?
+
+[Prof. Uhler] 20:05:18
+So something looks odd right down here. So this looks really odd and it's interesting that just from the like from this very simple plot just plotting for every person what is their degree and figuring out how many people have that degree.
+
+[Prof. Uhler] 20:05:32
+Okay, so just a fraction of people off a particular number of friends. So then can we figure out what is actually happening down here?
+
+[Prof. Uhler] 20:05:44
+So what is actually happening? Perfect. As surrender just put in, there was actually a limit, and so something artificial is happening, right?
+
+[Prof. Uhler] 20:05:55
+Because you would never in a real network expect to see something like this. So you know you would always expect to it look like this if it's just a natural network that can just evolve you would always look at expected to look something like this.
+
+[Prof. Uhler] 20:06:07
+So here there was something and you can already tell it just from this plot. A very simple plot you can actually tell that you know, Facebook did something because did something artificial in order for it to look this odd here.
+
+[Prof. Uhler] 20:06:20
+Okay, and so this is, where we have, you know, where we have, max put in at 5,000.
+
+[Prof. Uhler] 20:06:28
+And so, and in particular, what does this look like? So what is all of this like wiggly line here?
+
+[Prof. Uhler] 20:06:35
+Where does that come from?
+
+[Prof. Uhler] 20:06:38
+So it comes from the cut off, but what does it mean when we see this wiggly line here?
+
+[Prof. Uhler] 20:06:43
+Well, what does Whigley line here suggests is that, you know, once a person reaches 5,000, then it, decides, well, now we cannot add a friend anymore, so it has to remove some friends, then it adds some friends.
+
+[Prof. Uhler] 20:06:56
+Again, it removes some friends, add some friends. And that's exactly what you see in this wiggly line here, right?
+
+[Prof. Uhler] 20:07:01
+Where it goes up and down and up and down and they have to be more selective as, Daniel just put in.
+
+[Prof. Uhler] 20:07:06
+Okay. So that's so it's pretty amazing that just from such a simple plot like this degree plot here we can already figure out things like this of like policies that were introduced.
+
+[Prof. Uhler] 20:07:17
+And so it's really interesting when you look at these network plots, in fact, to infer policies.
+
+[Prof. Uhler] 20:07:23
+And you can also do this actually for like things like you know when you're looking at the spread of viruses during SARS Cov 2 and see when people actually introduce policies of like where the network changed, people had to stay at home for example and how that then changed empty behavior of the virus.
+
+[Prof. Uhler] 20:07:39
+So those are the types of things that you can really nicely figure out with these very simple plots.
+
+[Prof. Uhler] 20:07:46
+Okay. So, before I go on to, we have 2 more things to summarize, the networks. So the diameter and then home awfully.
+
+[Prof. Uhler] 20:07:54
+So just take again, like yesterday, this is a great point for taking a five-minute break and we'll be back here at just in 5 min and so 42 and in the meantime I will just take some additional questions or anyone who had questions so far.
+
+[Prof. Uhler] 20:08:12
+So we can talk about, just and everyone else can just get a glass of water and come back, stand up and, you know.
+
+[Prof. Uhler] 20:08:21
+Shake out your legs, etc, and then come back here.
+
+[Prof. Uhler] 20:08:26
+So let's see if there are any questions. During this break.
+
+[Prof. Uhler] 20:08:37
+Great, so, there is a question about whether this is the same. As on the previous side and it is in fact the same so it's a log where we have, it's just for 2 different applications.
+
+[Prof. Uhler] 20:08:50
+So this one is the internet. And this one here is the log log plot for the internet, whereas this one here is the log log clock of the degree and again the fraction for the Facebook network.
+
+[Prof. Uhler] 20:09:02
+So those are.
+
+[Prof. Uhler] 20:09:05
+And but it is for different types of applications so it's not just the fitted curve from the previous application.
+
+[Prof. Uhler] 20:09:15
+So in terms of the type of graphing. Okay, so these are the types of graphs.
+
+[Prof. Uhler] 20:09:23
+So now we're not talking about neural networks here. So we're just summarizing the type of data that we see, for, a network analysis.
+
+[Prof. Uhler] 20:09:31
+And so this is helpful for, actually getting a good picture of, what are the nodes that really have a high degree, right?
+
+[Prof. Uhler] 20:09:39
+If we were looking at just this plot here without the log log plot, then In fact, we didn't see that there were nodes with very high degrees.
+
+[Prof. Uhler] 20:09:48
+However, once we take the logarithm on both sides, then we see here the notes actually popping up that there are some notes that come that have a very very high degree and so it was helpful to do a log log plot.
+
+[Prof. Uhler] 20:09:59
+In order to understand what this what these pictures what the data set actually looks like
+
+[Prof. Uhler] 20:10:10
+And then there are questions about, yeah, so in this case, it was not someone else.
+
+[Prof. Uhler] 20:10:15
+Coming up with, the maximum number of friends that one can have, but it was really Facebook adding in this number of this maximum number of friends.
+
+[Prof. Uhler] 20:10:27
+Okay, so there is a great question also of going back to this, you know, taking A to the 3, etc, and what that corresponds to.
+
+[Prof. Uhler] 20:10:36
+So A to the 3 means not people who have 3 comes in 3 friends in common but it means this kind of setting where how many paths are there of length 3 between 2 individuals meaning that you know this one individual has a friend And then this person has another friend who is then friends with number 2.
+
+[Prof. Uhler] 20:10:58
+Okay, before we were just looking at common friends, so this individual has a friend who is also a friend with individual number 2, but here it is 2 steps or I guess 3 steps before it was 2 steps.
+
+[Prof. Uhler] 20:11:09
+Now we have 2 friends in the middle on these paths. And so, so that's, so if we have like here, maybe we have another path.
+
+[Prof. Uhler] 20:11:19
+That goes between these 2 individuals. In this case, then we would have 2 paths between these 2 individuals.
+
+[Prof. Uhler] 20:11:24
+Of length 3.
+
+[Prof. Uhler] 20:11:29
+So there was another question about was there any logical, you know, what's, I mean, what was the reason for Facebook to cap it at 5,000?
+
+[Prof. Uhler] 20:11:38
+Well, I guess that's, you know, was on their side. I mean, there is a lot of memory and computation time, etcetera that goes into, actually keeping track of a very, very large-scale social network.
+
+[Prof. Uhler] 20:11:51
+And so, they do put in a maxima in order, you know, for all these data sets just not to explode, because otherwise, because otherwise it's not clear.
+
+[Prof. Uhler] 20:12:03
+That they could actually continue updating it and, and really making the computations of like trying to figure out whether some friends are missing.
+
+[Prof. Uhler] 20:12:13
+Okay, so, I think we're all back again. And so, we answered a couple of questions about connected components and about degree distribution of the network.
+
+[Prof. Uhler] 20:12:27
+And now, we know how to find important notes, right? People who have whole lot of connections.
+
+[Prof. Uhler] 20:12:33
+Now what I'd like to do next is to actually think about the diameter of a graph. Now, this is again very critical if we're thinking about questions like during Sarskov too where this was just really really important.
+
+[Prof. Uhler] 20:12:47
+And so what is the diameter of the graph? So it tells you how quickly, news, for example, can spread or a virus can spread in a network.
+
+[Prof. Uhler] 20:12:55
+So what is the diameter and, so what it is and here is, how it's actually written out.
+
+[Prof. Uhler] 20:13:03
+So we 1st look at the short path between any 2 individuals. Okay. And then, we look at, so for all individuals, we compute what is their shortest path.
+
+[Prof. Uhler] 20:13:13
+And then among all pairs of individuals, we look at the longest shortest step. Okay, so let me again zoom this as an example.
+
+[Prof. Uhler] 20:13:21
+So I will draw this as an example. So say this is my network. That's just do something like this.
+
+[Prof. Uhler] 20:13:34
+Okay, so this is my. Say no one. And this is my note too. So what is the shortest, what is the geodesic path, which is the shortest path between notes one and 2?
+
+[Prof. Uhler] 20:13:48
+How long is that shortest path?
+
+[Prof. Uhler] 20:13:54
+2. Okay, so people say 2, right? So I have to go this way. So this length here is 2.
+
+[Prof. Uhler] 20:13:59
+So the GDP between node one and 2 is 2. I will go this way. Because this is much longer, right?
+
+[Prof. Uhler] 20:14:04
+This is 1, 2, 3. Okay, so now what I would like to know is what is the Diamond of this full network?
+
+[Prof. Uhler] 20:14:12
+So meaning for any 2 nodes, you have to compute what is the shortest path length. And then what we need to do is, figure out what is the longest such shortest path.
+
+[Prof. Uhler] 20:14:23
+And. And so many people already put in 5. Okay.
+
+[Prof. Uhler] 20:14:27
+And in fact, 5 is the right answer. So certainly the longest path has to include this no doubt here, right?
+
+[Prof. Uhler] 20:14:35
+And so, what is the shortest path between this note here and any node in the network?
+
+[Prof. Uhler] 20:14:41
+Well, I can get to this note here on 5, right? So I think 1, 2, 3, 4, 5.
+
+[Prof. Uhler] 20:14:47
+That's the shortest path. Because I'm doing the maximum overall shortest paths. I can also get to this node here on, on 5.
+
+[Prof. Uhler] 20:14:55
+In 5 steps, right? 1, 2, 3, 4, 5. And so therefore the diameter and this graph is 5.
+
+[Prof. Uhler] 20:15:03
+Okay, so it's not 6, so the diameter is 5 diameter. Equal to 5 in this graph because from any node I can get to any node in 5 steps.
+
+[Prof. Uhler] 20:15:15
+Right. And so therefore the diameter in this graph is actually 5. So, now again, we need to figure out how to be able to compute this and, you know, all I'll tell you is that there is like very fast algorithms in order to compute diameters of networks.
+
+[Prof. Uhler] 20:15:33
+Okay, you can imagine that if the diameter is very, very long, then the virus will take a long time in order to spread from, you know, 2 nodes that are the furthest away from each other.
+
+[Prof. Uhler] 20:15:43
+But if the diameter of a network is very small, just away from each other, but if the diameter of a network is very small, right, then the people are very, very heavily connected and so the virus can actually spread very quickly.
+
+[Prof. Uhler] 20:15:51
+So that's so that's the problem or that's why computing diameters and networks is super important right for many different types of applications.
+
+[Prof. Uhler] 20:16:00
+So let me do the following and here you see another application which maybe you've heard of, which is a small world and 6 or this, this notion of 6 degrees of separation.
+
+[Prof. Uhler] 20:16:12
+So sure many of you have preferred of 6 degrees of separation. And in fact this was coined by Stanley Millroom with his study where he chose 2 cities.
+
+[Prof. Uhler] 20:16:21
+So one on the, on the west coast and, and in fact one was Boston. And he sent out 96 letters 2 people on the west coast and one particular town And that letter said that they should please send this letter that they receive to someone else who they think may know a particular person in Boston.
+
+[Prof. Uhler] 20:16:43
+Okay, so there was a name of a particular person who lives in Boston and you know if the person who ever got it on the West Coast knows this person then they should just directly send it to that person and if not they should just send the letter on to someone who they think you know might know that person okay so obviously you know if you know someone in Boston you will probably just send the letter to someone in Boston and then hope that person will then continue on giving it
+
+[Prof. Uhler] 20:17:05
+on to the other to another person and then hopefully it will arrive to that person where you wanted to get it to.
+
+[Prof. Uhler] 20:17:10
+Now what is interesting about this experiment that he did in 1967 which then led to this you know small world that we said that we live in a small world or that we have 60 degrees of separation is that 18 out of the 96 letters made it and in an average of 5.9 steps.
+
+[Prof. Uhler] 20:17:27
+Okay, suggesting that maybe the diameter of the social network in the US is 6. Now, let's, think about why might this be an over estimate or why might it actually be an underestimate, that the Diamond is really 6.
+
+[Prof. Uhler] 20:17:43
+Okay, so what is the issue with, you know, just generalizing this? So 1st of all, as Michael says, you know, the sample size is very small, right?
+
+[Prof. Uhler] 20:17:51
+And then Also, as also mentioned, only 18 out of the letters actually make it back. So probably for the others that didn't make it back, it's more likely that there were many more steps, right?
+
+[Prof. Uhler] 20:18:04
+And then they got lost somewhere. So this be an underestimate but at the same time it could also be an overestimate because the letters didn't take possibly didn't take the shortest path.
+
+[Prof. Uhler] 20:18:12
+So 5.9 steps what it means is again I'm going to from one person to one other person 2 other people 3 4 5 and then I reached the person that I want to get to.
+
+[Prof. Uhler] 20:18:24
+Okay, so that's, but that's where I came from, but now the exciting thing is that we can actually check what is the diameter in Facebook.
+
+[Prof. Uhler] 20:18:32
+Right? We can just take the data set in Facebook and we can just compute. So you can do it, right?
+
+[Prof. Uhler] 20:18:38
+And I encourage you to actually do all these computations. I encourage you to just take the Facebook network and then actually check what is the diameter and Facebook.
+
+[Prof. Uhler] 20:18:47
+And so, and as is pointed out, right, by Wayne as well, in the previous example, it depends on, you know, there was really not a random sample, so we chose a particular city, a particular town, etc.
+
+[Prof. Uhler] 20:18:59
+So there is also some biases in there. But now in the Facebook network, we can just literally look at the network itself, the full network.
+
+[Prof. Uhler] 20:19:06
+And Facebook, again, only the largest connected component because of course between 2 connected components, they are not connected.
+
+[Prof. Uhler] 20:19:12
+Okay. And so we can do this. So now let's look at this, figure here that, tells you what the diameter of Facebook is.
+
+[Prof. Uhler] 20:19:19
+So again, steps or top distance is the same. So what does this mean? So this is if we're looking at this point here, it means how many people can I reach if I take 0 steps?
+
+[Prof. Uhler] 20:19:31
+Obviously I cannot reach anyone. So I'm at 0. Now, how many people can I reach in my network, right, for every person, how many, how many people can I reach within one step?
+
+[Prof. Uhler] 20:19:43
+Well, so this is a percentage of people I can reach among the whole network. So, if the percentage of people I can reach within the whole network is basically 0, right?
+
+[Prof. Uhler] 20:19:54
+Because my max is 5,000 friends. So even the people who are 5,000 friends, 5,000 out of the millions of people is in percentage.
+
+[Prof. Uhler] 20:20:02
+You know, yes it is going up a little bit, but it's so close to 0 that you can just not see it.
+
+[Prof. Uhler] 20:20:07
+So then how many people can I reach if I take 2 steps? Well, still very, very small number.
+
+[Prof. Uhler] 20:20:12
+Then it starts going up. How many percent, you know, what is the percentage of the whole network that I can reach if I'm allowing myself to take 3 steps out?
+
+[Prof. Uhler] 20:20:20
+Okay, it's going up. It's going further up. etc. And what do you see here?
+
+[Prof. Uhler] 20:20:24
+And this is pretty amazing. So when do we get to that we're actually able to reach everyone?
+
+[Prof. Uhler] 20:20:31
+So if you take 6 and Facebook, you can just check it, right? So if I take 6 steps and any one of you is on Facebook and you know is in this largest connected component which is like these 99.9 etcetera percent right we can all reach all of us in like just 6 steps that's pretty amazing right so the diameter of Facebook is actually 6.
+
+[Prof. Uhler] 20:20:53
+So each one of us can reach any one of us in just 6 steps. So among, you know, we just have to go through 6 other people and we can reach each other.
+
+[Prof. Uhler] 20:21:02
+Okay. That's what is meant by hop or by steps. That's all the same. So how many people do we have to go through in order to reach from any one of us to any other one of us?
+
+[Prof. Uhler] 20:21:13
+And so what is also interesting here is that we, you know, that, whether you look at just the globe, the US network.
+
+[Prof. Uhler] 20:21:22
+So if I only look at the people within the US or if I look at the people globally, the diameter is the same.
+
+[Prof. Uhler] 20:21:28
+And that's good, right? So this, I mean, this is a property that also tells you that even if you enlarge the network a lot, like from 2,011 to today of course the network has grown but you wouldn't expect this to change.
+
+[Prof. Uhler] 20:21:40
+And that's because right new people are joining the network. So, but at the same time, of course, they will add in.
+
+[Prof. Uhler] 20:21:48
+So yes, it becomes like harder to reach everyone, right? Because I'm adding a new people.
+
+[Prof. Uhler] 20:21:52
+But of course, these new people are also adding edges. And so maybe then I get a shortcut.
+
+[Prof. Uhler] 20:21:57
+And so once you are, you know, in this large regime where you have such large networks, even if you let it grow over time, you actually don't change the phenomenon of these networks.
+
+[Prof. Uhler] 20:22:06
+So that's really pretty amazing, right? That's so what are you looking at the US network or the global network you actually have?
+
+[Prof. Uhler] 20:22:13
+You hear you can check it, right? Yes, Milgram at the time. He couldn't check these kinds of things.
+
+[Prof. Uhler] 20:22:17
+He could only do these kinds of small experiments. And we see that in fact the network is in fact the diameter of the Facebook network is in fact 6 so we can each reach each other.
+
+[Prof. Uhler] 20:22:30
+And just by going over 6 friends. Okay, so we're only at most 6 friends away from children.
+
+[Prof. Uhler] 20:22:37
+So that's how, this, what you can, the types of analysis that you can actually do with these types of networks.
+
+[Prof. Uhler] 20:22:43
+And that's okay at another analysis that I also always find very interesting and of course, yeah, you should do these types of analysis with LinkedIn, etc, right?
+
+[Prof. Uhler] 20:22:52
+And this is again something that you can do no matter whether it is again an Amazon network where you know it is on items or whether it is a network on stocks or whether it is whatever the network is that you're actually working with.
+
+[Prof. Uhler] 20:23:07
+Transportation networks, etc. Let's see an analysis of. Homopoli.
+
+[Prof. Uhler] 20:23:13
+What does what does homophily mean? So homophily means what are the nodes that are more connected to each other than you would expect by chance?
+
+[Prof. Uhler] 20:23:19
+So you would probably already, you know, intuitively say that, well, people who live in the same country, they're probably more connected than what you would expect by chance.
+
+[Prof. Uhler] 20:23:28
+And so these lighter colors here that's exactly what it means. So you have here all kinds of different countries, not all of them, but just like some selection of countries.
+
+[Prof. Uhler] 20:23:36
+And so you see here that you have the lightest. Orange colors on the diagonal meaning that, you know, every country has most connections.
+
+[Prof. Uhler] 20:23:44
+In that country. Okay. Now, now what you also see in here as that, of course, you know, like things like, here you have the US and North America and then you have like Central America and then South America so you can even see blobs of of countries that are closer together showing up and then you know you go more into the European part etc. etc.
+
+[Prof. Uhler] 20:24:09
+So so that's interesting so you get to see also blobs of countries that are close by.
+
+[Prof. Uhler] 20:24:14
+You even get to see historic ties, which is pretty amazing. So here is Great Britain and then you have South Africa.
+
+[Prof. Uhler] 20:24:21
+Still a lot of connections between them, although they're very far away, right? Just in terms of distance.
+
+[Prof. Uhler] 20:24:26
+But of course, historically, they still had a lot of different connections and you actually see this pop up in these networks.
+
+[Prof. Uhler] 20:24:33
+So pretty amazing. What you can read off, maybe not so surprising, maybe the historical one, a little bit surprising, right?
+
+[Prof. Uhler] 20:24:39
+But otherwise maybe not so surprising. However, maybe over here you're getting to things that are maybe a little bit more surprising and are the types of analysis that you can do on these networks.
+
+[Prof. Uhler] 20:24:48
+Well, you can look at, you know, you can look at all people who are, say, 20 years old.
+
+[Prof. Uhler] 20:24:53
+Okay, so that's the black, and look at what are what is the age of their friends.
+
+[Prof. Uhler] 20:24:59
+So what is the age of their friends? Well, and again, so we're looking at all their friends and what is the fraction of their friends and what is the fraction of their friends who are 10 years old, so we're looking at all their friends and what is the fraction of their friends and what is the fraction of their friends who are 10 years old, what is the fraction of their friends who are 10
+
+[Prof. Uhler] 20:25:14
+years old, what is the fraction of their friends who are 20 years old, who are 25 years old, 30, 40, etc.
+
+[Prof. Uhler] 20:25:16
+And you see that there is a huge peak at 20, meaning most of their friends are 20 years old.
+
+[Prof. Uhler] 20:25:19
+Okay. So that's here. Then what about the people? Are 30 years old?
+
+[Prof. Uhler] 20:25:24
+You see that most of their friends are 30 years old. But they have already a little bit of a broader distribution.
+
+[Prof. Uhler] 20:25:30
+And now then you can look at maybe the people who are 60 years old and you see that they have a very broad and this makes sense, right?
+
+[Prof. Uhler] 20:25:37
+They have a lot of, they have a very, really nicely distributed kind of French group among, you know, people who are 20 years old, 30, 40, and then they have a little bit more friends of like people of their same age, but really basically no difference.
+
+[Prof. Uhler] 20:25:49
+This makes sense because here it's mainly like family connections, etc. So that's really quite nice to see and how extreme it is, right, for young people, actually having the same, the friends of the same age group.
+
+[Prof. Uhler] 20:26:01
+And of course, you know, you may say like, okay, so nowadays this, you know, different countries are using Facebook in different ways, but you can look at things like this in LinkedIn, etc.
+
+[Prof. Uhler] 20:26:12
+So this is just to show you how analysis works, but you can look at things like this in LinkedIn, etc.
+
+[Prof. Uhler] 20:26:14
+So this is just to show you how analysis works and what types of patterns you can actually identify. Okay.
+
+[Prof. Uhler] 20:26:17
+Or, you know, looking at different call and of course, different colleges, etc, like looking at data like this is really quite interesting and informative.
+
+[Prof. Uhler] 20:26:26
+And here is another one which is maybe also very surprising. Which is, you know, how, so you look at your friends and you ask how many friends do they have?
+
+[Prof. Uhler] 20:26:39
+And is there a pattern of who you make friends with? So if you are a person who has like 5,000 friends, are you more likely to be friends with someone who also has 5,000 friends?
+
+[Prof. Uhler] 20:26:49
+And so what this says is like, you know, let's look at all of the people who have 10 friends.
+
+[Prof. Uhler] 20:26:54
+And look at how many friends their friends have. And you see here, this is again the proportion of people among their friends and how many friends they have.
+
+[Prof. Uhler] 20:27:03
+And you see that there is this huge peak here at 10, meaning that most of their friends have 10 friends.
+
+[Prof. Uhler] 20:27:08
+And then again here there is like this peak at 50, so we look at all of the people who are 50 friends and it's like really nicely, distributed with a peak at 50.
+
+[Prof. Uhler] 20:27:19
+So it seems like, you know, people who have 50 friend are also very likely to have friends who also have around 50 friends.
+
+[Prof. Uhler] 20:27:26
+Okay. And then people who have like a hundred friends are also very likely to have something like a hundred friends, etc, etc.
+
+[Prof. Uhler] 20:27:35
+So and and it's great like I ideas are put in that you know this some of it can be explained by age but not everything of it can be explained by age.
+
+[Prof. Uhler] 20:27:43
+So a lot of this is really that, you know, there are there are different groups of people who, you know, are really more likely to be friends with, with more similar people and actually how many friends you have.
+
+[Prof. Uhler] 20:27:53
+Is a real trait of a person. Okay. And even without this blob, right, it's, you still have like that actually the, you still have like that actually the distribution is peaked at the number of friends, which is the same.
+
+[Prof. Uhler] 20:28:08
+And random is always a great one to have in and it's also a great question, that's peaked at the number of friends, which is the same.
+
+[Prof. Uhler] 20:28:10
+And random is always a great one to have in the number of friends, which is the same.
+
+[Prof. Uhler] 20:28:16
+And random is always a great one to have in and it's also a great question. This is just if I don't take, if I just take the full network, and I don't take into account age groups, what is it that I would be expecting the full network. And I don't take into account age groups.
+
+[Prof. Uhler] 20:28:21
+What is it that I would be expecting so that you know whether you know what you're seeing is actually is significant or not.
+
+[Prof. Uhler] 20:28:22
+We already talked about hypothesis testing, right, that we need to always compare to what would we expect in the null model.
+
+[Prof. Uhler] 20:28:27
+So this is an all model. This is just if we don't take into account H at all.
+
+[Prof. Uhler] 20:28:31
+So, that's how these plus look. So you can identify things of like, you know, in this case, we're studying the soap, you know, social science aspects of people, right?
+
+[Prof. Uhler] 20:28:43
+Of like, what makes people be friends with each other? Where do you expect, what makes people be friends with each other?
+
+[Prof. Uhler] 20:28:48
+Where do you expect to see more links with each other? Where do you expect to see more links than otherwise?
+
+[Prof. Uhler] 20:28:50
+But of course, exactly the same questions you can ask in any application area. But of course exactly the same questions you can ask in any application area, right?
+
+[Prof. Uhler] 20:28:54
+What is it that, the same questions you can ask in any application area, right? What is it that, for example, drives transport, you can ask in any application area, right? What is it that, for example, drives transportation networks?
+
+[Prof. Uhler] 20:28:59
+Where do you see more edges than what you would expect at random? Okay, what drives edges in say the brain when we're studying neural networks in the brain? Right?
+
+[Prof. Uhler] 20:29:08
+Where do we have more connections that what we would expect by chance? Exactly, I'm just, you know, giving you here one example that is very intuitive of the Facebook network because we all think about, you know, we all have had some interactions with Facebook, but always.
+
+[Prof. Uhler] 20:29:23
+Map this back to whatever you're application is that you are excited about and exactly the same questions you can just map into any.
+
+[Prof. Uhler] 20:29:30
+Of the different, any of the different types of applications that you may be working. Okay, so that's so that's you can of course you will ask different types of questions depending on what your application areas
+
+[Prof. Uhler] 20:29:48
+Okay, so with that we've already gone through, you know, what I usually do when I get a large-scale network, be it, and of course I work a lot on biological networks.
+
+[Prof. Uhler] 20:29:58
+I wanted to here give you an example of something completely different, right, of a social network, but whether it is a biological network, a social network, a network, a recommended systems network, etc. in all financial network a transportation network in all network analysis these are these are the 4 things that I would always do as a as a first, st you know, analysis of getting an impression of what is in the
+
+[Prof. Uhler] 20:30:26
+network. Okay? You would 1st look at connected components and then really look at maybe spend a little bit of time of analyzing all the small connected components and then really concentrate on the one large connected component.
+
+[Prof. Uhler] 20:30:37
+Then we look at degree distribution to find out are there some really interesting nodes in the network that have a lot of connections.
+
+[Prof. Uhler] 20:30:46
+In any application you like right this will be something that you want to look at and you want to look at who are these notes and the social network right it might be influencers etc but of course in a biological network with proteins it's a protein that combines to a lot of other types of proteins and neuron that is connected to many and can interact with many other neurons, etc, right?
+
+[Prof. Uhler] 20:31:08
+Financial, financial markets. There is one, that is like particularly correlated with all kinds of other stocks, etc.
+
+[Prof. Uhler] 20:31:16
+So, so that's, so that's, where all these, where you see that, you know, the same questions are just applied in all different kinds of settings.
+
+[Prof. Uhler] 20:31:26
+And then we talked about diameter of like what is, you know, that tells you a lot about the network and in particular processes on networks.
+
+[Prof. Uhler] 20:31:34
+What is, you know, the longest path that you have to take? What are 2 nodes that are the furthest away from each other?
+
+[Prof. Uhler] 20:31:40
+Even if you take shortest paths among any of them. And finally, we talked about homophily, right?
+
+[Prof. Uhler] 20:31:46
+What are properties of the network or what are types of notes that are more connected to each other than what you would expect by chance.
+
+[Prof. Uhler] 20:31:51
+That tells you a lot about, you know, how the network came about. What are the types of people that like to be connected to each other?
+
+[Prof. Uhler] 20:31:59
+Whether it is because they have similar age, whether it is because they live in similar countries, whether it is that they have similar number of friends.
+
+[Prof. Uhler] 20:32:09
+And of course these will be different things if you're looking at other types of applications like transportation network where, you know, say if we're looking at an airplane network, right, where it's, it, some of it is given by distance, but other things are given by its being like particular business being it maybe say for example cities that are concentrated on the same industry like say just finance right
+
+[Prof. Uhler] 20:32:34
+you would have a whole lot of connections between them. There are other cities that are more connected to each other because of say education hotspots, etc.
+
+[Prof. Uhler] 20:32:43
+So there you would see industries pop up as something where you know or tourism of course like then you can look at the summer and winter flights and you will see that those are the things that actually drive the transportation.
+
+[Prof. Uhler] 20:32:55
+So that's, so that's that. Then I had an overview slide on the 4 different things already at the beginning.
+
+[Prof. Uhler] 20:33:02
+Okay, so with this what I want to go into is, that question that often comes afterwards.
+
+[Prof. Uhler] 20:33:08
+Or finding an important note. Now of course finding an important note depends so much on the application, right?
+
+[Prof. Uhler] 20:33:14
+It can be finding an influencer which just has a high degree, which is exactly what we already talked about.
+
+[Prof. Uhler] 20:33:21
+Types of applications. And so let's 1st look at just a degree distribution is what we all already and so centrality means importance okay so you know so what makes a node important well what can make him know it important in the simplest setting is just for example how many friends a particular node has.
+
+[Prof. Uhler] 20:33:39
+Okay, that's what we have already talked about so I don't really want to. And then the simplest setting is just for example, how many friends a particular node has. Okay.
+
+[Prof. Uhler] 20:33:45
+That's what we have already talked about. So we will, I don't really want to go into, I agree centrality again.
+
+[Prof. Uhler] 20:33:47
+We already talked about the degree distribution. So these are just notes that have a lot of friends.
+
+[Prof. Uhler] 20:33:50
+However, you know, that's really that's only one way of being important in a network.
+
+[Prof. Uhler] 20:33:56
+Okay, so, and in particular, in fact, this simple degree doesn't capture a lot of things.
+
+[Prof. Uhler] 20:34:04
+It's for a social network, I would argue that often it's not just important that a person has a lot of friends, but it's also important that the friends of that person also have lot of friends, right?
+
+[Prof. Uhler] 20:34:17
+That makes you kind of more important. And then that those friends again have a lot of friends. So that's what we mean by this cascading effect, right?
+
+[Prof. Uhler] 20:34:25
+If you need to find a really important person or an influencer, it should be just a person who is connected, you know, kind of randomly connected to a lot of people.
+
+[Prof. Uhler] 20:34:32
+But it should also be that this person is connected to the right people, right? Where these people again have a lot of friends or a lot of influence and then these people again have a lot of influence.
+
+[Prof. Uhler] 20:34:42
+So that's something different that's not captured just by degree distribution, right? So, so then, you know, let's, so what is actually now here, you know, since last time I talked about eigenvectors and we saw eigenvectors pop up in order to do principal component analysis, right?
+
+[Prof. Uhler] 20:35:02
+You will see eigenvectors and data science pop up in many different types of applications because computing eigenvectors is a vast operation to do.
+
+[Prof. Uhler] 20:35:10
+Now here is something amazing where eigenvectors pop up. And again, I will not do the math, but I will have the reference for the people who like to understand why eigenvectors again pop up in this completely different application.
+
+[Prof. Uhler] 20:35:22
+Okay, so if I want to find these people, and, and in fact, I should tell you that this is in fact what Google's page rank does.
+
+[Prof. Uhler] 20:35:30
+Just to give you another completely different application, right? Google had to figure out how to how to order.
+
+[Prof. Uhler] 20:35:35
+Hey, websites. So is a website only important because I have a high in degree, meaning many that websites are pointing in to me.
+
+[Prof. Uhler] 20:35:47
+Yeah, that's 1 way of saying that I'm important, right? I have to have this high degree.
+
+[Prof. Uhler] 20:35:50
+So many websites pointing in to me. But actually I'm even more important if the websites that point in to me also have a lot of websites that point in to them.
+
+[Prof. Uhler] 20:36:00
+And then those websites also have a lot of websites that point in to them. Okay. Again, showing you another completely different application.
+
+[Prof. Uhler] 20:36:07
+Why you should actually really care about networks, right? Like, so we need to be able to capture those types of effects.
+
+[Prof. Uhler] 20:36:14
+And so what was the foundation for Google's page rank is in fact, is eigenvector centrality.
+
+[Prof. Uhler] 20:36:20
+So how you can capture this cascading effect is by the eigenvector corresponding to the largest eigenvalue of the adjacency matrix.
+
+[Prof. Uhler] 20:36:30
+So highest eigenvector is exactly as a set, is the eigenvector corresponding to the largest eigenvalue of the adjacency matrix.
+
+[Prof. Uhler] 20:36:37
+So it's amazing. Okay, so the eigenvector corresponding to the largest eigenvalue of the adjacency matrix will have all positive and trees.
+
+[Prof. Uhler] 20:36:44
+And in fact, the entries, so if there is a 10 in that entry that is bigger than a 9, that means that that node is more important than compared to the node that has a 9.
+
+[Prof. Uhler] 20:36:54
+So this is amazing that if you just compute the eigenvector corresponding to the largest eigenvalue of the JCCC matrix, the eigenvector is of length number of nodes, right?
+
+[Prof. Uhler] 20:37:04
+Because we have a matrix of size n by n if we have n nodes, then the eigenvector is of length n.
+
+[Prof. Uhler] 20:37:10
+So every node gets a rank. And so you can just read off how important is every node in terms of this cascading effect.
+
+[Prof. Uhler] 20:37:19
+And so I'll have the reference at the end if you actually want to read up on why the eigenvector shows up here.
+
+[Prof. Uhler] 20:37:25
+And in fact, this is exactly what was the basis for Google's Patreon. Okay, of how it is in fact ranking the websites when you're looking at So, so this is right much, I mean, contains much more information than just looking at the degree itself.
+
+[Prof. Uhler] 20:37:42
+And that's where eigenvectors show up. But now, of course, you can have also completely other types of applications.
+
+[Prof. Uhler] 20:37:49
+Maybe it's an application of where do you need to build like in the transportation industry. Where would you build your next airport? Maybe.
+
+[Prof. Uhler] 20:37:55
+There are closeness matters, right? You want to be close to many different cities, where a lot of different people live.
+
+[Prof. Uhler] 20:38:03
+That's completely different than degree or completely different than something that could be captured by eigenvector. So it really depends a lot on what application you are working on.
+
+[Prof. Uhler] 20:38:13
+Depending on, you know, that defines what is an important note. Okay. And finally, you know, we'll have another one that is in fact we'll also talk about also in Friday's lecture and and also later on here in fact in our final, case study that we will be looking at, which is between us centrality, again, a completely different way of measuring whether something
+
+[Prof. Uhler] 20:38:35
+is important. So You know, so a note can also be important if it doesn't have to have a high degree.
+
+[Prof. Uhler] 20:38:43
+It doesn't have to have an a high eigenvector centrality or a closeness centrality.
+
+[Prof. Uhler] 20:38:50
+It can just be important because a lot of messages go through this. Okay, because there are a lot of paps, you know, these shortest paths that we were looking at that have to go through this node.
+
+[Prof. Uhler] 20:38:59
+So let me draw an example, right? So if you have something like
+
+[Prof. Uhler] 20:39:06
+Maybe the network looks something like this.
+
+[Prof. Uhler] 20:39:13
+And.
+
+[Prof. Uhler] 20:39:17
+Okay, let's say something like this. And you have here a note that is like super, super important, right?
+
+[Prof. Uhler] 20:39:23
+Because all of the messages that have to go from one side to the other side have to go through this.
+
+[Prof. Uhler] 20:39:29
+So, so that's a note that is very, very critical. And that's a note that has a high between a centrality, although, you know, it's degree, I mean, we can add like other notes here that have a much higher degree than this note here.
+
+[Prof. Uhler] 20:39:44
+But this is still a very critical note because all of the messages that are passing from one place to the other or having to go through here.
+
+[Prof. Uhler] 20:39:48
+Now, unfortunately, you know, between us and Charlie, so we'll see an example of a criminal network, which we're going to look at as our final example, between the centrality really matters.
+
+[Prof. Uhler] 20:39:57
+You don't want to have a high degree. You don't want it because a high degree is very easy for the police to pick up.
+
+[Prof. Uhler] 20:40:02
+Okay. If like you are the person where everyone calls you, then of course that's a very easy one to pick up.
+
+[Prof. Uhler] 20:40:06
+But you want to have a high between us and reality. You want all of the information, all of the important information to be going through you.
+
+[Prof. Uhler] 20:40:13
+In fact, even in companies, right? You don't want like everyone to have to report to you, but you want to be the person where all of the information has to go through.
+
+[Prof. Uhler] 20:40:22
+So between us centrality is a very, very critical metric for all kinds of different applications.
+
+[Prof. Uhler] 20:40:27
+Also on unfortunately for things like, you know, in wars, etc, when you're looking at like, say, if you're looking at transportation hubs or electricity, grids, right?
+
+[Prof. Uhler] 20:40:38
+Those are like particular nodes where a lot of power like all of the different lines or power is flowing through doesn't have to have a high degree but you know these are the notes that you really want to protect as much as possible.
+
+[Prof. Uhler] 20:40:49
+Okay, or similarly, you know, also for hackers, etc. So it's between the centralities a lot about what are the notes that you actually need to protect the most because all of the information is flowing through it or power is flowing through it, etc.
+
+[Prof. Uhler] 20:41:03
+Or transportation, right? The most many of the links have to go through there. So, so those that's what is captured by between the centrality, again, showing you that you really have to think carefully about whichever application you're working in and then choosing the right way of measuring whether an old is important or not.
+
+[Prof. Uhler] 20:41:21
+Okay, and then figuring out based on the adjacency matrix how to actually find those types of So that's the whole, that's how, you know, these, when we're thinking, you know, every application of network is different, right?
+
+[Prof. Uhler] 20:41:36
+So I'm showing you here the social, these social networks that, you know, as a case study that we've done so far, we're often eigenvector centrality or degrees as centrality are really important ones to measure importance of a note but equally important for other types of applications or closeness centrality or between us and traffic.
+
+[Prof. Uhler] 20:41:53
+Okay, and between the centrality is very important also for I mean as I have here for on directed networks like a power grid which is undirected which is exactly where between a centrality would be very Okay, so.
+
+[Prof. Uhler] 20:42:09
+Okay, and so, so I would, so there are questions about can I draw how eigenvector centrality looks like?
+
+[Prof. Uhler] 20:42:15
+So that's hard, right? Because it is a node where it has a high degree, but also all of its neighbors have high degrees.
+
+[Prof. Uhler] 20:42:21
+So I guess it does something like this, right? So high degree and then high degree and then high degree, then high degree.
+
+[Prof. Uhler] 20:42:28
+Etc. So this is how when it how a network looks like and then again high degree, etc.
+
+[Prof. Uhler] 20:42:33
+So this is how a node looks like that has a very high eigenvector. Now, what I would suggest that you all do, which is actually a really good exercise is to draw a network.
+
+[Prof. Uhler] 20:42:44
+Where different notes have. You know, when in terms of degree centrality or when in terms of eigenvectors centrality or when in terms of closeness centrality or when in terms of betweenness and Okay, closest and rallies again things that of like where would you put a airport for example those are those are applications where you would talk a lot about closeness and that.
+
+[Prof. Uhler] 20:43:08
+So this would be great, to actually do, as, you know, just a little example of draw networks and try to figure out how can you make different nodes be be the ones that actually have the highest degrees in reality, I can make your closeness between.
+
+[Prof. Uhler] 20:43:23
+Okay, again, there are some more questions about eigenvector. So again, we take the adjacency matrix.
+
+[Prof. Uhler] 20:43:29
+We compute the eigenvector corresponding to the lowerest eigenvalue. And that's exactly the eigenvector centrality.
+
+[Prof. Uhler] 20:43:35
+So every entry tells the rank of that website for example. And I will have the map, so that you can go through it in your own time if you're really interested in this.
+
+[Prof. Uhler] 20:43:43
+So I will have it, all the way, at the end as, as a reference that you can really read up on.
+
+[Prof. Uhler] 20:43:51
+So what is the most critical to take away is that it, you know, which centrality you should use depends on the application.
+
+[Prof. Uhler] 20:43:59
+Okay. So we've already, so now I already went through this and we went through it in terms of like which applications you would look at what but if we just do it in a friendship network, well the high degree centrality is the most popular person.
+
+[Prof. Uhler] 20:44:13
+And you high eigenvector centralities is the most popular person that is also friends with popular people. Okay, that's the difference between eigenvector centrality and degree centrality.
+
+[Prof. Uhler] 20:44:24
+Then there is a high closeness centrality. That is the person that could inform the group who was closest to all the people, right, where you want and we know that information always gets changed, the more different people and information has to go through.
+
+[Prof. Uhler] 20:44:40
+So if you really want to inform a whole group, you may want to give that message to the person who is closest to all people so that the message doesn't get changed too much until it reaches everyone.
+
+[Prof. Uhler] 20:44:51
+And the high between the centrality is the person whose removal could best break the network upon. Okay, that's why this is so critical in a criminal network, for example, the person where all the information is going through that if you're removing that person that would best break up the whole network.
+
+[Prof. Uhler] 20:45:10
+So that's, how you would, how, what is the differences between all of these, at least in a friendship network.
+
+[Prof. Uhler] 20:45:17
+It's actually pretty easy to build a network where just one node has all of them. What is more interesting is to build networks to understand that these are actually very, very different properties.
+
+[Prof. Uhler] 20:45:29
+And so these are very different properties and you actually do want to, you know, depending on the application you're working with, you do want to actually have, you know, have a centrality measure that matters for that type of application.
+
+[Prof. Uhler] 20:45:43
+And in fact, this is put in a really great questions in terms of weight and networks. So you can do weighted networks for all of these.
+
+[Prof. Uhler] 20:45:50
+Okay, so I can have weights even when I'm computing degrees and, for eigenvector centrality for sure.
+
+[Prof. Uhler] 20:45:57
+Closest centrality as well, right? So you may want to actually take into account the, the edge weights which might actually correspond to the distance between 2 people.
+
+[Prof. Uhler] 20:46:06
+And so definitely in all of these different and between us as well. You may want to actually take into account.
+
+[Prof. Uhler] 20:46:11
+You know, there it's information flow on the edges, so the edge weight might correspond to how much information or how much power is flowing on that particular edge.
+
+[Prof. Uhler] 20:46:20
+So in all of these, you may want to take edge weights into account and in fact you can easily compute them even with edge weights.
+
+[Prof. Uhler] 20:46:29
+So that's, so the most important is to take into account that the centrality measure really depends on the application and you should always think about the question that you're trying to answer.
+
+[Prof. Uhler] 20:46:40
+So what I want to do now in the last, 15 min of this of this lecture is actually to go through a case study.
+
+[Prof. Uhler] 20:46:48
+Okay. So I want to, go through a case study. And, before I go there, maybe, I'll just see whether there are some more other, other types of questions.
+
+[Prof. Uhler] 20:47:01
+So, okay, so there's just more questions about the weights. So let's just do it very quickly.
+
+[Prof. Uhler] 20:47:07
+So for example, for degree, let's just do this. So say, you know, if I would have no weights and this degree of this particular node would be for.
+
+[Prof. Uhler] 20:47:17
+But now maybe I have weights.
+
+[Prof. Uhler] 20:47:21
+And now in this case, the degree of this particular note, the weighted degree would be 1, 2, 3, 4, 5, 6, 7.
+
+[Prof. Uhler] 20:47:28
+So that's how you would take into account. And, I can vector centrality instead of an adjacency matrix that just has zeros or once I would have instead of zeros or ones I would also have all kinds of you know, entries that are not ones.
+
+[Prof. Uhler] 20:47:43
+And so that's how I would get an eigenvector centrality. Similar for closeness in terms of like instead of just looking at a path.
+
+[Prof. Uhler] 20:47:49
+Here, these 2 notes would have distance too, but now if I add edge weights like one and 3, then the distance between these 2 nodes is
+
+[Prof. Uhler] 20:47:58
+And, and a great question about their closest centrality and visually, that's exactly how Joanna puts it.
+
+[Prof. Uhler] 20:48:05
+It would be something like where the, in, you know, if you have a, if all of your nodes are kind of on a sphere, then the note that is most in the middle would be the most closest as long as all of the edge weights have, you know, have.
+
+[Prof. Uhler] 20:48:17
+Wait one basically. And so otherwise as we're seeing here right in terms of if I have other types of edge weights and I can really distort the picture.
+
+[Prof. Uhler] 20:48:28
+But that's how we should think of closeness centrality as something that if our edges are, you know, the length of the edge weight, then it is the note that is at the center of the math.
+
+[Prof. Uhler] 20:48:39
+And between the centrality is, how we could most break up the network and we'll actually talk a lot about between us and centrality in our hey study and our final case study that we're doing today so let's me maybe move on to that one.
+
+[Prof. Uhler] 20:48:52
+And so, you know, criminal networks, I talked about criminal networks. I mentioned them at least.
+
+[Prof. Uhler] 20:48:57
+I want to actually go into that. In one criminal network, to end with a really, I think a very interesting type of application also to show you that impact, you know, people are starting to use a lot of network science also, wonder actually thinking about criminal networks.
+
+[Prof. Uhler] 20:49:13
+And criminals. And so here is one for particular and so the police is using a lot of of network science.
+
+[Prof. Uhler] 20:49:21
+So here is just to tell you another completely different application, right, of why you should care about networks and that they're really used everywhere.
+
+[Prof. Uhler] 20:49:29
+So this is a, a stuffy about a drug network. Which is known as Calviore.
+
+[Prof. Uhler] 20:49:34
+It's a network that went out of Montreal. And so this is the timeframe where, it's, where, the network was actually being.
+
+[Prof. Uhler] 20:49:44
+So it was, Investigated by the police, why this is so such an important or such an interest?
+
+[Prof. Uhler] 20:49:49
+Well, 1st of all, often you don't get access to criminal networks. And here you did.
+
+[Prof. Uhler] 20:49:55
+And, one got access to criminal networks. And here you did. And, one got access to it because actually the mandate of the police was different than what it usually is. And one got access to it because actually the mandate of the police was different than what it usually is.
+
+[Prof. Uhler] 20:50:00
+The mandate of the police was different than what it usually is. The mandate of the police was to seize drugs or money and not to immediately arrest people.
+
+[Prof. Uhler] 20:50:06
+So what you're getting to see here is actually a network and how it is changing over time, which is another really interesting property of this network.
+
+[Prof. Uhler] 20:50:15
+And so we can study how networks are changing over time 1st of all over these 2 years and we can study how networks reorganize themselves when the police is in, you know, is kind of you know, is really, is really like playing around with the network, right?
+
+[Prof. Uhler] 20:50:33
+In some sense, because it is always going in and seizing money or seizing drugs. And then you see how the are reorganizing themselves.
+
+[Prof. Uhler] 20:50:41
+Okay, so it's it's a network that is under constant attack by the police in this case.
+
+[Prof. Uhler] 20:50:46
+And you'll see how the network because the mandate was not to arrest the people within that time frame only at the end, you will see that the network actually reorganizes itself.
+
+[Prof. Uhler] 20:50:56
+And in particular, they were 1st concentrated on Larry and then the network is actually reorganizing itself because they're constantly being seized, right?
+
+[Prof. Uhler] 20:51:05
+So Mariana is constantly being seized. So they know that something is off. And then it's actually switching, to, to poker, you know, import in this case.
+
+[Prof. Uhler] 20:51:13
+And, so, and let me actually 1st go through the data. I'll come back here.
+
+[Prof. Uhler] 20:51:19
+So, so what is interesting is Mariano was 1st imported. Through, Morocco.
+
+[Prof. Uhler] 20:51:25
+That's where the drug comes from. Then, was imported through Colombia. So now that, of course, means that a network has to hugely restructure itself, right?
+
+[Prof. Uhler] 20:51:33
+I mean, if you have import from one country or one region and then you have to change to a completely different region, you'll you're seeing that you're seeing that of course different types of people will become very important in this in this particular setting.
+
+[Prof. Uhler] 20:51:47
+Okay, so how does the network looks like? So and what is the network? So we have different phases.
+
+[Prof. Uhler] 20:51:55
+So, this is a network that was collected by the police by being able to wiretap phones of people.
+
+[Prof. Uhler] 20:52:02
+Okay, so of course police is not just generally allowed to wiretap anyone, so they always have to go through a court case and ask for permission and and show documentation of why they now need to wiretap another person.
+
+[Prof. Uhler] 20:52:14
+So that's what these phases are. Okay, so at this phase here, they were allowed to via tap these 15 people and so they knew who is talking to who.
+
+[Prof. Uhler] 20:52:22
+Then in the next phase they were allowed to wiretap these 25 people and then now they know who among these 25 people is talking to him.
+
+[Prof. Uhler] 20:52:31
+In fact, also have the messages and so I have the reference in the end it's really interesting to look at also what are these people actually talking to children?
+
+[Prof. Uhler] 20:52:42
+It's a very interesting kind of, you know, what are these people actually talking to children.
+
+[Prof. Uhler] 20:52:46
+It's a very interesting kind of, you know, a very interesting paper to actually read by Carolyn Morselli who actually did this study and who has you know who has also got an access to all the stadium.
+
+[Prof. Uhler] 20:52:54
+So. So now of course, you know, they might be wire tapping 25 people, but then realize that 2 of these have nothing to do with the drug network based on the messages, you know, and so then they might also leave these people out.
+
+[Prof. Uhler] 20:53:08
+Okay, so some people are left out, although now they're wire tapping 33 people some people they're not wiretapping anymore from the previous sometimes some people they're not wire tapping anymore from the previous time point.
+
+[Prof. Uhler] 20:53:20
+Okay, so that's how this data looks like. And so the network, they were investigating a particular person who they thought was the mastermind of this drug network.
+
+[Prof. Uhler] 20:53:29
+That was coming out of Montreal. And so, and if I go back again, so this is what has happened in terms of what they did at all of the different time points.
+
+[Prof. Uhler] 20:53:40
+So, and they in phase 4, for example, they seized a lot of money, and the lot of Marijuana in phase 6, they again seized a whole lot of money, a little bit less of Marianna, but already a little bit of coquayine, etc.
+
+[Prof. Uhler] 20:53:54
+Okay. And then you see that, you know, here it's quite a lot of cocaine with 12 kg, actually even more 23 kg of cocaine in the last.
+
+[Prof. Uhler] 20:54:00
+Okay, so this is what is happening at every one of the time. Now, let's actually look at how the network looks like.
+
+[Prof. Uhler] 20:54:07
+Okay. And so, you know, what is the types of networks that you're studying when you're actually studying criminal networks and here it's amazing that we're going to get to see how it changes over time.
+
+[Prof. Uhler] 20:54:18
+So these are the types of networks. So this is for example the network at phase 3 where an edge means that there has been phone calls between these people.
+
+[Prof. Uhler] 20:54:26
+And you know, if you want to read more about what was said on these, etc, who's calling home, etc, then you should read the paper.
+
+[Prof. Uhler] 20:54:34
+Okay. But what is amazing is these that we can actually now understand and look at these different types of people and let me give you already a decoding of what the different numbers are.
+
+[Prof. Uhler] 20:54:44
+I will just look at 3 people. So this is the alleged mastermind of the network, which is the noted number one.
+
+[Prof. Uhler] 20:54:51
+We have another one, which is the note in number 3 and we'll actually see that you would be able to tell what these nodes are just based by looking at the network itself, right?
+
+[Prof. Uhler] 20:55:00
+So note that, you know, generally often in many applications, you would just get the network and from it you would have to understand what are important nodes in the network.
+
+[Prof. Uhler] 20:55:07
+But here I'm giving you also the story behind it. So this is, you know, the main helper of node number one. Okay.
+
+[Prof. Uhler] 20:55:15
+So known as principal lieutenant, for example. And then we have another node which you will actually see becomes more and more important as we go on over time.
+
+[Prof. Uhler] 20:55:24
+Because this is the person who is actually setting up the whole, the whole drug import from, from Colombia when they're switching from Mario to actually So you'll see that this person wasn't.
+
+[Prof. Uhler] 20:55:37
+Important at all at the beginning, but then actually as the network changes, of course, different people are becoming more and more important.
+
+[Prof. Uhler] 20:55:43
+And so now that we have the numbers, let's go and see. How this actually looks like.
+
+[Prof. Uhler] 20:55:47
+So at the beginning, we have node one here. Also note 3 main helper not yet, you know, someone that you would pick up if you're looking at this, if you're looking at this network, no 12 as well, like definitely not someone you would pick up and listen.
+
+[Prof. Uhler] 20:56:00
+Okay, note one, yeah. Unfortunately, you know, you actually in a criminal network really don't want to have a high degree, but this person does have a very high degree already.
+
+[Prof. Uhler] 20:56:09
+So would be pretty clear to pick up in this in this particular. Now here is another phase.
+
+[Prof. Uhler] 20:56:16
+So here is another phase where you have like no 2 actually already, picking up a little bit, right?
+
+[Prof. Uhler] 20:56:24
+In terms of like, how much information is actually going through this node. Here you have node one and no 12 is somewhere out here.
+
+[Prof. Uhler] 20:56:30
+So really pretty. Already outside on the other side. Now this is where, the Cochrane import is really starting and it's being set up.
+
+[Prof. Uhler] 20:56:39
+You see now, 12 becomes very important, right? Because here on this side no 12 became very important and has in fact set up all of the you have here no 3 in fact critical because all of the information so you would definitely prefer to be node 3 it's in compared to node one it's in this criminal network a lot of information flowing through node 3 but very low degree.
+
+[Prof. Uhler] 20:57:01
+So centrality, as is put in centrality, between the centrality going to be very, very high for decent.
+
+[Prof. Uhler] 20:57:09
+And now finally you see here at the end, node one still holds on to the Canadian side of things.
+
+[Prof. Uhler] 20:57:16
+But now node 3 in fact, which was completely on this side. Has actually moved over if I'm correct. Yes.
+
+[Prof. Uhler] 20:57:30
+So here is no 3, which has moved over and no 12 is organizing. The whole network on the Columbian side.
+
+[Prof. Uhler] 20:57:30
+So now actually no 3 has even moved sides. So, so that's how, you know, this network is actually changing.
+
+[Prof. Uhler] 20:57:37
+And, and now we can look at things like between us and, the centrality.
+
+[Prof. Uhler] 20:57:48
+And so you see here. So this is just the centrality. So actually you already see that there is actually, so, so 1st of all for node one is actually very clear and any of the plots that you know, you can look at whether you look at the, centrality or between a centrality, but that definitely degrees centrality doesn't have as much signal as here for between a centrality where you actually see very nice
+
+[Prof. Uhler] 20:58:04
+trends. Of course, you know, it's like so few data points, right? That it will be very wiki.
+
+[Prof. Uhler] 20:58:08
+But you definitely see a nice trend, an increasing trend in the orange or in the green line. I'm seeing that notes 3 and no 12 are really gaining in terms of importance.
+
+[Prof. Uhler] 20:58:18
+As we're going on. Okay. And so, so this is a really I think a very nice piece of research.
+
+[Prof. Uhler] 20:58:26
+By Carlo Morcelli where I really suggest that you actually read the paper of what are the types of things that you can actually do with networks.
+
+[Prof. Uhler] 20:58:33
+Which now, for example, this is all in a Okay, so and in fact is being used I mean also for people who study like organized crimes like network science is really, really used a lot.
+
+[Prof. Uhler] 20:58:46
+And at the end, you know, everyone was, arrested. So that's when that whole, actually network.
+
+[Prof. Uhler] 20:58:52
+Ends at the end. Okay, so with that so we have like just a couple of minutes left so I thought you know just so that you really see that this can be applied everywhere.
+
+[Prof. Uhler] 20:59:04
+You know, this is now, this was criminal networks. I just want to, and this is all optional.
+
+[Prof. Uhler] 20:59:08
+I just put it here so that you really see that, you know, I give you another example that now more from my domain where we're studying particular disease and you know in this case you'll we can study autism so what I put in here is a paper actually on autism and how you find genes that are associated with autism.
+
+[Prof. Uhler] 20:59:26
+Which uses exactly the same techniques as if you're studying criminal networks like organized crime. If I'm studying the mafia and I have like some individuals that I already know are part of the mafia, how do I find other suspected criminals?
+
+[Prof. Uhler] 20:59:39
+Same type of application in autism if I know certain genes or proteins that I know have something to do with autism are causally linked with autism.
+
+[Prof. Uhler] 20:59:49
+How do I find other genes that are causally linked to autism? And so, exactly, completely different applications, but exactly the same methods that would actually be used.
+
+[Prof. Uhler] 20:59:59
+And so I just added in, you know, so that you see that these are like completely general methods and what is the method that you would be using.
+
+[Prof. Uhler] 21:00:06
+It's known as something like Steiner trees in order to identify other hypothesized people that are in the monkey or other hypothesized genes that are in that are part of a disease network.
+
+[Prof. Uhler] 21:00:16
+So, that's all optional as I put here just so that you have other examples.
+
+[Prof. Uhler] 21:00:21
+And as always, I end with references. So I told you, I promise you that I will give you the reference for the people who want to read up on how the eigenvector, how the, you know, the eigenvector corresponding to the largest eigenvalue, how that gives rise to the eigenvector centrality.
+
+[Prof. Uhler] 21:00:39
+So why this gives rise to this, you know, what what Google used as the basis for their page rank.
+
+[Prof. Uhler] 21:00:47
+That is in here and basically everything, you know, if you want to read up more on the theoretical side that is in here in this reference.
+
+[Prof. Uhler] 21:00:53
+If you want to go through the whole Facebook, you know, case study that we went through and read up on it again, and really look at how to do every one of the steps, then this is the reference to look at and I really encourage you all to redo the whole analysis for yourself.
+
+[Prof. Uhler] 21:01:08
+And finally the final, you know, the final, case study that I had, which was this criminal network where I told you if you'd like to read out more about you know what were the messages what were these phone calls that were made between these different individuals then I encourage you to look at this last one example here by Carlo Morceli as I said, where you can really go into the, you know.
+
+[Prof. Uhler] 21:01:36
+what, what was the thinking behind it? How was this all set up, etc? So that was the second lecture.
+
+[Prof. Uhler] 21:01:43
+So again, I really enjoyed it with all of your amazing contributions and questions, etc. And you know, you have access to all the slides.
+
+[Prof. Uhler] 21:01:54
+And so there are questions about that. So maybe someone can put in where they can find them. And of course, all the links are here to all of the references including the and reference that I just saw someone else asking about.
+
+[Prof. Uhler] 21:02:05
+So I will see you all on Friday. I'm looking forward to the next lecture and I will turn it over to Unpit and great learning team to answer some more of the questions that I didn't have time to answer.
+
+[Moderator - Ankit Agrawal] 21:02:19
+Thank you so much, Professor, for that. Wonderful lecture. We do see a lot of comments about the Facebook case study and about the criminal network case study that a lot of learners enjoyed going through that.
+
+[Moderator - Ankit Agrawal] 21:02:32
+So. Thank you so much. I see that we have Freeman over here with us.
+
+[Moderator - Ankit Agrawal] 21:02:38
+Today, Freeman, are you still there?
+
+[Mentor - Freeman Goja] 21:02:44
+Hi, thank you. Good morning. Yes, I'm here.
+
+[Moderator - Ankit Agrawal] 21:02:46
+Good morning. Good morning. How are you doing for a minute?
+
+[Mentor - Freeman Goja] 21:02:51
+Pretty good. How are you?
+
+[Moderator - Ankit Agrawal] 21:02:53
+Doing well. Great. Thank you so much. So thank you everybody for joining.
+
+[Moderator - Ankit Agrawal] 21:02:59
+I do see a lot of students, learners already leaving. So thank you for joining us.
+
+[Moderator - Ankit Agrawal] 21:03:05
+All of this material again will be available to you. The slides should already be available. The recording of this session, the QA, all of this will be available in your dashboard.
+
+[Moderator - Ankit Agrawal] 21:03:17
+Over a period of time. Yes, the QA will be recorded and made available. You'll also have transcripts and other documents available with respect to Q&A and the session as well.
+
+[Moderator - Ankit Agrawal] 21:03:28
+A couple of things that I noticed during the lecture, some of them were asking, will there be a hands-on?
+
+[Moderator - Ankit Agrawal] 21:03:38
+I see another person asking that. So the cabinet case study will be covered in the hands on over the weekend in during your mental learning session.
+
+[Moderator - Ankit Agrawal] 21:03:46
+So one of your mentor learning session will actually implement this caviar, case study that we study today, in Python and you will get to walk through it and play around with it during your mental learning session.
+
+[Moderator - Ankit Agrawal] 21:04:02
+And there will be other case studies. With respect to other material as well, right? Like for dimensionality reduction, you'll have a case study for clustering will have a case study.
+
+[Moderator - Ankit Agrawal] 21:04:11
+Another thing that I noticed was, somebody mentioning how, eigenvectors keep popping up.
+
+[Moderator - Ankit Agrawal] 21:04:18
+So, surprisingly in the next lecture in clustering, also again we will talk about a clustering method again with eigenvectors and eigenvalues.
+
+[Moderator - Ankit Agrawal] 21:04:27
+So there are a lot of techniques in data science where I can value decomposition is very, very critical.
+
+[Moderator - Ankit Agrawal] 21:04:33
+We'll talk about, again, value decomposition again in the future for recommendation systems and for other algorithms.
+
+[Moderator - Ankit Agrawal] 21:04:40
+So definitely recommend, studying a little bit more on the eigenvalues and eigenvectors if that's still a confusion.
+
+[Moderator - Ankit Agrawal] 21:04:52
+Okay, so that being said, let's get started with some of the questions that went unanswered during, the class today.
+
+[Moderator - Ankit Agrawal] 21:05:01
+One of the initial questions was that, are there directions involved in a bipite network?
+
+[Mentor - Freeman Goja] 21:05:13
+Okay, so, that you have 2 sets of nodes but it can be directional or on direction.
+
+[Mentor - Freeman Goja] 21:05:26
+So you could go either way. Could be direction or one direction.
+
+[Moderator - Ankit Agrawal] 21:05:30
+Yeah. Can we represent more than one network type at a time? So for the same data set can be represented as more than one network.
+
+[Moderator - Ankit Agrawal] 21:05:42
+At a given time.
+
+[Mentor - Freeman Goja] 21:05:44
+Well, if you are experimenting and you wanna try different options, you have the available characteristics to support that.
+
+[Mentor - Freeman Goja] 21:05:53
+You can. Absolutely. If it aligns with your overall objective so I think that's Those are just the most important ingredients you need to put together.
+
+[Moderator - Ankit Agrawal] 21:05:57
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:06:10
+Could you please explain the difference between number of components versus the component size?
+
+[Moderator - Ankit Agrawal] 21:06:19
+So this is with respect to the connected components.
+
+[Mentor - Freeman Goja] 21:06:21
+So they come. Right, so the The component size would be the number of nodes in the connected component right and so You can have if you have multiple networks or sub networks.
+
+[Mentor - Freeman Goja] 21:06:39
+You can have multiple connected components and so number of components would be How however many connected components that you have.
+
+[Mentor - Freeman Goja] 21:06:51
+And the component size is always gonna be the number of the connected nodes in the connector component.
+
+[Moderator - Ankit Agrawal] 21:07:06
+Hello
+
+[Moderator - Ankit Agrawal] 21:07:10
+How it is? Okay, sorry, that question was answered. What would be the edges for a network analysis applying it to a multi-level marketing network business setting?
+
+[Mentor - Freeman Goja] 21:07:26
+So think of AGs as interactions.
+
+[Mentor - Freeman Goja] 21:07:30
+Or relationships. So, I mean, I'm not exactly clear what kind of marketing setting you're referring to, but.
+
+[Mentor - Freeman Goja] 21:07:40
+If you think about what represents an interaction. Relationship however that is defined in your business contracts. That's what's gonna be your edge, right?
+
+[Mentor - Freeman Goja] 21:07:53
+So. If you have customers. Whatever represents an interaction between the customers and this could be defined in different ways depending on the particular setting.
+
+[Mentor - Freeman Goja] 21:08:08
+And so whatever represents that interaction. Component is what's gonna be. The edge in that situation.
+
+[Moderator - Ankit Agrawal] 21:08:22
+I think the marketing network. Yeah, there are different strategies involved around that, right? So it's very hard to answer that type of a question specifically.
+
+[Moderator - Ankit Agrawal] 21:08:33
+Somebody is asking how do you figure out the weight values? So I'm assuming this question is a follow up to how do we calculate the weight for the edges?
+
+[Mentor - Freeman Goja] 21:08:47
+Yeah, so weight basically represents a measure of importance, right? So. Again, depending on the, situation, like if you think about neural networks, for example, We're at the wits are randomly initialized, right?
+
+[Mentor - Freeman Goja] 21:09:02
+So We just randomly initialize with and then the algorithm lands, you know, in the process to optimize them.
+
+[Mentor - Freeman Goja] 21:09:10
+In other situations, the weights could be predetermined either by the business or some sort of regulatory authorities or based on some sort of criteria like if you are talking about road network.
+
+[Mentor - Freeman Goja] 21:09:26
+They might have some weightage, for maybe for a transport use case. There might be some weighted and that could be calculated.
+
+[Mentor - Freeman Goja] 21:09:36
+Okay. You know, travel time, it could be calculated based on maybe amount of gas required to travel different routes and things like that.
+
+[Mentor - Freeman Goja] 21:09:48
+And then they will come up with some sort of weeks. That could be applied. So it depends on the business use case, but generally.
+
+[Mentor - Freeman Goja] 21:09:55
+It could be randomly initialized like in the case of neural networks or business defined.
+
+[Moderator - Ankit Agrawal] 21:10:06
+What is the purpose of looking at the degree distribution in practice?
+
+[Mentor - Freeman Goja] 21:10:15
+So if you're looking at a network One of the things that you want to understand is the importance of different nodes in the network.
+
+[Mentor - Freeman Goja] 21:10:24
+So any real life you have. Like a very large network. You don't want to focus on every node or every entity in the network.
+
+[Mentor - Freeman Goja] 21:10:36
+Let's take an example of It's a cream in our terrorist network. So if you're working with, let's say you are the Analyst for FBI.
+
+[Mentor - Freeman Goja] 21:10:47
+And they are investigating like a criminal organization. That is a very large network. I mean. You're not gonna deploy all the, agency staff to just focus on this one key right so you want to streamline you want to identify the most important target.
+
+[Mentor - Freeman Goja] 21:11:09
+You know, invest. So looking at degree distribution, you start getting an idea of different levels of importance.
+
+[Mentor - Freeman Goja] 21:11:17
+Individuals involved or your nodes from a technical standpoint. And so you can streamline what needs more attention than others.
+
+[Mentor - Freeman Goja] 21:11:30
+And in real life, you find some nodes without connections. At all like 0 connections why other ones who have like very high connections i mean higher number of Edges originating from them.
+
+[Mentor - Freeman Goja] 21:11:41
+And so he helps you streamline and identify like the. Knows that needs to be focused and sometimes they might be a case of like okay let's exclude ones that are not having any connections originating from them at all.
+
+[Mentor - Freeman Goja] 21:11:56
+And especially like in an on directed network. And in other situations you might have it thresholds to say okay let's consider people with this many connections and a both right focus on that.
+
+[Moderator - Ankit Agrawal] 21:12:16
+Isn't network analysis common practice to retail businesses?
+
+[Moderator - Ankit Agrawal] 21:12:24
+That's an application.
+
+[Mentor - Freeman Goja] 21:12:28
+I've got a good question.
+
+[Mentor - Freeman Goja] 21:12:31
+I'm hearing it's a yes or no. We generalized business. Obviously, yes, definitely you could find.
+
+[Mentor - Freeman Goja] 21:12:39
+You know, used cases where you can apply that, but then individually different, businesses operating in the retail space might have different strategies, but You could use network analysis even for recommendations.
+
+[Mentor - Freeman Goja] 21:12:54
+And so, and recommendation is very powerful in the retail business. And so. The answer there would be definitely yes, generally, individually, you know, different businesses might decide, have a direction they want to go back.
+
+[Mentor - Freeman Goja] 21:13:10
+To answer your question generally, it's a yes.
+
+[Moderator - Ankit Agrawal] 21:13:23
+So. So somebody is asking if there are a lot of short connections and one super long connection does this not affect the speed.
+
+[Moderator - Ankit Agrawal] 21:13:35
+I'm assuming they're talking about from like so when professor was talking about 6 hops right like 6 hops from getting from one person to another.
+
+[Mentor - Freeman Goja] 21:13:39
+Chance.
+
+[Mentor - Freeman Goja] 21:13:46
+Right.
+
+[Moderator - Ankit Agrawal] 21:13:46
+If the length of the, length of the edges get longer, will that not affect the speed?
+
+[Moderator - Ankit Agrawal] 21:13:52
+Of getting from one link from one to another.
+
+[Mentor - Freeman Goja] 21:13:57
+It would definitely affect that. So this stands between nodes does impact the time taken to transmit information.
+
+[Mentor - Freeman Goja] 21:14:07
+From one node to another, right? And in in real practice it That's kinda like 2 approaches you go to accessing like the quality of a network in terms of that distance between nose, right?
+
+[Mentor - Freeman Goja] 21:14:28
+So you could decide to like consider. The average distance between any 2. Random peers.
+
+[Mentor - Freeman Goja] 21:14:38
+In the node, I mean in the network. Or you could look at the 5 S nodes.
+
+[Mentor - Freeman Goja] 21:14:45
+In a network and compute their distance. So again, it comes down to the use case. If you're looking at if you're really trying to like investigate the amount of time it takes to transmitting information between one node and another one.
+
+[Mentor - Freeman Goja] 21:15:05
+Definitely. Longer distances between nose to tell you is going to take a longer amount of time to transmit between one node and another and it short at this time to tell you It's not going to take a long, long time to get that done.
+
+[Mentor - Freeman Goja] 21:15:21
+But if you have a very large network like Phoenix example. And you compute this. Averages that I mentioned earlier.
+
+[Mentor - Freeman Goja] 21:15:29
+Between 2 random peers and you average it out. It's gonna cancel a defect. So it's likely gonna conform to.
+
+[Mentor - Freeman Goja] 21:15:41
+The I think Professor mentioned that Facebook reset as well. That was about 6 or so approximately.
+
+[Mentor - Freeman Goja] 21:15:51
+So yeah.
+
+[Moderator - Ankit Agrawal] 21:15:53
+Yeah. Can a load have all 4 centralities? If so does it have a special name or meeting?
+
+[Mentor - Freeman Goja] 21:16:05
+It doesn't. So think of those centrality measures as quality measures. Right? So we can.
+
+[Mentor - Freeman Goja] 21:16:13
+We can actually measure it for every node in a network.
+
+[Mentor - Freeman Goja] 21:16:17
+So we can measure the between us, the, the closeness and the degree centrality for any node.
+
+[Mentor - Freeman Goja] 21:16:25
+In a given network and it doesn't give you the special name. So What really we do with that information, again, depending on the Use keys.
+
+[Mentor - Freeman Goja] 21:16:38
+What are you really looking for? Are you looking for the most important figure? Are you looking for the most important entity in a network?
+
+[Mentor - Freeman Goja] 21:16:47
+Are you looking for? That one person in a criminal network that if you take the person out of the question is going to disrupt.
+
+[Mentor - Freeman Goja] 21:16:56
+The flow of information. Is going to disrupt the organizations activities. Are you looking for? That most influential person.
+
+[Mentor - Freeman Goja] 21:17:07
+You know in a network so those kind of things so it ties back to the objective the overall objective that's what will make you give priority to one over the order but you can measure all for all nodes in any network.
+
+[Mentor - Freeman Goja] 21:17:23
+And then the one you choose to use depends on the use case.
+
+[Moderator - Ankit Agrawal] 21:17:28
+I think the question was more related to can a single node have all 4 centrality measures like canon single node be like can have the highest degree centrality.
+
+[Moderator - Ankit Agrawal] 21:17:42
+Can it also have the highest eigenvector centrality? Can it also have the highest between the centrality and can it also have the highest closeness centrality?
+
+[Mentor - Freeman Goja] 21:17:51
+Is it possible? Yes, it is possible. Is it common though? No.
+
+[Mentor - Freeman Goja] 21:17:58
+Because the way organizations set up, it's not like. Very common practice for you to find one node having the highest values for all 4.
+
+[Mentor - Freeman Goja] 21:18:08
+At a given point in time, but it's possible and you could get that. And I think that If you if you look at that cave study.
+
+[Mentor - Freeman Goja] 21:18:16
+Across different faces. You will look at you will find certain notes that showed very high. Values of all those 4 quality measures.
+
+[Mentor - Freeman Goja] 21:18:28
+But they weren't the same throughout the entire investigation Which again, test, you have things change over time.
+
+[Mentor - Freeman Goja] 21:18:37
+And so. If the question is about is it possible? Absolutely. Is it always the case though?
+
+[Mentor - Freeman Goja] 21:18:43
+No.
+
+[Moderator - Ankit Agrawal] 21:18:50
+Oh, so this is related to specific part. Why the high between the centrality breaks the network and not the closeness centrality.
+
+[Mentor - Freeman Goja] 21:19:05
+The between us is so think about like that link, right? So this is They note that most transmissions or most of the organization's activities.
+
+[Mentor - Freeman Goja] 21:19:19
+Most information is flowing through. So you's like the go between. Of most of the other nodes in the network.
+
+[Mentor - Freeman Goja] 21:19:28
+Now the closeness affects kind of transmission of the information in terms of influence. So who would distribute this information?
+
+[Mentor - Freeman Goja] 21:19:40
+Good. More like so it's not necessary that things are everything is going through that person. But with the between us if you take the person out then it disrupts the connection.
+
+[Mentor - Freeman Goja] 21:19:54
+Between even other nodes. So other nodes are connect. Some nodes are connected to other nodes through this node.
+
+[Mentor - Freeman Goja] 21:20:01
+So if you take the note out of the equation. Those notes that do not connect with each other directly but through this person and no longer connected.
+
+[Mentor - Freeman Goja] 21:20:10
+But then with the closeness, you're looking at you know, the most effective way of sharing information within the network.
+
+[Mentor - Freeman Goja] 21:20:18
+So it's more like It matter of distance between. That particular node and the rest of the other nodes in the network.
+
+[Mentor - Freeman Goja] 21:20:26
+Not necessarily things going through the person.
+
+[Moderator - Ankit Agrawal] 21:20:32
+Hmm.
+
+[Moderator - Ankit Agrawal] 21:20:36
+Can you please explain what is the largest eigenvector of adjacency matrix?
+
+[Mentor - Freeman Goja] 21:20:47
+Am I sure what that question really means? I just give it the value of registers and metrics.
+
+[Mentor - Freeman Goja] 21:20:53
+I mean you could compute the Egan vector value from any adjusting the metrics, right? So.
+
+[Mentor - Freeman Goja] 21:21:01
+I'm not exactly sure what you mean by what is the largest value.
+
+[Moderator - Ankit Agrawal] 21:21:05
+Yeah, I think that, just, to take a shot at that question, there is no such thing as the largest eigenvector.
+
+[Moderator - Ankit Agrawal] 21:21:14
+There is a thing like largest eigenvalue and the eigenvector corresponding to the largest eigenvalue you can think of it as in some context the largest eigenvector.
+
+[Moderator - Ankit Agrawal] 21:21:24
+If we talk about the largest icon vector in the context of PCA then I think we can think about it as.
+
+[Moderator - Ankit Agrawal] 21:21:32
+The direction in which the maximum variance has is being captured, right? But that analysis is done with respect to finding the largest eigenvalue.
+
+[Moderator - Ankit Agrawal] 21:21:43
+There is there is no end. Yeah, there is no such thing as the largest eigenvector. There is largest eigenvalue and There is a vector corresponding to that largest, I can value.
+
+[Moderator - Ankit Agrawal] 21:21:55
+Right for each eigenvalue, you have an eigenvector and. Yeah. Yeah, but there, there is, I don't think there is such a thing as largest eigenvector.
+
+[Moderator - Ankit Agrawal] 21:22:16
+Okay, let's see if there are any other new questions. Those are all the pending questions from before.
+
+[Moderator - Ankit Agrawal] 21:22:23
+So. Rich asked, is there a catalog of available free as well as paid for data that we can get access to in order to apply the concepts we learn in this course.
+
+[Mentor - Freeman Goja] 21:22:38
+Yeah, you can start by checking out, It's a good place to Scott. If you have free data.
+
+[Mentor - Freeman Goja] 21:22:44
+You can work and you can compare your work with. Other people's code as well and see how it stucks up against them.
+
+[Mentor - Freeman Goja] 21:22:53
+So this in via the like free. Data available online as well. But the good thing about K is that you don't just find the data, other people's notebooks about the exact same.
+
+[Mentor - Freeman Goja] 21:23:08
+Data. And so you can compare your work with this and LAN from. Some of the best practices.
+
+[Moderator - Ankit Agrawal] 21:23:16
+Yeah. What is a random edge?
+
+[Mentor - Freeman Goja] 21:23:30
+If random edge. I'm not shave that came from something professor mentioned in the session.
+
+[Mentor - Freeman Goja] 21:23:39
+But So if you If you have unexpected connections. Within notes sometimes like in setting research They consider that as noise in network analysis.
+
+[Mentor - Freeman Goja] 21:24:00
+But it's more like
+
+[Mentor - Freeman Goja] 21:24:03
+If you think of it in terms of. Building a network with nodes and then established connections.
+
+[Mentor - Freeman Goja] 21:24:11
+And some unexpected. Connections and they missed out as noise in the analysis.
+
+[Mentor - Freeman Goja] 21:24:24
+Nice show if that's enough explanation but yeah.
+
+[Moderator - Ankit Agrawal] 21:24:24
+And,
+
+[Moderator - Ankit Agrawal] 21:24:28
+Yeah, I don't really know what context that question was asked for. I don't think it was mentioned during the lecture.
+
+[Moderator - Ankit Agrawal] 21:24:37
+So yeah. If there are any follow up questions maybe the person can ask more questions about it in the chat.
+
+[Moderator - Ankit Agrawal] 21:24:45
+Another new questions we have is why do we want to know the diameter of a node in the Facebook case study?
+
+[Moderator - Ankit Agrawal] 21:24:52
+Can you let me know what important implications can we infer.
+
+[Mentor - Freeman Goja] 21:24:59
+I might need to, you know, go back to the study itself to you know, really get the full intuition behind.
+
+[Mentor - Freeman Goja] 21:25:10
+Or the the reason the reasoning behind the consideration for that if you have been very specific to the Facebook study.
+
+[Mentor - Freeman Goja] 21:25:20
+But if you're asking about the diameter in terms of network analysis in general around A given node is If you look at all the No, all but most of the quality majors.
+
+[Mentor - Freeman Goja] 21:25:35
+Some of the quantity or quantitative measures of network analysis. The distance is in Poland, right? So if you have a network, you have nodes in there, you have edges, and you want to measure.
+
+[Mentor - Freeman Goja] 21:25:52
+I really, quantitative or qualitative. Aspects of the network. You would definitely want to consider.
+
+[Mentor - Freeman Goja] 21:26:02
+Relationships not just in terms of the connections but the distances of nodes from One another. And things like that.
+
+[Mentor - Freeman Goja] 21:26:11
+And so the diameter conversation comes in there to help us, you know. Gauge the surroundings of the neighborhood of nodes in a network.
+
+[Mentor - Freeman Goja] 21:26:24
+So, but very specific to, Facebook keys is gonna be similar to this, but if you If you wanna be very specific, you have to look at the, research itself in details to see why they decided to.
+
+[Mentor - Freeman Goja] 21:26:38
+Consider that.
+
+[Moderator - Ankit Agrawal] 21:26:40
+Yeah. And just to add to that, the professor also briefly mentions about it, right?
+
+[Moderator - Ankit Agrawal] 21:26:47
+When we are looking at the diameter of the network, Professor briefly mentions what it can actually help us look at.
+
+[Moderator - Ankit Agrawal] 21:26:52
+So I recommend going through the video recording around that case study to find more details. Diometer off at a node.
+
+[Moderator - Ankit Agrawal] 21:27:06
+What does diameter of a node even mean? Like I know what a diameter of a network means it's the largest distance basically in a network, what would a diameter of a node mean?
+
+[Moderator - Ankit Agrawal] 21:27:20
+To achieve the farthest user from that door. Like, I don't know why you would even, like, for every like if you have a Facebook let's say with a billion users.
+
+[Moderator - Ankit Agrawal] 21:27:35
+Does computing the longest path for every user even matter? I don't know what diameter of a node would mean.
+
+[Mentor - Freeman Goja] 21:27:41
+I think
+
+[Moderator - Ankit Agrawal] 21:27:44
+Sorry, go ahead, Freeman.
+
+[Mentor - Freeman Goja] 21:27:45
+Yeah, so I think basically you are looking at if you're looking at the diamonds off a node, and like even the Facebook, example and I don't remember the full details of it but it kind of gives you an idea of all the notes that are within
+
+[Mentor - Freeman Goja] 21:28:10
+A given diameter of the target node. Right? So you can have an idea of within in this network.
+
+[Mentor - Freeman Goja] 21:28:20
+And. If you look at the Facebook, when I'm still trying to remember some of the details of the study itself, but.
+
+[Mentor - Freeman Goja] 21:28:29
+I think they were looking at things around the number of route calls, you know, that must be Travis or something like that.
+
+[Mentor - Freeman Goja] 21:28:37
+For and if by an information sent from one source to the destination. So if you consider the diameter and you have an idea of how many knows for within the diameter of the target node.
+
+[Mentor - Freeman Goja] 21:28:54
+And this gives you an idea of. The steps that you would have to take to travel as information. From that target network.
+
+[Mentor - Freeman Goja] 21:29:04
+I mean, from that target node to a given destination.
+
+[Moderator - Ankit Agrawal] 21:29:10
+I understand that but diameter is like and I agree with your explanation of that but I'm trying to think about it in my own head and Diameter basically talks about the largest distance between 2 nodes, right, in that context.
+
+[Mentor - Freeman Goja] 21:29:27
+Right. Right.
+
+[Moderator - Ankit Agrawal] 21:29:28
+So in a, so if you have a very strongly connected component, let's say, like let's say in Facebook, the connected component is very large, right?
+
+[Mentor - Freeman Goja] 21:29:40
+Right.
+
+[Moderator - Ankit Agrawal] 21:29:41
+With the largest largest, will the diameter of that node be like very, very high? Like I think that If we have 2 nodes, then finding the shortest path between them.
+
+[Moderator - Ankit Agrawal] 21:29:54
+And then looking at the nodes and that shortest path makes sense, but the largest diameter. Or the largest path or the diameter.
+
+[Moderator - Ankit Agrawal] 21:30:04
+Yeah, for me that would be a very bizarre concept like why like I get that you want to look at all the notes but can you not artificially include every node in the graph in there by just artificially increasing the diameter.
+
+[Mentor - Freeman Goja] 21:30:06
+It's a
+
+[Mentor - Freeman Goja] 21:30:20
+Yeah, so.
+
+[Moderator - Ankit Agrawal] 21:30:20
+Like can you not make the diameter of a diameter of a node can be made infinity if you allow sales loops that way right because it's talking about the largest value.
+
+[Mentor - Freeman Goja] 21:30:30
+Right. So I think Yeah, I think again because the Facebook research was you know kind of compared with the 6 degrees research, the one in 19, I think 76 or so, the 1st one is 6 degrees one.
+
+[Moderator - Ankit Agrawal] 21:30:31
+So
+
+[Mentor - Freeman Goja] 21:30:49
+And so what they found was that So this diameter started increasing like the hop this span started increasing.
+
+[Mentor - Freeman Goja] 21:30:59
+But then once it got to about 6 or so. A kind of remain constant. So it did not increase the 6.th
+
+[Mentor - Freeman Goja] 21:31:08
+And so. That was when they were able to conclude that the Facebook diameter was also thick. In that sense.
+
+[Mentor - Freeman Goja] 21:31:16
+And so I think the whole idea was to kind of validate or invalidate the earlier search and see whether this agrees with that or not in a network like Facebook, which is global.
+
+[Mentor - Freeman Goja] 21:31:29
+So. Yeah, I mean, but I think, yeah, for more information, basically looking at the entire research again will be helpful.
+
+[Moderator - Ankit Agrawal] 21:31:32
+Hmm.
+
+[Moderator - Ankit Agrawal] 21:31:38
+So the person says they're interested in the business application. So. I think that the business application of that could be defined.
+
+[Moderator - Ankit Agrawal] 21:31:50
+Like Facebook recommends you friends, right? So maybe that could be one application. Facebook can recommend you events near you like events that your friends are attending.
+
+[Moderator - Ankit Agrawal] 21:32:00
+Maybe you are more interested in attending. Those are some of the key applications of being able to identify the diameter of the network.
+
+[Moderator - Ankit Agrawal] 21:32:09
+I don't think that the diameter has a direct role in replacement. Like,
+
+[Moderator - Ankit Agrawal] 21:32:18
+Yeah, maybe like there could be maybe if somebody's paying a lot of money you show adds to like highly influential nodes in the graph so that they have a higher propagation maybe.
+
+[Moderator - Ankit Agrawal] 21:32:32
+I don't know how that would work though. Add placement using diameter of a network.
+
+[Mentor - Freeman Goja] 21:32:41
+Okay.
+
+[Moderator - Ankit Agrawal] 21:32:41
+Yeah, I don't know how that would work. Like, from Facebook's perspective, I don't know how that would work.
+
+[Mentor - Freeman Goja] 21:32:48
+Yeah, I don't think yeah, there might be but I'm not exactly sure how that will clear out
+
+[Moderator - Ankit Agrawal] 21:32:56
+Yeah, that's an interesting question. Maybe, you can ask that question to your mentor during your MLS, but at that, at this point in time, I don't see an application of diameter with respect to add placement.
+
+[Moderator - Ankit Agrawal] 21:33:11
+I think that's more in terms of recommendations like finding friends and events and groups to follow and stuff like that.
+
+[Mentor - Freeman Goja] 21:33:15
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:33:19
+The diameter can help with those contexts, but not necessarily with respect to that placement. Well, let's stop over here.
+
+[Mentor - Freeman Goja] 21:33:19
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:33:28
+We are over time now. So thank you, Freeman, for your, answers.
+
+[Moderator - Ankit Agrawal] 21:33:33
+Thank you everybody for joining. On Friday, we will be talking about clustering algorithms.
+
+[Moderator - Ankit Agrawal] 21:33:39
+So it will be again a brand new topic like we went through dimensionality reduction to networking to clustering.
+
+[Moderator - Ankit Agrawal] 21:33:46
+So hopefully, you'll join on Friday and we'll see everybody on Friday for clustering based lecture.
+
+[Moderator - Ankit Agrawal] 21:33:54
+Until then enjoy learning all of this material will be available to you on your dashboard. And yeah, take care everybody.
+
+[Moderator - Ankit Agrawal] 21:34:01
+Thank you, Freeman again for joining us. You, in, fun of the feature sessions.
+
+[Mentor - Freeman Goja] 21:34:02
+Alright, thanks.
+
+[Moderator - Ankit Agrawal] 21:34:05
+Yeah. Okay
+
+[Mentor - Freeman Goja] 21:34:06
+Thank you, everyone. Thanks, and Keith
+

@@ -1,0 +1,5472 @@
+[Moderator - Ankit Agrawal] 18:51:00
+Hello, everyone uh good morning. Good afternoon. Depending on where you are located. Um, I see that the chat is working for everybody.
+
+[Moderator - Ankit Agrawal] 18:51:12
+Ah, alright! So welcome, everybody. Thank you for joining us today for the second lecture of this week uh today we'll talk a little bit about uh controlling regularization uh overfitting in neural networks and.
+
+[Moderator - Ankit Agrawal] 18:51:28
+Uh computer vision. Mostly. Cnn based networks as well. Uh, couple of quick reminders. Again, please make sure that you are sending all of your questions, comments to everyone, and not just hosts and panelists. I see some comments in the chat being sent to host and panelists.
+
+[Moderator - Ankit Agrawal] 18:51:47
+Um, please, uh make sure you do not put anything in the QA. Box, and please do not try to raise your hands during the class. This is a listen, only mode lecture. Um, we are collecting all the questions in uh posted in the chat, so we'll try to answer as many questions as possible throughout the lecture.
+
+[Moderator - Ankit Agrawal] 18:52:05
+Uh! With that being said, I'll hand over the lecture to Professor. Good morning, Professor.
+
+[Faculty (Olympus)] 18:52:12
+Good morning, everyone.
+
+[Moderator - Ankit Agrawal] 18:52:15
+Looking forward to today's lecture. Professor.
+
+[Faculty (Olympus)] 18:52:16
+Okay.
+
+[Faculty (Olympus)] 18:52:20
+Alright! Good morning, everyone.
+
+[Faculty (Olympus)] 18:52:23
+Um. Good afternoon. Good evening. Depending on where you are.
+
+[Faculty (Olympus)] 18:52:27
+Um. So yeah, today, um, we'll continue our journey into neural networks.
+
+[Faculty (Olympus)] 18:52:33
+And okay, I would just want to fix one thing here in my setup that I can actually see the time.
+
+[Faculty (Olympus)] 18:52:40
+Okay.
+
+[Faculty (Olympus)] 18:52:40
+That.
+
+[Faculty (Olympus)] 18:52:42
+Alright. So today we will talk about neural networks for images.
+
+[Faculty (Olympus)] 18:52:46
+And this will build upon what we learned in the last lecture.
+
+[Faculty (Olympus)] 18:52:51
+Um. So here is a very brief recap.
+
+[Faculty (Olympus)] 18:52:55
+Um! This is what a fully connected neural network looks like. You may remember, from 2 days ago.
+
+[Faculty (Olympus)] 18:53:02
+And.
+
+[Faculty (Olympus)] 18:53:03
+It has basically these layers and.
+
+[Faculty (Olympus)] 18:53:09
+Uh just a sec.
+
+[Faculty (Olympus)] 18:53:32
+So it has these layers. Uh. So the units are ranged in layers.
+
+[Faculty (Olympus)] 18:53:37
+And we talked about what one unit is doing, and then what they do altogether. So one unit essentially is like.
+
+[Faculty (Olympus)] 18:53:44
+A simple class of linear classifier, and the power comes from putting them together.
+
+[Faculty (Olympus)] 18:53:50
+So there's 1 thing I wanted to talk about to follow up on the last lecture before I go into Cnn's.
+
+[Faculty (Olympus)] 18:53:55
+And that is the question of overfitting.
+
+[Faculty (Olympus)] 18:54:00
+And regularization. So, as we already saw in the last lecture, if you make your neural network and wider.
+
+[Faculty (Olympus)] 18:54:06
+It becomes much more, much more flexible, so it could potentially fit all sorts of different curves.
+
+[Faculty (Olympus)] 18:54:11
+And that means it can also overfit.
+
+[Faculty (Olympus)] 18:54:15
+It can fit all sorts of noise that you don't actually want it to fit. You want it to fit the signal.
+
+[Faculty (Olympus)] 18:54:22
+So what do we do? Um. So what we can do is just like for other types of machine learning methods. We can do a regularization, and sometimes that is super useful.
+
+[Faculty (Olympus)] 18:54:30
+And now there's different ways you can regularize. I'll just go through a few of them, and often it's a little bit up to trial and error, to see which one works better.
+
+[Faculty (Olympus)] 18:54:42
+So the 1st one I have here is called Wait. This is actually the same as when you do rich regression, you basically, you have your loss function.
+
+[Faculty (Olympus)] 18:54:51
+The least squares lost, or your classification loss, and then you add a squared term to it. So let me just decode this a little bit. So you have this thing here.
+
+[Faculty (Olympus)] 18:55:02
+Theta is all your parameters. So this is basically all the weights in the neural network.
+
+[Faculty (Olympus)] 18:55:07
+And so what you do is.
+
+[Faculty (Olympus)] 18:55:10
+If you just let's say you had m of them.
+
+[Faculty (Olympus)] 18:55:13
+You basically.
+
+[Faculty (Olympus)] 18:55:15
+Square them, and then you sum over them. That's what this thing is doing. That's what the squared norm is doing.
+
+[Faculty (Olympus)] 18:55:20
+And you square it.
+
+[Faculty (Olympus)] 18:55:22
+A, because you only want to penalize the magnitude, and B.
+
+[Faculty (Olympus)] 18:55:27
+Because.
+
+[Faculty (Olympus)] 18:55:28
+If you have a large number and you square it, it becomes really large. So you get a really large penalty for large numbers, and you want to not have large weights. That's essentially what it say.
+
+[Faculty (Olympus)] 18:55:38
+Then we have this thing, this lambda here, so that lambda is something you have to tune.
+
+[Faculty (Olympus)] 18:55:43
+Um, it, basically.
+
+[Faculty (Olympus)] 18:55:46
+Strikes a balance between your loss and the regularization, because if you, the lambda was infinity, you would only care about regularization.
+
+[Faculty (Olympus)] 18:55:54
+The best solution would be 0.
+
+[Faculty (Olympus)] 18:55:57
+All 0 weights. But that's, of course, not a useful thing. If lambda 0, then you don't regularize at all.
+
+[Faculty (Olympus)] 18:56:04
+So you want something in between.
+
+[Faculty (Olympus)] 18:56:07
+And so does Lambda. You have to.
+
+[Faculty (Olympus)] 18:56:10
+Now why is it called? Wait decay. Um! It's called wait decay. Because when you actually do the gradient to send ready to that, we talked about in the last lecture.
+
+[Faculty (Olympus)] 18:56:19
+What you typically do is you take one step, you. So you change the way it's.
+
+[Faculty (Olympus)] 18:56:23
+To do one step in a direction that makes better predictions. So what you do with this is, of course, it changes the loss.
+
+[Faculty (Olympus)] 18:56:30
+So it changes the gradients.
+
+[Faculty (Olympus)] 18:56:33
+What you do is you still make a step.
+
+[Faculty (Olympus)] 18:56:35
+Towards a better direction for prediction.
+
+[Faculty (Olympus)] 18:56:39
+In your great space, but then you.
+
+[Faculty (Olympus)] 18:56:42
+Shrink all of your weight a little bit, so you take a step in the same direction. What gradient descent would do, and then you shrink your weights a little bit, and that's why this is called. Wait, decay.
+
+[Faculty (Olympus)] 18:56:56
+Alright! Um! So the second thing that is often done is called early stopping.
+
+[Faculty (Olympus)] 18:57:02
+So. To illustrate this, I have a little illustration here.
+
+[Faculty (Olympus)] 18:57:07
+And what this shows is.
+
+[Faculty (Olympus)] 18:57:10
+The loss on the training data. So this is basically if we do our gradient descent iterations and for every few iterations.
+
+[Faculty (Olympus)] 18:57:18
+We plot the loss, and what should happen is that the loss goes down as we train the network.
+
+[Faculty (Olympus)] 18:57:24
+Um. However, what we really care about is not really the performance on the training data.
+
+[Faculty (Olympus)] 18:57:29
+What we care about is the performance on holdout data. So this is plotted on the other side. This is the accuracy on the holdout data on the test data. So here we want it to be high loss. We want to be want to be low accuracy. We want to be high.
+
+[Faculty (Olympus)] 18:57:44
+So, or, as you see, as you train the network, the accuracy goes up.
+
+[Faculty (Olympus)] 18:57:48
+But eventually it starts, or it may even go down. And at this point.
+
+[Faculty (Olympus)] 18:57:55
+Your training loss goes still down. It's still going down after 300 epochs. Here.
+
+[Faculty (Olympus)] 18:58:01
+But.
+
+[Faculty (Olympus)] 18:58:02
+The test. You're not gaining anything on your test data. So this means at that point all your fitting is noise. You're only overfitting.
+
+[Faculty (Olympus)] 18:58:10
+And so what you basically do is you have your hold set. This is actually also a validation set.
+
+[Faculty (Olympus)] 18:58:16
+Strictly speaking.
+
+[Faculty (Olympus)] 18:58:17
+And.
+
+[Faculty (Olympus)] 18:58:20
+Um. What you look at is, when does your accuracy rate? So one. When do you no longer gain from the training? Um, even if you're going down still on the loss in the training data, and that's where you stop. So here, you can basically stop around here, maybe around 300 epochs.
+
+[Faculty (Olympus)] 18:58:39
+Versus. If you just look at the trading data, you're training more and more.
+
+[Faculty (Olympus)] 18:58:42
+So early stopping basically makes it not fit too much just to the training data.
+
+[Faculty (Olympus)] 18:58:53
+Okay. The next thing.
+
+[Faculty (Olympus)] 18:58:56
+Is.
+
+[Faculty (Olympus)] 18:58:57
+Data augmentation.
+
+[Faculty (Olympus)] 18:59:00
+Um! This is something we'll talk more about in the next lecture as well.
+
+[Faculty (Olympus)] 18:59:04
+It's basically the thing as well.
+
+[Faculty (Olympus)] 18:59:07
+How do I prevent overfitting? So one way I could prevent this is that I restrict the degrees of freedom of my learning model.
+
+[Faculty (Olympus)] 18:59:15
+The other thing I could do is I could add more data.
+
+[Faculty (Olympus)] 18:59:19
+So awesome. I mean, it's hard to not always easy to collect more data. But sometimes you can create more data from the data you have.
+
+[Faculty (Olympus)] 18:59:27
+Um by averaging data, by.
+
+[Faculty (Olympus)] 18:59:31
+Perturbing the data in a way that you say, you know doesn't change the label, and then you add those perturbed data points like, if you have an image you could rotate it. You add that to your training set.
+
+[Faculty (Olympus)] 18:59:45
+Um.
+
+[Faculty (Olympus)] 18:59:46
+Okay.
+
+[Faculty (Olympus)] 18:59:50
+And then.
+
+[Faculty (Olympus)] 18:59:52
+There's um! The idea of dropout.
+
+[Faculty (Olympus)] 18:59:54
+So dropout also changes the training procedure.
+
+[Faculty (Olympus)] 18:59:59
+Um.
+
+[Faculty (Olympus)] 19:00:01
+So what it does is the following, it basically used the neural network essentially, as some kind of ensemble model.
+
+[Faculty (Olympus)] 19:00:07
+And it says at each Po, at each gradient step, I'll actually not update all the weights. I'll deliberately not do this.
+
+[Faculty (Olympus)] 19:00:16
+But I'll only update a fraction of the weight. So what I'll do is.
+
+[Faculty (Olympus)] 19:00:20
+And each gradient step I randomly switch off.
+
+[Faculty (Olympus)] 19:00:23
+Say, half of the units of my neural network. So half of those neurons, I pretend they are not there. That means all the weight.
+
+[Faculty (Olympus)] 19:00:30
+That are associated with these units. They are not there too.
+
+[Faculty (Olympus)] 19:00:34
+And then.
+
+[Faculty (Olympus)] 19:00:35
+So this is what it may look like.
+
+[Faculty (Olympus)] 19:00:37
+And then I just.
+
+[Faculty (Olympus)] 19:00:39
+Update the weights that I have. So I compute the gradients with those weights. And I update those weights.
+
+[Faculty (Olympus)] 19:00:44
+And then in the next gradient step, I switch off a different set of weights and.
+
+[Faculty (Olympus)] 19:00:50
+Then I update the remaining ones, etc. So in each step it's a different set of weights. That means each weight is being updated several times.
+
+[Faculty (Olympus)] 19:01:00
+But always in a slightly different configuration. And the idea is that maybe the overfitting also happens because these neurons, they encode nuances.
+
+[Faculty (Olympus)] 19:01:10
+With like very fine grained configurations, and this way you make them more robust.
+
+[Faculty (Olympus)] 19:01:15
+They have to work like with different inputs, and they have to still work. Um, so it makes them more robust, and it destroys these fine grain configurations.
+
+[Faculty (Olympus)] 19:01:28
+And finally, there's what people also do is normalization.
+
+[Faculty (Olympus)] 19:01:33
+Um. So we already talked about the problem when the weights kind of go out of scale um, and same for representations.
+
+[Faculty (Olympus)] 19:01:40
+So this kind of keeps things that they it makes the training more stable.
+
+[Faculty (Olympus)] 19:01:44
+Um. So there's different ways. You can do normalization.
+
+[Faculty (Olympus)] 19:01:47
+Um, you would normalize, basically you normalize after a layer in different ways.
+
+[Faculty (Olympus)] 19:01:53
+So, for instance, what batch normalization does is it says, well, if you do in general, say a linear regression.
+
+[Faculty (Olympus)] 19:02:01
+You actually assume that your data has 0 mean. And it has kind of a unit variance. It's normalized. Essentially.
+
+[Faculty (Olympus)] 19:02:08
+So that usually helps the learning.
+
+[Faculty (Olympus)] 19:02:11
+Um. And so you could normalize your data. If it's vector when you send it into the neural network.
+
+[Faculty (Olympus)] 19:02:18
+But then, once it has gone through a layer, it's distorted. You'd apply some nonlinear transformation. It's distorted. We saw it in my illustration in the last lecture.
+
+[Faculty (Olympus)] 19:02:29
+So the input to the next layers is not normalized. Even if you, input the.
+
+[Faculty (Olympus)] 19:02:33
+If you normalize the 1st layer input.
+
+[Faculty (Olympus)] 19:02:36
+So what you do is that after the layer you again make the data essentially that comes out of that layer.
+
+[Faculty (Olympus)] 19:02:45
+0, mean and unit variant.
+
+[Faculty (Olympus)] 19:02:46
+And this is something you can do with parameters in the network in the network and learn to use that normalization or not use it.
+
+[Faculty (Olympus)] 19:02:55
+Um. So that's the idea of batch normalization.
+
+[Faculty (Olympus)] 19:03:00
+Okay, this is all I wanted to say about regularization.
+
+[Faculty (Olympus)] 19:03:04
+Um. Let me see if there's any other thing I should be clarified.
+
+[Faculty (Olympus)] 19:03:10
+Um.
+
+[Faculty (Olympus)] 19:03:11
+Ah, here there was a question about the scaling and dropout. Yeah, I didn't actually talk about that. So what you do in dropout is.
+
+[Faculty (Olympus)] 19:03:18
+You kind of update. You pretend the network is only half the network.
+
+[Faculty (Olympus)] 19:03:23
+But then, when you at test time, you use the full network because it's useful to have the full network, not half the network.
+
+[Faculty (Olympus)] 19:03:32
+So. What you do then is.
+
+[Faculty (Olympus)] 19:03:34
+Um? Well, you're kind of overlaying.
+
+[Faculty (Olympus)] 19:03:37
+Say 2.
+
+[Faculty (Olympus)] 19:03:40
+One half and the other half.
+
+[Faculty (Olympus)] 19:03:42
+Um.
+
+[Faculty (Olympus)] 19:03:43
+But the weights are actually trained for having only half of the units.
+
+[Faculty (Olympus)] 19:03:47
+And so to make up for that, you do essentially an averaging. That's why you rescale the weights.
+
+[Faculty (Olympus)] 19:03:53
+And you scale them down because you're actually kind of averaging.
+
+[Faculty (Olympus)] 19:03:58
+2 networks. That's that's what dropout is doing.
+
+[Faculty (Olympus)] 19:04:01
+That's why you have to rescale.
+
+[Faculty (Olympus)] 19:04:08
+Okay, so regarding regularization is averaging when training on your network, the same as blurring when training is Cnn.
+
+[Faculty (Olympus)] 19:04:17
+Uh, yeah. So I said, you can average data point.
+
+[Faculty (Olympus)] 19:04:20
+In some sense it does blur.
+
+[Faculty (Olympus)] 19:04:23
+Images like we. You can even do it with images, even though it's very weird. If you have rich to image, you have kind of like a.
+
+[Faculty (Olympus)] 19:04:31
+An overlay of the 2 images, if you wish, it's like, if you had transparencies and you put them on top of each other, it looks a bit like that.
+
+[Faculty (Olympus)] 19:04:38
+Um.
+
+[Faculty (Olympus)] 19:04:39
+So what you do is you have your 2 images.
+
+[Faculty (Olympus)] 19:04:46
+And you do like an average of those.
+
+[Faculty (Olympus)] 19:04:49
+You get a new image, but you also have is, you have the labels of the images.
+
+[Faculty (Olympus)] 19:04:55
+Maybe 0 and one, and then you average their labels, to which is even weirder.
+
+[Faculty (Olympus)] 19:05:00
+That is something you can do, or you can just average within the class.
+
+[Faculty (Olympus)] 19:05:04
+Um.
+
+[Faculty (Olympus)] 19:05:05
+So yeah, you would. And so that does make them a bit blurr. So I can't, of course, draw. Now what happens if you put to average, say, 2 images.
+
+[Faculty (Olympus)] 19:05:13
+It does make them a bit blurry, or it's it looks a bit like if you put transparencies.
+
+[Faculty (Olympus)] 19:05:18
+It is a bit different from just blurring. So if you just blur, it's just at the edges. Get like, not sharp.
+
+[Faculty (Olympus)] 19:05:26
+Um, but if you average them it looks a bit different, but it's still like a distortion.
+
+[Faculty (Olympus)] 19:05:31
+Um, so it kind of smoothes out the ideas. It kind of smoothes out the function that you're learning. The classifier.
+
+[Faculty (Olympus)] 19:05:40
+Mm.
+
+[Faculty (Olympus)] 19:05:42
+Okay.
+
+[Faculty (Olympus)] 19:05:47
+How do we choose? Are we testing all of them? I guess that relates to the regularization.
+
+[Faculty (Olympus)] 19:05:53
+So in in principle, yeah, um.
+
+[Faculty (Olympus)] 19:05:58
+You could try all of them. The thing is, maybe that is.
+
+[Faculty (Olympus)] 19:06:02
+Difficult because you have to try different things. So, as I said often, what is useful is that you start with a network architecture.
+
+[Faculty (Olympus)] 19:06:10
+That has.
+
+[Faculty (Olympus)] 19:06:11
+Been used before that actually exists, and they often have some of these things.
+
+[Faculty (Olympus)] 19:06:16
+In, built in like the normalization layers or so.
+
+[Faculty (Olympus)] 19:06:20
+Um the early stopping you could always do. You can always plot.
+
+[Faculty (Olympus)] 19:06:25
+The validation and the training loss.
+
+[Faculty (Olympus)] 19:06:28
+Um.
+
+[Faculty (Olympus)] 19:06:29
+And then you basically see, what have others done with this architecture.
+
+[Faculty (Olympus)] 19:06:34
+That gives you a bit of a hint. You can still play with it. Of course.
+
+[Faculty (Olympus)] 19:06:38
+Maybe on your data, something else works. But that's.
+
+[Faculty (Olympus)] 19:06:41
+That's how I would choose.
+
+[Faculty (Olympus)] 19:06:43
+For the data augmentations. There's some data for which this is easier than others.
+
+[Faculty (Olympus)] 19:06:48
+So essentially for the perturbations. You want to do a perturbation where you're sure that the label doesn't change.
+
+[Faculty (Olympus)] 19:06:54
+So for an image. I know I can rotate it, or.
+
+[Faculty (Olympus)] 19:06:59
+Do something like a bit of a blur, or go from color to Grayscaler. So it doesn't change.
+
+[Faculty (Olympus)] 19:07:05
+The meaning of that image, meaning being there, the type of object that's in the image.
+
+[Faculty (Olympus)] 19:07:10
+But.
+
+[Faculty (Olympus)] 19:07:11
+If I have something else, maybe I have sound that's not as clear what would be the transformation I can do, or I have.
+
+[Faculty (Olympus)] 19:07:20
+A molecule or something like that, that's much harder. So it depends also a bit on the data type you have.
+
+[Faculty (Olympus)] 19:07:27
+Um. Okay.
+
+[Faculty (Olympus)] 19:07:28
+So.
+
+[Faculty (Olympus)] 19:07:32
+What's the benefit of using dropout. So dropout basically helps to avoid overfitting.
+
+[Faculty (Olympus)] 19:07:40
+Um! That's what what is used for.
+
+[Faculty (Olympus)] 19:07:44
+Um.
+
+[Faculty (Olympus)] 19:07:45
+Our neurons drop during different epochs? Or are the same neurons off? So yeah, in basically in each weight update step, you use a different set of neurons.
+
+[Faculty (Olympus)] 19:07:54
+To make sure that every neuron is used a sufficient number of times.
+
+[Faculty (Olympus)] 19:07:58
+Um.
+
+[Faculty (Olympus)] 19:08:00
+But yeah, so you don't.
+
+[Faculty (Olympus)] 19:08:02
+Otherwise you could just use a smaller network.
+
+[Faculty (Olympus)] 19:08:05
+Uh. So you keep the network, the full network and you just switch them off in each update step.
+
+[Faculty (Olympus)] 19:08:18
+Okay, good. So I think that answers the questions that are in the chat.
+
+[Faculty (Olympus)] 19:08:23
+So then I want to move on, and I want to.
+
+[Faculty (Olympus)] 19:08:27
+Talk more about images, because that's the main topic of today.
+
+[Faculty (Olympus)] 19:08:33
+So we'll again. So now we'll actually come back to this.
+
+[Faculty (Olympus)] 19:08:36
+Slide of mine. Um, where we say, what? And your network actually does? Is it implicitly? Does these 2 stages.
+
+[Faculty (Olympus)] 19:08:43
+That it encodes an image, and then.
+
+[Faculty (Olympus)] 19:08:48
+That's like the step that is the expensive and the powerful step, or that encodes like different types of data. Once you have a good encoding a simple classifier or a simple regression model can actually do a lot. So sometimes this can even be a linear classifier, and it does pretty well.
+
+[Faculty (Olympus)] 19:09:05
+So there's the classification step and the representation step. And now I'll show you an actual example of what these 2 would look like.
+
+[Faculty (Olympus)] 19:09:14
+Um. I'll show you an actual architecture in a bit.
+
+[Faculty (Olympus)] 19:09:19
+So with that, let's look at images. So we'll talk about the main parts of the architecture for images, the convolutional networks.
+
+[Faculty (Olympus)] 19:09:27
+And then.
+
+[Faculty (Olympus)] 19:09:28
+Um. We'll talk a little bit about what.
+
+[Faculty (Olympus)] 19:09:33
+Cnn's.
+
+[Faculty (Olympus)] 19:09:34
+Learn and what they may not learn. Uh during training.
+
+[Faculty (Olympus)] 19:09:41
+Now, why do I care about images? There's many, many applications of visual using visual data. So there's autonomous driving. There's medical imaging. There's image search. There's this is wildlife monitoring. There's many other examples where we may want to use images and want to process images. And often what we want to do is we want to recognize some objects in the images.
+
+[Faculty (Olympus)] 19:10:06
+Some patterns in the images, something like that.
+
+[Faculty (Olympus)] 19:10:10
+So the question is.
+
+[Faculty (Olympus)] 19:10:11
+How do we do that? And what.
+
+[Faculty (Olympus)] 19:10:14
+Kind of neo networks are good for that.
+
+[Faculty (Olympus)] 19:10:18
+And in the sense we already did this in this little case study that I briefly explained in the last lecture, because I said we had this fashion amnest data set, and we.
+
+[Faculty (Olympus)] 19:10:27
+Fed it into a fully connected neural network.
+
+[Faculty (Olympus)] 19:10:30
+And the way we did this was that we view we viewed this image as basically a matrix.
+
+[Faculty (Olympus)] 19:10:37
+Of numbers. So again, they don't have to be zeros, and one there can be some number between 0 and one.
+
+[Faculty (Olympus)] 19:10:45
+And what we did was we reshape this thing into a vector.
+
+[Faculty (Olympus)] 19:10:48
+So this means we take the columns of this.
+
+[Faculty (Olympus)] 19:10:52
+And we stack them.
+
+[Faculty (Olympus)] 19:10:54
+On top of each other.
+
+[Faculty (Olympus)] 19:10:55
+Like this. So you get a very, very long vector.
+
+[Faculty (Olympus)] 19:10:58
+And now we have a vector, we can feed it into our fully connected neural network.
+
+[Faculty (Olympus)] 19:11:05
+So this is what it looks like.
+
+[Faculty (Olympus)] 19:11:05
+So that's kind of what we did in the last lecture.
+
+[Faculty (Olympus)] 19:11:10
+And it actually works. Okayish.
+
+[Faculty (Olympus)] 19:11:13
+If the objects in your image are centered. We talked about that, and, like.
+
+[Faculty (Olympus)] 19:11:19
+The task is relatively simple.
+
+[Faculty (Olympus)] 19:11:24
+But now, as your images get larger.
+
+[Faculty (Olympus)] 19:11:28
+And the tasks get a bit more complex. This actually doesn't work so well anymore.
+
+[Faculty (Olympus)] 19:11:34
+One reason is actually that.
+
+[Faculty (Olympus)] 19:11:36
+Real image is not like a vector of 10 entries.
+
+[Faculty (Olympus)] 19:11:40
+If this has a hundred, even a hundred, by a hundred pixels.
+
+[Faculty (Olympus)] 19:11:44
+This is a vector of length, 100 square.
+
+[Faculty (Olympus)] 19:11:48
+And if you actually have more realistic image, normal images are not 100 by 100, then it's even worse like this is very big. So you actually need a lot of input units, and you'll have a lot of hidden units. So you have a lot of weights here.
+
+[Faculty (Olympus)] 19:12:03
+And we have these all these ways to update. And this is actually pretty bulky. So that's another reason.
+
+[Faculty (Olympus)] 19:12:10
+But now.
+
+[Faculty (Olympus)] 19:12:11
+The thing is that so? Basically, if you try it, it may work. But if you make the network a bit larger, it becomes very hard to train.
+
+[Faculty (Olympus)] 19:12:21
+And so it's not so great. So the question is.
+
+[Faculty (Olympus)] 19:12:25
+Well, maybe there's more we know about images.
+
+[Faculty (Olympus)] 19:12:29
+Maybe there's some prior knowledge about what we actually want to do in this talk, or what our in what is kind of common across these image.
+
+[Faculty (Olympus)] 19:12:39
+Recognition Tasks.
+
+[Faculty (Olympus)] 19:12:41
+That we want to somehow put into the architecture of neural network and change it a bit.
+
+[Faculty (Olympus)] 19:12:49
+And I want to now think through this a bit with you.
+
+[Faculty (Olympus)] 19:12:53
+Um. So here is an example of a data set of images.
+
+[Faculty (Olympus)] 19:12:57
+And let's say, what we wanted to learn is.
+
+[Faculty (Olympus)] 19:13:02
+A neural network that tells me whether there's a cup in the image.
+
+[Faculty (Olympus)] 19:13:06
+Or a.
+
+[Faculty (Olympus)] 19:13:08
+So these are, of course, only the positive images. I'll have some other ones that don't have month.
+
+[Faculty (Olympus)] 19:13:13
+But that's about it. So I have this. And now I lost the neural network to learn what is a cup.
+
+[Faculty (Olympus)] 19:13:19
+And now, if you look at this task, if you look at these example, images.
+
+[Faculty (Olympus)] 19:13:26
+What is kind of special about.
+
+[Faculty (Olympus)] 19:13:30
+This kind of recognition, task or detection task.
+
+[Faculty (Olympus)] 19:13:34
+Versus say the example that I had in the last lecture with a patient who has the flu.
+
+[Faculty (Olympus)] 19:13:42
+So what is.
+
+[Faculty (Olympus)] 19:13:44
+Different about this? What is special about images.
+
+[Faculty (Olympus)] 19:13:48
+When you think about this task.
+
+[Faculty (Olympus)] 19:14:20
+Okay. So I see a lot of answers. Let me try to. Already.
+
+[Faculty (Olympus)] 19:14:24
+Summarize a little bit.
+
+[Faculty (Olympus)] 19:14:27
+Um.
+
+[Faculty (Olympus)] 19:14:29
+So there's some distortions. That is right. You don't always see the.
+
+[Faculty (Olympus)] 19:14:35
+Cop, um.
+
+[Faculty (Olympus)] 19:14:37
+The full thing. Um, or maybe there it comes in different poses. Um.
+
+[Faculty (Olympus)] 19:14:44
+It doesn't. There's something about shape, and it's 2 dimensional.
+
+[Faculty (Olympus)] 19:14:49
+But also there's the shape is not always exactly the same. There's some kind of typical rough shape, but it's not always exactly the same.
+
+[Faculty (Olympus)] 19:14:57
+The size is different. The color is there.
+
+[Faculty (Olympus)] 19:15:01
+Tyler may be informative. Um sometimes.
+
+[Faculty (Olympus)] 19:15:06
+Um.
+
+[Faculty (Olympus)] 19:15:08
+You don't have clear labels. That's right. I know there's a cup in this image, but the neural network actually has to figure out which one is the cup. Is this the cup? Is this the cup? Is this the cap? So yeah, it doesn't know that it has to figure it out.
+
+[Faculty (Olympus)] 19:15:22
+Um.
+
+[Faculty (Olympus)] 19:15:25
+But it has to basically look what is common in those images.
+
+[Faculty (Olympus)] 19:15:29
+And then it has to use that to determine what's a cup.
+
+[Faculty (Olympus)] 19:15:36
+Alright!
+
+[Faculty (Olympus)] 19:15:36
+So there's a placement in the image. Okay, that's also there.
+
+[Faculty (Olympus)] 19:15:41
+Um.
+
+[Faculty (Olympus)] 19:15:44
+Distractions. There's other things in that image that's right.
+
+[Faculty (Olympus)] 19:15:49
+Uh okay, um.
+
+[Faculty (Olympus)] 19:15:54
+There's a context. Yeah, this is the like, there's people visit.
+
+[Faculty (Olympus)] 19:15:58
+Maybe that helps. Maybe this is uh.
+
+[Faculty (Olympus)] 19:16:02
+As far as correlation.
+
+[Faculty (Olympus)] 19:16:07
+Okay, uh, there's a 3D.
+
+[Faculty (Olympus)] 19:16:09
+Like the con, the rotation.
+
+[Faculty (Olympus)] 19:16:12
+And the shape changes.
+
+[Faculty (Olympus)] 19:16:15
+Okay. Um.
+
+[Faculty (Olympus)] 19:16:19
+Handle is not always visible. Okay, there's liquid. That's the context. Okay.
+
+[Faculty (Olympus)] 19:16:23
+So basically, what we have is there something 2D about it?
+
+[Faculty (Olympus)] 19:16:27
+So we actually classify a cap.
+
+[Faculty (Olympus)] 19:16:30
+By its shape, and maybe its color.
+
+[Faculty (Olympus)] 19:16:33
+And.
+
+[Faculty (Olympus)] 19:16:33
+Okay? And then there's context around it. Maybe we want to take it into account. Maybe not.
+
+[Faculty (Olympus)] 19:16:39
+Um, that's there. So there might be liquid. There might be people, and so on.
+
+[Faculty (Olympus)] 19:16:43
+Um.
+
+[Faculty (Olympus)] 19:16:44
+And then there's the position of the cup in the image.
+
+[Faculty (Olympus)] 19:16:48
+It's not always in the same place. It's like up or down.
+
+[Faculty (Olympus)] 19:16:52
+Um, there's the size of the cup. So there's several things that are actually moving parts here.
+
+[Faculty (Olympus)] 19:16:59
+That can change. So it's actually pretty challenging.
+
+[Faculty (Olympus)] 19:17:02
+Um.
+
+[Faculty (Olympus)] 19:17:04
+I want to.
+
+[Faculty (Olympus)] 19:17:05
+A.
+
+[Faculty (Olympus)] 19:17:05
+Okay, about the positioning. Um.
+
+[Faculty (Olympus)] 19:17:10
+I'll just say, Okay, there's like some variation in the cup, but it's kind of there is some kind of.
+
+[Faculty (Olympus)] 19:17:16
+Top shape in that. There's like this.
+
+[Faculty (Olympus)] 19:17:19
+Big body of the cup, and then there's like the handle off the cup.
+
+[Faculty (Olympus)] 19:17:22
+Um.
+
+[Faculty (Olympus)] 19:17:24
+That is there, and.
+
+[Faculty (Olympus)] 19:17:26
+Um. Then there's the position in the image.
+
+[Faculty (Olympus)] 19:17:29
+Which can actually change. And now this is something that's actually.
+
+[Faculty (Olympus)] 19:17:34
+Pretty challenging for the neural network, and I had already mentioned this in the last lecture.
+
+[Faculty (Olympus)] 19:17:39
+Briefly, because if you think about the patient example, so for the patient, maybe the 1st entry was.
+
+[Faculty (Olympus)] 19:17:47
+Blood pressure. And maybe that's a very important feature. So the neural network will always put a lot of weight on feature number one. The blood pressure.
+
+[Faculty (Olympus)] 19:17:57
+But now, if you look about at your cup.
+
+[Faculty (Olympus)] 19:18:00
+That cap occupies some space in the image. So some space in this vector.
+
+[Faculty (Olympus)] 19:18:05
+It's gonna be my capsule. And the thing is okay. This is.
+
+[Faculty (Olympus)] 19:18:09
+2D. So it has like some pieces of it in there.
+
+[Faculty (Olympus)] 19:18:12
+And now what happens if I move this cap in my image?
+
+[Faculty (Olympus)] 19:18:17
+Well, it still occupies the same amount of space. Roughly.
+
+[Faculty (Olympus)] 19:18:21
+But now it has shifted. Maybe now it's actually these ones, and these ones are so.
+
+[Faculty (Olympus)] 19:18:27
+That it occupies.
+
+[Faculty (Olympus)] 19:18:28
+So now there's actually not a fixed coordinate where this cup sits that I can look at.
+
+[Faculty (Olympus)] 19:18:33
+But depending on whether that cup is at the top or at the bottom or so this actually changes.
+
+[Faculty (Olympus)] 19:18:38
+So this is a bit challenging.
+
+[Faculty (Olympus)] 19:18:44
+So this is the position. Um.
+
+[Faculty (Olympus)] 19:18:47
+This is what makes it challenging for fully connected, because that says, okay, like.
+
+[Faculty (Olympus)] 19:18:52
+Features or input coordinates, 1, 3, and 5 are important, and the rest not so much.
+
+[Faculty (Olympus)] 19:18:57
+So we have that, and then there's the 2D shape.
+
+[Faculty (Olympus)] 19:19:01
+And then there's another thing. Um, that okay, the cup can.
+
+[Faculty (Olympus)] 19:19:07
+Shift.
+
+[Faculty (Olympus)] 19:19:07
+But it has a 2D shape. So what actually is the case is that it usually occupies.
+
+[Faculty (Olympus)] 19:19:14
+A connected window in that.
+
+[Faculty (Olympus)] 19:19:17
+Image, so I can always draw.
+
+[Faculty (Olympus)] 19:19:20
+A box around it. It may not always have exactly the same size, but it occupies like some fixed location.
+
+[Faculty (Olympus)] 19:19:27
+It's not scattered in the image, so it sits in some window, and that's it.
+
+[Faculty (Olympus)] 19:19:32
+So if I combine this complication of the.
+
+[Faculty (Olympus)] 19:19:36
+Shape. And this location.
+
+[Faculty (Olympus)] 19:19:38
+One thing I could do is.
+
+[Faculty (Olympus)] 19:19:40
+I could.
+
+[Faculty (Olympus)] 19:19:42
+Actually just look at patches in the image.
+
+[Faculty (Olympus)] 19:19:45
+Assuming my patches big enough.
+
+[Faculty (Olympus)] 19:19:47
+So I make some patch in the image, and then.
+
+[Faculty (Olympus)] 19:19:51
+And then maybe my in that.
+
+[Faculty (Olympus)] 19:19:55
+My cup will be more centered.
+
+[Faculty (Olympus)] 19:19:57
+So I learn a detector just on that patch.
+
+[Faculty (Olympus)] 19:20:00
+And then I move my patch.
+
+[Faculty (Olympus)] 19:20:03
+So this is something I could do.
+
+[Faculty (Olympus)] 19:20:06
+And that would actually.
+
+[Faculty (Olympus)] 19:20:09
+Potentially help. So this is.
+
+[Faculty (Olympus)] 19:20:13
+Then, basically, then I only have to look at a window. So I learn a detector that only looks at the window. And this detector can now be closer to a fully connected network.
+
+[Faculty (Olympus)] 19:20:23
+And then I shifted through that window. So I look at each window in that in that image.
+
+[Faculty (Olympus)] 19:20:30
+And maybe eventually I will. I will have it in a position.
+
+[Faculty (Olympus)] 19:20:34
+That the cup is in the middle, and then I can actually detect it.
+
+[Faculty (Olympus)] 19:20:39
+So that makes the idea of the positioning easier.
+
+[Faculty (Olympus)] 19:20:43
+It uses the fact that wherever in the image that cup is.
+
+[Faculty (Olympus)] 19:20:48
+It's still a cup. It the actual location doesn't actually matter.
+
+[Faculty (Olympus)] 19:20:53
+So this is this idea of so called translation, invariance. The if you shift the cabin image, it's still a cap. So translation means shift.
+
+[Faculty (Olympus)] 19:21:03
+Um, and you're using the fact that they occur in local patches.
+
+[Faculty (Olympus)] 19:21:07
+So this is one thing we are going to do. So we'll follow up on this idea at actually looking at small parts of the image.
+
+[Faculty (Olympus)] 19:21:14
+And then moving those parts.
+
+[Faculty (Olympus)] 19:21:17
+This also, if I actually only ever look at small patches in the image.
+
+[Faculty (Olympus)] 19:21:22
+As the advantage. Now I could maybe handle images of different size.
+
+[Faculty (Olympus)] 19:21:26
+Because.
+
+[Faculty (Olympus)] 19:21:27
+I just have a few more Pat, but I'm anyway just looking at patches.
+
+[Faculty (Olympus)] 19:21:33
+So that will be actually one part of it that we learn essentially a pad size.
+
+[Faculty (Olympus)] 19:21:40
+Cup classifier, and then we just apply it to every patch in the image.
+
+[Faculty (Olympus)] 19:21:46
+And then we'll also do something to make it a bit more robust to actual positioning.
+
+[Faculty (Olympus)] 19:21:52
+Now, what do we do about the variation in shapes.
+
+[Faculty (Olympus)] 19:21:58
+So what we'll do about this is that we won't actually represent the cup as a full.
+
+[Faculty (Olympus)] 19:22:03
+Cup, template.
+
+[Faculty (Olympus)] 19:22:04
+But we'll use parts.
+
+[Faculty (Olympus)] 19:22:07
+So what we'll say is, when a cup it has like this.
+
+[Faculty (Olympus)] 19:22:10
+Body of a cup, and it has a handle, or if it's a face, it has 2 eyes and a nose and a mouth.
+
+[Faculty (Olympus)] 19:22:17
+So I need those.
+
+[Faculty (Olympus)] 19:22:19
+Part.
+
+[Faculty (Olympus)] 19:22:19
+But they can, but they are like loosely arranged in a certain way. But there's some variation. There's some flexibility on where exactly how exactly they're placed.
+
+[Faculty (Olympus)] 19:22:29
+So that that.
+
+[Faculty (Olympus)] 19:22:30
+Is the good thing when I have this hierarchy of.
+
+[Faculty (Olympus)] 19:22:33
+Features if I build up like simpler shapes, and then I build up the complicated shapes from the simpler shapes.
+
+[Faculty (Olympus)] 19:22:40
+That helps me actively.
+
+[Faculty (Olympus)] 19:22:42
+Be a bit more flexible with variations as well. The other thing that is useful is, I can reuse those shapes.
+
+[Faculty (Olympus)] 19:22:49
+So we'll actually see that there will be a hierarchy between detecting edges.
+
+[Faculty (Olympus)] 19:22:54
+Making shapes from edges, making parts from these simple shapes, like.
+
+[Faculty (Olympus)] 19:22:58
+Squares and circles, and such things.
+
+[Faculty (Olympus)] 19:23:00
+And then building objects from these parts like building a phase.
+
+[Faculty (Olympus)] 19:23:04
+Or a human, from eyes and nose, etc.
+
+[Faculty (Olympus)] 19:23:08
+And so the thing is that this circle shape it may be reused in many different objects.
+
+[Faculty (Olympus)] 19:23:14
+Or a curve shape, or something like that. It may be used in your cup. Maybe it's actually also used.
+
+[Faculty (Olympus)] 19:23:20
+In.
+
+[Faculty (Olympus)] 19:23:20
+I don't know. I will.
+
+[Faculty (Olympus)] 19:23:22
+Whereas it could occur, or maybe even in a head shape or something like that. So this could occur in multiple places. Different detectors can reuse that.
+
+[Faculty (Olympus)] 19:23:35
+Okay, so this is kind of the high level idea.
+
+[Faculty (Olympus)] 19:23:39
+And.
+
+[Faculty (Olympus)] 19:23:40
+Now we'll go into the details of it. How you actually implement it. So this was currently just sort of a high level overview of.
+
+[Faculty (Olympus)] 19:23:49
+What we may want to change.
+
+[Faculty (Olympus)] 19:23:51
+And.
+
+[Faculty (Olympus)] 19:23:53
+Like, that's the main idea. Now, we'll actually look at. Look a little bit into how we actually do this to build a neural network architecture.
+
+[Faculty (Olympus)] 19:24:04
+So there's a few questions I see.
+
+[Faculty (Olympus)] 19:24:08
+Um.
+
+[Faculty (Olympus)] 19:24:16
+This is all about the cup.
+
+[Faculty (Olympus)] 19:24:21
+How does this translate into use for stock market.
+
+[Faculty (Olympus)] 19:24:23
+So actually, if you look at the stock market.
+
+[Faculty (Olympus)] 19:24:26
+It's a little bit of a sidetrack, but the stock market is essentially a time series.
+
+[Faculty (Olympus)] 19:24:30
+So it's a 1 d image in some sense, instead of 2D. You have the one d image.
+
+[Faculty (Olympus)] 19:24:35
+What we are doing here. We are actually detecting patterns. We are detecting like shapes, etc.
+
+[Faculty (Olympus)] 19:24:41
+So for the stock market. You could also do something like this, and you could detect.
+
+[Faculty (Olympus)] 19:24:46
+Shapes in your time series like certain ups and downs. And this you could actually detect in a very similar in the same way that we'll do it for the images today. So you can can actually use the same technique.
+
+[Faculty (Olympus)] 19:24:58
+Of convolution. Also 4 time series data.
+
+[Faculty (Olympus)] 19:25:03
+How do we handle the size of the patch? Yeah. So I left this a bit open. Um, and I'll show you that actually, there's some flexibility in this. Usually the input patch.
+
+[Faculty (Olympus)] 19:25:14
+The 1st layer patch is much smaller than what I drew here.
+
+[Faculty (Olympus)] 19:25:19
+Um, because it actually doesn't have to fit the full.
+
+[Faculty (Olympus)] 19:25:22
+Mark. It has to just do edge detection.
+
+[Faculty (Olympus)] 19:25:26
+And what happens? However, as you go through the layers, because you build up.
+
+[Faculty (Olympus)] 19:25:31
+Say the handle from those edges, and then the cup, the handle, and the other part.
+
+[Faculty (Olympus)] 19:25:37
+Your. The actual, so called receptive field in the image is, gonna get larger. So I'll draw this for you when we look at the actual architecture.
+
+[Faculty (Olympus)] 19:25:44
+Um, so there's some flexibility with the size.
+
+[Faculty (Olympus)] 19:25:48
+And then the sites also depends on your resolution of the image.
+
+[Faculty (Olympus)] 19:25:53
+Okay.
+
+[Faculty (Olympus)] 19:25:53
+So there's 1 last question. That is, what's the difference between patches and padding?
+
+[Faculty (Olympus)] 19:25:58
+So a patch is.
+
+[Faculty (Olympus)] 19:26:00
+A part of the image here, like a window shape, a window of the image.
+
+[Faculty (Olympus)] 19:26:06
+A padding means, I'm adding zeros around the image.
+
+[Faculty (Olympus)] 19:26:09
+That's what padding does.
+
+[Faculty (Olympus)] 19:26:13
+Okay. So now let's go back and see. How do we actually do this and build this up in a neural network?
+
+[Faculty (Olympus)] 19:26:20
+And what we'll actually do is we'll have multiple layers of these detectors.
+
+[Faculty (Olympus)] 19:26:26
+So let me just illustrate this with Mark again. So we have our input image.
+
+[Faculty (Olympus)] 19:26:32
+And what we'll do is we'll take different patches in this input image. So we'll slide our patch, basically. And for each location of the patch.
+
+[Faculty (Olympus)] 19:26:42
+Um, we'll run a detector. It's basically a template.
+
+[Faculty (Olympus)] 19:26:46
+Pattern matching detector.
+
+[Faculty (Olympus)] 19:26:49
+Um.
+
+[Faculty (Olympus)] 19:26:50
+Which is more or less a linear classifier. To be honest.
+
+[Faculty (Olympus)] 19:26:55
+And then we will record.
+
+[Faculty (Olympus)] 19:26:58
+The score for this classifier. Basically, how well was that pattern detected that we were looking for.
+
+[Faculty (Olympus)] 19:27:04
+So maybe we're looking for handles, so I'll now.
+
+[Faculty (Olympus)] 19:27:10
+Have my table here table as the same shape as my image, and for each position of my window I'll record.
+
+[Faculty (Olympus)] 19:27:17
+How good was my detection of handle here.
+
+[Faculty (Olympus)] 19:27:20
+And now this is kind of a compressed.
+
+[Faculty (Olympus)] 19:27:23
+Information about this image, a compressed description that tells me where our handles in this image.
+
+[Faculty (Olympus)] 19:27:29
+It's, of course, kind of a very.
+
+[Faculty (Olympus)] 19:27:33
+Focused description. Um, it only looks at handles, but it is a compressed description, and it looks at something that's important to us.
+
+[Faculty (Olympus)] 19:27:41
+Because it helps us classify.
+
+[Faculty (Olympus)] 19:27:44
+Um. So this is this would now be the import to the layer. And this would be a part of the output. The output is basically this table that tells me in the image.
+
+[Faculty (Olympus)] 19:27:55
+Did I detect handles.
+
+[Faculty (Olympus)] 19:27:58
+Now, of course I don't only want to detect handles.
+
+[Faculty (Olympus)] 19:28:01
+Um. I want to detect many different shapes.
+
+[Faculty (Olympus)] 19:28:04
+So what I will do is I will do more of these.
+
+[Faculty (Olympus)] 19:28:08
+Detectors.
+
+[Faculty (Olympus)] 19:28:08
+And I also call. These detectors are also called.
+
+[Faculty (Olympus)] 19:28:12
+Kernels or filters.
+
+[Faculty (Olympus)] 19:28:14
+So this are also called.
+
+[Faculty (Olympus)] 19:28:16
+Colonels.
+
+[Faculty (Olympus)] 19:28:18
+Or filters.
+
+[Faculty (Olympus)] 19:28:21
+And now maybe we have. I called it the jar, basically the shape of the that body of the cup where actually the liquids. So we have to say we do the same thing with the patches. And now we have a different detector.
+
+[Faculty (Olympus)] 19:28:34
+This is the jar detector. And we again run basically our window through the image, and we detect where jars. And then we remember where our jars so.
+
+[Faculty (Olympus)] 19:28:45
+There's basically one place, we detected something.
+
+[Faculty (Olympus)] 19:28:49
+For the handle. Maybe I put up also detected something here or so in the glasses. That also has kind of that round shape.
+
+[Faculty (Olympus)] 19:28:56
+And the thing is now, of course, by context. If I knew a bit more about the context, I see this is not a mark.
+
+[Faculty (Olympus)] 19:29:02
+Because it's actually that glass.
+
+[Faculty (Olympus)] 19:29:07
+So this procedure of.
+
+[Faculty (Olympus)] 19:29:10
+Sliding my window, and to remembering the detections.
+
+[Faculty (Olympus)] 19:29:14
+This is called a convolution.
+
+[Faculty (Olympus)] 19:29:18
+So this is one type of layer you can have in a, you know, in a convolutional network. That's where the name comes from. And it's kind of the most important operation in here.
+
+[Faculty (Olympus)] 19:29:28
+Is to slide that pattern detector.
+
+[Faculty (Olympus)] 19:29:31
+Um, the.
+
+[Faculty (Olympus)] 19:29:33
+Essentially filter or kernel.
+
+[Faculty (Olympus)] 19:29:36
+So now what I have, as the output say of my 1st layer here is.
+
+[Faculty (Olympus)] 19:29:42
+A recording of Where did I find handles? Where did I find jars? Etc.
+
+[Faculty (Olympus)] 19:29:49
+And now what I need is if I want to detect a cup.
+
+[Faculty (Olympus)] 19:29:53
+I have to put them together.
+
+[Faculty (Olympus)] 19:29:55
+So the way I do this is that in the next layer.
+
+[Faculty (Olympus)] 19:30:01
+I'll actually look at those 2 tables simultaneously. And I look, is there some region where, in the same region I detected.
+
+[Faculty (Olympus)] 19:30:10
+Handle, and the.
+
+[Faculty (Olympus)] 19:30:13
+And that's if I look. Yeah, there's 1 region here at the bottom, right.
+
+[Faculty (Olympus)] 19:30:18
+Where I have both of them. So that's good. So now I can actually put them together.
+
+[Faculty (Olympus)] 19:30:22
+And then I have a detection.
+
+[Faculty (Olympus)] 19:30:24
+So the next layer we look at those tables and say, now I'm building something out of these pieces.
+
+[Faculty (Olympus)] 19:30:31
+So I'm looking. Basically, where do I have the necessary pieces.
+
+[Faculty (Olympus)] 19:30:36
+And you see this will give a bit of flexibility in terms of.
+
+[Faculty (Olympus)] 19:30:41
+Where exactly is that?
+
+[Faculty (Olympus)] 19:30:43
+Handle off the cap.
+
+[Faculty (Olympus)] 19:30:44
+We will often compress these a little bit.
+
+[Faculty (Olympus)] 19:30:48
+And just remember the course of location. So this gives a bit more flexibility here, and it also saves some memory.
+
+[Faculty (Olympus)] 19:30:55
+This is called pooling, and I'll tell you exactly what pooling does.
+
+[Faculty (Olympus)] 19:31:00
+And then this other pattern detector. Basically, again, it looks.
+
+[Faculty (Olympus)] 19:31:05
+Through my 2 tables simultaneously, and that one is also a convolution.
+
+[Faculty (Olympus)] 19:31:10
+So I can put together the outputs of.
+
+[Faculty (Olympus)] 19:31:14
+The convolutional layer by another convolution to build up.
+
+[Faculty (Olympus)] 19:31:18
+Objects from my part, for instance.
+
+[Faculty (Olympus)] 19:31:21
+So you see, kind of what's the benefit of the different layers here is that I can break up my complicated.
+
+[Faculty (Olympus)] 19:31:29
+Into simpler detections, like the parts of the.
+
+[Faculty (Olympus)] 19:31:32
+And similarly, I can do it with more complex objects than a cup.
+
+[Faculty (Olympus)] 19:31:37
+Um. I can have other types of like eyes and nose and mouth, etc, or fingers, and such things.
+
+[Faculty (Olympus)] 19:31:43
+And then I can have them uh as part here.
+
+[Faculty (Olympus)] 19:31:50
+Okay. So now, what you do is you have these 2 different types of layers. You have a convolution, and you have the pooling layer just courses. This.
+
+[Faculty (Olympus)] 19:31:59
+So it's a bit location that you remember is a bit coarser.
+
+[Faculty (Olympus)] 19:32:04
+And then what?
+
+[Faculty (Olympus)] 19:32:06
+As typical convolutional network looks like is that you.
+
+[Faculty (Olympus)] 19:32:10
+Interleave these kinds of these types of layers, so you may have a few convolutions, and then a pooling and more convolution, and pooling.
+
+[Faculty (Olympus)] 19:32:18
+So the rail here is that nonlinearity in the convolution.
+
+[Faculty (Olympus)] 19:32:23
+So this is what a typical architecture could look like.
+
+[Faculty (Olympus)] 19:32:26
+And you see, this architecture actually has 2 parts. The shapes of those layers look different.
+
+[Faculty (Olympus)] 19:32:32
+So let's actually go through this. This is the part that encodes the image essentially into a vector.
+
+[Faculty (Olympus)] 19:32:39
+And that.
+
+[Faculty (Olympus)] 19:32:41
+Like, teases out all the different shapes and the patterns, etc.
+
+[Faculty (Olympus)] 19:32:45
+And then what you do is after that you flatten it. Now we reshape it into a vector that's called flattening. So flatten again, just means.
+
+[Faculty (Olympus)] 19:32:55
+Shape it into a vector just like we did with the image.
+
+[Faculty (Olympus)] 19:32:58
+With a fully connected networks.
+
+[Faculty (Olympus)] 19:33:00
+And then, after that, you apply a simple classifier. So this could be a few layers of a fully connected network, or it could be just a linear classifier.
+
+[Faculty (Olympus)] 19:33:09
+And then here's your output classes.
+
+[Faculty (Olympus)] 19:33:11
+So this is the classification part. This is the encoding part essentially.
+
+[Faculty (Olympus)] 19:33:17
+So now let's look. Try to understand these boxes a little bit better. What is going on here.
+
+[Faculty (Olympus)] 19:33:24
+So this is the 1st convolution layer, and what each.
+
+[Faculty (Olympus)] 19:33:28
+Filter does is it looks at like the.
+
+[Faculty (Olympus)] 19:33:30
+Patches in your image.
+
+[Faculty (Olympus)] 19:33:32
+This image actually looks like 3 images, because this is a color image.
+
+[Faculty (Olympus)] 19:33:36
+And typically a color image is encoded by a red channel, a green channel and a blue channel. So it's actually 3 images, a red and a green and a blue image.
+
+[Faculty (Olympus)] 19:33:46
+And so we look kind of at all of these channels simultaneously.
+
+[Faculty (Olympus)] 19:33:52
+So now, what I told you is that actually.
+
+[Faculty (Olympus)] 19:33:55
+I don't only detect handles. I detect many other types of parts.
+
+[Faculty (Olympus)] 19:34:00
+So now what I'll do is I'll take these here.
+
+[Faculty (Olympus)] 19:34:05
+And I'll take them at like sheets of paper, and I'll stack them on top of each other. So I have a big pile of these detections each.
+
+[Faculty (Olympus)] 19:34:13
+Refers to a different type of object.
+
+[Faculty (Olympus)] 19:34:17
+So um, what this becomes here is that this is actually like.
+
+[Faculty (Olympus)] 19:34:22
+Many different sheets.
+
+[Faculty (Olympus)] 19:34:24
+That you put together, and then you put you stack them up.
+
+[Faculty (Olympus)] 19:34:27
+So the 1st 2 dimensions, these ones here.
+
+[Faculty (Olympus)] 19:34:31
+They're actually the image dimensions. Because, you see.
+
+[Faculty (Olympus)] 19:34:35
+The output here of my filter from all of my layer that has the same shape as the image. It's just kind of a compressed version of the image where I record the locations.
+
+[Faculty (Olympus)] 19:34:44
+This is what this is. So I just have, like a bunch of sheets.
+
+[Faculty (Olympus)] 19:34:50
+Stack together.
+
+[Faculty (Olympus)] 19:34:51
+So that means.
+
+[Faculty (Olympus)] 19:34:52
+This 3rd direction is my number of filters.
+
+[Faculty (Olympus)] 19:34:59
+So when I have these filters, and now what I'll do is I'll pool them. So I coarse, and them a bit.
+
+[Faculty (Olympus)] 19:35:06
+So what this pooling does is, it keeps the number of filters the same.
+
+[Faculty (Olympus)] 19:35:11
+So these are actually the same.
+
+[Faculty (Olympus)] 19:35:14
+And the only thing that changes is the 1st 2 directions. So you make it smaller. You compress it a bit. So basically for each region you, you make a course of detection. You remember what was the best detection in that bigger region.
+
+[Faculty (Olympus)] 19:35:30
+After that you do another convolution.
+
+[Faculty (Olympus)] 19:35:33
+So what the convolution now does is, it's again a bunch of filters.
+
+[Faculty (Olympus)] 19:35:40
+This is the layer, 3 filters.
+
+[Faculty (Olympus)] 19:35:43
+This is a different number of filters.
+
+[Faculty (Olympus)] 19:35:45
+And they now look through the entire stack, and they combine.
+
+[Faculty (Olympus)] 19:35:50
+The detections.
+
+[Faculty (Olympus)] 19:35:52
+From the 1st set of filters.
+
+[Faculty (Olympus)] 19:35:54
+This is where I put basically, the handle and the mark together.
+
+[Faculty (Olympus)] 19:35:58
+And then I do more pooling and more convolution, etc.
+
+[Faculty (Olympus)] 19:36:02
+So what you see is that the shape of the output changes. So it kind of the 2D dimension becomes smaller.
+
+[Faculty (Olympus)] 19:36:10
+And that is because I'm actually now encoding things at a larger scale.
+
+[Faculty (Olympus)] 19:36:15
+And I'll tell you what this is, and then this dimension may become larger. This is the number of patterns I'm detecting. Essentially.
+
+[Faculty (Olympus)] 19:36:22
+So this is essentially equal to the number of patterns that I'm detecting.
+
+[Faculty (Olympus)] 19:36:30
+And this may become more.
+
+[Faculty (Olympus)] 19:36:32
+So now, what happens here is.
+
+[Faculty (Olympus)] 19:36:34
+Let's say.
+
+[Faculty (Olympus)] 19:36:36
+I look at the second convolutional layer.
+
+[Faculty (Olympus)] 19:36:39
+And I look at.
+
+[Faculty (Olympus)] 19:36:41
+This guy here. This is essentially one Pixel.
+
+[Faculty (Olympus)] 19:36:45
+In my convolution here, in the output of that layer.
+
+[Faculty (Olympus)] 19:36:49
+This pixel encodes like some pattern.
+
+[Faculty (Olympus)] 19:36:52
+And you see, for this region.
+
+[Faculty (Olympus)] 19:36:55
+That's what that's its window, that's what it's looking at.
+
+[Faculty (Olympus)] 19:36:57
+And this region. Actually, if you go back, it corresponds to a larger region.
+
+[Faculty (Olympus)] 19:37:02
+In this.
+
+[Faculty (Olympus)] 19:37:05
+A layer here and now you see, each entry in here corresponds to a window in my original image. So this actually corresponds to a larger region.
+
+[Faculty (Olympus)] 19:37:15
+In my original image.
+
+[Faculty (Olympus)] 19:37:17
+So kind of the more to the right I go with my network in mind with my layers, the larger a region in my image they actually correspond to.
+
+[Faculty (Olympus)] 19:37:26
+And now, if you have objects of different size, for that reason, you could actually encode them to some extent.
+
+[Faculty (Olympus)] 19:37:33
+In different layers.
+
+[Faculty (Olympus)] 19:37:34
+So the big ones later, the smaller ones earlier.
+
+[Faculty (Olympus)] 19:37:39
+So that's why there's a little bit of flexibility with the sizes.
+
+[Faculty (Olympus)] 19:37:48
+Okay. Um.
+
+[Faculty (Olympus)] 19:37:51
+Alright, so.
+
+[Faculty (Olympus)] 19:37:55
+Okay, I see one.
+
+[Faculty (Olympus)] 19:37:58
+Uh question in here, and that refers. The neural network recognized this without training.
+
+[Faculty (Olympus)] 19:38:03
+So in my example, actually.
+
+[Faculty (Olympus)] 19:38:05
+That was one disclaimer. I have to make it that this filter is the handle. This is the jar detector.
+
+[Faculty (Olympus)] 19:38:13
+What I actually do when I train the neural network.
+
+[Faculty (Olympus)] 19:38:16
+Is, I take this.
+
+[Faculty (Olympus)] 19:38:19
+I just initialized these filters randomly.
+
+[Faculty (Olympus)] 19:38:22
+And then I learned the filter. So I actually don't. I just define the architecture. So I say, how many layers do I want? How many filters do I want in each layer.
+
+[Faculty (Olympus)] 19:38:32
+And that's it. And how big should the windows be?
+
+[Faculty (Olympus)] 19:38:35
+I don't actually say I want to handle them on the jar. So the neural network learns that by itself. So the filters.
+
+[Faculty (Olympus)] 19:38:43
+Remember, they are just like detectors. That's what we are learning with our gradient descent. So this is what the neural network is actually learning during training.
+
+[Faculty (Olympus)] 19:38:51
+So here, I just define them to make. To illustrate this to you. This is how it could work once it has been trained. So this would be after training.
+
+[Faculty (Olympus)] 19:39:02
+Okay. Um.
+
+[Faculty (Olympus)] 19:39:07
+Alright, so maybe I'll look at a few questions.
+
+[Faculty (Olympus)] 19:39:11
+And then.
+
+[Faculty (Olympus)] 19:39:26
+Hopefully some of them became clear with this these 2 slides now.
+
+[Faculty (Olympus)] 19:39:32
+Um.
+
+[Faculty (Olympus)] 19:39:32
+So you see, our final question is, what do the numbers in the vector represent? So now you can actually, what essentially, this would tell me, is in the upper region.
+
+[Faculty (Olympus)] 19:39:43
+Off my image? Was there a detection of.
+
+[Faculty (Olympus)] 19:39:47
+Maybe a car or a cloud. Whatever this particular corresponds to.
+
+[Faculty (Olympus)] 19:39:52
+So this is essentially what these coordinates here mean, so they are much more meaningful than pixels.
+
+[Faculty (Olympus)] 19:39:58
+Like colors of the pixels.
+
+[Faculty (Olympus)] 19:40:03
+Hmm! Can the windows be a parameter instead of a hyperparameter?
+
+[Faculty (Olympus)] 19:40:08
+Um, no, usually you have to, because this affects back propagation, etc, you. It's not easy to change that you're in training. You kind of fix it ahead of time.
+
+[Faculty (Olympus)] 19:40:17
+Um.
+
+[Faculty (Olympus)] 19:40:19
+Whilst the link with mathematical convolution. So actually, if you look at the equation, the mathematical equation for convolution.
+
+[Faculty (Olympus)] 19:40:27
+It also, it applies the same function.
+
+[Faculty (Olympus)] 19:40:33
+2 different parts of your input.
+
+[Faculty (Olympus)] 19:40:35
+And that's essentially what we are doing here. So you get this integral or the sum. And you apply the same function to different parts of your input.
+
+[Faculty (Olympus)] 19:40:43
+Um, that's what we are doing here. Mathematically, this is actually called a correlation. It's a slight difference from a convolution.
+
+[Faculty (Olympus)] 19:40:50
+But essentially like the the big picture thing, it's there, basically the same.
+
+[Faculty (Olympus)] 19:41:03
+Um.
+
+[Faculty (Olympus)] 19:41:05
+Okay, so then.
+
+[Faculty (Olympus)] 19:41:07
+Where's the labeling? So, yeah, maybe about the training process. One more thing.
+
+[Faculty (Olympus)] 19:41:12
+Um.
+
+[Faculty (Olympus)] 19:41:14
+What's the training process? So how do I train this again? All the filters? And you can really think of the filters as templates, and I'll show you in what way.
+
+[Faculty (Olympus)] 19:41:23
+Randomly initialized, just like the weights in our network. Those are the weights in our neural network.
+
+[Faculty (Olympus)] 19:41:29
+Um.
+
+[Faculty (Olympus)] 19:41:30
+And.
+
+[Faculty (Olympus)] 19:41:31
+Then I will train this with gradient descent, and the task.
+
+[Faculty (Olympus)] 19:41:36
+Usually is classification.
+
+[Faculty (Olympus)] 19:41:38
+Um in supervised learning. So here I would have different classes of objects.
+
+[Faculty (Olympus)] 19:41:45
+So car track, whatever basic person, etc.
+
+[Faculty (Olympus)] 19:41:49
+So I would have these different classes, and then in your network would just predict.
+
+[Faculty (Olympus)] 19:41:54
+And I will basically give the feedback from the classification error. So I apply a classification error just like for the fully connected network or linear classifier that I would use. Um. So basically, the loss just treats this big thing as a black box says, Ah.
+
+[Faculty (Olympus)] 19:42:13
+It outputs a prediction. Now let's just give it feedback on that prediction. That's what you do.
+
+[Faculty (Olympus)] 19:42:18
+And usually this is classification. So you'll have a bunch of these classes that correspond to your training data.
+
+[Faculty (Olympus)] 19:42:25
+And just getting this feedback about the classes. The neural network actually learns this feature. Hierarchy.
+
+[Faculty (Olympus)] 19:42:32
+It actually decomposes the detections by itself, which is pretty cool, and I'll show you some illustrations later about what the different layers of the neural network like to detect.
+
+[Faculty (Olympus)] 19:42:45
+Okay. So the real well mentioned, I'll show you later how exactly it it is used here.
+
+[Faculty (Olympus)] 19:42:51
+Um.
+
+[Faculty (Olympus)] 19:42:53
+Okay.
+
+[Faculty (Olympus)] 19:42:57
+So now I think I want to.
+
+[Faculty (Olympus)] 19:43:01
+Just go on and give you a little bit.
+
+[Faculty (Olympus)] 19:43:05
+More of an idea of how the convolution actually works.
+
+[Faculty (Olympus)] 19:43:09
+How, what does it look like.
+
+[Faculty (Olympus)] 19:43:10
+So we'll go into a bit of a detail about these basic operations here.
+
+[Faculty (Olympus)] 19:43:15
+So the 1st one will be the convolution. And indeed, I said, this works for sequence data as well, or time series.
+
+[Faculty (Olympus)] 19:43:21
+So to make it simpler, we'll just look at a 1 d image, which is just a string of pixel values here.
+
+[Faculty (Olympus)] 19:43:28
+And to make the calculations easier. This is zeros and ones.
+
+[Faculty (Olympus)] 19:43:32
+It can be arbitrary numbers again, between 0 and one.
+
+[Faculty (Olympus)] 19:43:39
+So.
+
+[Faculty (Olympus)] 19:43:41
+Now, what does my window mean in this.
+
+[Faculty (Olympus)] 19:43:45
+Sequence. It's basically an interval.
+
+[Faculty (Olympus)] 19:43:47
+So let's say my window size is 3 years. So I have these 3.
+
+[Faculty (Olympus)] 19:43:51
+That is the 1st input to my detector.
+
+[Faculty (Olympus)] 19:43:56
+So this detector, actually, again, that detector is like one unit in my neural network.
+
+[Faculty (Olympus)] 19:44:03
+So this detector is actually just a linear classifier. So that means what this detector does is.
+
+[Faculty (Olympus)] 19:44:10
+It does an inner product, a linear function of my input plus an offset which I skipped here.
+
+[Faculty (Olympus)] 19:44:16
+So this is the offset or bias being 0.
+
+[Faculty (Olympus)] 19:44:18
+And then it applies a nonlinearity.
+
+[Faculty (Olympus)] 19:44:22
+That's it. So this is like the unit of my neural network. And now the difference to the fully connected network is that this guy only gets 3 inputs and not the full network at the full desk in a, as the in its input.
+
+[Faculty (Olympus)] 19:44:38
+So it's input sites, not 10, but only 3.
+
+[Faculty (Olympus)] 19:44:42
+That means I only need 3 weights.
+
+[Faculty (Olympus)] 19:44:45
+Plus a bias term to parameterize this.
+
+[Faculty (Olympus)] 19:44:48
+So I have my 3 weights, and then I do the computation weight one times 0 plus weight 2 times 0 plus 3 times one.
+
+[Faculty (Olympus)] 19:44:59
+So now, if I actually say, Okay, these are some weights. I just set them. Usually they are learned.
+
+[Faculty (Olympus)] 19:45:05
+And just to illustrate to you the computation, the calculation.
+
+[Faculty (Olympus)] 19:45:09
+So what we do is.
+
+[Faculty (Olympus)] 19:45:11
+Wait one times input one plus weight, 2 times input 2 plus weight 3 times input 3.
+
+[Faculty (Olympus)] 19:45:19
+So this gives you.
+
+[Faculty (Olympus)] 19:45:22
+Minus one.
+
+[Faculty (Olympus)] 19:45:25
+Um. So this is minus one times 0 plus one times 0 plus minus one times one, and that gives minus one.
+
+[Faculty (Olympus)] 19:45:34
+So this would be the output for the 1st position.
+
+[Faculty (Olympus)] 19:45:38
+So now, this will. Okay, not fully. But almost this is basically the pre activation score here.
+
+[Faculty (Olympus)] 19:45:44
+So if we come like.
+
+[Faculty (Olympus)] 19:45:47
+Relate this to our neural network. This would be the activation score.
+
+[Faculty (Olympus)] 19:45:56
+Okay. Um.
+
+[Faculty (Olympus)] 19:45:59
+Now, what we'll do is.
+
+[Faculty (Olympus)] 19:46:01
+Okay, so.
+
+[Faculty (Olympus)] 19:46:02
+Before I go on, I want to make one comment. What does this linear score actually mean?
+
+[Faculty (Olympus)] 19:46:10
+In a sense, if you think about what would make this score very high. So the inputs can between be between 0 and one.
+
+[Faculty (Olympus)] 19:46:18
+How would they look like to make the output really large? So this times, this plus this times, this plus this times, this.
+
+[Faculty (Olympus)] 19:46:27
+So.
+
+[Faculty (Olympus)] 19:46:28
+If you think about it. Well, so anything multiplied by minus one, we want it to be small, because minus one decreases.
+
+[Faculty (Olympus)] 19:46:37
+The score.
+
+[Faculty (Olympus)] 19:46:37
+Same for here. So maybe we want zeros out here and in the middle there's a 1. So we maybe want this to be large. So we have a 1.
+
+[Faculty (Olympus)] 19:46:47
+So what?
+
+[Faculty (Olympus)] 19:46:49
+Kind of ideal input would be would be a 0, a 1 and a 0.
+
+[Faculty (Olympus)] 19:46:53
+So now, if you look at this, this is a small large number.
+
+[Faculty (Olympus)] 19:46:57
+And if you look at this, this is a small large number.
+
+[Faculty (Olympus)] 19:47:01
+So in some sense, we are actually just matching the pattern of my filter.
+
+[Faculty (Olympus)] 19:47:07
+So this is basically what we are looking for, something small, high.
+
+[Faculty (Olympus)] 19:47:12
+And small, high, small would be the thing that would kind of activate this, the most.
+
+[Faculty (Olympus)] 19:47:17
+So really, in this sense, you can think of these filters as really just templates. And we're just matching those templates in those windows.
+
+[Faculty (Olympus)] 19:47:27
+Okay. So this was not a good match. This gave a minus one.
+
+[Faculty (Olympus)] 19:47:33
+Now, what we'll do is we'll shift, and we go to the next.
+
+[Faculty (Olympus)] 19:47:37
+Window.
+
+[Faculty (Olympus)] 19:47:38
+And we do the same computation.
+
+[Faculty (Olympus)] 19:47:41
+And now we get one. This is actually the pattern that makes it large.
+
+[Faculty (Olympus)] 19:47:46
+Happens to be.
+
+[Faculty (Olympus)] 19:47:47
+So this is actually a good import. 0 1, 2.
+
+[Faculty (Olympus)] 19:47:51
+And so on.
+
+[Faculty (Olympus)] 19:47:52
+Um. So there's actually one thing we have to decide here, and that is.
+
+[Faculty (Olympus)] 19:47:57
+By, how much do we actually shift our window? So here I shifted it by one.
+
+[Faculty (Olympus)] 19:48:01
+If I have an image of a larger resolution, I could also shift it by a bit more.
+
+[Faculty (Olympus)] 19:48:07
+Um. So this is something you have to decide. This is also a hyper parameter. So you have to decide the number of filters.
+
+[Faculty (Olympus)] 19:48:13
+And a stride, and the number of layers.
+
+[Faculty (Olympus)] 19:48:18
+And then we just go on.
+
+[Faculty (Olympus)] 19:48:20
+Um.
+
+[Faculty (Olympus)] 19:48:21
+And we.
+
+[Faculty (Olympus)] 19:48:23
+Oops!
+
+[Faculty (Olympus)] 19:48:25
+We basically fill the entire.
+
+[Faculty (Olympus)] 19:48:29
+Well output here. So we just go through all the different windows.
+
+[Faculty (Olympus)] 19:48:32
+And we calculate the output.
+
+[Faculty (Olympus)] 19:48:36
+This is still the pre activation score. But now we see actually one important thing.
+
+[Faculty (Olympus)] 19:48:42
+So I got this entire output.
+
+[Faculty (Olympus)] 19:48:45
+8 numbers.
+
+[Faculty (Olympus)] 19:48:47
+With only 3 parameters. That's my weight, plus maybe a 4th one, which is the offset here that I.
+
+[Faculty (Olympus)] 19:48:53
+So.
+
+[Faculty (Olympus)] 19:48:54
+Actually, this needs very few parameters. It's only 3 weights, and I process the entire thing with only 3 weights.
+
+[Faculty (Olympus)] 19:49:02
+So I only need, like the size of my filter, many Bates essentially.
+
+[Faculty (Olympus)] 19:49:07
+This is.
+
+[Faculty (Olympus)] 19:49:09
+A big difference to if I had done a fully connected network.
+
+[Faculty (Olympus)] 19:49:13
+So if I had done, a fully connected network of these would be connected to the entire, which I think is size 10.
+
+[Faculty (Olympus)] 19:49:20
+So if I have 8 here, and then I have 10 here, I would have 80 weights.
+
+[Faculty (Olympus)] 19:49:25
+Instead of just 3.
+
+[Faculty (Olympus)] 19:49:26
+That's a big difference.
+
+[Faculty (Olympus)] 19:49:31
+So you actually get a huge savings and parameters. If you do this.
+
+[Faculty (Olympus)] 19:49:35
+And this actually was one reason why we could make convolutional networks much bigger than fully connected networks, because they actually are much more parameter, efficient.
+
+[Faculty (Olympus)] 19:49:47
+Um.
+
+[Faculty (Olympus)] 19:49:49
+Okay. So now, the next thing is.
+
+[Faculty (Olympus)] 19:49:51
+One thing is okay. We have this parameter sharing. I said. Each of these positions actually is as if.
+
+[Faculty (Olympus)] 19:49:58
+I had put one neuron here.
+
+[Faculty (Olympus)] 19:50:01
+That does kind of this is the input to the neuron. And then this is, it's pre activation score.
+
+[Faculty (Olympus)] 19:50:07
+If this is a neuron or a unit.
+
+[Faculty (Olympus)] 19:50:11
+Then it needs also a nonlinearity, and then out to get the output.
+
+[Faculty (Olympus)] 19:50:15
+So the nonlinearity that is typically used in convolutional networks is the rail activation.
+
+[Faculty (Olympus)] 19:50:24
+Now, okay, now, the question is, what was the activation.
+
+[Faculty (Olympus)] 19:50:27
+If you remember. If you don't remember, I'll remind you.
+
+[Faculty (Olympus)] 19:50:31
+What Reno does is it basically makes every negative number a 0.
+
+[Faculty (Olympus)] 19:50:37
+And it just keeps the positive numbers.
+
+[Faculty (Olympus)] 19:50:40
+So if we do this here in our array of numbers.
+
+[Faculty (Olympus)] 19:50:44
+There's a lot of negative numbers.
+
+[Faculty (Olympus)] 19:50:47
+It's only one positive number. So we keep that positive number, and the rest is 0.
+
+[Faculty (Olympus)] 19:50:51
+So.
+
+[Faculty (Olympus)] 19:50:55
+Sorry.
+
+[Faculty (Olympus)] 19:50:57
+What this means is.
+
+[Faculty (Olympus)] 19:50:58
+We really only remember the good detections. We don't really care about how bad the match was here. We only care about the actual detection. So we remember there was a detection in the second position.
+
+[Faculty (Olympus)] 19:51:10
+Which was this one? Here.
+
+[Faculty (Olympus)] 19:51:12
+So now, this is actually really like.
+
+[Faculty (Olympus)] 19:51:16
+A unit in um in the networks we talked about before.
+
+[Faculty (Olympus)] 19:51:19
+Does a linear.
+
+[Faculty (Olympus)] 19:51:22
+Waited some of its inputs. And then it does a nonlinearity. And that's the output.
+
+[Faculty (Olympus)] 19:51:29
+Okay, so.
+
+[Faculty (Olympus)] 19:51:43
+Hmm.
+
+[Faculty (Olympus)] 19:51:52
+Okay. I think this was that doesn't look like there were a lot of.
+
+[Faculty (Olympus)] 19:51:56
+Um.
+
+[Faculty (Olympus)] 19:51:58
+Questions. One questions is one filter equivalent to one neuron.
+
+[Faculty (Olympus)] 19:52:03
+So one filter would be essentially this set of weights.
+
+[Faculty (Olympus)] 19:52:07
+And the set of weights is actually the shared.
+
+[Faculty (Olympus)] 19:52:10
+Parameters.
+
+[Faculty (Olympus)] 19:52:12
+For several neurons, so you could think of it as that. There's 1 neuron sitting here.
+
+[Faculty (Olympus)] 19:52:20
+Which takes us input the 1st 3. Then there's 1 you're on, which is its neighbor. That takes us input the second 3.
+
+[Faculty (Olympus)] 19:52:27
+And then there's 1 year on here which takes us input, the 3rd 3 and so on.
+
+[Faculty (Olympus)] 19:52:32
+And all of these neurons have the same 3 weights.
+
+[Faculty (Olympus)] 19:52:37
+And the same 3 rates are the filter.
+
+[Faculty (Olympus)] 19:52:40
+So that is, that is the correspondence. So for each neuron uses.
+
+[Faculty (Olympus)] 19:52:45
+One filter, but the filter is shared.
+
+[Faculty (Olympus)] 19:52:49
+Um. And then there's 1 question. Do you define.
+
+[Faculty (Olympus)] 19:52:53
+The filters in advance? Or are they learned during training? And there's a question about the importance of those filters. So the filters are the weight. So that's what we learned during training.
+
+[Faculty (Olympus)] 19:53:02
+I don't pre specify what they should detect.
+
+[Faculty (Olympus)] 19:53:05
+That is actually what people use beforehand. They essentially had their hands specified. Filters in signal processing. Convolution is not a new thing. It's actually a very old idea.
+
+[Faculty (Olympus)] 19:53:17
+And.
+
+[Faculty (Olympus)] 19:53:18
+Those go ahead pre specified. Here we learned that.
+
+[Faculty (Olympus)] 19:53:22
+But it turns out that, especially in the 1st layer, they're not actually that different from what people used to.
+
+[Faculty (Olympus)] 19:53:28
+Pre specify, but then, in the later layers, of course, them are flexible.
+
+[Faculty (Olympus)] 19:53:33
+So. Yes, they are important, because the filters determine what we will be able to classify and whatnot.
+
+[Faculty (Olympus)] 19:53:42
+Um.
+
+[Faculty (Olympus)] 19:53:44
+Right uh, but they are learned.
+
+[Faculty (Olympus)] 19:53:49
+Okay? And there's a question, do we ever start with non random filters? So typically.
+
+[Faculty (Olympus)] 19:53:55
+It's easiest to initialize them randomly. What you can do, however, is you can use a pre trained model. So then someone else has initialized. This randomly has trained this model.
+
+[Faculty (Olympus)] 19:54:06
+And then you can use.
+
+[Faculty (Olympus)] 19:54:09
+The filters of that model.
+
+[Faculty (Olympus)] 19:54:11
+And you can update them a bit. So you have a really good initialization. Now, these filters already mean something.
+
+[Faculty (Olympus)] 19:54:17
+And you just update them a bit, and that you can do with much less data.
+
+[Faculty (Olympus)] 19:54:22
+And this is something we'll talk about in the next lecture.
+
+[Faculty (Olympus)] 19:54:26
+So now the last thing I wanted to say about the.
+
+[Faculty (Olympus)] 19:54:30
+Convolution is the padding idea. So.
+
+[Faculty (Olympus)] 19:54:35
+One thing you may have observed is that the output is actually of length 8. Here.
+
+[Faculty (Olympus)] 19:54:40
+Um.
+
+[Faculty (Olympus)] 19:54:42
+Versus the.
+
+[Faculty (Olympus)] 19:54:44
+It's of length tab. So the output is actually slightly smaller than the input.
+
+[Faculty (Olympus)] 19:54:51
+So? Why that?
+
+[Faculty (Olympus)] 19:54:53
+Um, if you actually.
+
+[Faculty (Olympus)] 19:54:56
+Think about it. Um, this.
+
+[Faculty (Olympus)] 19:54:59
+Guy here took us input the 1st 3.
+
+[Faculty (Olympus)] 19:55:01
+And then the next one was kind of took.
+
+[Faculty (Olympus)] 19:55:04
+And filter likes.
+
+[Faculty (Olympus)] 19:55:07
+Centered at the at this.
+
+[Faculty (Olympus)] 19:55:09
+At this uh pixel, basically.
+
+[Faculty (Olympus)] 19:55:13
+But we could never center a filter on this guy because.
+
+[Faculty (Olympus)] 19:55:18
+Well, you would have some overhead like if you centered this filter here, then, or my window here, then, I have one overhang here.
+
+[Faculty (Olympus)] 19:55:26
+So.
+
+[Faculty (Olympus)] 19:55:27
+That's why, like, I can actually only.
+
+[Faculty (Olympus)] 19:55:30
+Put this filter to like.
+
+[Faculty (Olympus)] 19:55:32
+Starting from here and ending basically here at these 3.
+
+[Faculty (Olympus)] 19:55:38
+So now, if I actually want the output to be the same size as the input.
+
+[Faculty (Olympus)] 19:55:42
+What I can do is I can pad.
+
+[Faculty (Olympus)] 19:55:44
+The image with 0. So that means I put zeros at the end around the.
+
+[Faculty (Olympus)] 19:55:50
+Edges, essentially.
+
+[Faculty (Olympus)] 19:55:51
+And then, if I do this.
+
+[Faculty (Olympus)] 19:55:53
+I get uh outputs that are the same as the original input size.
+
+[Faculty (Olympus)] 19:55:58
+Now how much you have to pad depends on the size of your filter and your stride.
+
+[Faculty (Olympus)] 19:56:03
+Um.
+
+[Faculty (Olympus)] 19:56:05
+That's what determines the size of the output.
+
+[Faculty (Olympus)] 19:56:15
+Okay.
+
+[Faculty (Olympus)] 19:56:22
+So now let's look at this in 2D.
+
+[Faculty (Olympus)] 19:56:26
+And 2D.
+
+[Faculty (Olympus)] 19:56:27
+It. Look, it's basically the same thing. So the only thing is that my window is now 2 dimensional.
+
+[Faculty (Olympus)] 19:56:33
+So my filters here I had weights.
+
+[Faculty (Olympus)] 19:56:36
+That these 3 rates that so the way it's always have the same shape as my window.
+
+[Faculty (Olympus)] 19:56:41
+That's my sliding window. So here my sliding window is square, so I would have.
+
+[Faculty (Olympus)] 19:56:47
+As many weights. So I have basically a square array of weights.
+
+[Faculty (Olympus)] 19:56:51
+4 by 4, so 16 weights.
+
+[Faculty (Olympus)] 19:56:53
+Um to do the classification on this 2D thing.
+
+[Faculty (Olympus)] 19:56:58
+And then for each position again I remember the detection.
+
+[Faculty (Olympus)] 19:57:03
+And now I move it, and here I'm using a stride of 2.
+
+[Faculty (Olympus)] 19:57:08
+So that means I'm moving to the right by 2 pixels.
+
+[Faculty (Olympus)] 19:57:12
+So the next position is actually slightly further to the right.
+
+[Faculty (Olympus)] 19:57:16
+But otherwise it's the same. So I'll do like my row, and then I'll move it down, and it's on.
+
+[Faculty (Olympus)] 19:57:22
+So in reality you can do all of the positions in parallel. They don't depend on each other. Um, but we can think of it as like this sliding window.
+
+[Faculty (Olympus)] 19:57:33
+Now let me show you what these things these filters actually learn. So what does the convolutional network learn? What are the weights.
+
+[Faculty (Olympus)] 19:57:41
+So now what I'll show you are the.
+
+[Faculty (Olympus)] 19:57:45
+Actual weight. So remember, if this is a 4 by 4 window, I will have 4 by 4 weights.
+
+[Faculty (Olympus)] 19:57:50
+So I could actually plot them like an image. So this is kind of this image is kind of the template that I'm looking for in my real image.
+
+[Faculty (Olympus)] 19:58:00
+So that's exactly that idea of the template.
+
+[Faculty (Olympus)] 19:58:05
+So here is an illustration of the learned filters from the 1st layer.
+
+[Faculty (Olympus)] 19:58:11
+Um.
+
+[Faculty (Olympus)] 19:58:11
+From this very famous paper.
+
+[Faculty (Olympus)] 19:58:14
+And so here the filters were of size, 11 by 11.
+
+[Faculty (Olympus)] 19:58:18
+So you see, okay, this is something you can plot.
+
+[Faculty (Olympus)] 19:58:22
+And now I just plotted those filters, or I took it from their paper. That's what the filters look like. There.
+
+[Faculty (Olympus)] 19:58:29
+And now.
+
+[Faculty (Olympus)] 19:58:32
+They actually look interesting. I mean, it's not really that you can recognize much, but what you see is these filters.
+
+[Faculty (Olympus)] 19:58:39
+They look like the zebras.
+
+[Faculty (Olympus)] 19:58:41
+And they look like zebras in different directions.
+
+[Faculty (Olympus)] 19:58:45
+And what these actually are is there are edge detectors.
+
+[Faculty (Olympus)] 19:58:50
+So.
+
+[Faculty (Olympus)] 19:58:51
+These are edges. These are basically edges in different orientations, because these are relatively small patches. They're just going to detect like a piece of an edge.
+
+[Faculty (Olympus)] 19:59:01
+And then I can put together the pieces of an edge to occur, for, like a square or something like that.
+
+[Faculty (Olympus)] 19:59:07
+And then what we also have is detectors that detect just color.
+
+[Faculty (Olympus)] 19:59:12
+Like green or magenta, or red, or something like that, or like color gradients.
+
+[Faculty (Olympus)] 19:59:19
+So this is actually on a color image.
+
+[Faculty (Olympus)] 19:59:23
+So the filters actually also have.
+
+[Faculty (Olympus)] 19:59:26
+Basically.
+
+[Faculty (Olympus)] 19:59:26
+3 different um well sheets in them so they can do color. So that is the 3rd dimension here.
+
+[Faculty (Olympus)] 19:59:34
+So there were a lot of questions, how do you decide the filter size? So usually.
+
+[Faculty (Olympus)] 19:59:40
+They are like this, 11 by 11, or even 3 by 3.
+
+[Faculty (Olympus)] 19:59:44
+And I think the intuition is you could go a little bit by the size of your input image. And the resolution of these input images.
+
+[Faculty (Olympus)] 19:59:51
+If you have very small images.
+
+[Faculty (Olympus)] 19:59:53
+You can make the 1st layer filters pretty small.
+
+[Faculty (Olympus)] 19:59:57
+If you have very high resolution images, maybe you want to make them actually.
+
+[Faculty (Olympus)] 20:00:02
+Larger.
+
+[Faculty (Olympus)] 20:00:04
+Because everything like the paddles will be larger.
+
+[Faculty (Olympus)] 20:00:07
+Again. What I would do is I would go with an architecture.
+
+[Faculty (Olympus)] 20:00:11
+That is.
+
+[Faculty (Olympus)] 20:00:12
+Known.
+
+[Faculty (Olympus)] 20:00:14
+And that works. And then you can just.
+
+[Faculty (Olympus)] 20:00:17
+Fine tune it, but you don't actually have to decide it from scratch.
+
+[Faculty (Olympus)] 20:00:27
+Okay. Um.
+
+[Faculty (Olympus)] 20:00:32
+Alright, so.
+
+[Faculty (Olympus)] 20:00:35
+This is okay. So this is what it learns. And this is kind of what I wanted to say about.
+
+[Faculty (Olympus)] 20:00:41
+2D convolution. Um, there's 1 other question. Can you only use rail OS an activation or something else?
+
+[Faculty (Olympus)] 20:00:47
+So in principle, you can use any other activation as well. There are also other versions that are used. Rail was kind of one of the 1st ones that was widely used for.
+
+[Faculty (Olympus)] 20:00:58
+Cnn's um because it.
+
+[Faculty (Olympus)] 20:01:01
+It's better for training deeper networks.
+
+[Faculty (Olympus)] 20:01:03
+And Cnn's, because they learned this hierarchy of features.
+
+[Faculty (Olympus)] 20:01:07
+Um. They profit a lot from depth.
+
+[Faculty (Olympus)] 20:01:11
+So typically the deeper they are the better they work.
+
+[Faculty (Olympus)] 20:01:16
+Okay. Um.
+
+[Faculty (Olympus)] 20:01:20
+Alright!
+
+[Faculty (Olympus)] 20:01:22
+So now.
+
+[Faculty (Olympus)] 20:01:25
+Let me actually show you.
+
+[Faculty (Olympus)] 20:01:28
+How you could do this 3rd dimension thing here. So so far we looked at like 2D, 1 d, and then 2D patches.
+
+[Faculty (Olympus)] 20:01:36
+And when we move into the. So your quote actually, in reality, what you have is 3D. Data, because your image.
+
+[Faculty (Olympus)] 20:01:43
+As I said in the beginning, it actually really has 3 sheets.
+
+[Faculty (Olympus)] 20:01:48
+So your image.
+
+[Faculty (Olympus)] 20:01:50
+Is actually.
+
+[Faculty (Olympus)] 20:01:51
+3 sheets.
+
+[Faculty (Olympus)] 20:01:53
+It is a red channel. These are called channels, a green channel and a blue channel. That's how you encode a color image.
+
+[Faculty (Olympus)] 20:01:59
+So for each pixel you have 3 values.
+
+[Faculty (Olympus)] 20:02:02
+The intensity of red and green and blue.
+
+[Faculty (Olympus)] 20:02:06
+That's 1 type of encoding. But let's go with that.
+
+[Faculty (Olympus)] 20:02:10
+So the 3rd dimension kind of you. Wanna actually take it together? Because then you can just be color sensitive.
+
+[Faculty (Olympus)] 20:02:16
+So what you now do is you actually still take the 2 dying window.
+
+[Faculty (Olympus)] 20:02:20
+And you just kind of look through your stack simultaneously.
+
+[Faculty (Olympus)] 20:02:25
+So what you'll have is in your filter. Now you'll have weights for the 1st sheet.
+
+[Faculty (Olympus)] 20:02:30
+The second sheet, and the 3rd sheet.
+
+[Faculty (Olympus)] 20:02:33
+And these are called channels also. These sheets.
+
+[Faculty (Olympus)] 20:02:36
+Um.
+
+[Faculty (Olympus)] 20:02:38
+And then you just look at them simultaneously. So you basically already look at the colors.
+
+[Faculty (Olympus)] 20:02:44
+So, for instance, if you had that green detector in there.
+
+[Faculty (Olympus)] 20:02:48
+Okay. Oh, yeah. Uh.
+
+[Faculty (Olympus)] 20:02:51
+You actually would only look at the second one.
+
+[Faculty (Olympus)] 20:02:55
+And the other weights for the others would be 0. But if you had, like a.
+
+[Faculty (Olympus)] 20:02:59
+Let's see um.
+
+[Faculty (Olympus)] 20:03:03
+Red, green, blue, maybe red and blue together would get give you purple. So if you want purple, you look at the.
+
+[Faculty (Olympus)] 20:03:09
+Um other 2, etc.
+
+[Faculty (Olympus)] 20:03:11
+Or if you want the gradient between yellow and blue.
+
+[Faculty (Olympus)] 20:03:15
+Then you would basically use these 2 different sheets.
+
+[Faculty (Olympus)] 20:03:20
+And but then you shifted in the 2D dimension, just like off your image.
+
+[Faculty (Olympus)] 20:03:30
+So now there's 1 other thing um, that you can do with 3D. And that is actually useful thing. And this is.
+
+[Faculty (Olympus)] 20:03:37
+How do you actually now build your mug from a detector for a handle and a detector for the body of the mug?
+
+[Faculty (Olympus)] 20:03:46
+So how do you actually do this? And I want to illustrate this to you.
+
+[Faculty (Olympus)] 20:03:50
+Not with a mug, but with a square shape.
+
+[Faculty (Olympus)] 20:03:54
+So let's say, now, we want to detect.
+
+[Faculty (Olympus)] 20:03:58
+A square.
+
+[Faculty (Olympus)] 20:03:59
+And what we already have in the 1st layer we have learned detectors.
+
+[Faculty (Olympus)] 20:04:04
+For horizontal and for vertical edges.
+
+[Faculty (Olympus)] 20:04:07
+So for each of these 2 detectors or filters.
+
+[Faculty (Olympus)] 20:04:13
+This is filtered.
+
+[Faculty (Olympus)] 20:04:14
+Okay, this call labeled Filter one. Here. This is labeled Filter 2. So filter, one does.
+
+[Faculty (Olympus)] 20:04:20
+Vertical edges, and this is the output of filter one on this image.
+
+[Faculty (Olympus)] 20:04:24
+And you see that well, you have these vertical edges here. So these are the ones that detect. That's the positions that detect.
+
+[Faculty (Olympus)] 20:04:33
+This guy detects the horizontal one. So it detects this edge and this edge in this edge.
+
+[Faculty (Olympus)] 20:04:39
+So now, what we want is we want to detect the.
+
+[Faculty (Olympus)] 20:04:45
+Now, what is the square.
+
+[Faculty (Olympus)] 20:04:47
+A square, has.
+
+[Faculty (Olympus)] 20:04:51
+Ah!
+
+[Faculty (Olympus)] 20:04:53
+2.
+
+[Faculty (Olympus)] 20:04:54
+Horizontal edges.
+
+[Faculty (Olympus)] 20:04:56
+And it has.
+
+[Faculty (Olympus)] 20:05:00
+2 vertical edges.
+
+[Faculty (Olympus)] 20:05:03
+And all the vertical detections I have to.
+
+[Faculty (Olympus)] 20:05:06
+Get from this one, and the horizontal edges I have to get from this one.
+
+[Faculty (Olympus)] 20:05:12
+What I want is that they're in the correct configuration. I don't want just.
+
+[Faculty (Olympus)] 20:05:17
+Arbitrary, vertical, and horizontal edges in my image. No, I want them to actually be in the same location, and exactly with the correct configuration.
+
+[Faculty (Olympus)] 20:05:27
+So what I actually want is, I want basically a detection. There's always the detection is in the center.
+
+[Faculty (Olympus)] 20:05:33
+At the top and at the bottom.
+
+[Faculty (Olympus)] 20:05:35
+For vertical, and then I want a detection, and the left and at the right for horizontal.
+
+[Faculty (Olympus)] 20:05:40
+And then this all together should be living, basically in some.
+
+[Faculty (Olympus)] 20:05:44
+Box here in some window.
+
+[Faculty (Olympus)] 20:05:46
+So this is what I want.
+
+[Faculty (Olympus)] 20:05:48
+So now, what this means is in my window. I actually have to actually look at the same window simultaneously.
+
+[Faculty (Olympus)] 20:05:56
+In my 2 outputs.
+
+[Faculty (Olympus)] 20:05:57
+Because I need like the horizontal and the vertical edges both there simultaneously.
+
+[Faculty (Olympus)] 20:06:03
+So what I'll now do is.
+
+[Faculty (Olympus)] 20:06:05
+I'll make a filter.
+
+[Faculty (Olympus)] 20:06:08
+That looks at both of these.
+
+[Faculty (Olympus)] 20:06:11
+Outputs.
+
+[Faculty (Olympus)] 20:06:14
+Um simultaneously in the same location.
+
+[Faculty (Olympus)] 20:06:17
+So, for instance, this would be the 1st location here.
+
+[Faculty (Olympus)] 20:06:21
+So I would be looking at that particular location.
+
+[Faculty (Olympus)] 20:06:25
+In both of the layer outputs. Simultaneously.
+
+[Faculty (Olympus)] 20:06:30
+Of course, in the particular region that I marked here, there is no detection whatsoever.
+
+[Faculty (Olympus)] 20:06:35
+But maybe in the next region.
+
+[Faculty (Olympus)] 20:06:38
+Um. So let me actually remove this.
+
+[Faculty (Olympus)] 20:06:41
+In the next region we have something for.
+
+[Faculty (Olympus)] 20:06:46
+I have some detection in the upper right corner here.
+
+[Faculty (Olympus)] 20:06:51
+But I don't have any detection in the lower one.
+
+[Faculty (Olympus)] 20:06:55
+So this, again, is not a good match.
+
+[Faculty (Olympus)] 20:06:59
+But what I like I'll basically do is I'll be sliding.
+
+[Faculty (Olympus)] 20:07:02
+Those 2.
+
+[Faculty (Olympus)] 20:07:04
+Simultaneously.
+
+[Faculty (Olympus)] 20:07:06
+And now, what should I actually be looking for in.
+
+[Faculty (Olympus)] 20:07:09
+2 different tables, the apple one and the lower one.
+
+[Faculty (Olympus)] 20:07:13
+Where in the upper one, what I want is, I want exactly that green part. I want a detection here, and a detection here.
+
+[Faculty (Olympus)] 20:07:20
+So the actual part of my filter that I'll be applying here is basically looking for a detection here and here.
+
+[Faculty (Olympus)] 20:07:27
+The part of the filter that I'll be applying to the bottom.
+
+[Faculty (Olympus)] 20:07:30
+Is looking for a detection here and here.
+
+[Faculty (Olympus)] 20:07:34
+That's kind of what it looks like.
+
+[Faculty (Olympus)] 20:07:36
+And those I'll just be sliding simultaneously. So here I would be looking here and here for a detection.
+
+[Faculty (Olympus)] 20:07:45
+So this filter actually now consists of these 2 sheets.
+
+[Faculty (Olympus)] 20:07:49
+And I just put these 2 sheets on top of each other that's called a tensor. So having, like multiple matrices, stop stack like this like sheets. It's a tensor.
+
+[Faculty (Olympus)] 20:08:00
+Um. So that's what this actually would look like. So here's my tensor filter.
+
+[Faculty (Olympus)] 20:08:05
+With the vertical and the horizontal detections.
+
+[Faculty (Olympus)] 20:08:07
+And now this actually, if I, if I require that both of them detect.
+
+[Faculty (Olympus)] 20:08:14
+Then there's only one location in these outputs where this happens.
+
+[Faculty (Olympus)] 20:08:19
+And this is.
+
+[Faculty (Olympus)] 20:08:21
+This part here. This is the basically the part where you have the actual square in the input image.
+
+[Faculty (Olympus)] 20:08:27
+This part here.
+
+[Faculty (Olympus)] 20:08:29
+You get exactly.
+
+[Faculty (Olympus)] 20:08:31
+The top and bottom and left and right detections simultaneously. And this is exactly what is highlighted here in this region corresponds to the square in the input.
+
+[Faculty (Olympus)] 20:08:44
+Okay.
+
+[Faculty (Olympus)] 20:08:54
+Alright. So there's okay. There's 1 question, what is a channel.
+
+[Faculty (Olympus)] 20:08:59
+Um. So at Cham. So what I said is that basically, when you look at the outputs of your layers, you have these tables.
+
+[Faculty (Olympus)] 20:09:07
+Of detections like these ones here.
+
+[Faculty (Olympus)] 20:09:09
+And each of these tables is called a channel.
+
+[Faculty (Olympus)] 20:09:15
+So this, this is one channel, this is the other channel.
+
+[Faculty (Olympus)] 20:09:18
+And now they'll be combining them when you have.
+
+[Faculty (Olympus)] 20:09:21
+An image, a color image. With these red and green and blue. You have 3 sheets also in the import. These are also called channels.
+
+[Faculty (Olympus)] 20:09:29
+So anytime, we have these sheets that basically where locations are corresponding.
+
+[Faculty (Olympus)] 20:09:35
+That's the channels.
+
+[Faculty (Olympus)] 20:09:38
+And the output of the different filters are the channels, and that's what we can combine.
+
+[Faculty (Olympus)] 20:09:52
+Okay? Um. Then there's 1 question. Couldn't you combine the vertical and horizontal edge detectors into one filter.
+
+[Faculty (Olympus)] 20:10:00
+So the problem is, yeah, I could actually say what I really, what all I want is, I want a filter.
+
+[Faculty (Olympus)] 20:10:07
+That looks like this, that has.
+
+[Faculty (Olympus)] 20:10:09
+A detection here and here, and here, and here.
+
+[Faculty (Olympus)] 20:10:12
+But now I and now I would maybe apply this filter.
+
+[Faculty (Olympus)] 20:10:17
+To.
+
+[Faculty (Olympus)] 20:10:18
+This channel and to this channel.
+
+[Faculty (Olympus)] 20:10:20
+But now this filter would actually not be super happy with just having the top and bottom.
+
+[Faculty (Olympus)] 20:10:26
+And just the left and right. Here it runs like 4.
+
+[Faculty (Olympus)] 20:10:30
+The other thing is, I could actually activate this filter.
+
+[Faculty (Olympus)] 20:10:35
+With a pattern that looks like.
+
+[Faculty (Olympus)] 20:10:38
+That basically is detections all in the horizontal edges. So I would basically have a pattern like this.
+
+[Faculty (Olympus)] 20:10:45
+That would activate this filter as well.
+
+[Faculty (Olympus)] 20:10:48
+Which is not what we want, because we want some of them to be horizontal and one vertical, and to make that distinction, we have to actually look at both of these channels, because only this guy tells us about vertical. Only this guy tells us about horizontal.
+
+[Faculty (Olympus)] 20:11:01
+So that's why.
+
+[Faculty (Olympus)] 20:11:02
+We need these 2, but we apply them simultaneously, so we kind of combine them.
+
+[Faculty (Olympus)] 20:11:08
+But not by overlaying them, but by.
+
+[Faculty (Olympus)] 20:11:11
+Basically having the 3 dimensional thing. We have these 2 sheets. And now we put one sheet to the top and one to the bottom. One.
+
+[Faculty (Olympus)] 20:11:25
+Okay. Um.
+
+[Faculty (Olympus)] 20:11:27
+Alright. Then there's some questions. What if we had 2 squares? So you would actually get 2 detections.
+
+[Faculty (Olympus)] 20:11:34
+So we've you have one here, and maybe you'd get one wherever the other square is sitting, so you can have more than one detection.
+
+[Faculty (Olympus)] 20:11:39
+And then it depends a bit what you want to do with this.
+
+[Faculty (Olympus)] 20:11:44
+Oh, okay.
+
+[Faculty (Olympus)] 20:11:46
+I apologize. I have to.
+
+[Faculty (Olympus)] 20:11:48
+Quickly!
+
+[Faculty (Olympus)] 20:11:49
+Um go and look after my kid. I'll be back in like one second.
+
+[Faculty (Olympus)] 20:13:00
+Alright, I'm sorry about this. It's summer holidays, so.
+
+[Faculty (Olympus)] 20:13:05
+Okay, um, let's continue with Cnn.
+
+[Faculty (Olympus)] 20:13:09
+And um.
+
+[Faculty (Olympus)] 20:13:12
+Alright, so.
+
+[Faculty (Olympus)] 20:13:14
+One other question I have here is, what if the square is bigger.
+
+[Faculty (Olympus)] 20:13:20
+Um. So if the square is bigger, what happens?
+
+[Faculty (Olympus)] 20:13:23
+This thing, actually.
+
+[Faculty (Olympus)] 20:13:25
+Oops!
+
+[Faculty (Olympus)] 20:13:26
+Sorry.
+
+[Faculty (Olympus)] 20:13:27
+This thing is actually not. It only looks for like detections in this size in this particular configuration. So if your square is actually larger.
+
+[Faculty (Olympus)] 20:13:37
+This will actually not detect it.
+
+[Faculty (Olympus)] 20:13:38
+So what may happen is that you have to detect it in a later layer, where the receptive field is actually bigger. So it has like combined like a larger set of inputs.
+
+[Faculty (Olympus)] 20:13:50
+So yeah, the it's not very flexible with size per seat.
+
+[Faculty (Olympus)] 20:13:58
+Alright. Okay, cool. So.
+
+[Faculty (Olympus)] 20:14:02
+This is. Now you know how you can actually combine detections. And I think this is kind of the cool one cool thing about the Cnn that you can actually do this. It's very illustrative. You have this hierarchy. You can now build up new patterns.
+
+[Faculty (Olympus)] 20:14:16
+From the parts that you have.
+
+[Faculty (Olympus)] 20:14:22
+Okay, so now.
+
+[Faculty (Olympus)] 20:14:24
+I want to talk about the second type of layer. So we went through convolution and convolution is really the big part here. So the other thing. The pooling is.
+
+[Faculty (Olympus)] 20:14:35
+Really.
+
+[Faculty (Olympus)] 20:14:37
+Simple. Once you have gotten convolution.
+
+[Faculty (Olympus)] 20:14:39
+So what is pooling, doing? Pooling is really doing just a compression.
+
+[Faculty (Olympus)] 20:14:44
+Um word, like basically forgets a little bit about the exact location which also may help with like this thing, that the handle is not all of it exactly in the same location.
+
+[Faculty (Olympus)] 20:14:56
+So.
+
+[Faculty (Olympus)] 20:14:59
+What? What is pooling? Let's say we have.
+
+[Faculty (Olympus)] 20:15:03
+Our um output here. So this is usually the output, some convolution filter. So you see that, like these are my detection, scores.
+
+[Faculty (Olympus)] 20:15:12
+And what pooling does is it looks at one window, and it just remembers the largest number.
+
+[Faculty (Olympus)] 20:15:18
+That's Max pooling um.
+
+[Faculty (Olympus)] 20:15:21
+So it really just does.
+
+[Faculty (Olympus)] 20:15:23
+The what's the largest number, and that's what I remember.
+
+[Faculty (Olympus)] 20:15:27
+And it so it does the sliding windows. It also looks at these windows or patches.
+
+[Faculty (Olympus)] 20:15:31
+But it's really only the largest number that it remembers. So here, you see, it's only the largest number.
+
+[Faculty (Olympus)] 20:15:38
+So why is this useful.
+
+[Faculty (Olympus)] 20:15:41
+Um, once is okay.
+
+[Faculty (Olympus)] 20:15:44
+Basically, maybe you don't need the full resolution.
+
+[Faculty (Olympus)] 20:15:46
+The second thing is.
+
+[Faculty (Olympus)] 20:15:48
+It compresses.
+
+[Faculty (Olympus)] 20:15:50
+My output.
+
+[Faculty (Olympus)] 20:15:52
+And if you saw already, like how these layers in this architecture that I showed you, they become really big. You get these big like 3D.
+
+[Faculty (Olympus)] 20:16:02
+Cubes basically sitting there.
+
+[Faculty (Olympus)] 20:16:04
+You reduce the 2D. Dimension of the image, the image dimensions.
+
+[Faculty (Olympus)] 20:16:08
+Yes, to then. That way you can have more filters.
+
+[Faculty (Olympus)] 20:16:11
+So you don't want to, of course, ring it too much, but you figured a little bit that helps you having more filters in in the same amount of memory, essentially.
+
+[Faculty (Olympus)] 20:16:23
+Um alright. And one thing is that this is usually applied.
+
+[Faculty (Olympus)] 20:16:28
+For each detection or channel.
+
+[Faculty (Olympus)] 20:16:31
+By itself, and not across channels, because.
+
+[Faculty (Olympus)] 20:16:34
+Having vertical horizontal edges. You want to remember whether it was a vertical or horizontal one. So that's why you do it, basically, for each of these.
+
+[Faculty (Olympus)] 20:16:43
+Output channels. Um, independently.
+
+[Faculty (Olympus)] 20:16:48
+Alright, so.
+
+[Faculty (Olympus)] 20:16:52
+This was the pooling. Oh, yeah, someone is asking about average pooling. So.
+
+[Faculty (Olympus)] 20:16:56
+One cool thing about pooling is, it doesn't even have any parameters that we can learn. It's just the maximum.
+
+[Faculty (Olympus)] 20:17:03
+But you can also do it. Instead of taking the maximum, you can take the average of the numbers that's called average pooling.
+
+[Faculty (Olympus)] 20:17:10
+So boarding is usually some way. You have a bunch of numbers, and you compress them into a single number.
+
+[Faculty (Olympus)] 20:17:16
+And one way to do this is to take the maximum, because what you care about is the maximum best possible detection.
+
+[Faculty (Olympus)] 20:17:22
+Or you do the average because you care more about the average.
+
+[Faculty (Olympus)] 20:17:32
+Okay, um. So now, what I want to do is.
+
+[Faculty (Olympus)] 20:17:38
+Um, I want to actually look at a case study example.
+
+[Faculty (Olympus)] 20:17:46
+So I want to go back to our fashion data set.
+
+[Faculty (Olympus)] 20:17:49
+Sort everything. If you remember, this was this data set of tiny images.
+
+[Faculty (Olympus)] 20:17:54
+Of clothing, items.
+
+[Faculty (Olympus)] 20:17:55
+And then your network is tasked.
+
+[Faculty (Olympus)] 20:17:58
+To detect what kind of clothing. Item it is.
+
+[Faculty (Olympus)] 20:18:01
+We already used a fully connected network on this. In the last lecture.
+
+[Faculty (Olympus)] 20:18:06
+So now we'll use a Cnn.
+
+[Faculty (Olympus)] 20:18:08
+So now let's look at our Cnn.
+
+[Faculty (Olympus)] 20:18:11
+So now the layers. I just.
+
+[Faculty (Olympus)] 20:18:14
+Depict them as these columns here, I don't actually draw the exact shape.
+
+[Faculty (Olympus)] 20:18:19
+So these are relatively small images. There are 28 by 28, I think so.
+
+[Faculty (Olympus)] 20:18:25
+They're pretty small, and hence we don't use that many convolutions, and we make.
+
+[Faculty (Olympus)] 20:18:32
+The filter size. So this window size pretty small. So it's just 3 by 3 pixels, because the images by themselves are not that big.
+
+[Faculty (Olympus)] 20:18:40
+Um.
+
+[Faculty (Olympus)] 20:18:42
+So we have 2 convolution layers.
+
+[Faculty (Olympus)] 20:18:45
+And then what we do is then we do a max pooling.
+
+[Faculty (Olympus)] 20:18:49
+With 2 by 2 windows.
+
+[Faculty (Olympus)] 20:18:50
+And that part is our.
+
+[Faculty (Olympus)] 20:18:54
+Feature, encoding.
+
+[Faculty (Olympus)] 20:18:55
+So this is the encoding part.
+
+[Faculty (Olympus)] 20:18:58
+Or the feature, learning, part.
+
+[Faculty (Olympus)] 20:19:01
+And.
+
+[Faculty (Olympus)] 20:19:02
+Then what we do is so then we have.
+
+[Faculty (Olympus)] 20:19:05
+Cube thing. We have the different filters.
+
+[Faculty (Olympus)] 20:19:08
+And so 16 filters we have, and we have, like the compressed version of the image.
+
+[Faculty (Olympus)] 20:19:15
+Um. So we have something that output that looks like this.
+
+[Faculty (Olympus)] 20:19:20
+And so this is 16, and these are like so.
+
+[Faculty (Olympus)] 20:19:23
+Reduced image dimensions. Here.
+
+[Faculty (Olympus)] 20:19:25
+And then we reshape this into a vector so this flatten thing just.
+
+[Faculty (Olympus)] 20:19:31
+Makes this into a long factor.
+
+[Faculty (Olympus)] 20:19:34
+And then.
+
+[Faculty (Olympus)] 20:19:36
+We apply a fully connected network.
+
+[Faculty (Olympus)] 20:19:39
+Onto on this. Vector so now, as I said, the coordinates of this, vector they are actually the detections. So this is actually something that's.
+
+[Faculty (Olympus)] 20:19:48
+Um much more informative.
+
+[Faculty (Olympus)] 20:19:50
+Than just having like this is a green pixel. This is a red pixel, and so on.
+
+[Faculty (Olympus)] 20:19:56
+Now, what does our.
+
+[Faculty (Olympus)] 20:19:58
+Fully connected layer do I have this fully connected layer of with 64.
+
+[Faculty (Olympus)] 20:20:03
+And then I have patch normalization.
+
+[Faculty (Olympus)] 20:20:06
+Um with it.
+
+[Faculty (Olympus)] 20:20:08
+Make the training a bit better. Um.
+
+[Faculty (Olympus)] 20:20:11
+And then I have 10 outputs because I have 10 classes. So this is basically the same as what I had with my fully connected network.
+
+[Faculty (Olympus)] 20:20:19
+And now the question is, does this work better or worse than the fully connected network? If I have this new encoding? So my convolution in in the front.
+
+[Faculty (Olympus)] 20:20:32
+Um. So to train to do. Test this, we'll train this with stochastic.
+
+[Faculty (Olympus)] 20:20:37
+Adam is a version of stochastic, grading descent.
+
+[Faculty (Olympus)] 20:20:41
+Um. And then what we get is we get an accuracy of 91%.
+
+[Faculty (Olympus)] 20:20:46
+And for the fully connected network. I didn't show it to you in the last lecture, but the accuracy is 87% that you can get.
+
+[Faculty (Olympus)] 20:20:54
+So it is actually better by average accuracy.
+
+[Faculty (Olympus)] 20:20:58
+But what we can also do is we can look a bit more about what kinds of mistakes do these models do.
+
+[Faculty (Olympus)] 20:21:05
+So now here, what I have is, I have confusion. Matrices.
+
+[Faculty (Olympus)] 20:21:09
+Um. So the Cnn is the left one, and the fully connected is the right one.
+
+[Faculty (Olympus)] 20:21:15
+Then what is the confusion? Matrix.
+
+[Faculty (Olympus)] 20:21:18
+It has the predicted.
+
+[Faculty (Olympus)] 20:21:20
+Labels on one side and the real labels on the other side.
+
+[Faculty (Olympus)] 20:21:23
+And it's basically.
+
+[Faculty (Olympus)] 20:21:25
+What this entry means is, how often was it a real T-shirt? And I predicted a T-shirt.
+
+[Faculty (Olympus)] 20:21:32
+And what you want is you want a diagonal of this matrix to be very strong, because that means the ones that you're getting right, and you want the off diagonals to be small, because these are your mistakes.
+
+[Faculty (Olympus)] 20:21:42
+And you see, when you look at mistakes that.
+
+[Faculty (Olympus)] 20:21:46
+Indeed, the fully connected network, like mistakes. The makes a mistake. It thinks the T-shirt is actually a shirt.
+
+[Faculty (Olympus)] 20:21:55
+And the code is a pullover.
+
+[Faculty (Olympus)] 20:21:58
+And the shirt is a pullover, and so on. So those have roughly similar shapes.
+
+[Faculty (Olympus)] 20:22:04
+Um.
+
+[Faculty (Olympus)] 20:22:06
+They all kind top legs, but.
+
+[Faculty (Olympus)] 20:22:08
+The like fine brain details. It doesn't get so well.
+
+[Faculty (Olympus)] 20:22:13
+Now, if we look at our convolutional network.
+
+[Faculty (Olympus)] 20:22:16
+It's still.
+
+[Faculty (Olympus)] 20:22:17
+The mistakes it makes are still like. These are the difficult examples.
+
+[Faculty (Olympus)] 20:22:21
+But it actually is way better. On some of the, for instance, the code.
+
+[Faculty (Olympus)] 20:22:26
+Versus polo. Now that you're much better, this is 24 versus 199, a hundred 97. Sorry.
+
+[Faculty (Olympus)] 20:22:35
+Um. So there's a big difference.
+
+[Faculty (Olympus)] 20:22:37
+So it improved quite a bit on some of those mistakes.
+
+[Faculty (Olympus)] 20:22:42
+So overall like. You see, it's actually better at getting like the fine grain shapes.
+
+[Faculty (Olympus)] 20:22:52
+Now, one more comment I want to make is, as I indicated.
+
+[Faculty (Olympus)] 20:22:56
+What Cnn's do is they build up this hierarchy of features, so from edges to shapes to object and whatnot.
+
+[Faculty (Olympus)] 20:23:04
+So that's why usually depth is good. So the deeper your network is, the more flexible you can say you can be with like the sizes of the object, the more flexible, like the more complicated object you can build up, because you can kind of split.
+
+[Faculty (Olympus)] 20:23:19
+The complications of the shape into different layers.
+
+[Faculty (Olympus)] 20:23:22
+And so there was like, this is about.
+
+[Faculty (Olympus)] 20:23:25
+10 years old now. Uh the image net challenge. People still use it.
+
+[Faculty (Olympus)] 20:23:29
+It's a very well known benchmark data set.
+
+[Faculty (Olympus)] 20:23:33
+On which, like these Cnns, were benchmarked.
+
+[Faculty (Olympus)] 20:23:36
+And what you see here is so this is later. This is earlier. These are the errors.
+
+[Faculty (Olympus)] 20:23:43
+Um.
+
+[Faculty (Olympus)] 20:23:44
+The bars, and, you see, actually, of course, from 2010 to 2015, the error became smaller.
+
+[Faculty (Olympus)] 20:23:51
+But to get the smaller error we needed to make the models deeper. So the 152 layers.
+
+[Faculty (Olympus)] 20:24:00
+Layer resnet here is actually um.
+
+[Faculty (Olympus)] 20:24:03
+The winner. Up to that time.
+
+[Faculty (Olympus)] 20:24:05
+So that's the deepest. And, in fact, there was a big jump from 252 layers.
+
+[Faculty (Olympus)] 20:24:12
+Um, so deeper, usually.
+
+[Faculty (Olympus)] 20:24:14
+Makes it better.
+
+[Faculty (Olympus)] 20:24:16
+Now to actually train a deeper network. Is not that easy.
+
+[Faculty (Olympus)] 20:24:20
+And one big problem is that if you look at this.
+
+[Faculty (Olympus)] 20:24:23
+So here's your image, and it goes through all these different layers to the output.
+
+[Faculty (Olympus)] 20:24:28
+Now, when you do your gradient descent, you have this back propagation, so you have your error, and it back propagates through all these different layers.
+
+[Faculty (Olympus)] 20:24:36
+So once you have reached here, basically, you forgotten most of your error, you've squashed it down. So this thing is very difficult to train, you have these vanishing and whatnot, even with railroads.
+
+[Faculty (Olympus)] 20:24:47
+So one.
+
+[Faculty (Olympus)] 20:24:50
+Realization was that what you can add is so-called skip connections.
+
+[Faculty (Olympus)] 20:24:54
+So it sounds, maybe at 1st a bit stupid. What you do is you take the input to a layer.
+
+[Faculty (Olympus)] 20:25:01
+And you add it to its output. This is what this is doing. You do a weighted average between the output of the layer and.
+
+[Faculty (Olympus)] 20:25:07
+The input of the layer.
+
+[Faculty (Olympus)] 20:25:10
+So this is the output of the layer. That's the input, you just add them.
+
+[Faculty (Olympus)] 20:25:16
+Seems weird.
+
+[Faculty (Olympus)] 20:25:17
+But it actually is very helpful. And it's basically, for instance, helpful in creating these shortcuts.
+
+[Faculty (Olympus)] 20:25:24
+So there's now a shorter path.
+
+[Faculty (Olympus)] 20:25:27
+From the beginning to the end, and vice versa instead.
+
+[Faculty (Olympus)] 20:25:31
+So this actually, this resnet architecture made the training much more stable for deeper networks. It has been a very successful idea.
+
+[Faculty (Olympus)] 20:25:40
+Pretty much all the deep Cnn's that you get now these days will be resnets.
+
+[Faculty (Olympus)] 20:25:52
+Okay. So with this, let me.
+
+[Faculty (Olympus)] 20:25:55
+Summarize um.
+
+[Faculty (Olympus)] 20:25:57
+The main features of a Cn.
+
+[Faculty (Olympus)] 20:26:00
+It's basically just a different shape of the same.
+
+[Faculty (Olympus)] 20:26:03
+In the end they all use these like linear, each unit as a linear function with a nonlinearity. So it has that same idea. But it has a different connectivity and shape.
+
+[Faculty (Olympus)] 20:26:15
+Um.
+
+[Faculty (Olympus)] 20:26:15
+And that comes from doing the convolution.
+
+[Faculty (Olympus)] 20:26:18
+And the convolution really encodes the spatial locality, and that the fact that an object can occur anywhere in the image, and it's still the same object.
+
+[Faculty (Olympus)] 20:26:30
+Then what we do is we do weight sharing due to the convolution that reduces the number of parameters that makes it also just possible to train such a deep.
+
+[Faculty (Olympus)] 20:26:40
+Back in your network.
+
+[Faculty (Olympus)] 20:26:43
+Um, and then we have the pooling.
+
+[Faculty (Olympus)] 20:26:46
+That makes it more efficient as well. So this is a compression.
+
+[Faculty (Olympus)] 20:26:50
+And it also.
+
+[Faculty (Olympus)] 20:26:52
+Makes it a bit less location. Sensitive.
+
+[Faculty (Olympus)] 20:26:55
+But otherwise it is really trained with stochastic gradient descent and back propagation, just like we talked about in the previous lecture.
+
+[Faculty (Olympus)] 20:27:06
+Alright. So what I want to do next is, I want to just.
+
+[Faculty (Olympus)] 20:27:09
+Give you a bit of an illustration and look at some pictures. So you've gone through the hard part congratulations. So now we just look at some pictures of what these Cnn's actually learn.
+
+[Faculty (Olympus)] 20:27:20
+Um before I do this, I wanna.
+
+[Faculty (Olympus)] 20:27:23
+Or see if there's some last questions.
+
+[Faculty (Olympus)] 20:27:26
+Um, I should be answering. Um. I think I've answered a lot during the lecture.
+
+[Faculty (Olympus)] 20:27:32
+Let me see um.
+
+[Faculty (Olympus)] 20:27:41
+Do we have to do 2 learnings, one for encoding, one for classification, or this was for the architecture. Here.
+
+[Faculty (Olympus)] 20:27:47
+Because, I said, we have the encoding part and the classification part.
+
+[Faculty (Olympus)] 20:27:51
+So you actually train them simultaneously.
+
+[Faculty (Olympus)] 20:27:55
+You can kind of say, okay, these parts correspond to these tasks, but you train them together.
+
+[Faculty (Olympus)] 20:28:01
+Um. You don't train them extra.
+
+[Faculty (Olympus)] 20:28:04
+And that way they can adjust to each other.
+
+[Faculty (Olympus)] 20:28:12
+Okay. Um.
+
+[Faculty (Olympus)] 20:28:14
+What does 16 filters mean? So here we have 16 filters. So 16 filters means.
+
+[Faculty (Olympus)] 20:28:20
+16 detectors.
+
+[Faculty (Olympus)] 20:28:21
+So, for instance, in the 1st layer, maybe you can detect.
+
+[Faculty (Olympus)] 20:28:26
+16 different orientations of edges, something like that.
+
+[Faculty (Olympus)] 20:28:31
+Mm.
+
+[Faculty (Olympus)] 20:28:33
+Okay.
+
+[Faculty (Olympus)] 20:28:35
+But that was a question about the y-axis of this thing.
+
+[Faculty (Olympus)] 20:28:38
+What's the y-axis? Oh, yeah, this is error. So these are.
+
+[Faculty (Olympus)] 20:28:42
+Percentages of error.
+
+[Faculty (Olympus)] 20:28:44
+And then the other one is just the number of layers.
+
+[Faculty (Olympus)] 20:28:51
+Can the Cnn output the location of the object.
+
+[Faculty (Olympus)] 20:28:54
+So that depends a bit how much pooling you do.
+
+[Faculty (Olympus)] 20:28:57
+If you don't do too much of it, you can actually completely remember the location.
+
+[Faculty (Olympus)] 20:29:04
+Otherwise it becomes coarser.
+
+[Faculty (Olympus)] 20:29:11
+Okay. Um.
+
+[Faculty (Olympus)] 20:29:19
+Ah, so what do the convolutional filters in layers? One and 2 in the amnest example.
+
+[Faculty (Olympus)] 20:29:25
+So they will also capture something like.
+
+[Faculty (Olympus)] 20:29:30
+Um.
+
+[Faculty (Olympus)] 20:29:31
+Edges and simple shapes, but it's only 2 layers, so it'll be a bit.
+
+[Faculty (Olympus)] 20:29:36
+The 1st layer may detect more than just edges.
+
+[Faculty (Olympus)] 20:29:39
+Um. But yeah, I haven't actually checked. Uh, you'd have to look at them and see you can. Actually, when you do this, you can look at the filters and see and plot that the 1st layer you is actually interpretable. You can look at it as an image.
+
+[Faculty (Olympus)] 20:29:52
+The second layer because it takes us input. The 1st layer is less.
+
+[Faculty (Olympus)] 20:29:56
+Easy to understand.
+
+[Faculty (Olympus)] 20:29:59
+Um. So you could actually look at this.
+
+[Faculty (Olympus)] 20:30:04
+Okay, um, so.
+
+[Faculty (Olympus)] 20:30:07
+Oh, yeah, can I elaborate on this what I called abstract away locality? So basically, what pooling does is it takes a patch in the image.
+
+[Faculty (Olympus)] 20:30:16
+And then it compresses this patch.
+
+[Faculty (Olympus)] 20:30:19
+Into a single number, saying, What was the.
+
+[Faculty (Olympus)] 20:30:22
+Highest detection.
+
+[Faculty (Olympus)] 20:30:24
+In this.
+
+[Faculty (Olympus)] 20:30:24
+So the thing is that after that compression.
+
+[Faculty (Olympus)] 20:30:28
+You forget where exactly that.
+
+[Faculty (Olympus)] 20:30:30
+Maximum number was, you don't know what it at the top or at the bottom of this window, so all you know is that window had a detection.
+
+[Faculty (Olympus)] 20:30:37
+So you forget a bit about the exact location of the detection.
+
+[Faculty (Olympus)] 20:30:47
+Okay. So I think the other questions are more general. So I want to defer them to the QA.
+
+[Faculty (Olympus)] 20:30:54
+Um. What I want to show you now is just some visualizations about.
+
+[Faculty (Olympus)] 20:30:58
+What Cnn's learn, and we'll not do this with fashionist.
+
+[Faculty (Olympus)] 20:31:02
+But we'll do this with a more realistic image data set.
+
+[Faculty (Olympus)] 20:31:05
+Um, and this is actually a data set for scene classification. So you see some examples here of images.
+
+[Faculty (Olympus)] 20:31:12
+Um, these are different scenes. So there's a greenhouse, a canyon, and so on. So the output classes for this neural network were that it has to detect what kind of scene this is.
+
+[Faculty (Olympus)] 20:31:24
+What we use is we use.
+
+[Faculty (Olympus)] 20:31:26
+Also called fully convolutional network. So it has only convolutional layers.
+
+[Faculty (Olympus)] 20:31:31
+5 convolution layers. This is the encoding part, and then the classifier part.
+
+[Faculty (Olympus)] 20:31:36
+3 fully connected players. So here in between would be the reshape.
+
+[Faculty (Olympus)] 20:31:46
+So now, what we want is we want to.
+
+[Faculty (Olympus)] 20:31:49
+Understand? What do the filters.
+
+[Faculty (Olympus)] 20:31:51
+Learn of these different layers. So what are they actually looking for?
+
+[Faculty (Olympus)] 20:31:56
+And.
+
+[Faculty (Olympus)] 20:31:59
+The question is.
+
+[Faculty (Olympus)] 20:32:00
+How do you visualize.
+
+[Faculty (Olympus)] 20:32:02
+Such filters.
+
+[Faculty (Olympus)] 20:32:05
+And, as I said in the 1st layer, you can actually take the weights and you plot them like an image. And you see what they're looking for in this other layers. It's not so easily possible.
+
+[Faculty (Olympus)] 20:32:15
+But what you can do is you can look.
+
+[Faculty (Olympus)] 20:32:17
+What parts of the input.
+
+[Faculty (Olympus)] 20:32:19
+Activate this filter the most. So you basically look at, okay, there was a detection here. So now you backtrack. Where did this actually come from?
+
+[Faculty (Olympus)] 20:32:28
+And then you look at these in inputs. And then you basically what they did in this study. Then they tried to classify those patches for one unit into some concept.
+
+[Faculty (Olympus)] 20:32:42
+Um.
+
+[Faculty (Olympus)] 20:32:43
+Alright. And so what we'll actually see is, we'll see that hierarchy pretty much emerge. Um, and we'll use this. This architecture is called Alex net.
+
+[Faculty (Olympus)] 20:32:53
+Okay. So here are some pictures. So these are the patterns that.
+
+[Faculty (Olympus)] 20:32:57
+So do different units in the 1st layer, like. So these are basically patterns that they're.
+
+[Faculty (Olympus)] 20:33:05
+They were looking for. That activated them a lot.
+
+[Faculty (Olympus)] 20:33:07
+So you see, these are can be just colors.
+
+[Faculty (Olympus)] 20:33:11
+Or some weird textures.
+
+[Faculty (Olympus)] 20:33:14
+These don't even look like edges in this particular examples, but like colors, like very, very simple features. Nothing very simple.
+
+[Faculty (Olympus)] 20:33:21
+Not even shape uh things that they are looking for.
+
+[Faculty (Olympus)] 20:33:25
+In the second layer you actually get already more of shapes, like little parts of shapes like, actually, this kind of outline of a person.
+
+[Faculty (Olympus)] 20:33:36
+Um.
+
+[Faculty (Olympus)] 20:33:37
+Or sky.
+
+[Faculty (Olympus)] 20:33:38
+Or something like that, like a part of a faith. And I maybe then, as you go like deeper, you see that in the 5th layer you actually already have, like full objects, like a mountain or a car, or something like that.
+
+[Faculty (Olympus)] 20:33:53
+So basically bigger pieces, you still get some more simplistic things like raft.
+
+[Faculty (Olympus)] 20:33:58
+But you also get like the full object.
+
+[Faculty (Olympus)] 20:34:01
+So this kind of illustrates this hierarchy.
+
+[Faculty (Olympus)] 20:34:05
+And I also want to quantify this a bit more. So if you look at this plot.
+
+[Faculty (Olympus)] 20:34:10
+So here, this is the number of detectors.
+
+[Faculty (Olympus)] 20:34:13
+And now they.
+
+[Faculty (Olympus)] 20:34:16
+Classified them into detectors for color, for texture, material, and up to object.
+
+[Faculty (Olympus)] 20:34:22
+And see it.
+
+[Faculty (Olympus)] 20:34:24
+And what you see is in the 1st layer. It's mostly just texture and color detectors. It's not actually able to detect any kinds of objects.
+
+[Faculty (Olympus)] 20:34:33
+And as you go deeper, most of the objectors sit in these deeper layers because they actually use the input from the 1st 2 or 3 layers.
+
+[Faculty (Olympus)] 20:34:43
+Um in terms of like textures and colors and edges, and such things.
+
+[Faculty (Olympus)] 20:34:48
+Um and the scenes you get mostly in the last layer. So because scenes.
+
+[Faculty (Olympus)] 20:34:55
+Well, what? How do you detect what scene it is?
+
+[Faculty (Olympus)] 20:34:58
+How do we detect it?
+
+[Faculty (Olympus)] 20:35:00
+Well, maybe.
+
+[Faculty (Olympus)] 20:35:02
+If we look at it.
+
+[Faculty (Olympus)] 20:35:03
+You see, all this has plans. This has some kind of glass roof.
+
+[Faculty (Olympus)] 20:35:07
+So. That tells me.
+
+[Faculty (Olympus)] 20:35:09
+This is a greenhouse, so if you see the plans I already know, this is maybe not.
+
+[Faculty (Olympus)] 20:35:14
+Whatever a cafeteria or something.
+
+[Faculty (Olympus)] 20:35:17
+Um.
+
+[Faculty (Olympus)] 20:35:18
+So we actually look at the objects in the scene.
+
+[Faculty (Olympus)] 20:35:22
+Or textures in the scene, and that helps us like these textures.
+
+[Faculty (Olympus)] 20:35:25
+So. What, indeed? The network is learning? It was only ever trained on scenes. It doesn't even know what a person is.
+
+[Faculty (Olympus)] 20:35:33
+It doesn't know what a plant is. It only knows Canyon versus greenhouse essentially. But if you look at it, it actually learns to detect cars and people, and so on.
+
+[Faculty (Olympus)] 20:35:42
+And the reason it's doing that because these are useful for classifying scenes as kind of parts of scenes.
+
+[Faculty (Olympus)] 20:35:49
+But yeah, the scenes are kind of the biggest in the hierarchy there, like in there.
+
+[Faculty (Olympus)] 20:35:53
+So you see, this hierarchy that I mentioned is not.
+
+[Faculty (Olympus)] 20:35:58
+Fully strict. Also because you maybe want different window sizes.
+
+[Faculty (Olympus)] 20:36:02
+But it is kind of there by tendency, and you tend to see the objectors like later on, and so on, and the.
+
+[Faculty (Olympus)] 20:36:09
+Uh scene. Detectors, etc.
+
+[Faculty (Olympus)] 20:36:15
+Um, and here is um.
+
+[Faculty (Olympus)] 20:36:18
+More examples from the last layer. So you see.
+
+[Faculty (Olympus)] 20:36:21
+These are images like that. Now each of these groups is for a single unit.
+
+[Faculty (Olympus)] 20:36:27
+You see, this unit is really looking for some castle like roof.
+
+[Faculty (Olympus)] 20:36:32
+Um.
+
+[Faculty (Olympus)] 20:36:34
+This also is looking for actually castles or something.
+
+[Faculty (Olympus)] 20:36:37
+This one is looking for dogs.
+
+[Faculty (Olympus)] 20:36:40
+This one is looking for trains and so on. So even though then they don't, it doesn't know the label. Then your network doesn't know the label of these things. It has learned a detector of that kind of pattern.
+
+[Faculty (Olympus)] 20:36:51
+And uses that for its scene, classification.
+
+[Faculty (Olympus)] 20:36:54
+So I'm not the host that actually learns quite interesting things just by itself.
+
+[Faculty (Olympus)] 20:37:04
+Okay? Um, yeah. So there's actually a question in here is the actual label of the filter given as a hyperparameter.
+
+[Faculty (Olympus)] 20:37:12
+So.
+
+[Faculty (Olympus)] 20:37:14
+No, we don't actually tell it to detect dogs.
+
+[Faculty (Olympus)] 20:37:18
+We just tell it to detect scenes.
+
+[Faculty (Olympus)] 20:37:21
+And it learns basically a detector for dogs. It just doesn't know that this is a dog. Of course, if you would. Now take this network, and you would want to read out dogs.
+
+[Faculty (Olympus)] 20:37:32
+So you would want to learn a classifier for dogs from this network. You could.
+
+[Faculty (Olympus)] 20:37:38
+Because essentially, or you already have like units that detect dogs. So you just have to figure out which are these units. And then you looked at. These are active.
+
+[Faculty (Olympus)] 20:37:45
+Uh something like that, so you could easily.
+
+[Faculty (Olympus)] 20:37:49
+Use this to detect dogs, but the neural network was never told. What a dog is. It just figured that there is some kind of pattern in my images.
+
+[Faculty (Olympus)] 20:37:58
+Which is useful, which is reoccurring.
+
+[Faculty (Olympus)] 20:38:00
+And I'll look for that.
+
+[Faculty (Olympus)] 20:38:03
+Pretty much.
+
+[Faculty (Olympus)] 20:38:07
+Um.
+
+[Faculty (Olympus)] 20:38:09
+So the names here are actually given by humans.
+
+[Faculty (Olympus)] 20:38:15
+Is the Cnn. Also used for detecting very similar objects, like faced facial detection.
+
+[Faculty (Olympus)] 20:38:22
+So. Yes, you could use Cnn's also for doing more fine rate detections like I could do.
+
+[Faculty (Olympus)] 20:38:29
+Different humans.
+
+[Faculty (Olympus)] 20:38:31
+Like, I wanna recognize celebrities or something. Or I want to recognize different species of birds. Not only that this is a bird, but this is actually this, and the species.
+
+[Faculty (Olympus)] 20:38:41
+So you can do this. You just have to train it to do this.
+
+[Faculty (Olympus)] 20:38:45
+Per se. You see, maybe this is.
+
+[Faculty (Olympus)] 20:38:48
+To course here, it like it doesn't actually distinguish between the beads of dogs, but if you would train it to do that, it could do it.
+
+[Faculty (Olympus)] 20:38:56
+Um, so it just has to have the resolution and the images.
+
+[Faculty (Olympus)] 20:39:00
+And so on, that it can actually get the fine grain details. But it is able to do that as well.
+
+[Faculty (Olympus)] 20:39:09
+Um. Okay.
+
+[Faculty (Olympus)] 20:39:15
+Oh, yeah, there's a question, what does this Iou mean? So Iou means.
+
+[Faculty (Olympus)] 20:39:20
+Intersection of reunion. It's a score for matching like a set or an area. So they had maybe some template. I don't remember.
+
+[Faculty (Olympus)] 20:39:28
+Um! And and how well did it match that.
+
+[Faculty (Olympus)] 20:39:35
+Okay. So the last thing I want to ask you is.
+
+[Faculty (Olympus)] 20:39:39
+A little, quiz.
+
+[Faculty (Olympus)] 20:39:41
+So this is taken from another relatively early paper that was looking at interpreting Cnns.
+
+[Faculty (Olympus)] 20:39:48
+And what they learn.
+
+[Faculty (Olympus)] 20:39:50
+And so they did the following experiment, so you train a Cnn on natural images. So these images look like these. So you have a lot more dog.
+
+[Faculty (Olympus)] 20:39:59
+These are crocodiles.
+
+[Faculty (Olympus)] 20:40:01
+And then you have like a TV station, and so on.
+
+[Faculty (Olympus)] 20:40:06
+And.
+
+[Faculty (Olympus)] 20:40:07
+What you do is now, do you have trained the network? It does fairly well.
+
+[Faculty (Olympus)] 20:40:13
+Now as test images.
+
+[Faculty (Olympus)] 20:40:15
+You.
+
+[Faculty (Olympus)] 20:40:16
+Give the network.
+
+[Faculty (Olympus)] 20:40:18
+Rotated versions of your images. So these are like 4, 45 degrees 90, and so on.
+
+[Faculty (Olympus)] 20:40:25
+So these are the test images. And now the question is.
+
+[Faculty (Olympus)] 20:40:29
+How well does this neural network do.
+
+[Faculty (Olympus)] 20:40:32
+On those test images it? Let's assume it does pretty well on these ones.
+
+[Faculty (Olympus)] 20:40:38
+Will it work, or will it not work.
+
+[Faculty (Olympus)] 20:40:42
+And now I'm taking guesses.
+
+[Faculty (Olympus)] 20:40:46
+And if you're guessing, think about how the neural network works.
+
+[Faculty (Olympus)] 20:41:07
+Okay. I'll see.
+
+[Faculty (Olympus)] 20:41:09
+Very different opinions here.
+
+[Faculty (Olympus)] 20:41:22
+Okay, so.
+
+[Faculty (Olympus)] 20:41:24
+All right, let me resolve this. Um.
+
+[Faculty (Olympus)] 20:41:29
+And they actually, yeah, there's some that also think.
+
+[Faculty (Olympus)] 20:41:33
+What may work and what may not work.
+
+[Faculty (Olympus)] 20:41:35
+So let me show you the results. Here are the results.
+
+[Faculty (Olympus)] 20:41:39
+And okay, what does this plot mean on the Y-axis? We have the probability of the true class. So think of this essentially as some kind of accuracy. So if this is hide and it works, and if this is low, it doesn't work.
+
+[Faculty (Olympus)] 20:41:53
+Then on the wire and the X axis, we have the degree of rotation. So 0 means that's like the 1st column, and then we have the different degrees.
+
+[Faculty (Olympus)] 20:42:02
+And all the different colors are the different classes, like lawnmower and the dog and the crocodile, etc.
+
+[Faculty (Olympus)] 20:42:10
+So.
+
+[Faculty (Olympus)] 20:42:11
+Okay, so what do we see here?
+
+[Faculty (Olympus)] 20:42:14
+We see that. Okay, like here, it kind of works, at least for some classes. Some are pretty difficult, and I have to say, if you show me this picture in small.
+
+[Faculty (Olympus)] 20:42:24
+I wouldn't be so good at guessing what it is.
+
+[Faculty (Olympus)] 20:42:27
+Um.
+
+[Faculty (Olympus)] 20:42:30
+But here, at around 150 degrees, it doesn't work for any of the classes.
+
+[Faculty (Olympus)] 20:42:36
+And likewise here. So it actually breaks down for pretty much all of the classes per se, and then, of course, it becomes better again as you get closer to 360 degrees, because you get better, too, like.
+
+[Faculty (Olympus)] 20:42:48
+The original position.
+
+[Faculty (Olympus)] 20:42:51
+So what is happening.
+
+[Faculty (Olympus)] 20:42:53
+Um.
+
+[Faculty (Olympus)] 20:42:54
+Well, okay, maybe we can understand this.
+
+[Faculty (Olympus)] 20:42:57
+And you see also, interestingly like, for some of the classes. There are some peaks here.
+
+[Faculty (Olympus)] 20:43:03
+And.
+
+[Faculty (Olympus)] 20:43:03
+That's the.
+
+[Faculty (Olympus)] 20:43:05
+Entertainment center. That's the TV here.
+
+[Faculty (Olympus)] 20:43:09
+So what is happening.
+
+[Faculty (Olympus)] 20:43:11
+So if you think about it, what is the Cnn. Looking for.
+
+[Faculty (Olympus)] 20:43:16
+And I see some of you actually got this already.
+
+[Faculty (Olympus)] 20:43:20
+Um.
+
+[Faculty (Olympus)] 20:43:22
+So what is it looking for? It's looking for a configuration.
+
+[Faculty (Olympus)] 20:43:25
+Think of our box. It was looking for 2 vertical.
+
+[Faculty (Olympus)] 20:43:30
+And uh, 2 of horizontal lentil vertical edges.
+
+[Faculty (Olympus)] 20:43:34
+Think of the dog. It's looking basically for 2 eyes, and for, like the nose, etc.
+
+[Faculty (Olympus)] 20:43:40
+So it's looking for those kinds of.
+
+[Faculty (Olympus)] 20:43:43
+Configurations. So now.
+
+[Faculty (Olympus)] 20:43:45
+It says, Okay, I want 2 eyes that are placed on top of a nose. I want.
+
+[Faculty (Olympus)] 20:43:50
+A top and bottom, horizontal ledge, and a left and right vertical edge.
+
+[Faculty (Olympus)] 20:43:54
+So now, what happens if I rotate this.
+
+[Faculty (Olympus)] 20:43:57
+So if I rotate this, it looks like this diamond shape.
+
+[Faculty (Olympus)] 20:44:01
+There isn't even any horizontal or vertical edges.
+
+[Faculty (Olympus)] 20:44:06
+At all.
+
+[Faculty (Olympus)] 20:44:07
+So none of my like layer. One detectors will even fire.
+
+[Faculty (Olympus)] 20:44:12
+What about the dog now, when the dog is like.
+
+[Faculty (Olympus)] 20:44:18
+Rotated.
+
+[Faculty (Olympus)] 20:44:19
+Then.
+
+[Faculty (Olympus)] 20:44:21
+Okay, I have. Maybe the eyes look pretty much the same.
+
+[Faculty (Olympus)] 20:44:25
+But they are not on top of the nose, they are next to it.
+
+[Faculty (Olympus)] 20:44:29
+So I that's not actually the pattern that I'm looking for.
+
+[Faculty (Olympus)] 20:44:33
+So that's why the filters are actually not working that. Well.
+
+[Faculty (Olympus)] 20:44:37
+This also explains these peaks.
+
+[Faculty (Olympus)] 20:44:41
+God! If I take the box, and I rotate it by 90 degrees, it's still a box.
+
+[Faculty (Olympus)] 20:44:45
+So this TV, old-fashioned TV rotated by 90 degrees. It's still a box, and it's still a box.
+
+[Faculty (Olympus)] 20:44:52
+So if you have the box detector, then.
+
+[Faculty (Olympus)] 20:44:54
+Yeah, it basically every 90 degrees, it looks the same. Again.
+
+[Faculty (Olympus)] 20:45:00
+So this is what happens is happening here.
+
+[Faculty (Olympus)] 20:45:04
+And for the dog. Of course this is not the case.
+
+[Faculty (Olympus)] 20:45:08
+So.
+
+[Faculty (Olympus)] 20:45:10
+Okay, so this is a problem. So if I had just shifted the object in my images.
+
+[Faculty (Olympus)] 20:45:16
+That wouldn't have been a problem, because this is exactly what we encoded with the convolution.
+
+[Faculty (Olympus)] 20:45:21
+If I had just shifted the dog around, or the lawn mowers or so, it would have been totally fine. But if we rotate them that exact configuration that we're looking for. It gets destroyed.
+
+[Faculty (Olympus)] 20:45:33
+Okay, so this is definitely a problem. Um, it's just something that's good to be aware of. The question is, how can we fix it?
+
+[Faculty (Olympus)] 20:45:41
+Because the problem is essentially that my filter and my input image are not aligned, that they actually have the same pattern, but they are not aligned.
+
+[Faculty (Olympus)] 20:45:51
+And.
+
+[Faculty (Olympus)] 20:45:54
+This. Okay, this is something that people have thought of. And there's basically 2 different solutions. And I've already kind of seen.
+
+[Faculty (Olympus)] 20:46:01
+This in the chat.
+
+[Faculty (Olympus)] 20:46:02
+So one solution is to say, okay, the actual problem is.
+
+[Faculty (Olympus)] 20:46:07
+My filter and my image are misaligned.
+
+[Faculty (Olympus)] 20:46:10
+So what I'll do is I'll try all possible rotations of my filter on my image.
+
+[Faculty (Olympus)] 20:46:17
+And.
+
+[Faculty (Olympus)] 20:46:18
+Then I mean at some of these it will work.
+
+[Faculty (Olympus)] 20:46:23
+This is, of course, more expensive, but it's feasible.
+
+[Faculty (Olympus)] 20:46:25
+The other thing that is, the more common thing is, I keep the neural network, as is.
+
+[Faculty (Olympus)] 20:46:31
+But I augment my training data. So now I say, okay, these I wanted to detect a dog even when it's upside down. So what I'll do is I'll take this rotated images.
+
+[Faculty (Olympus)] 20:46:41
+And then add them to my training data.
+
+[Faculty (Olympus)] 20:46:45
+The label hasn't changed, so I don't need to label them. I know it's the same label as the upright one.
+
+[Faculty (Olympus)] 20:46:50
+So I have just much more training data. Now.
+
+[Faculty (Olympus)] 20:46:53
+And I'll just add them, and then I train my model on all of this.
+
+[Faculty (Olympus)] 20:46:57
+If the model has seen dogs that are upside down, and it knows like that's the label.
+
+[Faculty (Olympus)] 20:47:03
+It will detect the dog. It can learn it. It basically has to just learn a different filter for this.
+
+[Faculty (Olympus)] 20:47:09
+So it can actually do it.
+
+[Faculty (Olympus)] 20:47:10
+Um. So this is called data augmentation. And this is something that is very commonly done.
+
+[Faculty (Olympus)] 20:47:16
+For things that are not directly encoded in the neural network like this shift invariance.
+
+[Faculty (Olympus)] 20:47:25
+Um.
+
+[Faculty (Olympus)] 20:47:26
+Okay. So this is something that one has to be careful about.
+
+[Faculty (Olympus)] 20:47:29
+There's a few other things that one has to be careful about, and I just want to kind of flash them for you. Um, to show.
+
+[Faculty (Olympus)] 20:47:38
+Um another one that is actually that goes beyond computer vision is.
+
+[Faculty (Olympus)] 20:47:43
+Um.
+
+[Faculty (Olympus)] 20:47:44
+What are the examples where your neural network works, and what are the examples where it doesn't work?
+
+[Faculty (Olympus)] 20:47:51
+And due to factors of like biases. In the training data. For instance, this can change.
+
+[Faculty (Olympus)] 20:47:57
+So here's an earlier version like of this. Um, that has made a lot of news.
+
+[Faculty (Olympus)] 20:48:04
+A few years ago. This is for face detection.
+
+[Faculty (Olympus)] 20:48:07
+Um so, or for face classification. It was.
+
+[Faculty (Olympus)] 20:48:11
+Basically have this.
+
+[Faculty (Olympus)] 20:48:13
+Face recognition, Softwares.
+
+[Faculty (Olympus)] 20:48:15
+And.
+
+[Faculty (Olympus)] 20:48:16
+What the authors here did was they.
+
+[Faculty (Olympus)] 20:48:20
+Looked at, on. What faces does it work well, and in what faces does it not work well?
+
+[Faculty (Olympus)] 20:48:25
+And so here you see the accuracies, and you see there's a big difference between the.
+
+[Faculty (Olympus)] 20:48:31
+Best.
+
+[Faculty (Olympus)] 20:48:32
+Performing group, and the 1st performing group.
+
+[Faculty (Olympus)] 20:48:36
+And what is the reason?
+
+[Faculty (Olympus)] 20:48:38
+Um. Well, one reason is that the training set wasn't uniformly distributed across this group. Maybe.
+
+[Faculty (Olympus)] 20:48:45
+Other reasons can be that sometimes there's different features you would use for different groups, maybe not so much for skin colors. Um.
+
+[Faculty (Olympus)] 20:48:52
+But there it was more. Maybe the.
+
+[Faculty (Olympus)] 20:48:55
+Variation of the data it has seen.
+
+[Faculty (Olympus)] 20:48:57
+So it's like, if you have imbalance in your subgroups in the training data.
+
+[Faculty (Olympus)] 20:49:03
+Very different performances in different sub proofs. So here, what some of these models were making basically most of their mistakes on darker females.
+
+[Faculty (Olympus)] 20:49:11
+Um. So it's always good to check.
+
+[Faculty (Olympus)] 20:49:14
+If your model, where does it make the mistakes.
+
+[Faculty (Olympus)] 20:49:16
+Because maybe it makes the mistakes all on this rare disease, or so that you actually care about. And then you really don't want to miss it, or something like that.
+
+[Faculty (Olympus)] 20:49:26
+So this is important. And of course, like differences between racial groups also is also.
+
+[Faculty (Olympus)] 20:49:31
+Uh, very a big problem here.
+
+[Faculty (Olympus)] 20:49:35
+Um, so yeah, and this can come from bias in the training data, from the way you design your lot function, um, and there's different ways. You can address this.
+
+[Faculty (Olympus)] 20:49:43
+And one way is to balance your training data and other ways are actually to really make sure that it performs well on all the groups.
+
+[Faculty (Olympus)] 20:49:55
+Um. Okay. My final example is.
+
+[Faculty (Olympus)] 20:49:59
+Um is the neural network really learning what we think, it's learning.
+
+[Faculty (Olympus)] 20:50:04
+Okay, this is kind of also the case, like, what does it actually use to do? The classification.
+
+[Faculty (Olympus)] 20:50:09
+People have seen that maybe it just uses gender to classify whether you're well suited for a technical job or so. And that's it. That's of course, not the feature we want.
+
+[Faculty (Olympus)] 20:50:20
+Um. And this can happen actually, pretty commonly.
+
+[Faculty (Olympus)] 20:50:25
+And so to illustrate this, here is a toy data set.
+
+[Faculty (Olympus)] 20:50:29
+Of cars versus, not cars. And now we want our network to output whether there's a car in the image.
+
+[Faculty (Olympus)] 20:50:36
+So what will the neural network do? It's going to go ahead and see what is common across these images.
+
+[Faculty (Olympus)] 20:50:42
+That is not there in these images.
+
+[Faculty (Olympus)] 20:50:46
+And so what could this be?
+
+[Faculty (Olympus)] 20:50:50
+What is in the upper common to the upper images that's not in the lower images.
+
+[Faculty (Olympus)] 20:50:56
+And.
+
+[Faculty (Olympus)] 20:50:59
+Well.
+
+[Faculty (Olympus)] 20:51:01
+Of course.
+
+[Faculty (Olympus)] 20:51:03
+The cars.
+
+[Faculty (Olympus)] 20:51:04
+But a car is a pretty complicated object to encode.
+
+[Faculty (Olympus)] 20:51:10
+Because.
+
+[Faculty (Olympus)] 20:51:11
+It has kind of different colors. You have to really take care of the shape you need. Your full hierarchy of the different layers.
+
+[Faculty (Olympus)] 20:51:18
+And.
+
+[Faculty (Olympus)] 20:51:19
+Yeah, you guess you know you saw it right in the sky.
+
+[Faculty (Olympus)] 20:51:24
+All the upper images have sky, and the lower image is stored.
+
+[Faculty (Olympus)] 20:51:28
+Now sky is a really simple feature to encode. I can do it in layer one. It's just a blue detector pretty much. I want a patch of blue.
+
+[Faculty (Olympus)] 20:51:36
+So here we go. That's a very easy thing to encode.
+
+[Faculty (Olympus)] 20:51:41
+Slenshens.
+
+[Faculty (Olympus)] 20:51:42
+Then your network in this case may actually just learn that whenever there's a patch of blue in the image, say, it's a car.
+
+[Faculty (Olympus)] 20:51:49
+And this is, of course, very problematic in the sense that it hasn't even looked at the.
+
+[Faculty (Olympus)] 20:51:55
+And there's many such examples of so-called shortcuts.
+
+[Faculty (Olympus)] 20:52:00
+Where the neural network.
+
+[Faculty (Olympus)] 20:52:03
+Basically used some simple feature.
+
+[Faculty (Olympus)] 20:52:05
+And that wasn't actually the thing that we uh that we were looking for.
+
+[Faculty (Olympus)] 20:52:09
+Um. So yeah, maybe as the last example, there was this.
+
+[Faculty (Olympus)] 20:52:13
+Example of pneumonia.
+
+[Faculty (Olympus)] 20:52:15
+Um. So people use like a.
+
+[Faculty (Olympus)] 20:52:19
+Uh! These are MRI images, I think, of lungs, and they wanted the neural network to tell them. Does the patient have pneumonia or not?
+
+[Faculty (Olympus)] 20:52:26
+So the neural network was doing pretty well on its training data. And then they got data from a new hospital, and it was doing terrible.
+
+[Faculty (Olympus)] 20:52:34
+So what was happening then? They.
+
+[Faculty (Olympus)] 20:52:37
+The neural network was actually putting all its attention into this corner.
+
+[Faculty (Olympus)] 20:52:42
+And this corner has a hospital specific tag.
+
+[Faculty (Olympus)] 20:52:46
+Here, so you can see from which hospital this image is.
+
+[Faculty (Olympus)] 20:52:50
+And.
+
+[Faculty (Olympus)] 20:52:53
+Then all the neural network was learning is, these hospitals have high rates of pneumonia, and these hospitals have low rates of pneumonia, and that's it.
+
+[Faculty (Olympus)] 20:53:00
+It didn't even look at the length.
+
+[Faculty (Olympus)] 20:53:03
+And.
+
+[Faculty (Olympus)] 20:53:04
+That, of course, like, was a problem.
+
+[Faculty (Olympus)] 20:53:07
+So here, maybe you can cut it off.
+
+[Faculty (Olympus)] 20:53:09
+But it's always good to be careful and to check.
+
+[Faculty (Olympus)] 20:53:13
+What does your neural network actually use to make it decisions?
+
+[Faculty (Olympus)] 20:53:18
+Alright um, so let me stop here.
+
+[Faculty (Olympus)] 20:53:22
+And I think we can open the QA. And see that we answer all the remaining uh questions that we have here, or any others that remain.
+
+[Moderator - Ankit Agrawal] 20:53:34
+Thank you, Professor, for that lecture. It was very detailed with how Cnn's work um.
+
+[Moderator - Ankit Agrawal] 20:53:42
+We have Christiana with us today? Uh again as mentor to answer some questions.
+
+[Moderator - Ankit Agrawal] 20:53:50
+Um, so we'll get started with the QA. Section um again, we can probably have it in the same structure like last time, where Christiana can provide insights, and then, if there's any additional insights, maybe Professor can comment on it.
+
+[Moderator - Ankit Agrawal] 20:54:04
+Um.
+
+[Moderator - Ankit Agrawal] 20:54:05
+So one of the initial questions we had was regarding regularization is averaging when training a neural network, the same as blurring when training a Cnn.
+
+[[GL-Mentor] Cristiano Aguiar] 20:54:19
+Yeah. So if you if you can like, if you think about the the average polling, it looks it works like in a like a nut fact or something. A technique to to help uh regularization is all like you can be smooting the image.
+
+[Moderator - Ankit Agrawal] 20:54:36
+Oh!
+
+[Moderator - Ankit Agrawal] 20:54:39
+So.
+
+[Moderator - Ankit Agrawal] 20:54:42
+But another question that we have is so the process does not. So in Cnn. Does the process not require this patches, the patches that we're talking about are not human made uh? Is my understanding correct?
+
+[[GL-Mentor] Cristiano Aguiar] 20:55:00
+Uh! Let me see if I understood that I.
+
+[[GL-Mentor] Cristiano Aguiar] 20:55:02
+When you're talking about. The patches are the.
+
+[[GL-Mentor] Cristiano Aguiar] 20:55:04
+Filters right? Or you're talking about the label itself. Let's search. Does it drop them? Or if you look at the.
+
+[[GL-Mentor] Cristiano Aguiar] 20:55:11
+The label itself, like.
+
+[[GL-Mentor] Cristiano Aguiar] 20:55:13
+The images at all got the car. If it is something else, those are.
+
+[[GL-Mentor] Cristiano Aguiar] 20:55:17
+Human label. Okay, you might need to to label this image in terms of the patch in terms of the filter. Let's say those are learned.
+
+[[GL-Mentor] Cristiano Aguiar] 20:55:25
+The the neural network is gonna learn those patterns, you know you, you don't create those features going to be learned.
+
+[Moderator - Ankit Agrawal] 20:55:32
+Yeah. Uh, I think that understanding of the question is correct, that the data set itself has labels. But the patches uh are not human. Uh defined right? Those are learned by the model. So yeah.
+
+[Moderator - Ankit Agrawal] 20:55:47
+Um.
+
+[Moderator - Ankit Agrawal] 20:55:51
+How are the different sizes being detected? So if you have an object like a cup in an image uh, how does a Cnn learn when the size of it changes, so the scale of the object changes.
+
+[[GL-Mentor] Cristiano Aguiar] 20:56:05
+That that so like 1 1 way, of course, like when you train those, those in a network kind of scale, the image falls to be the same set. Of course, if the the object has, you know, a different proportion in the image.
+
+[[GL-Mentor] Cristiano Aguiar] 20:56:17
+Uh that does doesn't help at all.
+
+[[GL-Mentor] Cristiano Aguiar] 20:56:20
+What that's gonna happen. If the image, if the object that transit, they have some particular patterns. Let's say, if the dog is gonna have 4 or something like that.
+
+[[GL-Mentor] Cristiano Aguiar] 20:56:28
+Uh. This is uh part of the process. That actually process was explaining which is the several different layers. That kind of abstract, a a way.
+
+[[GL-Mentor] Cristiano Aguiar] 20:56:37
+The object detection or the type of object detection. Let's say, 1 1st part of the layers are gonna detect an edge.
+
+[[GL-Mentor] Cristiano Aguiar] 20:56:44
+Uh, let's say a particular 4 has a nage like a a line or something like that, and layers deeper. They're going to abstract away this kind of uh detection and kind of map that to the actual object.
+
+[[GL-Mentor] Cristiano Aguiar] 20:56:57
+So.
+
+[[GL-Mentor] Cristiano Aguiar] 20:56:59
+The scale might might be learned, not the the object entirely, but parts of the object. They may have some patterns here and there that's gonna give. Give you a clue. What the object is is composed by.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:11
+I don't know if I answered the question.
+
+[Moderator - Ankit Agrawal] 20:57:14
+And I think that answers the question that it's it's not directly related to the scale as well. Right? Even if the object has a different scale. We can still detect, uh.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:17
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:57:25
+The object correctly, using the same filters.
+
+[Moderator - Ankit Agrawal] 20:57:28
+Um.
+
+[Moderator - Ankit Agrawal] 20:57:29
+So, yeah.
+
+[Moderator - Ankit Agrawal] 20:57:30
+Um. Can we say that the number of convolution and pooling filters depend on the size of the image.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:41
+Yes, yes, it depends on on the number of times that you're gonna hover. Your image depends on the size of the image. Yeah.
+
+[Moderator - Ankit Agrawal] 20:57:50
+Um, is there like an equation, or something that uh they can look at like, how do we decide that.
+
+[[GL-Mentor] Cristiano Aguiar] 20:57:59
+Uh, I'd say, like some people they use like in terms of the size of the feel like a kernel size, some something about 10 to 15% uh of the size of the image.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:09
+Uh, sometimes like.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:11
+Group rule of thump. I I don't know. It might be people that try different approaches, but I've seen. I've heard.
+
+[[GL-Mentor] Cristiano Aguiar] 20:58:17
+Some. Some of the times people are using 10 to 15.
+
+[Moderator - Ankit Agrawal] 20:58:22
+Professor, do you maybe have a comment on that like? Uh, if the number of filters that we use uh are they related to the size of the image. And if yes, then uh! Is there like a mathematical notation for it.
+
+[Faculty (Olympus)] 20:58:37
+I sold it.
+
+[Faculty (Olympus)] 20:58:40
+Number of filters is.
+
+[Faculty (Olympus)] 20:58:43
+Determine when you determine the architecture.
+
+[Moderator - Ankit Agrawal] 20:58:46
+Mm-hmm.
+
+[Faculty (Olympus)] 20:58:46
+This is like, if you say the filter is basically that detector.
+
+[Faculty (Olympus)] 20:58:50
+The kernel. Um.
+
+[Faculty (Olympus)] 20:58:52
+You would maybe think that. Okay, if you have a larger image, maybe you have more detail. Maybe you want to detect more different patterns, so you would want to have more of them.
+
+[Faculty (Olympus)] 20:59:02
+Um.
+
+[Faculty (Olympus)] 20:59:04
+On the other hand, or like all of this, of course, like.
+
+[Faculty (Olympus)] 20:59:08
+Makes the layer outputs larger, so that is also something to keep in mind.
+
+[Faculty (Olympus)] 20:59:12
+Um. What changes with the size of the image is the size of the layer output.
+
+[Faculty (Olympus)] 20:59:18
+Because basically for each.
+
+[Faculty (Olympus)] 20:59:21
+Location of your window.
+
+[Faculty (Olympus)] 20:59:23
+You'll remember like that output of the.
+
+[Faculty (Olympus)] 20:59:27
+Filter.
+
+[Faculty (Olympus)] 20:59:28
+And.
+
+[Faculty (Olympus)] 20:59:29
+So if you're image is larger, you'll have more positions of the filter. If if it has the same size.
+
+[Faculty (Olympus)] 20:59:34
+So the output of the layer will be larger.
+
+[Moderator - Ankit Agrawal] 20:59:40
+Yeah.
+
+[Moderator - Ankit Agrawal] 20:59:42
+Yeah, I I haven't.
+
+[Moderator - Ankit Agrawal] 20:59:45
+Are we sorry about that uh relationship? Because in transfer learning, we end up.
+
+[Moderator - Ankit Agrawal] 20:59:50
+Usually resizing the images down to a certain size, right.
+
+[Moderator - Ankit Agrawal] 20:59:54
+So yeah, maybe um.
+
+[[GL-Mentor] Cristiano Aguiar] 20:59:58
+It's also, I think, maybe tied to the complex of the problem, right that you're trying to solve. If the problem is too complex, like the different uh types of things I want to detect may want more.
+
+[Moderator - Ankit Agrawal] 20:59:59
+Um.
+
+[Moderator - Ankit Agrawal] 21:00:03
+Yeah, yeah.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:08
+Filters.
+
+[Moderator - Ankit Agrawal] 21:00:09
+Yeah, that would be my intuition, too. That complexity of the problem would be more related than the size of the image itself.
+
+[Faculty (Olympus)] 21:00:10
+I think that is.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:18
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:00:18
+Uh, but but yeah.
+
+[Faculty (Olympus)] 21:00:19
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:00:22
+Um. Another question we have is, how do we determine the number of feature layers for a Cnn. Is this arbitrary, or do we think how many layers it could abstract for an object or a scene.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:37
+What Wednesday when numbers.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:40
+Future futures or number of layers.
+
+[Moderator - Ankit Agrawal] 21:00:43
+Number of feature layers, so the number of uh convolution and pooling layers essentially.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:46
+Off.
+
+[Faculty (Olympus)] 21:00:46
+I think. Do not hire.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:49
+Okay. Worship blocks. Right?
+
+[Moderator - Ankit Agrawal] 21:00:51
+Yeah.
+
+[[GL-Mentor] Cristiano Aguiar] 21:00:51
+Uh again, I I think that's a lot tied to the 1st of all, the size of the data set. If you have a larger data set. And you're able to train a larger network that are, gonna you know, eh? Is gonna increase the complexity of a model. So we have lots of number parameters gonna be hard to train these small data set.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:07
+And also tied to the again, we're talking about the complexity of the problem, right? The number of classes that we to classify and things like that. So that's a.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:15
+That's tied to that.
+
+[Moderator - Ankit Agrawal] 21:01:18
+Hmm.
+
+[Moderator - Ankit Agrawal] 21:01:20
+Um. Another question we had is, how do you ensure training data said uniquely, captures the desired images like, what if training data set has, let's say, a thumb in each image. How do we distinguish it from a cup.
+
+[Moderator - Ankit Agrawal] 21:01:32
+If both exist in all of the training images.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:41
+If I but like from this like like, I think that's that would be a lot tied to the uh.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:46
+To, the.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:48
+Framing of the problem. Right?
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:49
+If it like. One good example is that one of the last uh slides that the professor showed Raj that.
+
+[Moderator - Ankit Agrawal] 21:01:56
+Mm-hmm.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:57
+Differentiated between as a car. Not a car.
+
+[[GL-Mentor] Cristiano Aguiar] 21:01:59
+Like we we have to to think about.
+
+[[GL-Mentor] Cristiano Aguiar] 21:02:01
+If you're framing your problem in such a way that you do have.
+
+[[GL-Mentor] Cristiano Aguiar] 21:02:07
+As a human like, you have to judge those as a human, so if it as a human you could be, you would be able to do those images or not.
+
+[[GL-Mentor] Cristiano Aguiar] 21:02:14
+So I I think I think you need to to think about how you're gonna frame the problem right in the case.
+
+[Moderator - Ankit Agrawal] 21:02:21
+Meet him.
+
+[Moderator - Ankit Agrawal] 21:02:22
+Yeah. And also, I mean, there are.
+
+[Faculty (Olympus)] 21:02:24
+Yeah, I think.
+
+[Moderator - Ankit Agrawal] 21:02:26
+Sorry. Uh, Professor. Please go ahead.
+
+[Faculty (Olympus)] 21:02:28
+Yeah, go ahead. And and I'll add.
+
+[Moderator - Ankit Agrawal] 21:02:30
+Uh, I was just gonna add that we also have data augmentations in terms of cropping available right? So we could crop in in cases where the thumb could be removed in some of the images, so that we can train based on uh data where thumb is not present as well. So we could do selective cropping in data augmentation. Also.
+
+[Moderator - Ankit Agrawal] 21:02:50
+But yeah, uh, please go ahead, Professor.
+
+[Faculty (Olympus)] 21:02:53
+Yeah, it's basically this that this would be called Asporiase correlation.
+
+[Faculty (Olympus)] 21:02:58
+That basically there's some other.
+
+[Faculty (Olympus)] 21:03:01
+Featured object, or whatever feature that correlates a lot with your label. But it's not actually the true one, like your thumb with the cup or.
+
+[Faculty (Olympus)] 21:03:09
+Um. So yeah, the true thing is, you need an enough variety of your data to not have that thing in there.
+
+[Faculty (Olympus)] 21:03:17
+Um.
+
+[Faculty (Olympus)] 21:03:20
+So sometimes you may only see this once you have trained your network and actually see.
+
+[Faculty (Olympus)] 21:03:25
+Where does your network work, and where does it not work? Or if maybe some of the test images, then don't have that.
+
+[Faculty (Olympus)] 21:03:30
+Um, if you know it a priori definitely try to remove that um correlation by trying data, augmentation or.
+
+[Faculty (Olympus)] 21:03:41
+Um trying to add.
+
+[Faculty (Olympus)] 21:03:42
+More images. Um! And we'll talk a little bit about.
+
+[Faculty (Olympus)] 21:03:47
+Self supervised learning. In the next lecture, where you can actually.
+
+[Faculty (Olympus)] 21:03:52
+Learn from unlabel data. So then you could actually add more images potentially, if you have the luxury of having access or like somehow getting there and having the compute to do that.
+
+[Faculty (Olympus)] 21:04:03
+Um.
+
+[Faculty (Olympus)] 21:04:04
+That is, always having more data, having more variety is always better.
+
+[Moderator - Ankit Agrawal] 21:04:11
+Hmm.
+
+[Moderator - Ankit Agrawal] 21:04:14
+Um. Another question we have is cannons be used for other applications other than image recognition.
+
+[[GL-Mentor] Cristiano Aguiar] 21:04:25
+The other application that can use San an uh.
+
+[[GL-Mentor] Cristiano Aguiar] 21:04:28
+That that took.
+
+[[GL-Mentor] Cristiano Aguiar] 21:04:30
+Extension, and you have seen in 3 dimension. Look at the time.
+
+[[GL-Mentor] Cristiano Aguiar] 21:04:34
+Domain part of the Cnn. It can use time as well as uh. And then you're gonna work with videos uh. Another approach of that is audio like you can, if you have familiarity audio, like an audio, can be transforming to a spectrogram.
+
+[[GL-Mentor] Cristiano Aguiar] 21:04:46
+And you treat that as spectrogram as an image. I need to detection there as well.
+
+[[GL-Mentor] Cristiano Aguiar] 21:04:52
+So that that those are the things that I can can think of. And also you can like extract, extrapolate a little bit the way.
+
+[[GL-Mentor] Cristiano Aguiar] 21:04:57
+Uh that. There's another.
+
+[[GL-Mentor] Cristiano Aguiar] 21:04:59
+Class of Cnn. Which is Cnn. One d. Which is one dimensional.
+
+[[GL-Mentor] Cristiano Aguiar] 21:05:03
+That can be used for.
+
+[[GL-Mentor] Cristiano Aguiar] 21:05:05
+Problems of sequential problems, like.
+
+[[GL-Mentor] Cristiano Aguiar] 21:05:07
+Time dependence problem. You can look at those patterns into chunks of your of your time series. Let's say.
+
+[[GL-Mentor] Cristiano Aguiar] 21:05:15
+Something like that that those are the the other application I can think of. I'd say.
+
+[Moderator - Ankit Agrawal] 21:05:20
+Yeah. Um. Also.
+
+[[GL-Mentor] Cristiano Aguiar] 21:05:20
+But audio is all used, let's say, for.
+
+[Faculty (Olympus)] 21:05:25
+I think you can. Yeah, anything that is like a 2D. Or one day. You can even do 3D like voxels or something in some 3D scan. It's more expensive.
+
+[Faculty (Olympus)] 21:05:34
+Or like molecule shapes, or something, or also.
+
+[Faculty (Olympus)] 21:05:39
+Like something like weather data where you have to earth. And then you have, like the 3rd dimension, would be, whatever the pressure in the different layers.
+
+[Faculty (Olympus)] 21:05:47
+Uh, that is sometimes also process like images.
+
+[Faculty (Olympus)] 21:05:50
+Um. So something like that. You may also work.
+
+[Faculty (Olympus)] 21:05:55
+Yeah, but generally like.
+
+[Moderator - Ankit Agrawal] 21:05:55
+Yeah, uh, also.
+
+[Faculty (Olympus)] 21:05:58
+Sequence data or like image data that usually.
+
+[Moderator - Ankit Agrawal] 21:06:03
+Yeah. Uh, also, on Saturday this week we will study about the audio data and how Cnn's can be used to process audio data in one of the case, studies this weekend.
+
+[Moderator - Ankit Agrawal] 21:06:15
+Um. But yeah.
+
+[Moderator - Ankit Agrawal] 21:06:18
+Um. We'll be studying Gn's in the future in this course. Um.
+
+[Moderator - Ankit Agrawal] 21:06:23
+I'm assuming they mean graph neural networks.
+
+[Faculty (Olympus)] 21:06:29
+I guess. So. Um, yeah.
+
+[Faculty (Olympus)] 21:06:33
+So I will say a little bit about graphs in the next lecture.
+
+[Faculty (Olympus)] 21:06:37
+Uh, but essentially um.
+
+[Faculty (Olympus)] 21:06:39
+I have front desk material a lot, and I'm talking about transformers now because I have to fit in everything.
+
+[Faculty (Olympus)] 21:06:46
+Um. So we're not be talking much about graphs, and like the neural networks for graphs.
+
+[Faculty (Olympus)] 21:06:54
+Um. If you are very interested in this, I can maybe offline some pointers to materials on this.
+
+[Faculty (Olympus)] 21:07:00
+And you can look at it like by yourself also.
+
+[Moderator - Ankit Agrawal] 21:07:04
+Hello!
+
+[Moderator - Ankit Agrawal] 21:07:06
+Um, what kind of infrastructure is required to run deep learning models? Can we run them on local PC, or do we need specialized hardware, such as high end.
+
+[Moderator - Ankit Agrawal] 21:07:16
+Gpus, or cpus.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:20
+It's it's also dependent on the size of the problem. Some of the simple Cns like you can, you can turn locally, can turn your PC.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:28
+Uh, but of course, if you if you start to grow uh the size of the neural network.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:33
+And you, you have to start thinking about other types of infrastructure by training those in A in A in a Gpu.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:40
+Uh in your computer that has CPU, and it has enough memory. Gpu to train those.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:44
+Those images, as well.
+
+[Moderator - Ankit Agrawal] 21:07:47
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:07:49
+Yeah, it depends on the complexity of the problem. And also, if you're using something like transfer learning, because if you're using transfer learning, you could probably get away with training large models locally.
+
+[[GL-Mentor] Cristiano Aguiar] 21:07:51
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:07:59
+But but uh, if you're.
+
+[Moderator - Ankit Agrawal] 21:08:02
+Training like Mo uh end to end models. Uh, then you might require some specialized hardware for it.
+
+[Moderator - Ankit Agrawal] 21:08:09
+Um.
+
+[Moderator - Ankit Agrawal] 21:08:11
+Can you elaborate on the difference between kernels and filters?
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:18
+Okay, uh.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:20
+Colonel. Uh Colonel size. Let's say it's the size of the filter.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:24
+Like in the this image that's in in the screen right now. Uh, let's say they square that the image uh like the patch that's hopefully uh on your image on your map. After that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:34
+This is a kernel. This is a kernel size. It's gonna have a vertical and a vertical of of other horses. Horizontal side.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:40
+Usually th, those are the same. Those are like a square.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:44
+And and filter is going to be the number of.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:47
+Patterns that are going to identify in in a, in a particular image or feature map.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:52
+When you define a convolution layer going to find the size of the dispatch essentially going to define.
+
+[[GL-Mentor] Cristiano Aguiar] 21:08:59
+Uh the size of my square that I'm going to hover the image. And also how many of those is square? I'm going to learn from these images each of those.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:07
+Futures. Uh, it's you know, the square that I'm talking about is the is the the number of futures that we are talking about. So the number of of patches and.
+
+[[GL-Mentor] Cristiano Aguiar] 21:09:17
+Kernel is the size of the patch.
+
+[Moderator - Ankit Agrawal] 21:09:23
+Um. So, Professor, there are questions about offline resources that you briefly mentioned, and where can learners find that.
+
+[Faculty (Olympus)] 21:09:33
+So I can send them team, and maybe you can.
+
+[Moderator - Ankit Agrawal] 21:09:33
+They are requesting some offline resources.
+
+[Faculty (Olympus)] 21:09:37
+Yeah. Maybe someone from the team can distribute it to the learners.
+
+[Faculty (Olympus)] 21:09:41
+Um. That may be the.
+
+[Moderator - Ankit Agrawal] 21:09:42
+Okay, yeah. Uh. But there seems to be a request for some offline.
+
+[Faculty (Olympus)] 21:09:43
+Email them, and then can.
+
+[Faculty (Olympus)] 21:09:46
+Yeah, exactly. You can distribute them.
+
+[Moderator - Ankit Agrawal] 21:09:48
+Okay.
+
+[Moderator - Ankit Agrawal] 21:09:50
+Okay, um, maybe we can coordinate with the program manager and see how we can arrange for them. Um.
+
+[Faculty (Olympus)] 21:09:57
+So I can just make a set of.
+
+[Moderator - Ankit Agrawal] 21:09:59
+Uh.
+
+[Faculty (Olympus)] 21:10:00
+And then that is maybe easy to share.
+
+[Moderator - Ankit Agrawal] 21:10:04
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:10:06
+Um. What is the role of a pooling layer in a convolutional neural network?
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:14
+Pauli is going to work as if uh you're you're trying to generalize a little bit in in 2 different ways that the tool.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:23
+In general 2 different type of like an average bullying.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:26
+And the Max poo.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:28
+An average pool is gonna work as such as a smoothing type of operation that are gonna do uh like grouping.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:36
+Like, let's say.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:37
+Pixels in that image a max pooling uh like. If you think of a.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:42
+Detecting Max maximum interest square, for example.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:45
+Uh intuitive. You can think of that. You're essentially going to exacerbate difference. You're going to pay a lot of attention into edges. For example.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:52
+And.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:53
+They are all going to help with generalization, with with the overfit problem.
+
+[[GL-Mentor] Cristiano Aguiar] 21:10:59
+But with different purposes. One is going to focus uh more on on the kind of Pmr. Attention to edges.
+
+[[GL-Mentor] Cristiano Aguiar] 21:11:06
+And types of different types of features. They're going to detect another one's going to be looking more more as is moving.
+
+[[GL-Mentor] Cristiano Aguiar] 21:11:11
+Uh type of tech. What's gonna be more attention noise? There are more noise in the image. They're going to.
+
+[[GL-Mentor] Cristiano Aguiar] 21:11:17
+A little bit. Another one's going to be looking at the the.
+
+[[GL-Mentor] Cristiano Aguiar] 21:11:21
+Uh like, how? How big is the difference in into pixels into particular square? I would say.
+
+[Moderator - Ankit Agrawal] 21:11:29
+Mm.
+
+[Moderator - Ankit Agrawal] 21:11:31
+Um, are there uh things like motion detectors for videos. That is a detector that recognizes a hand wave or a head nod, etc.
+
+[[GL-Mentor] Cristiano Aguiar] 21:11:44
+Yeah, that's uh, uh, when you're talking about video, you're talking about.
+
+[[GL-Mentor] Cristiano Aguiar] 21:11:50
+Adding another dimension in your cnn, like adding the time dimension. There.
+
+[[GL-Mentor] Cristiano Aguiar] 21:11:54
+And they'll they'll that's called like a.
+
+[[GL-Mentor] Cristiano Aguiar] 21:11:56
+3D. Uh type of uh financing. 3D. You can do that, and also can also have a way to to wrap everything into like look into a other problem. In that case.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:07
+You, you.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:09
+You know the Ids that you want to hold the.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:12
+Uh time dependence between one frame by frame, because.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:16
+The the Cnn.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:18
+The process that you're looking here for them. Listen! They are going to be. Look at individual frames.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:22
+So you need to have an architecture that is gonna take into account.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:26
+Okay, I have this particular information about one frame, but I want to tie that to the frames, the frame that's before or the frame that's after.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:34
+So they are. They are architecture that that's able to do that. There's also a very.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:39
+Large problem to solve in terms of.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:41
+Computational efforts, as well.
+
+[Moderator - Ankit Agrawal] 21:12:46
+Yeah. Uh, they are called time distributed. Cns, right? So you take a Cnn model and your wrapper time distributed layer on top of it.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:50
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:12:54
+Um.
+
+[[GL-Mentor] Cristiano Aguiar] 21:12:55
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:12:55
+And then you divide your video into frames and process each frame individually uh in a time distributed manner.
+
+[Moderator - Ankit Agrawal] 21:13:03
+Um can. Cnn's be used for generative models.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:11
+But, like, now, these people talk a lot about what incentives talk about transformer that are going to see tomorrow. But it can also be used because it genuine models.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:18
+Uh, are the types of of models that are going to compress uh, like uh, a particular image or a particular information that I have. It's compress that into a.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:29
+A smaller space.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:31
+Which is ah, the.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:33
+The encoded in space of all the images. And let's say, and you kind of.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:36
+Create things in these small space, and then ex like extrapolate, that to the real image.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:41
+So Cnn's.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:43
+Are can be used for that can use to encode an image. In that case, yes, and then can also be used for alternative generating images. Right.
+
+[[GL-Mentor] Cristiano Aguiar] 21:13:54
+Not a lot to use nowadays, but but I think it it can be used as well.
+
+[Moderator - Ankit Agrawal] 21:14:00
+Yeah. Uh, I think in the past, like we have uh used Cnn's for like some adversarial frameworks, right? Like to generate data set in adversarial use, cases for images.
+
+[[GL-Mentor] Cristiano Aguiar] 21:14:09
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:14:14
+Uh, so there have been some applications. But now we primarily use transformer for generative models in general.
+
+[Moderator - Ankit Agrawal] 21:14:22
+Um.
+
+[Moderator - Ankit Agrawal] 21:14:23
+But yeah.
+
+[Moderator - Ankit Agrawal] 21:14:26
+Um.
+
+[Moderator - Ankit Agrawal] 21:14:28
+I see that the Professor had put out a book.
+
+[Moderator - Ankit Agrawal] 21:14:31
+In the chat for graph neural networks. Um highly recommend going through that.
+
+[Moderator - Ankit Agrawal] 21:14:37
+Okay. Uh, let's see.
+
+[Moderator - Ankit Agrawal] 21:14:41
+Um.
+
+[Moderator - Ankit Agrawal] 21:14:47
+So uh I, there's a question about rotation of the images. Does this mean autonomous flying is a more difficult task than autonomous driving, due to the likelihood of the visual data to rotate.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:03
+If I think, from the angle of rotation.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:07
+Yes, right? Because that there will be. The the plane is gonna rotate in different uh plane rather than the car. But at the same time.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:16
+I have to think that the complexity of what types of object and things that the car is looking at.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:23
+Is a lot more diverse than than the clients, so both of them.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:27
+They have different. Let's say.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:30
+Bigger future to fries in the in the village, each of them. They're gonna have the big problems to solve. One of them is gonna be more complex in terms of the objects. The car.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:38
+Another one that the plane is gonna have license.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:41
+Different variety of the the images. But I can you gonna have the rotation taking place as well.
+
+[Moderator - Ankit Agrawal] 21:15:48
+Yeah, um, I think that to solve that problem. And I know this because I used to work in a self uh, like an autonomous driving vehicle based company out of California for a while. Um, they, they actually started moving away from images and video data and started moving more towards sensor data to take care of the rotation problem, so that if you have sensors it does not matter if you're looking at rotation or not, because the sensors.
+
+[[GL-Mentor] Cristiano Aguiar] 21:15:49
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:16:13
+Will capture the uh the measurements accurately, whether it gets rotate, whether the object rotates or not.
+
+[Moderator - Ankit Agrawal] 21:16:19
+And to avoid that kind of problem, you mix in some image data with some sensor data to basically track rotation based behavior a little bit better.
+
+[Moderator - Ankit Agrawal] 21:16:28
+So it's it's not considered like a very big challenge right now. Uh, in that con. It is still some somewhat of a problem, but it's not considered that bigger of a problem in terms of rotation when you combine it with sensor data.
+
+[Moderator - Ankit Agrawal] 21:16:43
+Um. But yeah.
+
+[Moderator - Ankit Agrawal] 21:16:47
+Um.
+
+[Moderator - Ankit Agrawal] 21:16:49
+Let's.
+
+[Moderator - Ankit Agrawal] 21:16:51
+Continue. Uh, do we need to implement more data for minority categories in the training data. So categories where we have less training data available for them.
+
+[[GL-Mentor] Cristiano Aguiar] 21:17:05
+That that'd be helpful to to mitigate imbalance problem. So those are, this is one of techniques to to mitigate that.
+
+[Moderator - Ankit Agrawal] 21:17:13
+You know.
+
+[Moderator - Ankit Agrawal] 21:17:15
+Um somebody saying, Can you please summarize the concept of Gnn, and this is different to Cnn. I did not quite get this one. Um talking about a brand new topic like Gn, right now is going to be a little bit out of the scope. Uh we will. Uh. As Professor mentioned. We briefly will touch upon this in an lecture tomorrow. So I recommend asking this question, maybe uh tomorrow uh.
+
+[Moderator - Ankit Agrawal] 21:17:39
+If if you are unclear on that.
+
+[Moderator - Ankit Agrawal] 21:17:43
+Um. Okay.
+
+[Moderator - Ankit Agrawal] 21:17:45
+Um.
+
+[Moderator - Ankit Agrawal] 21:17:48
+So let's see.
+
+[Moderator - Ankit Agrawal] 21:17:51
+Uh, if the background context more, you uh can.
+
+[Moderator - Ankit Agrawal] 21:17:56
+Is the background context, a useful prior or more of a nuisance for Cnn. Detection or classification.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:07
+Ah!
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:08
+Do you mean like uh doing any modification in the background prior to the do some processing before uh training.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:17
+Pretty much. Is that is that the question?
+
+[Moderator - Ankit Agrawal] 21:18:18
+Um, no. So I think that I think the question is talking about the background of the image itself.
+
+[Moderator - Ankit Agrawal] 21:18:25
+So like, there's an object, and there's a background to that object. Right? So is the background. A good can be considered a good prior for the object itself? Or is that a bad uh? Or is that a nuisance.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:41
+It. Ca, it's going to learn something like those examples that uh that, the professor uh.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:47
+Show those like the.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:49
+Then don't have to like it. It tried to to to learn that trick. Some things like cheetah sometimes.
+
+[[GL-Mentor] Cristiano Aguiar] 21:18:56
+And what they they do. If the background is something that's repeated for that particular type of class.
+
+[[GL-Mentor] Cristiano Aguiar] 21:19:02
+Yes, the model, perhaps gonna learn something related to that background which is not ideal, like the ideal. You need to have a lot diversity to your model, to to each other. You know your data is training data to that.
+
+[[GL-Mentor] Cristiano Aguiar] 21:19:14
+But yes, if if your if your backgrounds are tied to the class, the model is, gonna learn something related to that, for sure.
+
+[Moderator - Ankit Agrawal] 21:19:22
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:19:23
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:19:24
+Um. It really depends on the type of the data you have. Right? Sometimes it can be useful, but sometimes it can be a nuisance, because then you're not actually learning the properties of the object itself. So.
+
+[[GL-Mentor] Cristiano Aguiar] 21:19:35
+Yeah.
+
+[Moderator - Ankit Agrawal] 21:19:36
+Um, can we use other machine learning techniques? Uh, that we have studied before for better trained test validation like bootstrapping and cross validation?
+
+[[GL-Mentor] Cristiano Aguiar] 21:19:48
+Uh? Oh, yeah, yeah. So like, can you can use cross validation uh in a setup to train these type of models. But it is.
+
+[[GL-Mentor] Cristiano Aguiar] 21:19:56
+Challenging right, given the the time uh that, it takes to train those models.
+
+[[GL-Mentor] Cristiano Aguiar] 21:20:00
+Like some of those models, may.
+
+[[GL-Mentor] Cristiano Aguiar] 21:20:02
+Like give people training on end to end, not using something that's very customized.
+
+[[GL-Mentor] Cristiano Aguiar] 21:20:07
+And it cannot apply transforming model and turning that from scratch.
+
+[[GL-Mentor] Cristiano Aguiar] 21:20:12
+Uh, it could take days to train a model using your Gpu, for example.
+
+[[GL-Mentor] Cristiano Aguiar] 21:20:19
+And that costs money. So sometimes.
+
+[[GL-Mentor] Cristiano Aguiar] 21:20:21
+Ideally. Yes, you you have to do some soft, cross validation uh, just as your your generalization, but lots of times not feasible to do it.
+
+[Moderator - Ankit Agrawal] 21:20:35
+Um.
+
+[Moderator - Ankit Agrawal] 21:20:36
+How can Cnn be utilized in autonomous driving systems?
+
+[[GL-Mentor] Cristiano Aguiar] 21:20:44
+Yeah, sure, I can answer Brad. I think I can see this has a very good background to answer those. But I think the way that I'm gonna gonna help is, you know, it's an image detection type of system. It's all right.
+
+[Moderator - Ankit Agrawal] 21:20:50
+Uh.
+
+[Moderator - Ankit Agrawal] 21:20:55
+Yeah, um, Richard, I would say that there are lot of like research already published. Around this, there are Youtube videos available where a lot of researchers have shown like a simulated situation, where, like you have uh images. And how do you pro like construct Cnn's into it like in a simulated environment. And uh, they show like, what kind of uh.
+
+[Moderator - Ankit Agrawal] 21:21:18
+Objects or Cnn is learning to be able to do autonomous systems. Um, as I mentioned earlier, that companies Uh are moving away from Cnn's.
+
+[Moderator - Ankit Agrawal] 21:21:28
+In terms of using it for autonomous systems. Now we have sensors that are built into the cars like all around the car and the sensors A are able to create a 3D map like, if you have driven recent uh Tesla, you might have seen that Tesla creates like a a 3D. Map of your surrounding right? Uh, that is being created by using different types of sensors.
+
+[Moderator - Ankit Agrawal] 21:21:52
+And uh, based on that, it can detect objects that could be uh in the uh in the driving systems that can be available. So uh we are. No, we are kind of moving away from Cnn architectures for autonomous driving into more uh sensor based analysis on um.
+
+[Moderator - Ankit Agrawal] 21:22:10
+To speed up the processing of it.
+
+[Moderator - Ankit Agrawal] 21:22:12
+But yeah, that's that's at least what I uh was using back in the day when I was working for a company.
+
+[Moderator - Ankit Agrawal] 21:22:20
+Like, who uh? Which was building software for this.
+
+[Moderator - Ankit Agrawal] 21:22:24
+Um.
+
+[Moderator - Ankit Agrawal] 21:22:26
+But okay, uh, I think this is a good.
+
+[Moderator - Ankit Agrawal] 21:22:29
+Place to stop. Uh, we are out of time for today. So uh, thank you. Everybody for joining us today. Uh, we have a lecture tomorrow uh, where we'll continue our discussion on more advanced types of neural networks, you know, primarily transformers.
+
+[Moderator - Ankit Agrawal] 21:22:44
+And if you have any other questions that we might have missed out today, please feel free to ask them tomorrow, and we can take some questions about this tomorrow as well.
+
+[Moderator - Ankit Agrawal] 21:22:52
+Um, thank you, Professor, for the wonderful lecture. Thank you, Christiana, for answering all the questions in great detail.
+
+[Moderator - Ankit Agrawal] 21:22:58
+Have a good day.
+
+[[GL-Mentor] Cristiano Aguiar] 21:23:02
+Thank you.
+
+[Faculty (Olympus)] 21:23:02
+Thank you, Christian. Thank you, and thanks everyone for your question.
+
+[Faculty (Olympus)] 21:23:07
+See you tomorrow.
+
